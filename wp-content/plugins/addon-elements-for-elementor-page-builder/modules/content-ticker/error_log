@@ -1,0 +1,16 @@
+[17-Sep-2023 03:21:53 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/content-ticker/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/content-ticker/module.php on line 7
+[18-Sep-2023 18:40:09 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/content-ticker/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/content-ticker/module.php on line 7
+[19-Sep-2023 18:41:05 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/content-ticker/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/content-ticker/module.php on line 7
+[20-Sep-2023 18:49:56 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/content-ticker/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/content-ticker/module.php on line 7

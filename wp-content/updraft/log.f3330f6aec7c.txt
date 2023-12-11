@@ -1,0 +1,1204 @@
+0000.014 (0) Opened log file at time: Wed, 08 Nov 2023 16:27:02 +0000 on http://zuelligfoundation.org
+0000.016 (0) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 2.22.25.26 WP: 6.0.6 PHP: 8.0.30 (cli, Linux vps500.fastsecurehost.com 3.10.0-1160.42.2.el7.centos.plus.x86_64 #1 SMP Wed Sep 8 16:50:00 UTC 2021 x86_64) MySQL: 5.7.44 (max packet size=268435456) WPLANG: en_US Server:  safe_mode: 0 max_execution_time: 900 memory_limit: 1024M (used: 109.4M | 111M) multisite: N openssl: OpenSSL 1.1.1w  11 Sep 2023 mcrypt: N LANG: en_US.UTF-8 ZipArchive::addFile: Y
+0000.298 (0) Free space on disk containing Updraft's temporary directory: 90877.7 MB
+0000.323 (0) Tasks: Backup files: 1 (schedule: daily) Backup DB:  (schedule: daily)
+0000.325 (0) Processed schedules. Combining jobs from identical schedules. Tasks now: Backup files: 1 Backup DB: 1
+0000.365 (0) Requesting semaphore lock (fd) (apparently via scheduler: last_scheduled_action_called_at=1699374426, seconds_ago=86397)
+0000.368 (0) Set semaphore last lock (fd) time to 2023-11-08 16:27:03
+0000.369 (0) Semaphore lock (fd) complete
+0000.372 (0) Backup run: resumption=0, nonce=f3330f6aec7c, file_nonce=f3330f6aec7c begun at=1699460822 (1s ago), job type=backup
+0000.374 (0) Scheduling a resumption (1) after 300 seconds (1699461123) in case this run gets aborted
+0000.402 (0) Checking if we have a zip executable available
+0000.403 (0) Testing: /usr/bin/zip
+0000.452 (0) Output: zip warning: binziptest/test.zip not found or empty
+0000.455 (0) Output: adding: binziptest/subdir1/	(in=0) (out=0) (stored 0%)
+0000.457 (0) Output: adding: binziptest/subdir1/subdir2/	(in=0) (out=0) (stored 0%)
+0000.458 (0) Output: adding: binziptest/subdir1/subdir2/test.html	(in=131) (out=107) (deflated 18%)
+0000.459 (0) Output: total bytes=131, compressed=107 -> 18% savings
+0000.498 (0) Output: adding: binziptest/subdir1/subdir2/test2.html	(in=138) (out=113) (deflated 18%)
+0000.501 (0) Output: total bytes=269, compressed=220 -> 18% savings
+0000.522 (0) Working binary zip found: /usr/bin/zip
+0000.525 (0) Zip engine: found/will use a binary zip: /usr/bin/zip
+0000.526 (0) Creation of backups of directories: beginning
+0000.529 (0) Beginning creation of dump of plugins (split every: 400 MB)
+0006.647 (0) Total entities for the zip file: 4061 directories, 16219 files (0 skipped as non-modified), 248.2 MB
+0006.651 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 2.0 seconds have passed since the last write (0 MB, 1 (1) files added so far); re-opening (prior size: 0 KB)
+0006.831 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: size is now: 0.90 MB
+0006.837 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 100 files added (on-disk size: 962.7 KB)
+0006.841 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 200 files added (on-disk size: 962.7 KB)
+0006.844 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 300 files added (on-disk size: 962.7 KB)
+0006.848 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 400 files added (on-disk size: 962.7 KB)
+0006.851 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 500 files added (on-disk size: 962.7 KB)
+0006.855 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 600 files added (on-disk size: 962.7 KB)
+0006.858 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 700 files added (on-disk size: 962.7 KB)
+0006.861 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 800 files added (on-disk size: 962.7 KB)
+0006.865 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 900 files added (on-disk size: 962.7 KB)
+0006.868 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 1000 files added (on-disk size: 962.7 KB)
+0006.869 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (18 MB, 16219 files batched, 1001 (1002) added so far); re-opening (prior size: 962.7 KB)
+0014.222 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: size is now: 7.10 MB
+0014.229 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 1100 files added (on-disk size: 7268.7 KB)
+0014.232 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 1200 files added (on-disk size: 7268.7 KB)
+0014.236 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 1300 files added (on-disk size: 7268.7 KB)
+0014.239 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 1400 files added (on-disk size: 7268.7 KB)
+0014.243 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 1500 files added (on-disk size: 7268.7 KB)
+0014.246 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 1600 files added (on-disk size: 7268.7 KB)
+0014.250 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 1700 files added (on-disk size: 7268.7 KB)
+0014.254 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 1800 files added (on-disk size: 7268.7 KB)
+0014.257 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 1900 files added (on-disk size: 7268.7 KB)
+0014.261 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 2000 files added (on-disk size: 7268.7 KB)
+0014.262 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (25 MB, 16219 files batched, 1001 (2003) added so far); re-opening (prior size: 7268.7 KB)
+0016.599 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: size is now: 13.70 MB
+0016.607 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 2100 files added (on-disk size: 14022.4 KB)
+0016.610 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 2200 files added (on-disk size: 14022.4 KB)
+0016.614 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 2300 files added (on-disk size: 14022.4 KB)
+0016.617 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 2400 files added (on-disk size: 14022.4 KB)
+0016.621 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 2500 files added (on-disk size: 14022.4 KB)
+0016.624 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 2600 files added (on-disk size: 14022.4 KB)
+0016.627 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 2700 files added (on-disk size: 14022.4 KB)
+0016.631 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 2800 files added (on-disk size: 14022.4 KB)
+0016.634 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 2900 files added (on-disk size: 14022.4 KB)
+0016.638 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 3000 files added (on-disk size: 14022.4 KB)
+0016.639 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (21.1 MB, 16219 files batched, 1001 (3004) added so far); re-opening (prior size: 14022.4 KB)
+0018.327 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: size is now: 17.80 MB
+0018.335 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 3100 files added (on-disk size: 18269.3 KB)
+0018.339 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 3200 files added (on-disk size: 18269.3 KB)
+0018.342 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 3300 files added (on-disk size: 18269.3 KB)
+0018.346 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 3400 files added (on-disk size: 18269.3 KB)
+0018.349 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 3500 files added (on-disk size: 18269.3 KB)
+0018.352 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 3600 files added (on-disk size: 18269.3 KB)
+0018.361 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 3700 files added (on-disk size: 18269.3 KB)
+0018.364 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 3800 files added (on-disk size: 18269.3 KB)
+0018.368 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 3900 files added (on-disk size: 18269.3 KB)
+0018.371 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 4000 files added (on-disk size: 18269.3 KB)
+0018.372 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (12.6 MB, 16219 files batched, 1001 (4005) added so far); re-opening (prior size: 18269.3 KB)
+0020.715 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 4100 files added (on-disk size: 21533.9 KB)
+0020.719 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 4200 files added (on-disk size: 21533.9 KB)
+0020.723 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 4300 files added (on-disk size: 21533.9 KB)
+0020.726 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 4400 files added (on-disk size: 21533.9 KB)
+0020.730 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 4500 files added (on-disk size: 21533.9 KB)
+0020.733 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 4600 files added (on-disk size: 21533.9 KB)
+0020.737 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 4700 files added (on-disk size: 21533.9 KB)
+0020.740 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 4800 files added (on-disk size: 21533.9 KB)
+0020.744 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 4900 files added (on-disk size: 21533.9 KB)
+0020.747 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 5000 files added (on-disk size: 21533.9 KB)
+0020.748 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (17.8 MB, 16219 files batched, 1001 (5006) added so far); re-opening (prior size: 21533.9 KB)
+0023.194 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: size is now: 27.30 MB
+0023.201 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 5100 files added (on-disk size: 27964.2 KB)
+0023.204 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 5200 files added (on-disk size: 27964.2 KB)
+0023.208 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 5300 files added (on-disk size: 27964.2 KB)
+0023.211 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 5400 files added (on-disk size: 27964.2 KB)
+0023.215 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 5500 files added (on-disk size: 27964.2 KB)
+0023.218 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 5600 files added (on-disk size: 27964.2 KB)
+0023.221 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 5700 files added (on-disk size: 27964.2 KB)
+0023.225 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 5800 files added (on-disk size: 27964.2 KB)
+0023.228 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 5900 files added (on-disk size: 27964.2 KB)
+0023.231 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 6000 files added (on-disk size: 27964.2 KB)
+0023.232 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (12.8 MB, 16219 files batched, 1001 (6007) added so far); re-opening (prior size: 27964.2 KB)
+0024.434 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 6100 files added (on-disk size: 32267 KB)
+0024.438 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 6200 files added (on-disk size: 32267 KB)
+0024.441 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 6300 files added (on-disk size: 32267 KB)
+0024.445 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 6400 files added (on-disk size: 32267 KB)
+0024.448 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 6500 files added (on-disk size: 32267 KB)
+0024.451 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 6600 files added (on-disk size: 32267 KB)
+0024.454 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 6700 files added (on-disk size: 32267 KB)
+0024.458 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 6800 files added (on-disk size: 32267 KB)
+0024.461 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 6900 files added (on-disk size: 32267 KB)
+0024.465 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 7000 files added (on-disk size: 32267 KB)
+0024.466 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (11 MB, 16219 files batched, 1001 (7008) added so far); re-opening (prior size: 32267 KB)
+0025.236 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 7100 files added (on-disk size: 35437.7 KB)
+0025.240 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 7200 files added (on-disk size: 35437.7 KB)
+0025.243 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 7300 files added (on-disk size: 35437.7 KB)
+0025.247 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 7400 files added (on-disk size: 35437.7 KB)
+0025.250 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 7500 files added (on-disk size: 35437.7 KB)
+0025.253 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 7600 files added (on-disk size: 35437.7 KB)
+0025.257 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 7700 files added (on-disk size: 35437.7 KB)
+0025.260 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 7800 files added (on-disk size: 35437.7 KB)
+0025.263 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 7900 files added (on-disk size: 35437.7 KB)
+0025.266 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 8000 files added (on-disk size: 35437.7 KB)
+0025.267 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (10.4 MB, 16219 files batched, 1001 (8009) added so far); re-opening (prior size: 35437.7 KB)
+0027.489 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 8100 files added (on-disk size: 38676.2 KB)
+0027.493 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 8200 files added (on-disk size: 38676.2 KB)
+0027.497 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 8300 files added (on-disk size: 38676.2 KB)
+0027.500 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 8400 files added (on-disk size: 38676.2 KB)
+0027.504 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 8500 files added (on-disk size: 38676.2 KB)
+0027.507 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 8600 files added (on-disk size: 38676.2 KB)
+0027.510 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 8700 files added (on-disk size: 38676.2 KB)
+0027.512 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 25 MB added on this batch (25.1 MB, 16219 files batched, 738 (8747) added so far); re-opening (prior size: 38676.2 KB)
+0030.387 (0) A useful amount of data was added after this amount of zip processing: 3.3 s (normalised: 3.2 s, rate: 7896.8 KB/s)
+0030.390 (0) Performance is good - will increase the amount of data we attempt to batch (time=3.2527379989624, normalised_time=3.2418101959315, max_time=30.375205993652, data points known=1, old_max_bytes=26214400, new_max_bytes=147374661)
+0030.393 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 8800 files added (on-disk size: 44872.8 KB)
+0030.397 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 8900 files added (on-disk size: 44872.8 KB)
+0030.400 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 9000 files added (on-disk size: 44872.8 KB)
+0030.404 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 9100 files added (on-disk size: 44872.8 KB)
+0030.407 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 9200 files added (on-disk size: 44872.8 KB)
+0030.411 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 9300 files added (on-disk size: 44872.8 KB)
+0030.414 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 9400 files added (on-disk size: 44872.8 KB)
+0030.418 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 9500 files added (on-disk size: 44872.8 KB)
+0030.421 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 9600 files added (on-disk size: 44872.8 KB)
+0030.425 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 9700 files added (on-disk size: 44872.8 KB)
+0030.427 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (13.5 MB, 16219 files batched, 1001 (9748) added so far); re-opening (prior size: 44872.8 KB)
+0032.794 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 9800 files added (on-disk size: 52424.1 KB)
+0032.799 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 9900 files added (on-disk size: 52424.1 KB)
+0032.802 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 10000 files added (on-disk size: 52424.1 KB)
+0032.805 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 10100 files added (on-disk size: 52424.1 KB)
+0032.808 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 10200 files added (on-disk size: 52424.1 KB)
+0032.811 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 10300 files added (on-disk size: 52424.1 KB)
+0032.815 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 10400 files added (on-disk size: 52424.1 KB)
+0032.818 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 10500 files added (on-disk size: 52424.1 KB)
+0032.822 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 10600 files added (on-disk size: 52424.1 KB)
+0032.825 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 10700 files added (on-disk size: 52424.1 KB)
+0032.827 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (15.3 MB, 16219 files batched, 1001 (10749) added so far); re-opening (prior size: 52424.1 KB)
+0034.535 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 10800 files added (on-disk size: 55200.7 KB)
+0034.540 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 10900 files added (on-disk size: 55200.7 KB)
+0034.543 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 11000 files added (on-disk size: 55200.7 KB)
+0034.547 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 11100 files added (on-disk size: 55200.7 KB)
+0034.550 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 11200 files added (on-disk size: 55200.7 KB)
+0034.554 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 11300 files added (on-disk size: 55200.7 KB)
+0034.557 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 11400 files added (on-disk size: 55200.7 KB)
+0034.560 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 11500 files added (on-disk size: 55200.7 KB)
+0034.564 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 11600 files added (on-disk size: 55200.7 KB)
+0034.567 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 11700 files added (on-disk size: 55200.7 KB)
+0034.569 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (9.7 MB, 16219 files batched, 1001 (11750) added so far); re-opening (prior size: 55200.7 KB)
+0035.618 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 11800 files added (on-disk size: 56687.1 KB)
+0035.622 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 11900 files added (on-disk size: 56687.1 KB)
+0035.625 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 12000 files added (on-disk size: 56687.1 KB)
+0035.629 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 12100 files added (on-disk size: 56687.1 KB)
+0035.632 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 12200 files added (on-disk size: 56687.1 KB)
+0035.635 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 12300 files added (on-disk size: 56687.1 KB)
+0035.638 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 12400 files added (on-disk size: 56687.1 KB)
+0035.641 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 12500 files added (on-disk size: 56687.1 KB)
+0035.645 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 12600 files added (on-disk size: 56687.1 KB)
+0035.648 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 12700 files added (on-disk size: 56687.1 KB)
+0035.650 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (7.2 MB, 16219 files batched, 1001 (12751) added so far); re-opening (prior size: 56687.1 KB)
+0037.015 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 12800 files added (on-disk size: 58971.9 KB)
+0037.019 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 12900 files added (on-disk size: 58971.9 KB)
+0037.023 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 13000 files added (on-disk size: 58971.9 KB)
+0037.026 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 13100 files added (on-disk size: 58971.9 KB)
+0037.030 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 13200 files added (on-disk size: 58971.9 KB)
+0037.033 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 13300 files added (on-disk size: 58971.9 KB)
+0037.036 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 13400 files added (on-disk size: 58971.9 KB)
+0037.040 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 13500 files added (on-disk size: 58971.9 KB)
+0037.043 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 13600 files added (on-disk size: 58971.9 KB)
+0037.046 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 13700 files added (on-disk size: 58971.9 KB)
+0037.048 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (14.8 MB, 16219 files batched, 1001 (13752) added so far); re-opening (prior size: 58971.9 KB)
+0038.306 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 13800 files added (on-disk size: 62086.6 KB)
+0038.310 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 13900 files added (on-disk size: 62086.6 KB)
+0038.314 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 14000 files added (on-disk size: 62086.6 KB)
+0038.317 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 14100 files added (on-disk size: 62086.6 KB)
+0038.320 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 14200 files added (on-disk size: 62086.6 KB)
+0038.323 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 14300 files added (on-disk size: 62086.6 KB)
+0038.327 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 14400 files added (on-disk size: 62086.6 KB)
+0038.330 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 14500 files added (on-disk size: 62086.6 KB)
+0038.334 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 14600 files added (on-disk size: 62086.6 KB)
+0038.337 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 14700 files added (on-disk size: 62086.6 KB)
+0038.339 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (20.3 MB, 16219 files batched, 1001 (14753) added so far); re-opening (prior size: 62086.6 KB)
+0040.600 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 14800 files added (on-disk size: 69963.3 KB)
+0040.604 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 14900 files added (on-disk size: 69963.3 KB)
+0040.607 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 15000 files added (on-disk size: 69963.3 KB)
+0040.610 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 15100 files added (on-disk size: 69963.3 KB)
+0040.614 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 15200 files added (on-disk size: 69963.3 KB)
+0040.617 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 15300 files added (on-disk size: 69963.3 KB)
+0040.620 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 15400 files added (on-disk size: 69963.3 KB)
+0040.623 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 15500 files added (on-disk size: 69963.3 KB)
+0040.627 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 15600 files added (on-disk size: 69963.3 KB)
+0040.630 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 15700 files added (on-disk size: 69963.3 KB)
+0040.632 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (9.4 MB, 16219 files batched, 1001 (15754) added so far); re-opening (prior size: 69963.3 KB)
+0041.869 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 15800 files added (on-disk size: 72755.8 KB)
+0041.873 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 15900 files added (on-disk size: 72755.8 KB)
+0041.877 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 16000 files added (on-disk size: 72755.8 KB)
+0041.880 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 16100 files added (on-disk size: 72755.8 KB)
+0041.883 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.tmp: 16200 files added (on-disk size: 72755.8 KB)
+0042.936 (0) Creating zip file manifest (backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip.list-temp.tmp)
+0043.016 (0) Successfully created zip file manifest (size: 1416262)
+0044.121 (0) Created plugins zip (0) - 74303.5 KB in 43.5 s (1708 KB/s) (sha1: 8d28a7080ffb8db023c5a97f0aa44e134dc8c435, sha256: 372c9798aa68e407a12515c0da4aaffac9e723f1d1f8a993c9bd82010210c2ad)
+0044.139 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0044.140 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-134f1a6e74ea7a6131b6bc16a9375d53)
+0045.588 (0) Google Drive: quota usage: used=557143.8 MB, total=78643200 MB, available=78086056.2 MB
+0045.590 (0) Google Drive: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip: Attempting to upload to Google Drive (into folder id: 1D-WawyLk_-WRhWLqJUJZFT7NuH2KWgWl)
+0046.173 (0) Googledrive chunked upload: 1.4 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 114.7 / 135)
+0046.453 (0) Googledrive chunked upload: 4.1 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 114.7 / 135)
+0046.716 (0) Googledrive chunked upload: 9.6 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 114.7 / 135)
+0047.147 (0) Googledrive chunked upload: 20.7 % uploaded (15728640 - increasing chunk size to 16384 KB - memory usage: 114.7 / 135)
+0047.870 (0) Googledrive chunked upload: 42.7 % uploaded (32505856 - increasing chunk size to 32768 KB - memory usage: 114.7 / 135)
+0049.202 (0) Googledrive chunked upload: 86.8 % uploaded (66060288 - increasing chunk size to 65536 KB - memory usage: 114.7 / 135)
+0050.966 (0) Googledrive chunked upload: 100 % uploaded (66060288)
+0050.969 (0) Google Drive: OK: Archive backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip uploaded in 5.38 seconds
+0050.970 (0) Recording as successfully uploaded: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip
+0050.990 (0) Deleting local file: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip: OK
+0050.996 (0) Beginning creation of dump of themes (split every: 400 MB)
+0051.156 (0) Total entities for the zip file: 24 directories, 100 files (0 skipped as non-modified), 3.2 MB
+0051.161 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-themes.zip.tmp: 100 files added (on-disk size: 0 KB)
+0051.524 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-themes.zip.tmp: size is now: 2.60 MB
+0051.529 (0) Creating zip file manifest (backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-themes.zip.list-temp.tmp)
+0051.531 (0) Successfully created zip file manifest (size: 6310)
+0051.577 (0) Created themes zip (0) - 2691.1 KB in 0.5 s (5726.8 KB/s) (sha1: 08ba52eef73820bc877db806d7c6d9151746cf59, sha256: b7fb962abae0130bd8b0f6c0d67561f5e371edf1fe77048682da18f0b733828c)
+0051.581 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0051.581 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-134f1a6e74ea7a6131b6bc16a9375d53)
+0051.936 (0) Google Drive: quota usage: used=557143.8 MB, total=78643200 MB, available=78086056.2 MB
+0051.938 (0) Google Drive: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-themes.zip: Attempting to upload to Google Drive (into folder id: 1D-WawyLk_-WRhWLqJUJZFT7NuH2KWgWl)
+0052.517 (0) Googledrive chunked upload: 38.1 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 112.4 / 133)
+0054.180 (0) Googledrive chunked upload: 100 % uploaded (1048576)
+0054.182 (0) Google Drive: OK: Archive backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-themes.zip uploaded in 2.24 seconds
+0054.183 (0) Recording as successfully uploaded: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-themes.zip
+0054.185 (0) Deleting local file: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-themes.zip: OK
+0054.188 (0) Exclusion option setting (uploads): backup*,*backups,backwpup*,wp-clone,snapshots
+0054.189 (0) Looking for candidates to backup in: /home/zuelligf/public_html/wp-content/uploads
+0054.190 (0) finding files: caos: adding to list (1)
+0054.190 (0) finding files: 2023: adding to list (2)
+0054.191 (0) finding files: aios: adding to list (3)
+0054.192 (0) finding files: 2016: adding to list (4)
+0054.192 (0) finding files: gravity_forms: adding to list (5)
+0054.193 (0) finding files: download-manager-files: adding to list (6)
+0054.193 (0) finding files: formidable: adding to list (7)
+0054.194 (0) finding files: 2021: adding to list (8)
+0054.195 (0) finding files: 3d-flip-book: adding to list (9)
+0054.195 (0) finding files: 2014: adding to list (10)
+0054.196 (0) finding files: wpdm-custom-tags: adding to list (11)
+0054.197 (0) finding files: template-kits: adding to list (12)
+0054.197 (0) finding files: 2022: adding to list (13)
+0054.198 (0) finding files: 2015: adding to list (14)
+0054.199 (0) finding files: 2010: adding to list (15)
+0054.199 (0) finding files: embedpress: adding to list (16)
+0054.200 (0) finding files: elementor: adding to list (17)
+0054.201 (0) finding files: wpdm-cache: adding to list (18)
+0054.201 (0) finding files: 2008: adding to list (19)
+0054.202 (0) finding files: wpdm-file-type-icons: adding to list (20)
+0054.202 (0) finding files: 2013: adding to list (21)
+0054.203 (0) finding files: 2020: adding to list (22)
+0054.204 (0) finding files: 2018: adding to list (23)
+0054.204 (0) finding files: 2019: adding to list (24)
+0054.205 (0) finding files: 2017: adding to list (25)
+0054.205 (0) finding files: 2012: adding to list (26)
+0054.206 (0) Beginning creation of dump of uploads (split every: 400 MB)
+0055.253 (0) Total entities for the zip file: 128 directories, 8157 files (0 skipped as non-modified), 2104.3 MB
+0055.258 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 100 files added (on-disk size: 0 KB)
+0055.261 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 200 files added (on-disk size: 0 KB)
+0055.264 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 300 files added (on-disk size: 0 KB)
+0055.266 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 140.5 MB added on this batch (140.7 MB, 8157 files batched, 350 (350) added so far); re-opening (prior size: 0 KB)
+0065.612 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: size is now: 140.20 MB
+0065.615 (0) A useful amount of data was added after this amount of zip processing: 11.5 s (normalised: 11.5 s, rate: 12550.2 KB/s)
+0065.618 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 400 files added (on-disk size: 143536 KB)
+0065.621 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 500 files added (on-disk size: 143536 KB)
+0065.625 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 600 files added (on-disk size: 143536 KB)
+0065.628 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 700 files added (on-disk size: 143536 KB)
+0065.631 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 800 files added (on-disk size: 143536 KB)
+0065.634 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 900 files added (on-disk size: 143536 KB)
+0065.638 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 1000 files added (on-disk size: 143536 KB)
+0065.639 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 140.5 MB added on this batch (140.7 MB, 8157 files batched, 680 (1030) added so far); re-opening (prior size: 143536 KB)
+0076.687 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: size is now: 280.00 MB
+0076.692 (0) A useful amount of data was added after this amount of zip processing: 11.6 s (normalised: 11.5 s, rate: 12465.6 KB/s)
+0076.696 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 1100 files added (on-disk size: 286687.7 KB)
+0076.699 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 1200 files added (on-disk size: 286687.7 KB)
+0076.703 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 1300 files added (on-disk size: 286687.7 KB)
+0076.706 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 1400 files added (on-disk size: 286687.7 KB)
+0076.710 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 1500 files added (on-disk size: 286687.7 KB)
+0076.713 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 1600 files added (on-disk size: 286687.7 KB)
+0076.717 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: 1700 files added (on-disk size: 286687.7 KB)
+0076.718 (0) Adding batch to zip file (UpdraftPlus_BinZip): possibly approaching split limit (110.2 MB, 701 (1731) files added so far); last ratio: 0.9936; re-opening (prior size: 286687.7 KB)
+0081.201 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.tmp: size is now: 390.30 MB
+0081.240 (0) Zip size is at/near split limit (390.3 MB / 400 MB) - bumping index (from: 0)
+0087.067 (0) Creating zip file manifest (backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip.list-temp.tmp)
+0087.078 (0) Successfully created zip file manifest (size: 148441)
+0087.093 (0) Created uploads zip (0) - 399637.1 KB in 26.9 s (14842.3 KB/s) (checksums: sha1: 205944dd4fb4c7f5d209d99e40dce7ab20a87111, sha256: 2116e991137742a49360cab5d1e81658dd54c1befa243fcbe1d8e3290863ef98)
+0087.116 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0087.117 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-134f1a6e74ea7a6131b6bc16a9375d53)
+0087.496 (0) Google Drive: quota usage: used=557219 MB, total=78643200 MB, available=78085981 MB
+0087.498 (0) Google Drive: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip: Attempting to upload to Google Drive (into folder id: 1D-WawyLk_-WRhWLqJUJZFT7NuH2KWgWl)
+0088.043 (0) Googledrive chunked upload: 0.3 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 114.7 / 135)
+0088.294 (0) Googledrive chunked upload: 0.8 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 114.7 / 135)
+0088.779 (0) Googledrive chunked upload: 1.8 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 114.7 / 135)
+0089.187 (0) Googledrive chunked upload: 3.8 % uploaded (15728640 - increasing chunk size to 16384 KB - memory usage: 114.7 / 135)
+0089.878 (0) Googledrive chunked upload: 7.9 % uploaded (32505856 - increasing chunk size to 32768 KB - memory usage: 114.7 / 135)
+0091.243 (0) Googledrive chunked upload: 16.1 % uploaded (66060288 - increasing chunk size to 65536 KB - memory usage: 114.7 / 135)
+0093.817 (0) Googledrive chunked upload: 32.5 % uploaded (133169152)
+0096.508 (0) Googledrive chunked upload: 48.9 % uploaded (200278016)
+0099.083 (0) Googledrive chunked upload: 65.3 % uploaded (267386880)
+0101.656 (0) Googledrive chunked upload: 81.7 % uploaded (334495744)
+0104.351 (0) Googledrive chunked upload: 98.1 % uploaded (401604608)
+0105.965 (0) Googledrive chunked upload: 100 % uploaded (401604608)
+0105.969 (0) Google Drive: OK: Archive backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip uploaded in 18.47 seconds
+0105.970 (0) Recording as successfully uploaded: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip
+0106.051 (0) Deleting local file: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip: OK
+0106.055 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 2.0 seconds have passed since the last write (0 MB, 1 (1732) files added so far); re-opening (prior size: 0 KB)
+0106.125 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: size is now: 0.00 MB
+0106.131 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 1800 files added (on-disk size: 7.2 KB)
+0106.135 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 1900 files added (on-disk size: 7.2 KB)
+0106.138 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 2000 files added (on-disk size: 7.2 KB)
+0106.142 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 2100 files added (on-disk size: 7.2 KB)
+0106.145 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 2200 files added (on-disk size: 7.2 KB)
+0106.148 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 2300 files added (on-disk size: 7.2 KB)
+0106.152 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 2400 files added (on-disk size: 7.2 KB)
+0106.156 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 2500 files added (on-disk size: 7.2 KB)
+0106.159 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 2600 files added (on-disk size: 7.2 KB)
+0106.161 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 140.5 MB added on this batch (141.1 MB, 8157 files batched, 900 (2632) added so far); re-opening (prior size: 7.2 KB)
+0109.688 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: size is now: 141.10 MB
+0109.692 (0) A useful amount of data was added after this amount of zip processing: 4.6 s (normalised: 4.5 s, rate: 31697.4 KB/s)
+0109.694 (0) Performance is good - will increase the amount of data we attempt to batch (time=4.5579600334167, normalised_time=4.5404480511134, max_time=109.67939901352, data points known=1, old_max_bytes=147374661, new_max_bytes=209715200)
+0109.698 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 2700 files added (on-disk size: 144496.5 KB)
+0109.702 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 2800 files added (on-disk size: 144496.5 KB)
+0109.705 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 2900 files added (on-disk size: 144496.5 KB)
+0109.708 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 3000 files added (on-disk size: 144496.5 KB)
+0109.712 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 3100 files added (on-disk size: 144496.5 KB)
+0109.715 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 3200 files added (on-disk size: 144496.5 KB)
+0109.718 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 3300 files added (on-disk size: 144496.5 KB)
+0109.721 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 3400 files added (on-disk size: 144496.5 KB)
+0109.722 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 200 MB added on this batch (202 MB, 8157 files batched, 772 (3404) added so far); re-opening (prior size: 144496.5 KB)
+0129.451 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: size is now: 337.50 MB
+0129.455 (0) A useful amount of data was added after this amount of zip processing: 20.3 s (normalised: 20.1 s, rate: 10177.6 KB/s)
+0129.459 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 3500 files added (on-disk size: 345647.8 KB)
+0129.463 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 3600 files added (on-disk size: 345647.8 KB)
+0129.466 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: 3700 files added (on-disk size: 345647.8 KB)
+0129.467 (0) Adding batch to zip file (UpdraftPlus_BinZip): possibly approaching split limit (59.3 MB, 304 (3708) files added so far); last ratio: 0.9726; re-opening (prior size: 345647.8 KB)
+0135.691 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.tmp: size is now: 394.50 MB
+0135.696 (0) Zip size is at/near split limit (394.5 MB / 400 MB) - bumping index (from: 1)
+0141.604 (0) Creating zip file manifest (backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip.list-temp.tmp)
+0141.617 (0) Successfully created zip file manifest (size: 162789)
+0141.625 (0) Created uploads zip (1) - 403979 KB in 48.6 s (8311.9 KB/s) (checksums: sha1: df9dff1b7c177757e0cb49f389376d4fb0d29dcc, sha256: 3529fe67add2a7d091225d2e4790927d6f58c8c1eb3065165e812eda239df77b)
+0141.659 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0141.660 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-134f1a6e74ea7a6131b6bc16a9375d53)
+0142.101 (0) Google Drive: quota usage: used=557609.2 MB, total=78643200 MB, available=78085590.8 MB
+0142.102 (0) Google Drive: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip: Attempting to upload to Google Drive (into folder id: 1D-WawyLk_-WRhWLqJUJZFT7NuH2KWgWl)
+0142.719 (0) Googledrive chunked upload: 0.3 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 114.7 / 135)
+0142.952 (0) Googledrive chunked upload: 0.8 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 114.7 / 135)
+0143.202 (0) Googledrive chunked upload: 1.8 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 114.7 / 135)
+0143.787 (0) Googledrive chunked upload: 3.8 % uploaded (15728640 - increasing chunk size to 16384 KB - memory usage: 114.7 / 135)
+0144.482 (0) Googledrive chunked upload: 7.9 % uploaded (32505856 - increasing chunk size to 32768 KB - memory usage: 114.7 / 135)
+0145.833 (0) Googledrive chunked upload: 16 % uploaded (66060288 - increasing chunk size to 65536 KB - memory usage: 114.7 / 135)
+0148.427 (0) Googledrive chunked upload: 32.2 % uploaded (133169152)
+0151.002 (0) Googledrive chunked upload: 48.4 % uploaded (200278016)
+0153.692 (0) Googledrive chunked upload: 64.6 % uploaded (267386880)
+0156.271 (0) Googledrive chunked upload: 80.9 % uploaded (334495744)
+0158.848 (0) Googledrive chunked upload: 97.1 % uploaded (401604608)
+0160.662 (0) Googledrive chunked upload: 100 % uploaded (401604608)
+0160.665 (0) Google Drive: OK: Archive backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip uploaded in 18.56 seconds
+0160.666 (0) Recording as successfully uploaded: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip
+0160.750 (0) Deleting local file: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip: OK
+0160.754 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 2.0 seconds have passed since the last write (0.1 MB, 1 (3709) files added so far); re-opening (prior size: 0 KB)
+0160.821 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.tmp: size is now: 0.10 MB
+0160.828 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.tmp: 3800 files added (on-disk size: 94.5 KB)
+0160.831 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.tmp: 3900 files added (on-disk size: 94.5 KB)
+0160.835 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.tmp: 4000 files added (on-disk size: 94.5 KB)
+0160.839 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.tmp: 4100 files added (on-disk size: 94.5 KB)
+0160.841 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 200 MB added on this batch (224.5 MB, 8157 files batched, 453 (4162) added so far); re-opening (prior size: 94.5 KB)
+0166.899 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.tmp: size is now: 219.50 MB
+0166.902 (0) A useful amount of data was added after this amount of zip processing: 6.8 s (normalised: 6 s, rate: 33961.5 KB/s)
+0166.905 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.tmp: 4200 files added (on-disk size: 224764.3 KB)
+0166.909 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.tmp: 4300 files added (on-disk size: 224764.3 KB)
+0166.912 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.tmp: 4400 files added (on-disk size: 224764.3 KB)
+0166.913 (0) Adding batch to zip file (UpdraftPlus_BinZip): possibly approaching split limit (168 MB, 246 (4408) files added so far); last ratio: 0.9775; re-opening (prior size: 224764.3 KB)
+0172.695 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.tmp: size is now: 381.90 MB
+0172.713 (0) Zip size is at/near split limit (381.9 MB / 400 MB) - bumping index (from: 2)
+0178.370 (0) Creating zip file manifest (backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip.list-temp.tmp)
+0178.397 (0) Successfully created zip file manifest (size: 42212)
+0178.418 (0) Created uploads zip (2) - 391024.7 KB in 31.1 s (12577.6 KB/s) (checksums: sha1: 329c7cf972c5e06df4eff5258d2115805a269702, sha256: 11db70f979d331d6fab79eec3b8d454a32ab91f6f6d9f65dbde790ac49ae5861)
+0178.441 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0178.442 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-134f1a6e74ea7a6131b6bc16a9375d53)
+0178.796 (0) Google Drive: quota usage: used=558003.7 MB, total=78643200 MB, available=78085196.3 MB
+0178.797 (0) Google Drive: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip: Attempting to upload to Google Drive (into folder id: 1D-WawyLk_-WRhWLqJUJZFT7NuH2KWgWl)
+0179.453 (0) Googledrive chunked upload: 0.3 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 114.5 / 135)
+0179.700 (0) Googledrive chunked upload: 0.8 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 114.5 / 135)
+0179.956 (0) Googledrive chunked upload: 1.8 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 114.5 / 135)
+0180.359 (0) Googledrive chunked upload: 3.9 % uploaded (15728640 - increasing chunk size to 16384 KB - memory usage: 114.5 / 135)
+0181.076 (0) Googledrive chunked upload: 8.1 % uploaded (32505856 - increasing chunk size to 32768 KB - memory usage: 114.5 / 135)
+0182.442 (0) Googledrive chunked upload: 16.5 % uploaded (66060288 - increasing chunk size to 65536 KB - memory usage: 114.5 / 135)
+0185.035 (0) Googledrive chunked upload: 33.3 % uploaded (133169152)
+0187.640 (0) Googledrive chunked upload: 50 % uploaded (200278016)
+0190.274 (0) Googledrive chunked upload: 66.8 % uploaded (267386880)
+0192.994 (0) Googledrive chunked upload: 83.5 % uploaded (334495744)
+0196.695 (0) Googledrive chunked upload: 100 % uploaded (334495744)
+0196.698 (0) Google Drive: OK: Archive backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip uploaded in 17.9 seconds
+0196.699 (0) Recording as successfully uploaded: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip
+0196.772 (0) Deleting local file: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip: OK
+0196.776 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 2.0 seconds have passed since the last write (1.4 MB, 1 (4409) files added so far); re-opening (prior size: 0 KB)
+0196.872 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: size is now: 1.40 MB
+0196.879 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 4500 files added (on-disk size: 1417.2 KB)
+0196.882 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 4600 files added (on-disk size: 1417.2 KB)
+0196.885 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 4700 files added (on-disk size: 1417.2 KB)
+0196.889 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 4800 files added (on-disk size: 1417.2 KB)
+0196.890 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 200 MB added on this batch (228.3 MB, 8157 files batched, 400 (4809) added so far); re-opening (prior size: 1417.2 KB)
+0204.061 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: size is now: 224.20 MB
+0204.065 (0) A useful amount of data was added after this amount of zip processing: 7.9 s (normalised: 6.9 s, rate: 29475.5 KB/s)
+0204.069 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 4900 files added (on-disk size: 229541.6 KB)
+0204.072 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 5000 files added (on-disk size: 229541.6 KB)
+0204.075 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 5100 files added (on-disk size: 229541.6 KB)
+0204.078 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 5200 files added (on-disk size: 229541.6 KB)
+0204.081 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 5300 files added (on-disk size: 229541.6 KB)
+0204.084 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 5400 files added (on-disk size: 229541.6 KB)
+0204.088 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 5500 files added (on-disk size: 229541.6 KB)
+0204.091 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: 5600 files added (on-disk size: 229541.6 KB)
+0204.093 (0) Adding batch to zip file (UpdraftPlus_BinZip): possibly approaching split limit (164.3 MB, 853 (5662) files added so far); last ratio: 0.9759; re-opening (prior size: 229541.6 KB)
+0212.417 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.tmp: size is now: 384.40 MB
+0212.422 (0) Zip size is at/near split limit (384.4 MB / 400 MB) - bumping index (from: 3)
+0218.279 (0) Creating zip file manifest (backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip.list-temp.tmp)
+0218.288 (0) Successfully created zip file manifest (size: 78140)
+0218.290 (0) Created uploads zip (3) - 393587.6 KB in 34 s (11580.4 KB/s) (checksums: sha1: baa13f8ea079cc837feb66990c41ab69dfb40476, sha256: d4d70f99b6749a5a9fc5148c48e0a3e6264e10506a0a9fad9cb31b9a85e895e2)
+0218.304 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0218.305 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-134f1a6e74ea7a6131b6bc16a9375d53)
+0218.634 (0) Google Drive: quota usage: used=558385.6 MB, total=78643200 MB, available=78084814.4 MB
+0218.636 (0) Google Drive: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip: Attempting to upload to Google Drive (into folder id: 1D-WawyLk_-WRhWLqJUJZFT7NuH2KWgWl)
+0219.231 (0) Googledrive chunked upload: 0.3 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 114.6 / 135)
+0219.448 (0) Googledrive chunked upload: 0.8 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 114.6 / 135)
+0219.713 (0) Googledrive chunked upload: 1.8 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 114.6 / 135)
+0220.107 (0) Googledrive chunked upload: 3.9 % uploaded (15728640 - increasing chunk size to 16384 KB - memory usage: 114.6 / 135)
+0220.831 (0) Googledrive chunked upload: 8.1 % uploaded (32505856 - increasing chunk size to 32768 KB - memory usage: 114.6 / 135)
+0222.169 (0) Googledrive chunked upload: 16.4 % uploaded (66060288 - increasing chunk size to 65536 KB - memory usage: 114.6 / 135)
+0224.783 (0) Googledrive chunked upload: 33 % uploaded (133169152)
+0227.368 (0) Googledrive chunked upload: 49.7 % uploaded (200278016)
+0229.923 (0) Googledrive chunked upload: 66.3 % uploaded (267386880)
+0232.523 (0) Googledrive chunked upload: 83 % uploaded (334495744)
+0235.138 (0) Googledrive chunked upload: 99.6 % uploaded (401604608)
+0236.599 (0) Googledrive chunked upload: 100 % uploaded (401604608)
+0236.602 (0) Google Drive: OK: Archive backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip uploaded in 17.97 seconds
+0236.603 (0) Recording as successfully uploaded: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip
+0236.679 (0) Deleting local file: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip: OK
+0236.683 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 2.0 seconds have passed since the last write (0.2 MB, 1 (5663) files added so far); re-opening (prior size: 0 KB)
+0236.768 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: size is now: 0.20 MB
+0236.773 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 5700 files added (on-disk size: 167.4 KB)
+0236.776 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 5800 files added (on-disk size: 167.4 KB)
+0236.779 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 5900 files added (on-disk size: 167.4 KB)
+0236.783 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 6000 files added (on-disk size: 167.4 KB)
+0236.786 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 6100 files added (on-disk size: 167.4 KB)
+0236.789 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 6200 files added (on-disk size: 167.4 KB)
+0236.793 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 6300 files added (on-disk size: 167.4 KB)
+0236.796 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 6400 files added (on-disk size: 167.4 KB)
+0236.799 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 6500 files added (on-disk size: 167.4 KB)
+0236.801 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 200 MB added on this batch (200.1 MB, 8157 files batched, 878 (6541) added so far); re-opening (prior size: 167.4 KB)
+0251.028 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: size is now: 197.30 MB
+0251.032 (0) A useful amount of data was added after this amount of zip processing: 14.9 s (normalised: 14.9 s, rate: 13754.9 KB/s)
+0251.033 (0) Performance is good - but we will not increase the amount of data we batch, as we are already at the present limit (time=14.897742033005, normalised_time=14.889246689839, max_time=251.01923704147, data points known=1, max_bytes=209715200)
+0251.037 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 6600 files added (on-disk size: 202041.2 KB)
+0251.040 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 6700 files added (on-disk size: 202041.2 KB)
+0251.043 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 6800 files added (on-disk size: 202041.2 KB)
+0251.047 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 6900 files added (on-disk size: 202041.2 KB)
+0251.050 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 7000 files added (on-disk size: 202041.2 KB)
+0251.053 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 7100 files added (on-disk size: 202041.2 KB)
+0251.056 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 7200 files added (on-disk size: 202041.2 KB)
+0251.059 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 7300 files added (on-disk size: 202041.2 KB)
+0251.063 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: 7400 files added (on-disk size: 202041.2 KB)
+0251.065 (0) Adding batch to zip file (UpdraftPlus_BinZip): possibly approaching split limit (187.4 MB, 905 (7446) files added so far); last ratio: 0.9851; re-opening (prior size: 202041.2 KB)
+0258.225 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.tmp: size is now: 382.00 MB
+0258.244 (0) The scheduled resumption is within 45 seconds - will reschedule
+0258.246 (0) Rescheduling resumption 1: moving to 345 seconds from now (1699461426)
+0258.285 (0) To decrease the likelihood of overlaps, increasing resumption interval to: 300 + 45 = 345
+0258.286 (0) Zip size is at/near split limit (382 MB / 400 MB) - bumping index (from: 4)
+0263.931 (0) Creating zip file manifest (backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip.list-temp.tmp)
+0263.941 (0) Successfully created zip file manifest (size: 117038)
+0263.945 (0) Created uploads zip (4) - 391165 KB in 40 s (9780.2 KB/s) (checksums: sha1: 9731ec4a9333ae6dc3458c4434e1e7eb61014682, sha256: 1e4460449ffa6a50e0181a68a2ae606b4cce44ff6977c493bbfe13772d380917)
+0263.963 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0263.964 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-134f1a6e74ea7a6131b6bc16a9375d53)
+0264.234 (0) Google Drive: quota usage: used=558770 MB, total=78643200 MB, available=78084430 MB
+0264.236 (0) Google Drive: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip: Attempting to upload to Google Drive (into folder id: 1D-WawyLk_-WRhWLqJUJZFT7NuH2KWgWl)
+0264.899 (0) Googledrive chunked upload: 0.3 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 114.7 / 135)
+0265.116 (0) Googledrive chunked upload: 0.8 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 114.7 / 135)
+0265.348 (0) Googledrive chunked upload: 1.8 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 114.7 / 135)
+0265.790 (0) Googledrive chunked upload: 3.9 % uploaded (15728640 - increasing chunk size to 16384 KB - memory usage: 114.7 / 135)
+0266.493 (0) Googledrive chunked upload: 8.1 % uploaded (32505856 - increasing chunk size to 32768 KB - memory usage: 114.7 / 135)
+0267.852 (0) Googledrive chunked upload: 16.5 % uploaded (66060288 - increasing chunk size to 65536 KB - memory usage: 114.7 / 135)
+0270.441 (0) Googledrive chunked upload: 33.2 % uploaded (133169152)
+0273.036 (0) Googledrive chunked upload: 50 % uploaded (200278016)
+0275.711 (0) Googledrive chunked upload: 66.8 % uploaded (267386880)
+0278.281 (0) Googledrive chunked upload: 83.5 % uploaded (334495744)
+0281.907 (0) Googledrive chunked upload: 100 % uploaded (334495744)
+0281.910 (0) Google Drive: OK: Archive backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip uploaded in 17.67 seconds
+0281.910 (0) Recording as successfully uploaded: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip
+0281.990 (0) Deleting local file: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip: OK
+0281.994 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 2.0 seconds have passed since the last write (0.2 MB, 1 (7447) files added so far); re-opening (prior size: 0 KB)
+0282.057 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip.tmp: size is now: 0.20 MB
+0282.063 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip.tmp: 7500 files added (on-disk size: 211.1 KB)
+0282.066 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip.tmp: 7600 files added (on-disk size: 211.1 KB)
+0282.070 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip.tmp: 7700 files added (on-disk size: 211.1 KB)
+0282.073 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip.tmp: 7800 files added (on-disk size: 211.1 KB)
+0282.077 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip.tmp: 7900 files added (on-disk size: 211.1 KB)
+0282.080 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip.tmp: 8000 files added (on-disk size: 211.1 KB)
+0282.083 (0) Zip: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip.tmp: 8100 files added (on-disk size: 211.1 KB)
+0284.516 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip.tmp: size is now: 136.30 MB
+0284.530 (0) Creating zip file manifest (backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip.list-temp.tmp)
+0284.535 (0) Successfully created zip file manifest (size: 52595)
+0286.573 (0) Created uploads zip (5) - 139615.9 KB in 22.6 s (6170.8 KB/s) (sha1: e88c79f8a8670b2ae8e4b52ba9824e283fb6b5ee, sha256: 26c4c9ce29a62b833664fd1c37623cadf6a678892417274480f37178fa169153)
+0286.577 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0286.578 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-134f1a6e74ea7a6131b6bc16a9375d53)
+0286.915 (0) Google Drive: quota usage: used=559152 MB, total=78643200 MB, available=78084048 MB
+0286.916 (0) Google Drive: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip: Attempting to upload to Google Drive (into folder id: 1D-WawyLk_-WRhWLqJUJZFT7NuH2KWgWl)
+0287.493 (0) Googledrive chunked upload: 0.7 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 112.5 / 133)
+0287.715 (0) Googledrive chunked upload: 2.2 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 112.5 / 133)
+0287.980 (0) Googledrive chunked upload: 5.1 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 112.5 / 133)
+0288.391 (0) Googledrive chunked upload: 11 % uploaded (15728640 - increasing chunk size to 16384 KB - memory usage: 112.5 / 133)
+0289.082 (0) Googledrive chunked upload: 22.7 % uploaded (32505856 - increasing chunk size to 32768 KB - memory usage: 112.5 / 133)
+0290.427 (0) Googledrive chunked upload: 46.2 % uploaded (66060288 - increasing chunk size to 65536 KB - memory usage: 112.5 / 133)
+0293.009 (0) Googledrive chunked upload: 93.1 % uploaded (133169152)
+0294.562 (0) Googledrive chunked upload: 100 % uploaded (133169152)
+0294.565 (0) Google Drive: OK: Archive backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip uploaded in 7.65 seconds
+0294.566 (0) Recording as successfully uploaded: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip
+0294.606 (0) Deleting local file: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip: OK
+0294.610 (0) No backup of wpcore: excluded by user's options
+0294.612 (0) Beginning backup of other directories found in the content directory (index: 0)
+0294.613 (0) Exclusion option setting (others): upgrade,cache,updraft,backup*,*backups,mysql.sql,debug.log
+0294.614 (0) Looking for candidates to backup in: /home/zuelligf/public_html/wp-content
+0294.614 (0) finding files: upgrade: skipping: excluded by options
+0294.615 (0) finding files: index.php: adding to list (1)
+0294.616 (0) finding files: wflogs: adding to list (2)
+0294.617 (0) finding files: aiowps_backups: skipping: excluded by options (glob)
+0294.618 (0) finding files: themes: skipping: this is the themes directory
+0294.618 (0) finding files: pgs: adding to list (3)
+0294.619 (0) finding files: __upgrade.zip: adding to list (4)
+0294.620 (0) finding files: bfu-temp: adding to list (5)
+0294.620 (0) finding files: w3tc-config: adding to list (6)
+0294.621 (0) finding files: maintenance: adding to list (7)
+0294.622 (0) finding files: uploads: skipping: this is the uploads directory
+0294.622 (0) finding files: updraft: skipping: this is the updraft directory
+0294.623 (0) finding files: maintenance.php: adding to list (8)
+0294.624 (0) finding files: cache: skipping: excluded by options
+0294.625 (0) finding files: wp-rocket-config: adding to list (9)
+0294.625 (0) finding files: mc_data: adding to list (10)
+0294.626 (0) finding files: plugins: skipping: this is the plugins directory
+0294.627 (0) finding files: advanced-cache.php: adding to list (11)
+0294.628 (0) finding files: wpdm-assets: adding to list (12)
+0294.629 (0) finding files: backups-dup-pro: skipping: excluded by options (glob)
+0295.615 (0) Total entities for the zip file: 20 directories, 87 files (0 skipped as non-modified), 14.5 MB
+0297.986 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-others.zip.tmp: size is now: 8.30 MB
+0297.992 (0) Creating zip file manifest (backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-others.zip.list-temp.tmp)
+0297.994 (0) Successfully created zip file manifest (size: 4405)
+0298.122 (0) Created others zip (0) - 8456.8 KB in 3.4 s (2502.1 KB/s) (sha1: f2ae43b44c7f849ed0655aa3587a3b8c4deb7236, sha256: 8de1b8746658c7208bd26f0914886822a9f4108bb7bae16ae638b16b642ca2b5)
+0298.126 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0298.127 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-134f1a6e74ea7a6131b6bc16a9375d53)
+0298.485 (0) Google Drive: quota usage: used=559288.3 MB, total=78643200 MB, available=78083911.7 MB
+0298.486 (0) Google Drive: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-others.zip: Attempting to upload to Google Drive (into folder id: 1D-WawyLk_-WRhWLqJUJZFT7NuH2KWgWl)
+0299.211 (0) Googledrive chunked upload: 12.1 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 112.4 / 135)
+0299.448 (0) Googledrive chunked upload: 36.3 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 112.4 / 135)
+0299.689 (0) Googledrive chunked upload: 84.8 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 112.4 / 135)
+0300.986 (0) Googledrive chunked upload: 100 % uploaded (7340032)
+0300.990 (0) Google Drive: OK: Archive backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-others.zip uploaded in 2.5 seconds
+0300.991 (0) Recording as successfully uploaded: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-others.zip
+0300.995 (0) Deleting local file: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-others.zip: OK
+0300.998 (0) No backup of more: excluded by user's options
+0301.003 (0) Saving backup status to database (elements: 13)
+0301.007 (0) Beginning creation of database dump (WordPress DB)
+0301.009 (0) SQL compatibility mode is: NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+0301.011 (0) Testing potential mysqldump binary: /usr/bin/mysqldump
+0301.251 (0) Output: /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;\n/*!40103 SET TIME_ZONE='+00:00' */;\n/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;\n/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;\n/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;\nDROP TABLE IF EXISTS `wp_options`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCRE (truncated - 1533 bytes total)
+0301.254 (0) Working binary mysqldump found: /usr/bin/mysqldump
+0302.108 (0) Table wp_options: Total expected rows (via COUNT): 902
+0302.235 (0) Table wp_options: Rows added in this batch (next record: 1212812): 898 (uncompressed bytes in this segment=3266576) in 0.13 seconds
+0302.241 (0) Table wp_options: finishing file(s) (2, 544.3 KB)
+0302.245 (0) Table wp_users: Total expected rows (via COUNT): 8
+0302.246 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0302.249 (0) Table wp_users: Rows added in this batch (next record: 9): 8 (uncompressed bytes in this segment=2494) in 0.00 seconds
+0302.252 (0) Table wp_users: finishing file(s) (2, 1.1 KB)
+0302.258 (0) Table wp_usermeta: Total expected rows (via COUNT): 381
+0302.259 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0302.264 (0) Table wp_usermeta: Rows added in this batch (next record: 800): 381 (uncompressed bytes in this segment=29144) in 0.01 seconds
+0302.269 (0) Table wp_usermeta: finishing file(s) (2, 8.6 KB)
+0302.274 (0) Table wp_actionscheduler_actions: Total expected rows (via COUNT): 0
+0302.276 (0) Table wp_actionscheduler_actions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1556) in 0.00 seconds
+0302.281 (0) Table wp_actionscheduler_actions: finishing file(s) (2, 0.5 KB)
+0302.284 (0) Table wp_actionscheduler_claims: Total expected rows (via COUNT): 0
+0302.285 (0) Table wp_actionscheduler_claims: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=634) in 0.00 seconds
+0302.289 (0) Table wp_actionscheduler_claims: finishing file(s) (2, 0.4 KB)
+0302.292 (0) Table wp_actionscheduler_groups: Total expected rows (via COUNT): 2
+0302.293 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0302.296 (0) Table wp_actionscheduler_groups: Rows added in this batch (next record: 2): 2 (uncompressed bytes in this segment=711) in 0.00 seconds
+0302.299 (0) Table wp_actionscheduler_groups: finishing file(s) (2, 0.4 KB)
+0302.303 (0) Table wp_actionscheduler_logs: Total expected rows (via COUNT): 0
+0302.305 (0) Table wp_actionscheduler_logs: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=772) in 0.00 seconds
+0302.309 (0) Table wp_actionscheduler_logs: finishing file(s) (2, 0.4 KB)
+0302.313 (0) Table wp_commentmeta: Total expected rows (via COUNT): 11
+0302.314 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0302.317 (0) Table wp_commentmeta: Rows added in this batch (next record: 55): 11 (uncompressed bytes in this segment=1199) in 0.01 seconds
+0302.322 (0) Table wp_commentmeta: finishing file(s) (2, 0.5 KB)
+0302.325 (0) Table wp_comments: Total expected rows (via COUNT): 10
+0302.326 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0302.328 (0) Table wp_comments: Rows added in this batch (next record: 46): 10 (uncompressed bytes in this segment=5181) in 0.00 seconds
+0302.332 (0) Table wp_comments: finishing file(s) (2, 2 KB)
+0302.337 (0) Table wp_e_notes: Total expected rows (via COUNT): 0
+0302.339 (0) Table wp_e_notes: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=2069) in 0.00 seconds
+0302.344 (0) Table wp_e_notes: finishing file(s) (2, 0.8 KB)
+0302.347 (0) Table wp_e_notes_users_relations: Total expected rows (via COUNT): 0
+0302.348 (0) Table wp_e_notes_users_relations: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=883) in 0.00 seconds
+0302.352 (0) Table wp_e_notes_users_relations: finishing file(s) (2, 0.4 KB)
+0302.355 (0) Table wp_links: Total expected rows (via COUNT): 0
+0302.356 (0) Table wp_links: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1270) in 0.00 seconds
+0302.360 (0) Table wp_links: finishing file(s) (2, 0.5 KB)
+0302.362 (0) Table wp_postmeta: Total expected rows (approximate): 25422
+0303.307 (0) Table wp_postmeta: binary mysqldump finished (writes: 63, bytes 32632371, return code 0) in 0.94 seconds
+0303.312 (0) Table wp_postmeta: finishing file(s) (1, 2095 KB)
+0303.324 (0) Table wp_posts: Total expected rows (approximate): 2914
+0303.689 (0) Table wp_posts: Rows added in this batch (next record: 9325): 3795 (uncompressed bytes in this segment=10702616) in 0.37 seconds
+0303.695 (0) Table wp_posts: finishing file(s) (2, 1162.2 KB)
+0303.699 (0) Table wp_term_relationships: Total expected rows (approximate): 496
+0303.703 (0) Table wp_term_relationships: Rows added in this batch (next record: 100000): 535 (uncompressed bytes in this segment=9135) in 0.00 seconds
+0303.723 (0) Table wp_term_relationships: finishing file(s) (2, 1.9 KB)
+0303.728 (0) Table wp_term_taxonomy: Total expected rows (via COUNT): 132
+0303.729 (0) Table is relatively small; fetch_rows will thus be: 250 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0303.732 (0) Table wp_term_taxonomy: Rows added in this batch (next record: 149): 132 (uncompressed bytes in this segment=5505) in 0.01 seconds
+0303.738 (0) Table wp_term_taxonomy: finishing file(s) (2, 1.3 KB)
+0303.742 (0) Table wp_termmeta: Total expected rows (via COUNT): 28
+0303.743 (0) Table is relatively small; fetch_rows will thus be: 50 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0303.746 (0) Table wp_termmeta: Rows added in this batch (next record: 29): 28 (uncompressed bytes in this segment=1889) in 0.01 seconds
+0303.750 (0) Table wp_termmeta: finishing file(s) (2, 0.6 KB)
+0303.754 (0) Table wp_terms: Total expected rows (via COUNT): 132
+0303.754 (0) Table is relatively small; fetch_rows will thus be: 250 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0303.757 (0) Table wp_terms: Rows added in this batch (next record: 149): 132 (uncompressed bytes in this segment=6773) in 0.00 seconds
+0303.762 (0) Table wp_terms: finishing file(s) (2, 2.4 KB)
+0303.767 (0) Table wp_wpr_rucss_resources: Total expected rows (via COUNT): 0
+0303.770 (0) Table wp_wpr_rucss_resources: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1141) in 0.00 seconds
+0303.775 (0) Table wp_wpr_rucss_resources: finishing file(s) (2, 0.5 KB)
+0303.779 (0) Table wp_wpr_rucss_used_css: Total expected rows (via COUNT): 0
+0303.780 (0) Table wp_wpr_rucss_used_css: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1256) in 0.00 seconds
+0303.785 (0) Table wp_wpr_rucss_used_css: finishing file(s) (2, 0.5 KB)
+0303.789 (0) Table wp_ahm_asset_links: Total expected rows (via COUNT): 0
+0303.790 (0) Table wp_ahm_asset_links: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=679) in 0.00 seconds
+0303.804 (0) Table wp_ahm_asset_links: finishing file(s) (2, 0.4 KB)
+0303.807 (0) Table wp_ahm_assets: Total expected rows (via COUNT): 0
+0303.809 (0) Table wp_ahm_assets: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=679) in 0.00 seconds
+0303.812 (0) Table wp_ahm_assets: finishing file(s) (2, 0.4 KB)
+0303.816 (0) Table wp_ahm_download_stats: Total expected rows (via COUNT): 0
+0303.818 (0) Table wp_ahm_download_stats: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=858) in 0.00 seconds
+0303.822 (0) Table wp_ahm_download_stats: finishing file(s) (2, 0.4 KB)
+0303.825 (0) Table wp_ahm_emails: Total expected rows (via COUNT): 0
+0303.827 (0) Table wp_ahm_emails: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=599) in 0.00 seconds
+0303.830 (0) Table wp_ahm_emails: finishing file(s) (2, 0.4 KB)
+0303.834 (0) Table wp_ahm_sessions: Total expected rows (via COUNT): 0
+0303.835 (0) Table wp_ahm_sessions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=634) in 0.00 seconds
+0303.840 (0) Table wp_ahm_sessions: finishing file(s) (2, 0.4 KB)
+0303.843 (0) Table wp_ahm_social_conns: Total expected rows (via COUNT): 0
+0303.845 (0) Table wp_ahm_social_conns: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=876) in 0.00 seconds
+0303.849 (0) Table wp_ahm_social_conns: finishing file(s) (2, 0.4 KB)
+0303.852 (0) Table wp_ahm_user_download_counts: Total expected rows (via COUNT): 0
+0303.853 (0) Table wp_ahm_user_download_counts: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=602) in 0.00 seconds
+0303.857 (0) Table wp_ahm_user_download_counts: finishing file(s) (2, 0.3 KB)
+0303.861 (0) Table wp_aiowps_audit_log: Total expected rows (via COUNT): 69
+0303.862 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0303.880 (0) Table wp_aiowps_audit_log: Rows added in this batch (next record: 73): 69 (uncompressed bytes in this segment=122145) in 0.02 seconds
+0303.884 (0) Table wp_aiowps_audit_log: finishing file(s) (2, 8.9 KB)
+0303.888 (0) Table wp_aiowps_debug_log: Total expected rows (via COUNT): 0
+0303.890 (0) Table wp_aiowps_debug_log: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=707) in 0.00 seconds
+0303.894 (0) Table wp_aiowps_debug_log: finishing file(s) (2, 0.4 KB)
+0303.899 (0) Table wp_aiowps_events: Total expected rows (via COUNT): 0
+0303.900 (0) Table wp_aiowps_events: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1019) in 0.00 seconds
+0303.904 (0) Table wp_aiowps_events: finishing file(s) (2, 0.4 KB)
+0303.908 (0) Table wp_aiowps_failed_logins: Total expected rows (approximate): 4113
+0304.159 (0) Table wp_aiowps_failed_logins: Rows added in this batch (next record: 6610): 4113 (uncompressed bytes in this segment=288168) in 0.25 seconds
+0304.165 (0) Table wp_aiowps_failed_logins: finishing file(s) (2, 53.3 KB)
+0304.170 (0) Table wp_aiowps_global_meta: Total expected rows (via COUNT): 0
+0304.172 (0) Table wp_aiowps_global_meta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1192) in 0.00 seconds
+0304.177 (0) Table wp_aiowps_global_meta: finishing file(s) (2, 0.4 KB)
+0304.180 (0) Table wp_aiowps_login_activity: Total expected rows (via COUNT): 29
+0304.181 (0) Table is relatively small; fetch_rows will thus be: 50 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.184 (0) Table wp_aiowps_login_activity: Rows added in this batch (next record: 507): 29 (uncompressed bytes in this segment=3891) in 0.00 seconds
+0304.187 (0) Table wp_aiowps_login_activity: finishing file(s) (2, 1 KB)
+0304.191 (0) Table wp_aiowps_login_lockdown: Total expected rows (via COUNT): 28
+0304.192 (0) Table is relatively small; fetch_rows will thus be: 50 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.193 (0) Table wp_aiowps_login_lockdown: Rows added in this batch (next record: 28): 28 (uncompressed bytes in this segment=4715) in 0.00 seconds
+0304.197 (0) Table wp_aiowps_login_lockdown: finishing file(s) (2, 1.1 KB)
+0304.200 (0) Table wp_aiowps_permanent_block: Total expected rows (via COUNT): 0
+0304.203 (0) Table wp_aiowps_permanent_block: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=868) in 0.00 seconds
+0304.206 (0) Table wp_aiowps_permanent_block: finishing file(s) (2, 0.4 KB)
+0304.210 (0) Table wp_bv_activities_store: Total expected rows (via COUNT): 1
+0304.211 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.213 (0) Table wp_bv_activities_store: Rows added in this batch (next record: 1312): 1 (uncompressed bytes in this segment=1183) in 0.00 seconds
+0304.217 (0) Table wp_bv_activities_store: finishing file(s) (2, 0.6 KB)
+0304.220 (0) Table wp_bv_fw_requests: Total expected rows (via COUNT): 1
+0304.221 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.223 (0) Table wp_bv_fw_requests: Rows added in this batch (next record: 101887): 1 (uncompressed bytes in this segment=2033) in 0.00 seconds
+0304.226 (0) Table wp_bv_fw_requests: finishing file(s) (2, 0.8 KB)
+0304.254 (0) Table wp_bv_ip_store: Total expected rows (approximate): 4936
+0304.451 (0) Table wp_bv_ip_store: Rows added in this batch (next record: 4936): 4936 (uncompressed bytes in this segment=241201) in 0.22 seconds
+0304.456 (0) Table wp_bv_ip_store: finishing file(s) (2, 49.4 KB)
+0304.460 (0) Table wp_bv_lp_requests: Total expected rows (via COUNT): 1
+0304.461 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.463 (0) Table wp_bv_lp_requests: Rows added in this batch (next record: 11679): 1 (uncompressed bytes in this segment=1021) in 0.00 seconds
+0304.467 (0) Table wp_bv_lp_requests: finishing file(s) (2, 0.5 KB)
+0304.478 (0) Table wp_duplicator_pro_entities: Total expected rows (via COUNT): 6
+0304.478 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.480 (0) Table wp_duplicator_pro_entities: Rows added in this batch (next record: 29): 6 (uncompressed bytes in this segment=7038) in 0.01 seconds
+0304.485 (0) Table wp_duplicator_pro_entities: finishing file(s) (2, 2.2 KB)
+0304.490 (0) Table wp_duplicator_pro_packages: Total expected rows (via COUNT): 0
+0304.492 (0) Table wp_duplicator_pro_packages: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=835) in 0.00 seconds
+0304.497 (0) Table wp_duplicator_pro_packages: finishing file(s) (2, 0.4 KB)
+0304.501 (0) Table wp_e_events: Total expected rows (via COUNT): 0
+0304.502 (0) Table wp_e_events: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=529) in 0.00 seconds
+0304.506 (0) Table wp_e_events: finishing file(s) (2, 0.4 KB)
+0304.510 (0) Table wp_e_submissions: Total expected rows (approximate): 1073
+0304.548 (0) Table wp_e_submissions: Rows added in this batch (next record: 1190): 1186 (uncompressed bytes in this segment=668773) in 0.04 seconds
+0304.553 (0) Table wp_e_submissions: finishing file(s) (2, 89.6 KB)
+0304.556 (0) Table wp_e_submissions_actions_log: Total expected rows (approximate): 1932
+0304.583 (0) Table wp_e_submissions_actions_log: Rows added in this batch (next record: 2047): 2039 (uncompressed bytes in this segment=293043) in 0.03 seconds
+0304.589 (0) Table wp_e_submissions_actions_log: finishing file(s) (2, 27.9 KB)
+0304.598 (0) Table wp_e_submissions_values: Total expected rows (approximate): 4473
+0304.637 (0) Table wp_e_submissions_values: Rows added in this batch (next record: 4731): 4723 (uncompressed bytes in this segment=364124) in 0.05 seconds
+0304.643 (0) Table wp_e_submissions_values: finishing file(s) (2, 92.2 KB)
+0304.649 (0) Table wp_fb3d_pages: Total expected rows (via COUNT): 0
+0304.650 (0) Table wp_fb3d_pages: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1070) in 0.00 seconds
+0304.655 (0) Table wp_fb3d_pages: finishing file(s) (2, 0.4 KB)
+0304.665 (0) Table wp_frm_fields: Total expected rows (via COUNT): 17
+0304.666 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.669 (0) Table wp_frm_fields: Rows added in this batch (next record: 23): 17 (uncompressed bytes in this segment=33238) in 0.01 seconds
+0304.674 (0) Table wp_frm_fields: finishing file(s) (2, 3.2 KB)
+0304.682 (0) Table wp_frm_forms: Total expected rows (via COUNT): 3
+0304.683 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.685 (0) Table wp_frm_forms: Rows added in this batch (next record: 3): 3 (uncompressed bytes in this segment=7731) in 0.01 seconds
+0304.690 (0) Table wp_frm_forms: finishing file(s) (2, 1.9 KB)
+0304.720 (0) Table wp_frm_item_metas: Total expected rows (via COUNT): 334
+0304.722 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.734 (0) Table wp_frm_item_metas: Rows added in this batch (next record: 334): 334 (uncompressed bytes in this segment=34339) in 0.04 seconds
+0304.740 (0) Table wp_frm_item_metas: finishing file(s) (2, 5.9 KB)
+0304.744 (0) Table wp_frm_items: Total expected rows (via COUNT): 52
+0304.745 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.756 (0) Table wp_frm_items: Rows added in this batch (next record: 52): 52 (uncompressed bytes in this segment=18206) in 0.01 seconds
+0304.760 (0) Table wp_frm_items: finishing file(s) (2, 3.5 KB)
+0304.763 (0) Table wp_gf_draft_submissions: Total expected rows (approximate): 0
+0304.766 (0) Table wp_gf_draft_submissions: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=851) in 0.00 seconds
+0304.769 (0) Table wp_gf_draft_submissions: finishing file(s) (2, 0.4 KB)
+0304.773 (0) Table wp_gf_entry: Total expected rows (via COUNT): 0
+0304.774 (0) Table wp_gf_entry: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1559) in 0.00 seconds
+0304.777 (0) Table wp_gf_entry: finishing file(s) (2, 0.6 KB)
+0304.782 (0) Table wp_gf_entry_meta: Total expected rows (via COUNT): 0
+0304.784 (0) Table wp_gf_entry_meta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=838) in 0.00 seconds
+0304.789 (0) Table wp_gf_entry_meta: finishing file(s) (2, 0.4 KB)
+0304.794 (0) Table wp_gf_entry_notes: Total expected rows (via COUNT): 0
+0304.796 (0) Table wp_gf_entry_notes: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=890) in 0.00 seconds
+0304.801 (0) Table wp_gf_entry_notes: finishing file(s) (2, 0.4 KB)
+0304.805 (0) Table wp_gf_form: Total expected rows (via COUNT): 3
+0304.806 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.808 (0) Table wp_gf_form: Rows added in this batch (next record: 3): 3 (uncompressed bytes in this segment=874) in 0.00 seconds
+0304.812 (0) Table wp_gf_form: finishing file(s) (2, 0.5 KB)
+0304.817 (0) Table wp_gf_form_meta: Total expected rows (via COUNT): 3
+0304.818 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.819 (0) Table wp_gf_form_meta: Rows added in this batch (next record: 3): 3 (uncompressed bytes in this segment=10593) in 0.00 seconds
+0304.824 (0) Table wp_gf_form_meta: finishing file(s) (2, 1.9 KB)
+0304.828 (0) Table wp_gf_form_revisions: Total expected rows (via COUNT): 0
+0304.831 (0) Table wp_gf_form_revisions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=663) in 0.00 seconds
+0304.835 (0) Table wp_gf_form_revisions: finishing file(s) (2, 0.4 KB)
+0304.839 (0) Table wp_gf_form_view: Total expected rows (via COUNT): 1
+0304.840 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.843 (0) Table wp_gf_form_view: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=784) in 0.00 seconds
+0304.847 (0) Table wp_gf_form_view: finishing file(s) (2, 0.4 KB)
+0304.852 (0) Table wp_gf_rest_api_keys: Total expected rows (via COUNT): 0
+0304.854 (0) Table wp_gf_rest_api_keys: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1022) in 0.00 seconds
+0304.859 (0) Table wp_gf_rest_api_keys: finishing file(s) (2, 0.5 KB)
+0304.864 (0) Table wp_mainwp_stream: Total expected rows (via COUNT): 73
+0304.865 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.868 (0) Table wp_mainwp_stream: Rows added in this batch (next record: 73): 73 (uncompressed bytes in this segment=12946) in 0.01 seconds
+0304.873 (0) Table wp_mainwp_stream: finishing file(s) (2, 2.1 KB)
+0304.877 (0) Table wp_mainwp_stream_meta: Total expected rows (via COUNT): 655
+0304.878 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.883 (0) Table wp_mainwp_stream_meta: Rows added in this batch (next record: 655): 655 (uncompressed bytes in this segment=25937) in 0.01 seconds
+0304.887 (0) Table wp_mainwp_stream_meta: finishing file(s) (2, 4.9 KB)
+0304.893 (0) Table wp_ms_snippets: Total expected rows (via COUNT): 0
+0304.895 (0) Table wp_ms_snippets: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=884) in 0.00 seconds
+0304.900 (0) Table wp_ms_snippets: finishing file(s) (2, 0.4 KB)
+0304.903 (0) Table wp_realmedialibrary: Total expected rows (via COUNT): 0
+0304.905 (0) Table wp_realmedialibrary: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1071) in 0.00 seconds
+0304.908 (0) Table wp_realmedialibrary: finishing file(s) (2, 0.5 KB)
+0304.913 (0) Table wp_realmedialibrary_meta: Total expected rows (via COUNT): 0
+0304.915 (0) Table wp_realmedialibrary_meta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=772) in 0.00 seconds
+0304.920 (0) Table wp_realmedialibrary_meta: finishing file(s) (2, 0.4 KB)
+0304.923 (0) Table wp_realmedialibrary_posts: Total expected rows (approximate): 0
+0304.925 (0) Table wp_realmedialibrary_posts: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=746) in 0.00 seconds
+0304.929 (0) Table wp_realmedialibrary_posts: finishing file(s) (2, 0.4 KB)
+0304.933 (0) Table wp_realmedialibrary_tmp: Total expected rows (via COUNT): 0
+0304.934 (0) Table wp_realmedialibrary_tmp: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=634) in 0.00 seconds
+0304.938 (0) Table wp_realmedialibrary_tmp: finishing file(s) (2, 0.4 KB)
+0304.943 (0) Table wp_snippets: Total expected rows (via COUNT): 7
+0304.944 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0304.946 (0) Table wp_snippets: Rows added in this batch (next record: 7): 7 (uncompressed bytes in this segment=5470) in 0.01 seconds
+0304.951 (0) Table wp_snippets: finishing file(s) (2, 2.1 KB)
+0304.955 (0) Table wp_ssp_stats: Total expected rows (via COUNT): 0
+0304.957 (0) Table wp_ssp_stats: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=515) in 0.00 seconds
+0304.960 (0) Table wp_ssp_stats: finishing file(s) (2, 0.3 KB)
+0304.964 (0) Table wp_wfblockediplog: Total expected rows (approximate): 330
+0304.975 (0) Table wp_wfblockediplog: Rows added in this batch (next record: 1000): 330 (uncompressed bytes in this segment=21232) in 0.01 seconds
+0304.978 (0) Table wp_wfblockediplog: finishing file(s) (2, 3.2 KB)
+0304.982 (0) Table wp_wfblocks7: Total expected rows (via COUNT): 0
+0304.983 (0) Table wp_wfblocks7: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=831) in 0.00 seconds
+0304.987 (0) Table wp_wfblocks7: finishing file(s) (2, 0.4 KB)
+0304.990 (0) Table wp_wfconfig: Total expected rows (approximate): 275
+0305.054 (0) Table wp_wfconfig: Rows added in this batch (next record: 1000): 275 (uncompressed bytes in this segment=971460) in 0.06 seconds
+0305.059 (0) Table wp_wfconfig: finishing file(s) (2, 456.4 KB)
+0305.062 (0) Table wp_wfcrawlers: Total expected rows (approximate): 26
+0305.066 (0) Table wp_wfcrawlers: Rows added in this batch (next record: 1000): 26 (uncompressed bytes in this segment=4120) in 0.00 seconds
+0305.070 (0) Table wp_wfcrawlers: finishing file(s) (2, 0.9 KB)
+0305.074 (0) Table wp_wffilechanges: Total expected rows (approximate): 0
+0305.075 (0) Table wp_wffilechanges: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=452) in 0.00 seconds
+0305.079 (0) Table wp_wffilechanges: finishing file(s) (2, 0.3 KB)
+0305.081 (0) Table wp_wffilemods: Total expected rows (approximate): 135023
+0307.398 (0) Table wp_wffilemods: binary mysqldump finished (writes: 80, bytes 45948575, return code 0) in 2.32 seconds
+0307.402 (0) Table wp_wffilemods: finishing file(s) (1, 11346.7 KB)
+0307.406 (0) Table wp_wfhits: Total expected rows (via COUNT): 868
+0307.734 (0) Table wp_wfhits: Rows added in this batch (next record: 23676): 868 (uncompressed bytes in this segment=441026) in 0.33 seconds
+0307.739 (0) Table wp_wfhits: finishing file(s) (2, 33.3 KB)
+0307.742 (0) Table wp_wfhoover: Total expected rows (via COUNT): 0
+0307.743 (0) Table wp_wfhoover: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=476) in 0.00 seconds
+0307.746 (0) Table wp_wfhoover: finishing file(s) (2, 0.3 KB)
+0307.750 (0) Table wp_wfissues: Total expected rows (via COUNT): 184
+0307.751 (0) Table is relatively small; fetch_rows will thus be: 250 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0307.775 (0) Table wp_wfissues: Rows added in this batch (next record: 20808): 184 (uncompressed bytes in this segment=188878) in 0.03 seconds
+0307.778 (0) Table wp_wfissues: finishing file(s) (2, 19.7 KB)
+0307.781 (0) Table wp_wfknownfilelist: Total expected rows (approximate): 135024
+0308.877 (0) Table wp_wfknownfilelist: binary mysqldump finished (writes: 54, bytes 26481832, return code 0) in 1.10 seconds
+0308.882 (0) Table wp_wfknownfilelist: finishing file(s) (1, 1845.3 KB)
+0308.885 (0) Table wp_wflivetraffichuman: Total expected rows (approximate): 0
+0308.887 (0) Table wp_wflivetraffichuman: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=648) in 0.00 seconds
+0308.891 (0) Table wp_wflivetraffichuman: finishing file(s) (2, 0.3 KB)
+0308.894 (0) Table wp_wflocs: Total expected rows (approximate): 1
+0308.896 (0) Table wp_wflocs: Rows added in this batch (next record: 1000): 1 (uncompressed bytes in this segment=857) in 0.00 seconds
+0308.899 (0) Table wp_wflocs: finishing file(s) (2, 0.5 KB)
+0308.903 (0) Table wp_wflogins: Total expected rows (approximate): 2003
+0309.123 (0) Table wp_wflogins: Rows added in this batch (next record: 7463): 2003 (uncompressed bytes in this segment=490676) in 0.22 seconds
+0309.127 (0) Table wp_wflogins: finishing file(s) (2, 48.1 KB)
+0309.131 (0) Table wp_wfls_2fa_secrets: Total expected rows (via COUNT): 0
+0309.132 (0) Table wp_wfls_2fa_secrets: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=681) in 0.00 seconds
+0309.136 (0) Table wp_wfls_2fa_secrets: finishing file(s) (2, 0.4 KB)
+0309.139 (0) Table wp_wfls_role_counts: Total expected rows (approximate): 0
+0309.140 (0) Table wp_wfls_role_counts: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=550) in 0.00 seconds
+0309.143 (0) Table wp_wfls_role_counts: finishing file(s) (2, 0.3 KB)
+0309.147 (0) Table wp_wfls_settings: Total expected rows (approximate): 28
+0309.148 (0) Table wp_wfls_settings: Rows added in this batch (next record: 1000): 30 (uncompressed bytes in this segment=2051) in 0.00 seconds
+0309.152 (0) Table wp_wfls_settings: finishing file(s) (2, 0.9 KB)
+0309.155 (0) Table wp_wfnotifications: Total expected rows (approximate): 8
+0309.157 (0) Table wp_wfnotifications: Rows added in this batch (next record: 1000): 8 (uncompressed bytes in this segment=3128) in 0.00 seconds
+0309.160 (0) Table wp_wfnotifications: finishing file(s) (2, 1 KB)
+0309.164 (0) Table wp_wfpendingissues: Total expected rows (via COUNT): 1
+0309.165 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0309.172 (0) Table wp_wfpendingissues: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=2243) in 0.01 seconds
+0309.175 (0) Table wp_wfpendingissues: finishing file(s) (2, 1.1 KB)
+0309.178 (0) Table wp_wfreversecache: Total expected rows (approximate): 9
+0309.184 (0) Table wp_wfreversecache: Rows added in this batch (next record: 1000): 9 (uncompressed bytes in this segment=1319) in 0.01 seconds
+0309.188 (0) Table wp_wfreversecache: finishing file(s) (2, 0.5 KB)
+0309.191 (0) Table wp_wfsecurityevents: Total expected rows (via COUNT): 0
+0309.192 (0) Table wp_wfsecurityevents: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=678) in 0.00 seconds
+0309.196 (0) Table wp_wfsecurityevents: finishing file(s) (2, 0.4 KB)
+0309.199 (0) Table wp_wfsnipcache: Total expected rows (via COUNT): 0
+0309.200 (0) Table wp_wfsnipcache: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=721) in 0.00 seconds
+0309.203 (0) Table wp_wfsnipcache: finishing file(s) (2, 0.4 KB)
+0309.206 (0) Table wp_wfstatus: Total expected rows (via COUNT): 953
+0309.367 (0) Table wp_wfstatus: Rows added in this batch (next record: 911512): 953 (uncompressed bytes in this segment=104841) in 0.16 seconds
+0309.371 (0) Table wp_wfstatus: finishing file(s) (2, 15.9 KB)
+0309.375 (0) Table wp_wftrafficrates: Total expected rows (approximate): 0
+0309.376 (0) Table wp_wftrafficrates: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=566) in 0.00 seconds
+0309.379 (0) Table wp_wftrafficrates: finishing file(s) (2, 0.3 KB)
+0309.383 (0) Table wp_wfwaffailures: Total expected rows (via COUNT): 0
+0309.384 (0) Table wp_wfwaffailures: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=527) in 0.00 seconds
+0309.387 (0) Table wp_wfwaffailures: finishing file(s) (2, 0.3 KB)
+0309.391 (0) Table wp_wpmailsmtp_debug_events: Total expected rows (via COUNT): 0
+0309.392 (0) Table wp_wpmailsmtp_debug_events: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=707) in 0.00 seconds
+0309.395 (0) Table wp_wpmailsmtp_debug_events: finishing file(s) (2, 0.4 KB)
+0309.400 (0) Table wp_wpmailsmtp_tasks_meta: Total expected rows (via COUNT): 11
+0309.401 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0309.403 (0) Table wp_wpmailsmtp_tasks_meta: Rows added in this batch (next record: 11): 11 (uncompressed bytes in this segment=1570) in 0.01 seconds
+0309.408 (0) Table wp_wpmailsmtp_tasks_meta: finishing file(s) (2, 0.6 KB)
+0309.418 (0) Table wp_yoast_indexable: Total expected rows (via COUNT): 437
+0309.418 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0309.449 (0) Table wp_yoast_indexable: Rows added in this batch (next record: 2964): 437 (uncompressed bytes in this segment=289731) in 0.04 seconds
+0309.454 (0) Table wp_yoast_indexable: finishing file(s) (2, 46.5 KB)
+0309.458 (0) Table wp_yoast_indexable_hierarchy: Total expected rows (approximate): 426
+0309.461 (0) Table wp_yoast_indexable_hierarchy: Rows added in this batch (next record: 1000): 426 (uncompressed bytes in this segment=8384) in 0.00 seconds
+0309.465 (0) Table wp_yoast_indexable_hierarchy: finishing file(s) (2, 1.5 KB)
+0309.468 (0) Table wp_yoast_migrations: Total expected rows (via COUNT): 23
+0309.469 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0309.472 (0) Table wp_yoast_migrations: Rows added in this batch (next record: 23): 23 (uncompressed bytes in this segment=1240) in 0.00 seconds
+0309.475 (0) Table wp_yoast_migrations: finishing file(s) (2, 0.6 KB)
+0309.478 (0) Table wp_yoast_primary_term: Total expected rows (via COUNT): 93
+0309.479 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0309.484 (0) Table wp_yoast_primary_term: Rows added in this batch (next record: 135): 93 (uncompressed bytes in this segment=8347) in 0.01 seconds
+0309.488 (0) Table wp_yoast_primary_term: finishing file(s) (2, 2.1 KB)
+0309.491 (0) Table wp_yoast_seo_links: Total expected rows (via COUNT): 537
+0309.499 (0) Table wp_yoast_seo_links: Rows added in this batch (next record: 3082): 537 (uncompressed bytes in this segment=84647) in 0.01 seconds
+0309.503 (0) Table wp_yoast_seo_links: finishing file(s) (2, 12.5 KB)
+0309.506 (0) Table wp_yoast_seo_meta: Total expected rows (via COUNT): 67
+0309.507 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0309.510 (0) Table wp_yoast_seo_meta: Rows added in this batch (next record: 137): 67 (uncompressed bytes in this segment=1468) in 0.00 seconds
+0309.513 (0) Table wp_yoast_seo_meta: finishing file(s) (2, 0.5 KB)
+0309.514 (0) PHP event: code E_WARNING: filemtime(): stat failed for /home/zuelligf/public_html/wp-content/updraft/backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db.gz (line 1924, wp-content/plugins/updraftplus/backup.php)
+0309.518 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_options.table.tmpr1212813.gz (1/100/fopen): adding to final database dump
+0309.534 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_options.table.gz (2/100/fopen): adding to final database dump
+0309.535 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_users.table.tmpr10.gz (3/100/fopen): adding to final database dump
+0309.536 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_users.table.gz (4/100/fopen): adding to final database dump
+0309.537 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_usermeta.table.tmpr801.gz (5/100/fopen): adding to final database dump
+0309.538 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_usermeta.table.gz (6/100/fopen): adding to final database dump
+0309.538 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_actionscheduler_actions.table.tmpr0.gz (7/100/fopen): adding to final database dump
+0309.539 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_actionscheduler_actions.table.gz (8/100/fopen): adding to final database dump
+0309.540 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_actionscheduler_claims.table.tmpr0.gz (9/100/fopen): adding to final database dump
+0309.541 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_actionscheduler_claims.table.gz (10/100/fopen): adding to final database dump
+0309.541 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_actionscheduler_groups.table.tmpr3.gz (11/100/fopen): adding to final database dump
+0309.542 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_actionscheduler_groups.table.gz (12/100/fopen): adding to final database dump
+0309.543 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_actionscheduler_logs.table.tmpr0.gz (13/100/fopen): adding to final database dump
+0309.544 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_actionscheduler_logs.table.gz (14/100/fopen): adding to final database dump
+0309.544 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_commentmeta.table.tmpr56.gz (15/100/fopen): adding to final database dump
+0309.545 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_commentmeta.table.gz (16/100/fopen): adding to final database dump
+0309.546 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_comments.table.tmpr47.gz (17/100/fopen): adding to final database dump
+0309.547 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_comments.table.gz (18/100/fopen): adding to final database dump
+0309.547 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_notes.table.tmpr0.gz (19/100/fopen): adding to final database dump
+0309.548 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_notes.table.gz (20/100/fopen): adding to final database dump
+0309.549 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_notes_users_relations.table.tmpr0.gz (21/100/fopen): adding to final database dump
+0309.550 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_notes_users_relations.table.gz (22/100/fopen): adding to final database dump
+0309.550 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_links.table.tmpr0.gz (23/100/fopen): adding to final database dump
+0309.551 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_links.table.gz (24/100/fopen): adding to final database dump
+0309.552 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_postmeta.table.gz (25/100/fopen): adding to final database dump
+0309.602 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_posts.table.tmpr9326.gz (26/100/fopen): adding to final database dump
+0309.634 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_posts.table.gz (27/100/fopen): adding to final database dump
+0309.635 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_term_relationships.table.tmpr100001.gz (28/100/fopen): adding to final database dump
+0309.636 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_term_relationships.table.gz (29/100/fopen): adding to final database dump
+0309.637 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_term_taxonomy.table.tmpr150.gz (30/100/fopen): adding to final database dump
+0309.638 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_term_taxonomy.table.gz (31/100/fopen): adding to final database dump
+0309.638 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_termmeta.table.tmpr30.gz (32/100/fopen): adding to final database dump
+0309.639 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_termmeta.table.gz (33/100/fopen): adding to final database dump
+0309.640 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_terms.table.tmpr150.gz (34/100/fopen): adding to final database dump
+0309.641 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_terms.table.gz (35/100/fopen): adding to final database dump
+0309.641 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wpr_rucss_resources.table.tmpr0.gz (36/100/fopen): adding to final database dump
+0309.642 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wpr_rucss_resources.table.gz (37/100/fopen): adding to final database dump
+0309.643 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wpr_rucss_used_css.table.tmpr0.gz (38/100/fopen): adding to final database dump
+0309.644 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wpr_rucss_used_css.table.gz (39/100/fopen): adding to final database dump
+0309.644 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_asset_links.table.tmpr0.gz (40/100/fopen): adding to final database dump
+0309.645 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_asset_links.table.gz (41/100/fopen): adding to final database dump
+0309.646 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_assets.table.tmpr0.gz (42/100/fopen): adding to final database dump
+0309.647 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_assets.table.gz (43/100/fopen): adding to final database dump
+0309.647 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_download_stats.table.tmpr0.gz (44/100/fopen): adding to final database dump
+0309.648 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_download_stats.table.gz (45/100/fopen): adding to final database dump
+0309.649 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_emails.table.tmpr0.gz (46/100/fopen): adding to final database dump
+0309.650 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_emails.table.gz (47/100/fopen): adding to final database dump
+0309.650 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_sessions.table.tmpr0.gz (48/100/fopen): adding to final database dump
+0309.651 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_sessions.table.gz (49/100/fopen): adding to final database dump
+0309.652 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_social_conns.table.tmpr0.gz (50/100/fopen): adding to final database dump
+0309.653 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_social_conns.table.gz (51/100/fopen): adding to final database dump
+0309.653 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_user_download_counts.table.tmpr0.gz (52/100/fopen): adding to final database dump
+0309.654 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ahm_user_download_counts.table.gz (53/100/fopen): adding to final database dump
+0309.655 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_audit_log.table.tmpr74.gz (54/100/fopen): adding to final database dump
+0309.656 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_audit_log.table.gz (55/100/fopen): adding to final database dump
+0309.657 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_debug_log.table.tmpr0.gz (56/100/fopen): adding to final database dump
+0309.657 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_debug_log.table.gz (57/100/fopen): adding to final database dump
+0309.658 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_events.table.tmpr0.gz (58/100/fopen): adding to final database dump
+0309.659 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_events.table.gz (59/100/fopen): adding to final database dump
+0309.660 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_failed_logins.table.tmpr6611.gz (60/100/fopen): adding to final database dump
+0309.662 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_failed_logins.table.gz (61/100/fopen): adding to final database dump
+0309.663 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_global_meta.table.tmpr0.gz (62/100/fopen): adding to final database dump
+0309.663 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_global_meta.table.gz (63/100/fopen): adding to final database dump
+0309.664 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_login_activity.table.tmpr508.gz (64/100/fopen): adding to final database dump
+0309.665 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_login_activity.table.gz (65/100/fopen): adding to final database dump
+0309.666 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_login_lockdown.table.tmpr29.gz (66/100/fopen): adding to final database dump
+0309.666 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_login_lockdown.table.gz (67/100/fopen): adding to final database dump
+0309.667 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_permanent_block.table.tmpr0.gz (68/100/fopen): adding to final database dump
+0309.668 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_aiowps_permanent_block.table.gz (69/100/fopen): adding to final database dump
+0309.668 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_bv_activities_store.table.tmpr1313.gz (70/100/fopen): adding to final database dump
+0309.669 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_bv_activities_store.table.gz (71/100/fopen): adding to final database dump
+0309.670 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_bv_fw_requests.table.tmpr101888.gz (72/100/fopen): adding to final database dump
+0309.671 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_bv_fw_requests.table.gz (73/100/fopen): adding to final database dump
+0309.672 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_bv_ip_store.table.tmpr4937.gz (74/100/fopen): adding to final database dump
+0309.673 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_bv_ip_store.table.gz (75/100/fopen): adding to final database dump
+0309.674 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_bv_lp_requests.table.tmpr11680.gz (76/100/fopen): adding to final database dump
+0309.674 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_bv_lp_requests.table.gz (77/100/fopen): adding to final database dump
+0309.675 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_duplicator_pro_entities.table.tmpr30.gz (78/100/fopen): adding to final database dump
+0309.676 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_duplicator_pro_entities.table.gz (79/100/fopen): adding to final database dump
+0309.677 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_duplicator_pro_packages.table.tmpr0.gz (80/100/fopen): adding to final database dump
+0309.678 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_duplicator_pro_packages.table.gz (81/100/fopen): adding to final database dump
+0309.678 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_events.table.tmpr0.gz (82/100/fopen): adding to final database dump
+0309.679 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_events.table.gz (83/100/fopen): adding to final database dump
+0309.680 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_submissions.table.tmpr1191.gz (84/100/fopen): adding to final database dump
+0309.684 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_submissions.table.gz (85/100/fopen): adding to final database dump
+0309.684 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_submissions_actions_log.table.tmpr2048.gz (86/100/fopen): adding to final database dump
+0309.686 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_submissions_actions_log.table.gz (87/100/fopen): adding to final database dump
+0309.687 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_submissions_values.table.tmpr4732.gz (88/100/fopen): adding to final database dump
+0309.690 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_e_submissions_values.table.gz (89/100/fopen): adding to final database dump
+0309.691 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_fb3d_pages.table.tmpr0.gz (90/100/fopen): adding to final database dump
+0309.692 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_fb3d_pages.table.gz (91/100/fopen): adding to final database dump
+0309.692 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_frm_fields.table.tmpr24.gz (92/100/fopen): adding to final database dump
+0309.693 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_frm_fields.table.gz (93/100/fopen): adding to final database dump
+0309.694 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_frm_forms.table.tmpr4.gz (94/100/fopen): adding to final database dump
+0309.695 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_frm_forms.table.gz (95/100/fopen): adding to final database dump
+0309.696 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_frm_item_metas.table.tmpr335.gz (96/100/fopen): adding to final database dump
+0309.697 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_frm_item_metas.table.gz (97/100/fopen): adding to final database dump
+0309.698 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_frm_items.table.tmpr53.gz (98/100/fopen): adding to final database dump
+0309.699 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_frm_items.table.gz (99/100/fopen): adding to final database dump
+0309.701 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_draft_submissions.table.tmpr1.gz (100/100/fopen): adding to final database dump
+0309.702 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_draft_submissions.table.gz (101/100/fopen): adding to final database dump
+0309.702 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_entry.table.tmpr0.gz (102/100/fopen): adding to final database dump
+0309.703 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_entry.table.gz (103/100/fopen): adding to final database dump
+0309.704 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_entry_meta.table.tmpr0.gz (104/100/fopen): adding to final database dump
+0309.705 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_entry_meta.table.gz (105/100/fopen): adding to final database dump
+0309.706 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_entry_notes.table.tmpr0.gz (106/100/fopen): adding to final database dump
+0309.706 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_entry_notes.table.gz (107/100/fopen): adding to final database dump
+0309.707 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_form.table.tmpr4.gz (108/100/fopen): adding to final database dump
+0309.708 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_form.table.gz (109/100/fopen): adding to final database dump
+0309.709 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_form_meta.table.tmpr4.gz (110/100/fopen): adding to final database dump
+0309.710 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_form_meta.table.gz (111/100/fopen): adding to final database dump
+0309.710 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_form_revisions.table.tmpr0.gz (112/100/fopen): adding to final database dump
+0309.711 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_form_revisions.table.gz (113/100/fopen): adding to final database dump
+0309.712 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_form_view.table.tmpr2.gz (114/100/fopen): adding to final database dump
+0309.713 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_form_view.table.gz (115/100/fopen): adding to final database dump
+0309.714 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_rest_api_keys.table.tmpr0.gz (116/100/fopen): adding to final database dump
+0309.715 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_gf_rest_api_keys.table.gz (117/100/fopen): adding to final database dump
+0309.716 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_mainwp_stream.table.tmpr74.gz (118/100/fopen): adding to final database dump
+0309.716 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_mainwp_stream.table.gz (119/100/fopen): adding to final database dump
+0309.717 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_mainwp_stream_meta.table.tmpr656.gz (120/100/fopen): adding to final database dump
+0309.718 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_mainwp_stream_meta.table.gz (121/100/fopen): adding to final database dump
+0309.719 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ms_snippets.table.tmpr0.gz (122/100/fopen): adding to final database dump
+0309.720 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ms_snippets.table.gz (123/100/fopen): adding to final database dump
+0309.720 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_realmedialibrary.table.tmpr0.gz (124/100/fopen): adding to final database dump
+0309.721 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_realmedialibrary.table.gz (125/100/fopen): adding to final database dump
+0309.722 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_realmedialibrary_meta.table.tmpr0.gz (126/100/fopen): adding to final database dump
+0309.723 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_realmedialibrary_meta.table.gz (127/100/fopen): adding to final database dump
+0309.724 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_realmedialibrary_posts.table.tmpr1.gz (128/100/fopen): adding to final database dump
+0309.724 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_realmedialibrary_posts.table.gz (129/100/fopen): adding to final database dump
+0309.725 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_realmedialibrary_tmp.table.tmpr0.gz (130/100/fopen): adding to final database dump
+0309.726 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_realmedialibrary_tmp.table.gz (131/100/fopen): adding to final database dump
+0309.727 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_snippets.table.tmpr8.gz (132/100/fopen): adding to final database dump
+0309.727 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_snippets.table.gz (133/100/fopen): adding to final database dump
+0309.728 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ssp_stats.table.tmpr0.gz (134/100/fopen): adding to final database dump
+0309.729 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_ssp_stats.table.gz (135/100/fopen): adding to final database dump
+0309.730 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfblockediplog.table.tmpr1001.gz (136/100/fopen): adding to final database dump
+0309.731 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfblockediplog.table.gz (137/100/fopen): adding to final database dump
+0309.731 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfblocks7.table.tmpr0.gz (138/100/fopen): adding to final database dump
+0309.732 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfblocks7.table.gz (139/100/fopen): adding to final database dump
+0309.733 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfconfig.table.tmpr1001.gz (140/100/fopen): adding to final database dump
+0309.744 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfconfig.table.gz (141/100/fopen): adding to final database dump
+0309.745 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfcrawlers.table.tmpr1001.gz (142/100/fopen): adding to final database dump
+0309.746 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfcrawlers.table.gz (143/100/fopen): adding to final database dump
+0309.747 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wffilechanges.table.tmpr1.gz (144/100/fopen): adding to final database dump
+0309.748 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wffilechanges.table.gz (145/100/fopen): adding to final database dump
+0309.748 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wffilemods.table.gz (146/100/fopen): adding to final database dump
+0309.993 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfhits.table.tmpr23677.gz (147/100/fopen): adding to final database dump
+0309.996 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfhits.table.gz (148/100/fopen): adding to final database dump
+0309.997 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfhoover.table.tmpr0.gz (149/100/fopen): adding to final database dump
+0309.998 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfhoover.table.gz (150/100/fopen): adding to final database dump
+0309.999 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfissues.table.tmpr20809.gz (151/100/fopen): adding to final database dump
+0310.000 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfissues.table.gz (152/100/fopen): adding to final database dump
+0310.001 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfknownfilelist.table.gz (153/100/fopen): adding to final database dump
+0310.043 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wflivetraffichuman.table.tmpr1.gz (154/100/fopen): adding to final database dump
+0310.045 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wflivetraffichuman.table.gz (155/100/fopen): adding to final database dump
+0310.046 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wflocs.table.tmpr1001.gz (156/100/fopen): adding to final database dump
+0310.047 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wflocs.table.gz (157/100/fopen): adding to final database dump
+0310.048 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wflogins.table.tmpr7464.gz (158/100/fopen): adding to final database dump
+0310.050 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wflogins.table.gz (159/100/fopen): adding to final database dump
+0310.051 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfls_2fa_secrets.table.tmpr0.gz (160/100/fopen): adding to final database dump
+0310.052 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfls_2fa_secrets.table.gz (161/100/fopen): adding to final database dump
+0310.052 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfls_role_counts.table.tmpr1.gz (162/100/fopen): adding to final database dump
+0310.053 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfls_role_counts.table.gz (163/100/fopen): adding to final database dump
+0310.054 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfls_settings.table.tmpr1001.gz (164/100/fopen): adding to final database dump
+0310.055 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfls_settings.table.gz (165/100/fopen): adding to final database dump
+0310.056 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfnotifications.table.tmpr1001.gz (166/100/fopen): adding to final database dump
+0310.057 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfnotifications.table.gz (167/100/fopen): adding to final database dump
+0310.058 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfpendingissues.table.tmpr2.gz (168/100/fopen): adding to final database dump
+0310.058 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfpendingissues.table.gz (169/100/fopen): adding to final database dump
+0310.059 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfreversecache.table.tmpr1001.gz (170/100/fopen): adding to final database dump
+0310.060 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfreversecache.table.gz (171/100/fopen): adding to final database dump
+0310.061 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfsecurityevents.table.tmpr0.gz (172/100/fopen): adding to final database dump
+0310.061 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfsecurityevents.table.gz (173/100/fopen): adding to final database dump
+0310.062 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfsnipcache.table.tmpr0.gz (174/100/fopen): adding to final database dump
+0310.063 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfsnipcache.table.gz (175/100/fopen): adding to final database dump
+0310.064 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfstatus.table.tmpr911513.gz (176/100/fopen): adding to final database dump
+0310.065 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfstatus.table.gz (177/100/fopen): adding to final database dump
+0310.065 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wftrafficrates.table.tmpr1.gz (178/100/fopen): adding to final database dump
+0310.066 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wftrafficrates.table.gz (179/100/fopen): adding to final database dump
+0310.067 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfwaffailures.table.tmpr0.gz (180/100/fopen): adding to final database dump
+0310.068 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wfwaffailures.table.gz (181/100/fopen): adding to final database dump
+0310.068 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wpmailsmtp_debug_events.table.tmpr0.gz (182/100/fopen): adding to final database dump
+0310.069 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wpmailsmtp_debug_events.table.gz (183/100/fopen): adding to final database dump
+0310.070 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wpmailsmtp_tasks_meta.table.tmpr12.gz (184/100/fopen): adding to final database dump
+0310.071 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_wpmailsmtp_tasks_meta.table.gz (185/100/fopen): adding to final database dump
+0310.071 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_indexable.table.tmpr2965.gz (186/100/fopen): adding to final database dump
+0310.073 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_indexable.table.gz (187/100/fopen): adding to final database dump
+0310.074 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_indexable_hierarchy.table.tmpr1001.gz (188/100/fopen): adding to final database dump
+0310.075 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_indexable_hierarchy.table.gz (189/100/fopen): adding to final database dump
+0310.075 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_migrations.table.tmpr24.gz (190/100/fopen): adding to final database dump
+0310.076 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_migrations.table.gz (191/100/fopen): adding to final database dump
+0310.077 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_primary_term.table.tmpr136.gz (192/100/fopen): adding to final database dump
+0310.078 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_primary_term.table.gz (193/100/fopen): adding to final database dump
+0310.078 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_seo_links.table.tmpr3083.gz (194/100/fopen): adding to final database dump
+0310.080 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_seo_links.table.gz (195/100/fopen): adding to final database dump
+0310.080 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_seo_meta.table.tmpr138.gz (196/100/fopen): adding to final database dump
+0310.081 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db-table-wp_yoast_seo_meta.table.gz (197/100/fopen): adding to final database dump
+0310.169 (0) Dumping routines for database zuelligf_gd3asxazaf
+0310.171 (0) Dumping routine: wp_fn_realmedialibrary_childs - (Successful)
+0310.172 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db.gz: finished writing out complete database file (18029.5 KB)
+0310.447 (0) Total database tables backed up: 100 (backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db.gz, size: 18462844, sha1: e05e1220552b618330038b5cb6bd3081debbed53, sha256: 5e64e0a519fcea13e56ec71d074ca668eb14820392466e69f86f75667b635d42)
+0310.455 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-plugins.zip: plugins: This file has already been successfully uploaded
+0310.455 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-themes.zip: themes: This file has already been successfully uploaded
+0310.456 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads.zip: uploads: This file has already been successfully uploaded
+0310.457 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads2.zip: uploads: This file has already been successfully uploaded
+0310.458 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads3.zip: uploads: This file has already been successfully uploaded
+0310.459 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads4.zip: uploads: This file has already been successfully uploaded
+0310.460 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads5.zip: uploads: This file has already been successfully uploaded
+0310.461 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-uploads6.zip: uploads: This file has already been successfully uploaded
+0310.461 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-others.zip: others: This file has already been successfully uploaded
+0310.462 (0) backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db.gz: db: This file has not yet been successfully uploaded: will queue
+0310.464 (0) Saving backup history. Total backup size: 2.1 GB
+0310.467 (0) Requesting upload of the files that have not yet been successfully uploaded (1)
+0310.470 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0310.471 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-134f1a6e74ea7a6131b6bc16a9375d53)
+0310.759 (0) Google Drive: quota usage: used=559296.6 MB, total=78643200 MB, available=78083903.4 MB
+0310.760 (0) Google Drive: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db.gz: Attempting to upload to Google Drive (into folder id: 1D-WawyLk_-WRhWLqJUJZFT7NuH2KWgWl)
+0311.338 (0) Googledrive chunked upload: 5.7 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 112.5 / 147)
+0311.549 (0) Googledrive chunked upload: 17 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 112.5 / 147)
+0311.784 (0) Googledrive chunked upload: 39.8 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 112.5 / 147)
+0312.188 (0) Googledrive chunked upload: 85.2 % uploaded (15728640 - increasing chunk size to 16384 KB - memory usage: 112.5 / 147)
+0313.745 (0) Googledrive chunked upload: 100 % uploaded (15728640)
+0313.749 (0) Google Drive: OK: Archive backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db.gz uploaded in 2.99 seconds
+0313.750 (0) Recording as successfully uploaded: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db.gz
+0313.757 (0) Deleting local file: backup_2023-11-09-0027_Zuellig_Family_Foundation_f3330f6aec7c-db.gz: OK
+0313.759 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=5, retain_db=5
+0313.761 (0) Number of backup sets in history: 6; groups (db): 1
+0313.762 (0) Examining (for databases) backup set with group_id=0, nonce=f3330f6aec7c, datestamp=1699460822 (Nov 08 2023 16:27:02)
+0313.763 (0) This backup set is the backup set just made, so will not be deleted.
+0313.763 (0) Examining (for databases) backup set with group_id=0, nonce=23517f83279e, datestamp=1699374425 (Nov 07 2023 16:27:05)
+0313.763 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0313.764 (0) Examining (for databases) backup set with group_id=0, nonce=101563124065, datestamp=1699288023 (Nov 06 2023 16:27:03)
+0313.764 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0313.764 (0) Examining (for databases) backup set with group_id=0, nonce=497bf30a1a25, datestamp=1699201622 (Nov 05 2023 16:27:02)
+0313.764 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0313.764 (0) Examining (for databases) backup set with group_id=0, nonce=74957489adb7, datestamp=1699115223 (Nov 04 2023 16:27:03)
+0313.764 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0313.764 (0) Examining (for databases) backup set with group_id=0, nonce=ae25d2dbccf0, datestamp=1699028823 (Nov 03 2023 16:27:03)
+0313.764 (0) 1699028823: db: this set includes a database (backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-db.gz); db count is now 5
+0313.764 (0) 1699028823: db: over retain limit (5); will delete this database
+0313.764 (0) Delete file: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-db.gz, service=googledrive
+0316.647 (0) Google Drive: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-db.gz: Deletion successful
+0316.652 (0) The time we have been running (316.6) is approaching the resumption interval (345) - increasing resumption interval to 347
+0316.655 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0316.656 (0) Number of backup sets in history: 6; groups (files): 1
+0316.657 (0) Examining (for files) backup set with nonce=f3330f6aec7c, datestamp=1699460822 (Nov 08 2023 16:27:02)
+0316.657 (0) This backup set is the backup set just made, so will not be deleted.
+0316.657 (0) This backup set is the backup set just made, so will not be deleted.
+0316.657 (0) This backup set is the backup set just made, so will not be deleted.
+0316.658 (0) This backup set is the backup set just made, so will not be deleted.
+0316.658 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0316.659 (0) Examining (for files) backup set with nonce=23517f83279e, datestamp=1699374425 (Nov 07 2023 16:27:05)
+0316.659 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0316.659 (0) Examining (for files) backup set with nonce=101563124065, datestamp=1699288023 (Nov 06 2023 16:27:03)
+0316.659 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0316.659 (0) Examining (for files) backup set with nonce=497bf30a1a25, datestamp=1699201622 (Nov 05 2023 16:27:02)
+0316.659 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0316.659 (0) Examining (for files) backup set with nonce=74957489adb7, datestamp=1699115223 (Nov 04 2023 16:27:03)
+0316.659 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0316.659 (0) Examining (for files) backup set with nonce=ae25d2dbccf0, datestamp=1699028823 (Nov 03 2023 16:27:03)
+0316.659 (0) plugins: over retain limit (5); will delete this file entity
+0316.659 (0) themes: over retain limit (5); will delete this file entity
+0316.659 (0) uploads: over retain limit (5); will delete this file entity
+0316.659 (0) others: over retain limit (5); will delete this file entity
+0316.659 (0) Delete file: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-plugins.zip, service=googledrive
+0316.660 (0) Delete file: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-themes.zip, service=googledrive
+0316.661 (0) Delete file: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads.zip, service=googledrive
+0316.662 (0) Delete file: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads2.zip, service=googledrive
+0316.663 (0) Delete file: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads3.zip, service=googledrive
+0316.664 (0) Delete file: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads4.zip, service=googledrive
+0316.665 (0) Delete file: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads5.zip, service=googledrive
+0316.666 (0) Delete file: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads6.zip, service=googledrive
+0316.667 (0) Delete file: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-others.zip, service=googledrive
+0319.017 (0) Google Drive: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-others.zip: Deletion successful
+0319.727 (0) Google Drive: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads6.zip: Deletion successful
+0320.586 (0) Google Drive: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads5.zip: Deletion successful
+0321.316 (0) Google Drive: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads4.zip: Deletion successful
+0322.100 (0) Google Drive: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads3.zip: Deletion successful
+0323.142 (0) Google Drive: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads2.zip: Deletion successful
+0324.074 (0) Google Drive: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-uploads.zip: Deletion successful
+0324.893 (0) Google Drive: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-themes.zip: Deletion successful
+0325.719 (0) Google Drive: backup_2023-11-04-0027_Zuellig_Family_Foundation_ae25d2dbccf0-plugins.zip: Deletion successful
+0325.724 (0) The time we have been running (325.7) is approaching the resumption interval (347) - increasing resumption interval to 356
+0325.726 (0) This backup set is now empty; will remove from history
+0325.727 (0) Deleting log file (log.ae25d2dbccf0.txt)
+0325.748 (0) Retain: saving new backup history (sets now: 5) and finishing retain operation
+0325.753 (0) Resume backup (f3330f6aec7c, 0): finish run
+0325.755 (0) Decremented the semaphore (fd) by 1
+0325.757 (0) Semaphore (fd) unlocked
+0325.757 (0) There were no errors in the uploads, so the 'resume' event (1) is being unscheduled
+0325.767 (0) No report will be sent to this address, as it is configured to receive them only when there are errors or warnings: kmg@z...
+0325.768 (0) The backup apparently succeeded and is now complete

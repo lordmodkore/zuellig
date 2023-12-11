@@ -1,0 +1,20 @@
+[02-Sep-2023 17:28:32 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/image-compare/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/image-compare/module.php on line 7
+[07-Sep-2023 17:54:53 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/image-compare/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/image-compare/module.php on line 7
+[10-Sep-2023 17:49:49 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/image-compare/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/image-compare/module.php on line 7
+[11-Sep-2023 17:49:46 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/image-compare/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/image-compare/module.php on line 7
+[12-Sep-2023 17:52:42 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/image-compare/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/image-compare/module.php on line 7

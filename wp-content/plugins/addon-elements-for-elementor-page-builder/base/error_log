@@ -1,0 +1,4 @@
+[04-Aug-2023 13:17:00 UTC] PHP Fatal error:  Uncaught Error: Class "Elementor\Widget_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/base/eae-widget-base.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/base/eae-widget-base.php on line 7

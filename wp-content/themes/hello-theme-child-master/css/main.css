@@ -1,0 +1,25 @@
+@media screen {
+  /* Main CSS */
+
+  a, a span, a i {
+    outline: none; 
+  }
+  
+
+  /* Gravity Forms Validation Stars Here */
+
+	.gfield_error input, .gfield_error textarea {
+		background-color: rgba(220,20,60,.2) !important;
+	}
+	.gform_wrapper .gfield_validation_message, .gform_wrapper .validation_message {
+		background: transparent !important;
+		border: unset !important;
+		font-size: 13px !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+	}
+
+  /* Gravity Forms Validation Ends Here */
+  
+
+}

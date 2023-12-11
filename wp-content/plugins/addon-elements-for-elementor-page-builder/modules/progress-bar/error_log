@@ -1,0 +1,16 @@
+[06-Sep-2023 10:14:41 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/progress-bar/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/progress-bar/module.php on line 7
+[08-Sep-2023 02:53:06 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/progress-bar/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/progress-bar/module.php on line 7
+[09-Sep-2023 03:07:05 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/progress-bar/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/progress-bar/module.php on line 7
+[10-Sep-2023 02:59:26 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/progress-bar/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/progress-bar/module.php on line 7

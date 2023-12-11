@@ -1,0 +1,6 @@
+[01-Aug-2023 12:23:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function WTS_EAE\add_filter() in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/wpml/wpml-compatibility.php:17
+Stack trace:
+#0 /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/wpml/wpml-compatibility.php(10): WTS_EAE\WPML_Compatibility->__construct()
+#1 /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/wpml/wpml-compatibility.php(483): WTS_EAE\WPML_Compatibility::instance()
+#2 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/wpml/wpml-compatibility.php on line 17

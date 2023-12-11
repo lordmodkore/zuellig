@@ -1,0 +1,4 @@
+[08-Sep-2023 01:37:30 UTC] PHP Fatal error:  Uncaught Error: Class "WTS_EAE\Base\Module_Base" not found in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/thumb-gallery/module.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/modules/thumb-gallery/module.php on line 7
