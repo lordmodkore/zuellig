@@ -1,0 +1,18 @@
+.button_default{
+    padding: 1rem 5rem;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 19.09px;
+    text-align: center;
+}
+.button_btnAboutUs, .button_btnHealthCare{
+    border: 1px solid var(--primaryColor);
+    background-color: var(--primaryColor);
+}
+.button_programs{
+    border: 1px solid #fff;
+    background-color: transparent;
+    font-size: var(--fontSize18);
+    text-decoration: none;
+}

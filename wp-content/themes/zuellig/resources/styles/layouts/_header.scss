@@ -1,0 +1,62 @@
+header{
+    position: relative;
+    .navbar {
+        background-color: transparent;
+        position: absolute;
+        width: 100%;
+        z-index: 1000;
+        padding: 2% 5%;
+
+        &.sticky{
+            background-color: var(--primaryColor); /* Set the background color when sticky */
+            border-bottom: 1px solid var(--primaryColor); /* Set the border when sticky */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1% 5%;
+            color:#000;
+        }
+        /* Adjust padding/margin if necessary */
+        .navbar-brand img {
+            max-height: 40px;
+            padding: 10px;
+        }
+
+        .navbar-nav {
+            margin-right: 20px;
+            .nav-link {
+                color: white;
+                &:hover{
+                    color: #aaa;
+                }
+            }
+        }
+    }
+
+    .carousel{
+        .carousel-indicators{
+            button{
+                width: 10px;
+                height: 10px;
+                border-radius: 100%;
+            }
+        }
+        .carousel-description{
+            position: absolute;
+            top: 35%;
+            /* right: 15%; */
+            bottom: 1.25rem;
+            left: 5%;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+            color: #fff;
+            /* text-align: center; */
+        }
+        .carousel-indicators [data-bs-target]{
+            /* background-color: transparent; */
+            border: 1px solid #fff;
+        }
+    }
+
+}

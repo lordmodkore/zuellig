@@ -218,6 +218,7 @@ readme.html
 wp-admin/
 wp-includes/
 xmlrpc.php
+wp-content/updraft/*
 wp-content/cache/
 wp-content/backups/
 wp-content/mu-plugins/pagely*

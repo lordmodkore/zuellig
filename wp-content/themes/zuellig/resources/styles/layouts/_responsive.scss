@@ -1,0 +1,116 @@
+/* Media 1200 */
+@media only screen and (min-width: 1024px){
+    #navbarNavDropdown{
+        background-color: transparent;
+    }
+    .navbar-nav .nav-link{
+        color: #fff;
+    }
+    .carousel-content-container{
+        width: 450px;
+    }
+    .block_mobile{
+        display: none !important;
+    }
+    .block_desktop{
+        display: block !important;
+    }
+    .block_nutrition{
+        width: 80%;
+    }
+    .program_content{
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .program_div-item{
+        padding: 0 2%;
+    }
+    .div_program-body{
+        display: flex;
+        flex-wrap: wrap;
+        height: 100%;
+        justify-content: none;
+        padding: 0;
+    }
+    .block_mobile{
+        display: none !important;
+    }
+    .block_nutrition, .block_leadership, .block_health{
+        position: absolute;
+        height: 100%;
+    }
+    .block_leadership{
+        width: 90%;
+    }
+    .block_health{
+        width: 100%;
+    }
+    .program_content{
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .program_div-item{
+        padding: 5% 57% 5% 5%;
+        height: 50%;
+    }
+    .program_description{
+        font-size: 18px;
+        padding-bottom: 15px;
+    }
+    .program_menu{
+        padding: 30px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: #fff;
+    }
+    .program_menu:hover{
+        color: var(--secondaryColor);
+        cursor: pointer;
+    }
+    .program_menu:hover + .block_leadership {
+        width: 100% !important;
+        color: var(--secondaryColor);
+        cursor: pointer;
+    }
+    .who_paragraph-size{
+        font-size: 45px;
+    }
+    .default_section-padding{
+        padding: var(--sectionDefaultPadding);
+    }
+    .block_featured{
+        padding: 13% 15%;
+        border-radius: 20px;
+        position: relative;
+        left: -18%;
+        border: 1px solid var(--primaryColor);
+    }
+    .block_leaders{
+        padding: 13% 20%;
+        border-radius: 20px;
+        position: relative;
+        left: -18%;
+        border: 1px solid var(--primaryColor);
+    }
+    .footer_display-flex{
+        flex-direction: row;
+        padding: 0;
+    }
+    .footer_copyright{
+        display: flex;
+    }
+    .icons_list{
+        padding: 0 55% 0 0;
+    }
+    .navbar{
+        padding: 2% 5%;
+    }
+    .sticky{
+        padding: 1% 5% !important;
+        color: #fff;
+    }
+}
