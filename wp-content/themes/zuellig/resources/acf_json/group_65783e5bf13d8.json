@@ -600,6 +600,84 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_658395e932b56": {
+                    "key": "layout_658395e932b56",
+                    "name": "featured_stories",
+                    "label": "Featured Stories",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6583961032b58",
+                            "label": "Featured Stories Section Header",
+                            "name": "featured_stories_section_header",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6583962232b59",
+                            "label": "Featured Stories Section Subtitle",
+                            "name": "featured_stories_section_subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_658396402f8a2",
+                            "label": "Featured Stories Articles",
+                            "name": "featured_stories_articles",
+                            "aria-label": "",
+                            "type": "relationship",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "post"
+                            ],
+                            "taxonomy": "",
+                            "filters": [
+                                "search",
+                                "post_type",
+                                "taxonomy"
+                            ],
+                            "return_format": "id",
+                            "min": "",
+                            "max": 3,
+                            "elements": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -640,5 +718,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1702902211
+    "modified": 1703122612
 }

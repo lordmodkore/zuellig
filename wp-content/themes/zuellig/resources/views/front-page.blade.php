@@ -96,7 +96,84 @@
             @endif
             <!-- End Accordion -->
 
-            
+            <!-- Featured Stories -->
+            @if(get_row_layout() == 'featured_stories')
+                @if(get_sub_field('featured_stories_section_header'))
+                    <section class="default_section-padding">
+                        <div class="container">
+                            <div class="row mb-3 pb-3">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="text-center description_extra-padding">
+                                        <div class="div_heading-title">
+                                            <h1 class="fw-bold">{!! get_sub_field('featured_stories_section_header') !!}</h1>
+                                        </div>
+                                        <p class="block_paragraph-description">{!! get_sub_field('featured_stories_section_subtitle') !!}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @php
+                                $featuredPost = get_sub_field('featured_stories_articles');
+								$featuredPostCounter = 1;
+                            @endphp
+                            <!-- Featured Primary Post-->
+                            <div class="row py-3 mb-5 align-items-center">
+                                <div class="post-featured-img col-lg-7 col-md-12 col-sm-12">
+                                        {!! get_the_post_thumbnail(  $featuredPost[0], 'full', array( 'class' => 'img-fluid w-100' ) ); !!}
+                                </div>
+                                <div class="col-lg-5 col-md-12 col-sm-12">
+                                    <div class="block_featured block_featured-bg text-white">
+                                        <p class="featured_date">{!! get_the_date('F d, Y',$featuredPost[0]) !!}</p>
+                                        <h1 class="featured_title fw-bold">{!! get_the_title($featuredPost[0]) !!}</h1>
+                                        <p class="featured_description">
+                                            @php
+                                               $content =  get_post_field('post_content', $featuredPost[0]);
+                                            @endphp
+                                            {!! wp_trim_words( $content, 20 ); !!}
+                                        </p>
+                                        <a href="{!! get_the_permalink($featuredPost[0]) !!}" class="text-decoration-none text-white link_default-value">
+                                            <div class="d-flex">
+                                                <p>READ MORE<span>&nbsp
+                                                <i class="fa fa-chevron-right"></i></span></p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- END Featured Primary Post-->
+                            <div class="row py-3">
+                                <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-stretch">
+                                    <div class="card border-0">
+                                        {!! get_the_post_thumbnail(  $featuredPost[1], 'full', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bold">{!! get_the_title($featuredPost[1]) !!}</h5>
+                                            <p class="card-text">{!! wp_trim_words( get_post_field('post_content', $featuredPost[1]), 38 ); !!}</p>
+                                            <a href="{!! get_the_permalink($featuredPost[1]) !!}" class="text-primary text-decoration-none link_default-value link_color">
+                                                <p>READ MORE<span>&nbsp
+                                                <i class="fa fa-chevron-right"></i></span></p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-stretch">
+                                    <div class="card border-0">
+                                        {!! get_the_post_thumbnail(  $featuredPost[2], 'full', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bold">{!! get_the_title($featuredPost[2]) !!}</h5>
+                                            <p class="card-text">{!! wp_trim_words( get_post_field('post_content', $featuredPost[2]), 38 ); !!}</p>
+                                            <a href="{!! get_the_permalink($featuredPost[2]) !!}" class="text-primary text-decoration-none link_default-value link_color">
+                                                <p>READ MORE<span>&nbsp
+                                                <i class="fa fa-chevron-right"></i></span></p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--container-->
+                    </section>
+                @endif
+            @endif
+            <!-- End Featured Stories -->
         @endwhile
     @endif
 @endsection
