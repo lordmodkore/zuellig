@@ -13,13 +13,17 @@ domReady(async () => {
         var navbar = document.querySelector(".navbar");
 
         // Check if the scroll position is greater than a certain value (adjust as needed)
-        if (scrollPosition > 100) {
+        if (scrollPosition > 50) {
             // Add the 'sticky' class to the navbar
             navbar.classList.add("sticky");
         } else {
             // Remove the 'sticky' class from the navbar
             navbar.classList.remove("sticky");
         }
+    })
+    jQuery(".accordion .tab").hover(function () {
+        jQuery('.accordion .tab').removeClass('show');
+        jQuery(this).addClass('show');
     });
 });
 

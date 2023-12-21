@@ -11,3 +11,265 @@
     font-size: 25px;
     color: #fff;
 }
+.block_paragraph_small-title{
+    font-size: 15px;
+    line-height: 40px;
+    font-weight: var(--sectionDefaultPadding);
+}
+.div_heading-title{
+    font-size: 45px;
+    line-height: 45px;
+    font-weight: var(--sectionDefaultPadding);
+}
+.block_paragraph-description{
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 30px;
+    font-family: 'Calibri',sans-serif;
+}
+.section_default-padding{
+    padding: var(--sectionDefaultPadding);
+}
+.img_border-radius{
+    border-radius: 20px;
+}
+.block_our-work--content{
+    position: relative;
+    height: 100vh;
+}
+.div_program-body{
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+.accordion {
+    max-width: 100%;
+    height: 900px;
+    display: flex;
+    overflow: hidden;
+    margin: 50px auto;
+}
+.tab {
+    position: relative;
+    width: 20%;
+    height: inherit;
+    padding: 20px;
+    background: #000;
+    color: #FFF;
+    cursor: pointer;
+    transition: width .5s ease;
+
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all .5s ease;
+    }
+}
+
+.caption {
+    position: absolute;
+    z-index: 2;
+    white-space: nowrap;
+    top: 450px;
+    opacity: 0;
+
+    h2 {
+        margin-bottom: 2px;
+        text-overflow: clip;
+    }
+    p {
+        margin-bottom: 1rem;
+    }
+}
+
+/** Hover Effects **/
+.tab:hover img,
+.tab.show img {
+    opacity: .6;
+}
+
+.tab:hover,
+.tab.show {
+    width: 80%;
+}
+
+.tab:hover .caption,
+.tab.show .caption {
+    transition: all .5s ease;
+    opacity: 1;
+}
+
+
+
+.block_nutrition {
+    width: 80%;
+    position: absolute;
+    background: url('../../images/timeline aklan 2018 02_edited 1.png') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #fff;
+    height: 100%;
+    z-index: 3;
+}
+
+.block_leadership {
+    width: 100%;
+    position: absolute;
+    background: url('../../images/timeline dipolog_edited 2.png') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #fff;
+    height: 100%;
+    z-index: 2;
+    width: 90%;
+    position: absolute;
+}
+
+.block_health {
+    width: 100%;
+    position: absolute;
+    background: url('../../images/timeline sarangani 2018 01_edited 1.png') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #fff;
+    height: 100%;
+    z-index: 1;
+}
+
+.program_content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.program_div-item {
+    padding: 5% 57% 5% 5%;
+    height: 50%;
+}
+
+.program_description {
+    font-size: 18px;
+    padding-bottom: 15px;
+}
+
+.program_menu {
+    padding: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fff;
+    position: absolute;
+    right: 0;
+}
+
+.program_menu-close img {
+    position: relative;
+}
+.block_nutrition>a:target {
+    width: 10%;
+}
+
+/* Add a transition to smoothly animate width changes */
+.hovered {
+    display: none;
+}
+
+/* .program_active{
+    color: var(--secondaryColor);
+} */
+.program_menu-text {
+    font-size: 40px;
+    padding: 5px 0;
+}
+
+.program_menu-title {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    text-transform: uppercase;
+    font-size: var(--fontSize18);
+    padding: 10px 0 10px 5px;
+}
+
+.program_menu-close {
+    text-decoration: none;
+    color: #fff;
+}
+
+.default_section-padding {
+    padding: var(--sectionDefaultPadding);
+}
+
+.description_extra-padding {
+    padding: 0 29%;
+}
+
+.block_featured {
+    padding: 13% 12%;
+    border-radius: 20px;
+    position: relative;
+    left: -18%;
+    border: 1px solid var(--primaryColor);
+}
+
+.block_leaders {
+    padding: 13% 24%;
+    border-radius: 20px;
+    position: relative;
+    left: -18%;
+    border: 1px solid var(--primaryColor);
+}
+
+.block_featured-bg {
+    background-color: var(--primaryColor);
+    border: 1px solid var(--primaryColor);
+}
+
+.featured_date {
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 0;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+}
+
+.featured_title {
+    font-size: 30px;
+    line-height: 35px;
+}
+
+.card_content.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 28px;
+}
+
+.card_content.card-text {
+    font-size: 18px;
+    line-height: 24px;
+    font-family: 'Calibri';
+}
+
+.card_content .card-body a {
+    text-transform: capitalize;
+    color: var(--primaryColor);
+}
+
+.link_default-value {
+    font-size: 16px;
+    line-height: 19.09px;
+}
+
+.section-bg {
+    background-color: var(--tertiaryColor);
+}

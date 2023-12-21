@@ -15,6 +15,9 @@ use function Roots\bundle;
  */
 add_action('wp_enqueue_scripts', function () {
     bundle('app')->enqueue();
+
+    wp_enqueue_script('google-maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDrSRxI5RfHM3rnL_3bklHj5Uns_0tLcPM&libraries=places&callback=initMap', [ 'jquery' ], null, false);
+
 }, 100);
 
 /**
