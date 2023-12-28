@@ -21,11 +21,9 @@ domReady(async () => {
             navbar.classList.remove("sticky");
         }
     })
-    jQuery(".accordion .tab").hover(function () {
-        jQuery('.accordion .tab').removeClass('show');
-        jQuery(this).addClass('show');
-    });
+
 });
+
 
 /**
  * @see {@link https://webpack.js.org/api/hot-module-replacement/}

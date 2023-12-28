@@ -174,8 +174,149 @@
                 @endif
             @endif
             <!-- End Featured Stories -->
+
+            <!-- Project Locations -->
+            @if(get_row_layout() == 'projects')
+                <section class="default_section-padding section-bg">
+                    <div class="container">
+                        <div class="row py-3 mb-3">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="text-center description_extra-padding">
+                                    <div class="div_heading-title">
+                                        <h1 class="fw-bold">{!! get_sub_field('section_header') !!}</h1>
+                                    </div>
+                                    <p class="block_paragraph-description">{!! get_sub_field('section_sub_header') !!}</p>
+                                </div>
+                            </div>
+                        </div>
+                        @php
+                            $args = [
+                                'post_type' => 'project_location',
+                                'posts_per_page' => -1,
+                            ];
+                            $locations_query = new WP_Query($args);
+
+
+                        @endphp
+                        @if( $locations_query->have_posts())
+                            <div class="acf-map">
+                                @while($locations_query->have_posts())
+                                    @php
+                                        $locations_query->the_post();
+										$postID = get_the_ID();
+										$locations = get_field('location',$postID);
+                                    @endphp
+                                    <div class="marker" data-lat="{!! $locations['lat'] !!}" data-lng="{!! $locations['lng'] !!}"></div>
+                                @endwhile
+                                @php  wp_reset_postdata(); @endphp
+                            </div>
+                        @endif
+                    </div>
+                </section>
+            @endif
+            <!-- End Project Locations -->
         @endwhile
     @endif
 @endsection
 
+<script>
+    jQuery(document).ready(function($) {
+        $('.acf-map').each(function() {
+            var map = new_map($(this));
+        });
 
+        function new_map($el) {
+            var markers = [];
+            $el.find('.marker').each(function() {
+                var $marker = $(this);
+                var lat = $marker.data('lat');
+                var lng = $marker.data('lng');
+
+                var myLatlng = new google.maps.LatLng(lat, lng);
+                markers.push(myLatlng);
+            });
+
+            var bounds = new google.maps.LatLngBounds();
+
+            // Extend bounds with each marker's position
+            markers.forEach(function(myLatlng) {
+                bounds.extend(myLatlng);
+            });
+
+
+            var mapOptions = {
+                minZoom: 5, // Set the minimum allowed zoom level
+                maxZoom: 16, // Set the maximum allowed zoom level
+                center: bounds.getCenter(),
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                fullscreenControl: false,
+                styles: [
+                    {
+                        featureType: 'administrative',
+                        elementType: 'labels',
+                        stylers: [{ visibility: 'off' }]
+                    },
+                    {
+                        featureType: 'administrative.country',
+                        elementType: 'geometry.stroke',
+                        stylers: [{ color: '#ff0000' }] // Change the color to your desired color
+                    },
+                    {
+                        featureType: 'water',
+                        elementType: 'geometry',
+                        stylers: [
+                            { color: '#f5f5f5' }  // Change this color to set the water color
+                        ]
+                    },
+                    {
+                        featureType: 'landscape',
+                        elementType: 'geometry',
+                        stylers: [
+                            { color: '#abdfff' }  // Set the desired color for the land
+                        ]
+                    },
+                    {
+                        featureType: 'administrative.province',
+                        elementType: 'geometry.stroke',
+                        stylers: [
+                            { visibility: 'off' }  // Hide province borders
+                        ]
+                    },
+                    {
+                        featureType: 'road',
+                        elementType: 'geometry',
+                        stylers: [
+                            { visibility: 'off' }  // Hide roads
+                        ]
+                    },
+
+                    // Add more styles as needed
+                ],
+
+            };
+
+            var map = new google.maps.Map($el[0], mapOptions);
+
+            // Fit the map to the bounds
+            map.fitBounds(bounds);
+
+            markers.forEach(function(myLatlng) {
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map
+                });
+            });
+            // Adjust zoom level dynamically
+            google.maps.event.addListener(map, 'zoom_changed', function() {
+                if (map.getZoom() < mapOptions.minZoom) map.setZoom(mapOptions.minZoom);
+                if (map.getZoom() > mapOptions.maxZoom) map.setZoom(mapOptions.maxZoom);
+            });
+
+
+            return map;
+        }
+    });
+
+
+</script>

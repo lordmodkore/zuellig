@@ -32,7 +32,7 @@ function acf_json_load($paths)
 function my_acf_google_map_api($api)
 {
     if (is_admin()) {
-        $api['key'] = 'AIzaSyDrSRxI5RfHM3rnL_3bklHj5Uns_0tLcPM';
+        $api['key'] = 'AIzaSyAEMIoWvgIBlg7CZONGIrA5ChBkapn6EE4';
     }
 
     return $api;
