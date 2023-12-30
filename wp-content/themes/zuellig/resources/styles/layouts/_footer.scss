@@ -70,7 +70,19 @@
 .link_color {
     color: var(--primaryColor) !important;
 }
-
+.footer-widgets{
+    ul{
+        list-style-type: none;
+        padding:0;
+        li{
+            padding-bottom: 0.75rem;
+            a{
+                color: var(--footerTextLinkColor);
+                text-decoration: none;
+            }
+        }
+    }
+}
 /* Who we are style */
 .border_inner-color {
     border-top: 1px solid var(--primaryColor);

@@ -1,6 +1,6 @@
 @media only screen and (min-width: 320px)  {
     .footer_display-flex{
-        flex-direction: column;
+        flex-direction: column!important;
     }
     .footer_copyright{
         display: block;
@@ -126,7 +126,7 @@
     }
 
     .footer_display-flex{
-        flex-direction: row;
+        flex-direction: row!important;
         padding-top: 10px;
     }
     .icons_list {
@@ -266,7 +266,7 @@
     }
 
     .footer_display-flex {
-        flex-direction: row;
+        flex-direction: row!important;
         padding: 0;
     }
 

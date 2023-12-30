@@ -136,4 +136,17 @@ add_action('widgets_init', function () {
         'name' => __('Footer', 'sage'),
         'id' => 'sidebar-footer',
     ] + $config);
+
+    // Widget Area 2: OUR WORK
+    register_sidebar(array(
+        'name' => 'Footer Widgets',
+        'id' => 'footer-widgets',
+        'description' => 'Widgets for footer section.',
+        'before_widget' => '<div class="col-lg-3 col-md-4  footer-widgets">',
+        'after_widget' => '</div>',
+        'before_title' => '<div class="footer_content-title"><h3>',
+        'after_title' => '</h3></div>',
+    ));
 });
+
+
