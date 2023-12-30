@@ -50,21 +50,21 @@
                     @endif
                     @if( get_field('x','option'))
                         <div>
-                            <a href="#">
+                            <a href="{!! get_field('x','option') !!}">
                                 <img src="@asset('images/Property 1=Group 34.png')" alt="twitter">
                             </a>
                         </div>
                     @endif
                     @if( get_field('youtube','option'))
                         <div>
-                            <a href="#">
+                            <a href="{!! get_field('youtube','option') !!}">
                                 <img src="@asset('images/Property 1=Group 33.png')" alt="yt">
                             </a>
                         </div>
                     @endif
                     @if( get_field('linkedin','option'))
                         <div>
-                            <a href="#">
+                            <a href="{!! get_field('linkedin','option') !!}">
                                 <img src="@asset('images/Property 1=Group 37.png')" alt="linkedin">
                             </a>
                         </div>
@@ -80,7 +80,7 @@
         </div>
         <div class="footer_copyright mt-3">
             <div class="flex-grow-1">
-                <p class="footer_copyright-text">©2024 Zuellig Family Foundation. All Rights Reserved.</p>
+                <p class="footer_copyright-text">&copy;{!! date('Y') !!} Zuellig Family Foundation. All Rights Reserved.</p>
             </div>
             <div class="justify-content-between">
                 <a href="#" class="text-decoration-none footer_text_link-color px-2">Privacy Policy</a>
