@@ -124,7 +124,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	/**
 	 * Proceed with the backup
 	 *
-	 * @param array $backup_array - Array of files ot be backed up.
+	 * @param Array $backup_array - Array of files to be backed up.
 	 *
 	 * @return false|void|null
 	 */
@@ -213,11 +213,13 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 					$prev_offset = $offset;
 
 					try {
-						$offset = $pcloud->chunked_upload($updraft_dir . '/' . $file, $pcl_upload_id, $offset);
+						$new_offset = $pcloud->chunked_upload($updraft_dir . '/' . $file, $pcl_upload_id, $offset);
 						
-						if (is_wp_error($offset)) {
-							throw new Exception($offset->get_error_message());
+						if (is_wp_error($new_offset)) {
+							throw new Exception($new_offset->get_error_message());
 						}
+						
+						$offset = $new_offset;
 
 						if ($prev_offset === $offset) { // Failed, will retry.
 							$retries++;
@@ -231,10 +233,12 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 
 					} catch (Exception $e) {
 
+						$this->log('chunked upload exception (' . get_class($e) . '): ' . $e->getMessage() . ' (line: ' . $e->getLine() . ', file: ' . $e->getFile() . ')');
+						
 						if ($upload_tick > 0 && time() - $upload_tick > 800) {
 
 							UpdraftPlus_Job_Scheduler::reschedule(60);
-							$this->log('chunked upload exception (' . get_class($e) . '): ' . $e->getMessage() . ' (line: ' . $e->getLine() . ', file: ' . $e->getFile() . ')');
+							
 							$this->log('Select/poll returned after a long time: scheduling a resumption and terminating for now');
 							UpdraftPlus_Job_Scheduler::record_still_alive();
 
@@ -247,10 +251,9 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 						$retries++;
 					}
 
-					if (10 < $retries) {
-
-						$this->log('chunked upload failed, too many failures.');
-
+					if (5 < $retries) {
+						$this->log('chunked upload failed: too many failures.');
+						$this->log(__('Chunked upload failed', 'updraftplus'), 'error');
 						break;
 					}
 				}
@@ -277,7 +280,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	}
 
 	/**
-	 * This method gets a list of files from the remote stoage that match the string passed in and returns an array of backups
+	 * This method gets a list of files from the remote storage that match the string passed in and returns an array of backups
 	 *
 	 * @param String $match a substring to require (tested via strpos() !== false).
 	 *
@@ -286,6 +289,8 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	public function listfiles($match = 'backup_') {
 
 		try {
+			$opts = $this->get_options();
+			if (!$this->options_exist($opts)) return new WP_Error('no_settings', sprintf(__('No %s settings were found', 'updraftplus'), $this->description));
 			$pcloud = $this->bootstrap();
 		} catch (Exception $e) {
 			$this->log($e->getMessage() . ' (line: ' . $e->getLine() . ', file: ' . $e->getFile() . ')');
@@ -449,7 +454,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 
 			try {
 				$offset = $pcloud->download($needed_file['fileid'], $fh, $headers, $offset);
-				
+
 				if (is_wp_error($offset)) throw new Exception($offset->get_error_message());
 
 				if ($offset >= ($needed_file['size'] - 1)) {
@@ -481,20 +486,16 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	 * @return String - the template
 	 */
 	public function get_pre_configuration_template() {
-
-		$classes = $this->get_css_classes(false);
-		
 		?>
-			<tr class="<?php echo $classes . ' ' . 'pcloud_pre_config_container';?>">
+			<tr class="{{get_template_css_classes false}} {{method_id}}_pre_config_container">
 				<td colspan="2">
-					<img alt="<?php _e(sprintf(__('%s logo', 'updraftplus'), 'pCloud')); ?>" src="<?php echo UPDRAFTPLUS_URL.'/images/pcloud-logo.png'; ?>" width="250px">
+					<img alt="{{storage_image_title}}" src="{{storage_image_url}}" width="250px">
 					<br>
 					<p>
-						<?php echo sprintf(__('Please read %s for use of our %s authorization app (none of your backup data is sent to us).', 'updraftplus'), '<a target="_blank" href="https://updraftplus.com/faqs/what-is-your-privacy-policy-for-the-use-of-your-pcloud-app/">'.__('this privacy policy', 'updraftplus').'</a>', 'pCloud');?>
+						{{{storage_long_description}}}
 					</p>
 				</td>
 			</tr>
-
 		<?php
 	}
 
@@ -505,39 +506,53 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	 */
 	public function get_configuration_template() {
 		ob_start();
-		$classes = $this->get_css_classes();
-
 		?>
-			<tr class="<?php echo $classes; ?>">
+			<tr class="{{get_template_css_classes true}}">
 				<th><?php _e('Store at', 'updraftplus');?>:</th>
 				<td>
-					{{folder_path}}<input type="text" style="width: 292px" <?php echo $this->output_settings_field_name_and_id('folder'); ?> value="{{folder}}">
+					{{folder_path}}<input type="text" style="width: 292px" id="{{get_template_input_attribute_value "id" "folder"}}" name="{{get_template_input_attribute_value "name" "folder"}}" value="{{folder}}">
 				</td>
 			</tr>
-			<tr class="<?php echo $classes;?>">
-				<th><?php echo sprintf(__('Authenticate with %s', 'updraftplus'), 'pCloud');?>:</th>
+			<tr class="{{get_template_css_classes true}}">
+				<th>{{authentication_label}}:</th>
 				<td>
 					{{#if is_authenticated}}
-					<?php
-						echo "<p><strong>".__('(You are already authenticated).', 'updraftplus')."</strong>";
-						$this->get_deauthentication_link();
-						echo '</p>';
-					?>
+					<p>
+						<strong>{{already_authenticated_label}}</strong>
+						<a class="updraft_deauthlink" href="{{admin_page_url}}?action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=deauth&nonce={{deauthentication_nonce}}&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{deauthentication_link_text}}</a>
+					</p>
 					{{/if}}
 					{{#if ownername_sentence}}
 						<br>
 						{{ownername_sentence}}
 					{{/if}}
-					<?php
-						echo '<p>';
-						$this->get_authentication_link();
-						echo '</p>';
-					?>
+					<p><a class="updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&nonce={{storage_auth_nonce}}&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{{authentication_link_text}}}</a></p>
 				</td>
-				<input type="hidden" <?php $this->output_settings_field_name_and_id('pcllocation'); ?> value="{{pcllocation}}">
+				<input type="hidden" id="{{get_template_input_attribute_value "id" "pcllocation"}}" name="{{get_template_input_attribute_value "name" "pcllocation"}}" value="{{pcllocation}}">
 			</tr>
 		<?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses()), or any other technique to prevent XSS attacks that could come via WP hooks
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus;
+		$properties = array(
+			'storage_image_url' => UPDRAFTPLUS_URL.'/images/pcloud-logo.png',
+			'storage_image_title' => __(sprintf(__('%s logo', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()])),
+			'storage_long_description' => wp_kses(sprintf(__('Please read %s for use of our %s authorization app (none of your backup data is sent to us).', 'updraftplus'), '<a target="_blank" href="https://updraftplus.com/faqs/what-is-your-privacy-policy-for-the-use-of-your-pcloud-app/">'.__('this privacy policy', 'updraftplus').'</a>', $updraftplus->backup_methods[$this->get_id()]), $this->allowed_html_for_content_sanitisation()),
+			'authentication_label' => sprintf(__('Authenticate with %s', 'updraftplus'),  $updraftplus->backup_methods[$this->get_id()]),
+			'already_authenticated_label' => __('(You are already authenticated).', 'updraftplus'),
+			'deauthentication_link_text' => sprintf(__("Follow this link to remove these settings for %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'authentication_link_text' => wp_kses(sprintf(__("<strong>After</strong> you have saved your settings (by clicking 'Save Changes' below), then come back here and follow this link to complete authentication with %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]), $this->allowed_html_for_content_sanitisation()),
+			'deauthentication_nonce' => wp_create_nonce($this->get_id().'_deauth_nonce'),
+		);
+		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
 	}
 
 	/**
@@ -580,7 +595,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	public function output_account_warning() {
 		return false;
 	}
-	
+
 	/**
 	 * Handles various URL actions, as indicated by the updraftplus_pcloudauth URL parameter
 	 *
@@ -635,9 +650,9 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 		);
 
 		if (headers_sent()) {
-			$this->log(sprintf(__('The %s authentication could not go ahead, because something else on your site is breaking it. Try disabling your other plugins and switching to a default theme. (Specifically, you are looking for the component that sends output (most likely PHP warnings/errors) before the page begins. Turning off any debugging settings may also help).', ''), 'pCloud'), 'error');
+			$this->log(sprintf(__('The %s authentication could not go ahead, because something else on your site is breaking it.', 'updraftplus'), 'pCloud').' '.__('Try disabling your other plugins and switching to a default theme.', 'updraftplus').' ('.__('Specifically, you are looking for the component that sends output (most likely PHP warnings/errors) before the page begins.', 'updraftplus').' '.__('Turning off any debugging settings may also help).', 'updraftplus').')', 'error');
 		} else {
-			header('Location: https://my.pcloud.com/oauth2/authorize?'.http_build_query($params, null, '&'));
+			header('Location: https://my.pcloud.com/oauth2/authorize?'.http_build_query($params, '', '&'));
 		}
 	}
 
@@ -701,9 +716,9 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 			$opts = $this->get_options();
 			$opts['ownername'] = $info['email'];
 			$this->set_options($opts, true);
-	
+
 			$message .= ". <br>".sprintf(__('Your %s account name: %s', 'updraftplus'), 'pCloud', htmlspecialchars($info['email']));
-	
+
 			$message .= ' <br>'.sprintf(__('Your %s quota usage: %s %% used, %s available', 'updraftplus'), 'pCloud', $used_perc, round($available_quota/1048576, 1).' MB');
 		} else {
 			$message .= " (".__('though part of the returned information was not as expected - whether this indicates a real problem cannot be determined', 'updraftplus').")";
@@ -722,13 +737,16 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 	 * This basically reproduces the relevant bits of bootstrap.php from the SDK
 	 *
 	 * @return object
-	 * @throws Exception Throws standart exception.
+	 * @throws Exception Throws standard exception.
 	 */
 	public function bootstrap() {
 
 		if (!class_exists('UpdraftPlus_Pcloud_API')) {
 			include_once UPDRAFTPLUS_DIR . '/includes/pcloud/UpdraftPlus_Pcloud_API.php';
 		}
+
+		// if (false === $opts) $opts = $this->options;
+		// $opts = $this->get_options();
 
 		$storage = $this->get_storage();
 		if (!empty($storage) && !is_wp_error($storage)) {

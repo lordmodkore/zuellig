@@ -86,7 +86,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		return '<a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" id="updraft_zip_download_item">'._x('Download', '(verb)', 'updraftplus').'</a>';
 	}
 	
-	public function updraftplus_command_get_zipfile_download($result, $params) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function updraftplus_command_get_zipfile_download($result, $params) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		global $updraftplus;
 
 		$zip_object = $updraftplus->get_zip_object_name();
@@ -120,7 +120,7 @@ class UpdraftPlus_Addons_MoreFiles {
 					$extracted = $zip->extractTo($updraftplus->backups_dir_location() . DIRECTORY_SEPARATOR . 'ziptemp' . DIRECTORY_SEPARATOR, $replaced_dir_sep_path);
 				}
 				
-				@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 
 				if ($extracted) {
 					return array('path' => 'ziptemp'.DIRECTORY_SEPARATOR.$path);
@@ -130,7 +130,7 @@ class UpdraftPlus_Addons_MoreFiles {
 			}
 		}
 
-		return array('error' => 'UpdraftPlus: no such file or diretory (' . $fullpath . '): if the file does exist please make sure it is readable by the server.');
+		return array('error' => 'UpdraftPlus: no such file or directory (' . $fullpath . '): if the file does exist please make sure it is readable by the server.');
 	}
 	
 	public function fileinfo_more($data, $ind) {
@@ -218,7 +218,7 @@ class UpdraftPlus_Addons_MoreFiles {
 			$numfiles = $zip->numFiles;
 
 			if (false === $numfiles) {
-				$warn[] = sprintf(__('Unable to read any files from the zip (%s) - could not pre-scan it to check its integrity. Zip error: (%s)', 'updraftplus'), basename($zipfile), $zip->last_error);
+				$warn[] = sprintf(__('Unable to read any files from the zip (%s) - could not pre-scan it to check its integrity.', 'updraftplus'), basename($zipfile)).' '.sprintf(__('Zip error: (%s)', 'updraftplus'), $zip->last_error);
 				return;
 			}
 
@@ -234,7 +234,7 @@ class UpdraftPlus_Addons_MoreFiles {
 				}
 			}
 
-			@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 		} elseif (preg_match('/\.tar(\.(gz|bz2))$/i', $zipfile)) {
 
 			if (!class_exists('UpdraftPlus_Archive_Tar')) {
@@ -266,14 +266,21 @@ class UpdraftPlus_Addons_MoreFiles {
 		}
 	}
 
-	public function checkzip_end_wpcore(&$mess, &$warn, &$err) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function checkzip_end_wpcore(&$mess, &$warn, &$err) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the method is used as a WP filter.
 		if (!empty($this->wpcore_foundyet) && 3 == $this->wpcore_foundyet) return;
 		if (0 == ($this->wpcore_foundyet & 1)) $warn[] = sprintf(__('This does not look like a valid WordPress core backup - the file %s was missing.', 'updraftplus'), 'wp-admin/index.php').' '.__('If you are not sure then you should stop; otherwise you may destroy this WordPress installation.', 'updraftplus');
 		if (0 == ($this->wpcore_foundyet & 2)) $warn[] = sprintf(__('This does not look like a valid WordPress core backup - the file %s was missing.', 'updraftplus'), 'xmlrpc.php').' '.__('If you are not sure then you should stop; otherwise you may destroy this WordPress installation.', 'updraftplus');
 	}
 
+	/**
+	 * This function returns a list of file entities that can be backed up other than potential entities  (subject to user's settings), and optionally further meta-data about them
+	 *
+	 * @param  array   $arr       -  List of entities
+	 * @param  boolean $full_info -  boolean to indicate if we need full details regarding the entity
+	 * @return array              -  array of final entity list
+	 */
 	public function backupable_file_entities_final($arr, $full_info) {
-		$path = UpdraftPlus_Options::get_updraft_option('updraft_include_more_path');
+		$path = UpdraftPlus_Options::get_updraft_option('updraft_include_more_path', '');
 		if (is_array($path)) {
 			$path = array_map('untrailingslashit', $path);
 			if (1 == count($path)) $path = array_shift($path);
@@ -300,9 +307,10 @@ class UpdraftPlus_Addons_MoreFiles {
 		$display = UpdraftPlus_Options::get_updraft_option('updraft_include_more') ? '' : 'style="display:none;"';
 		$class = $display ? 'updraft-hidden' : '';
 		
-		$paths = UpdraftPlus_Options::get_updraft_option('updraft_include_more_path');
-		
-		if (!is_array($paths)) $paths = array($paths);
+		$paths = UpdraftPlus_Options::get_updraft_option('updraft_include_more_path', array());
+
+		// Remove empty elements
+		$paths = is_array($paths) ? array_filter($paths) : array($paths);
 
 		$ret .= "<div id=\"updraft_include_more_options\" $display class=\"updraft_include_container $class\"><p class=\"updraft-field-description\">";
 
@@ -360,7 +368,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		$ret .= '<label class="updraft-exclude-label" for="updraft_include_wpcore_exclude">'.__('Exclude these:', 'updraftplus').'</label>';
 
 		$exclude_input_type = $for_updraftcentral ? "text" : "hidden";
-		$exclude_input_extra_attr = $for_updraftcentral ? 'title="'.__('If entering multiple files/directories, then separate them with commas. For entities at the top level, you can use a * at the start or end of the entry as a wildcard.', 'updraftplus').'" size="54"' : '';
+		$exclude_input_extra_attr = $for_updraftcentral ? 'title="'.__('If entering multiple files/directories, then separate them with commas.', 'updraftplus').' '.__('For entities at the top level, you can use a * at the start or end of the entry as a wildcard.', 'updraftplus').'" size="54"' : '';
 		$ret .= '<input type="'.$exclude_input_type.'" id="updraft_include_wpcore_exclude" name="updraft_include_wpcore_exclude" value="'.esc_attr(UpdraftPlus_Options::get_updraft_option('updraft_include_wpcore_exclude')).'" '.$exclude_input_extra_attr.' />';
 		if (!$for_updraftcentral) {
 			$backupable_file_entities = $updraftplus->get_backupable_file_entities();
@@ -634,7 +642,7 @@ class UpdraftPlus_Addons_MoreFiles {
 	 *
 	 * @return boolean|WP_Error - boolean for success or a wordpress error
 	 */
-	public function restore_movein_more($working_dir, $wp_dir, $wp_filesystem_dir) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function restore_movein_more($working_dir, $wp_dir, $wp_filesystem_dir) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 
 		global $updraftplus_restorer;
 
@@ -763,7 +771,7 @@ class UpdraftPlus_Addons_MoreFiles {
 
 				$path = $manifest['directory'];
 
-				@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 			}
 		}
 
@@ -823,7 +831,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		$more_ui .= '</div>';
 
 		if ($not_found) {
-			$warn[] = __('The original filesystem location for some of the following items was not found. Please select where you want these backups to be restored to.', 'updraftplus');
+			$warn[] = __('The original filesystem location for some of the following items was not found.', 'updraftplus').' '.__('Please select where you want these backups to be restored to.', 'updraftplus');
 		}
 		$mess[] = __('Please select the more files backups that you wish to restore:', 'updraftplus');
 		$info['addui'] = empty($info['addui']) ? $more_ui : $info['addui'] . '<br>' . $more_ui;
@@ -842,7 +850,7 @@ class UpdraftPlus_Addons_MoreFiles {
 	 * @param Array   $warn      - array of warning-level messages
 	 * N.B. An extra parameter $err is also available after $warn
 	 */
-	public function restore_all_downloaded_postscan_selective_restore($backups, $timestamp, $entities, &$info, &$mess, &$warn) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function restore_all_downloaded_postscan_selective_restore($backups, $timestamp, $entities, &$info, &$mess, &$warn) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Unused parameter is present because the method is used as a WP filter.
 
 		$selective_restore_types = array(
 			'plugins',
@@ -886,7 +894,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		}
 
 		$selective_restore_ui = '<div class="notice below-h2 updraft-restore-option">';
-		$selective_restore_ui .= '<p>'.sprintf(__('If you do not want to restore all your %s files, then de-select the unwanted ones here. Files not chosen will not be replaced.', 'updraftplus'), strtolower($description)).'(<a href="#" id="updraftplus_restore_'.$type.'_showmoreoptions">...</a>)</p>';
+		$selective_restore_ui .= '<p>'.sprintf(__('If you do not want to restore all your %s files, then de-select the unwanted ones here.', 'updraftplus'), strtolower($description)).' '.__('Files not chosen will not be replaced.', 'updraftplus').'(<a href="#" id="updraftplus_restore_'.$type.'_showmoreoptions">...</a>)</p>';
 
 		$selective_restore_ui .= '<div class="updraftplus_restore_'.$type.'_options_container" style="display:none;">';
 
@@ -894,7 +902,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		$selective_restore_ui .= ' | <a class="updraft_restore_deselect_all_'.$type.'" href="#">'.__('Deselect all', 'updraftplus').'</a><br><br>';
 
 		if ($php_max_input_vars_exceeded) {
-			$all_other_entity_title = sprintf(__('The amount of %s files scanned is near or over the php_max_input_vars value so some %s files maybe truncated. This option will ensure all %s files not found will be restored.', 'updraftplus'), strtolower($description));
+			$all_other_entity_title = sprintf(__('The amount of %1$s files scanned is near or over the php_max_input_vars value so some %1$s files maybe truncated.', 'updraftplus'), strtolower($description)).' '.sprintf(__('This option will ensure all %s files not found will be restored.', 'updraftplus'), strtolower($description));
 			$selective_restore_ui .= '<input class="updraft_restore_'.$type.'_options" id="updraft_restore_'.$type.'_udp_all_other_'.$type.'" checked="checked" type="checkbox" name="updraft_restore_'.$type.'_options[]" value="udp_all_other_'.$type.'"> ';
 			$selective_restore_ui .= '<label for="updraft_restore_'.$type.'_udp_all_other_'.$type.'"  title="'.$all_other_entity_title.'">'.sprintf(__('Restore all %s not listed below', 'updraftplus'), strtolower($description)).'</label><br>';
 		}
@@ -950,7 +958,7 @@ class UpdraftPlus_Addons_MoreFiles {
 				}
 			}
 	
-			@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 		}
 
 		sort($entities);
@@ -967,7 +975,7 @@ class UpdraftPlus_Addons_MoreFiles {
 	 *
 	 * @return array - the filtered backupable_entities array
 	 */
-	public function backupable_file_entities_on_restore($backupable_entities, $restore_options, $backup_set) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function backupable_file_entities_on_restore($backupable_entities, $restore_options, $backup_set) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 
 		if (isset($backupable_entities['more']) && isset($backup_set['morefiles_more_locations'])) $backupable_entities['more']['path'] = $backup_set['morefiles_more_locations'];
 

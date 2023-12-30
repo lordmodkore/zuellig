@@ -51,6 +51,15 @@ class UpdraftPlusAddons2 {
 	private $admin_notices = array();
 
 	private $saved_site_id;
+	
+	private $plugin_file;
+
+	/**
+	 * Not used anywhere, but it is set.
+	 *
+	 * @var UpdraftPlusAddOns_Options2
+	 */
+	private $options;
 
 	/**
 	 * Constructor
@@ -175,6 +184,13 @@ class UpdraftPlusAddons2 {
 	
 	}
 	
+	/**
+	 * Inject our translation information into the updates object. Runs upon the WP filter site_transient_update_plugins .
+	 *
+	 * @param Object $updates
+	 *
+	 * @return Object
+	 */
 	public function possibly_inject_translations($updates) {
 	
 		$slug = $this->slug;
@@ -190,6 +206,9 @@ class UpdraftPlusAddons2 {
 				foreach ($updates->translations as $k => $translation) {
 					if ('plugin' == $translation['type'] && $translation['slug'] == $slug) unset($updates->translations[$k]);
 				}
+				
+			} else {
+				$updates->translations = array();
 			}
 			
 			// Add our translation onto the array
@@ -209,6 +228,9 @@ class UpdraftPlusAddons2 {
 		return $opts;
 	}
 
+	/**
+	 * Print out update URL information
+	 */
 	public function updraftplus_showrawinfo() {
 		echo "<p>Updates URL: ".htmlspecialchars($this->url)."</p>";
 	}
@@ -307,7 +329,7 @@ class UpdraftPlusAddons2 {
 		if (!empty($do_expiry_check) && is_object($oval) && !empty($oval->update) && is_object($oval->update) && !empty($oval->update->$updateskey)) {
 			if (preg_match('/(^|)expired_?(\d+)?(,|$)/', $oval->update->$updateskey, $matches)) {
 				if (empty($matches[2])) {
-					$message = __('Your paid access to UpdraftPlus updates for this site has expired. You will no longer receive updates to UpdraftPlus.', 'updraftplus').' <a href="https://updraftplus.com/renewing-updraftplus-purchase/">'.__('To regain access to updates (including future features and compatibility with future WordPress releases) and support, please renew.', 'updraftplus').'</a>';
+					$message = __('Your paid access to UpdraftPlus updates for this site has expired.', 'updraftplus').' '.__('You will no longer receive updates to UpdraftPlus.', 'updraftplus').' <a href="https://updraftplus.com/renewing-updraftplus-purchase/">'.__('To regain access to updates (including future features and compatibility with future WordPress releases) and support, please renew.', 'updraftplus').'</a>';
 					if ($updraftplus->have_addons > 14 && !empty($meta_info['indirect'])) {
 						$message .= ' <br>'.sprintf(__('If you have already renewed, then you need to allocate a licence to this site - %s', 'updraftplus'), '<a href="'.UpdraftPlus_Options::admin_page().'?page=updraftplus&tab=addons">'.__('go here', 'updraftplus').'</a>');
 					}
@@ -742,7 +764,7 @@ class UpdraftPlusAddons2 {
 			$shopurl = "";
 			$latestchange = null;
 			$lines_read = 0;
-			while ($lines_read<10 && $line = @fgets($f)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			while ($lines_read<10 && $line = @fgets($f)) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 				if ("" == $key && preg_match('/Addon: ([^:]+):(.*)$/i', $line, $lmatch)) {
 					$key = $lmatch[1];
 					$name = $lmatch[2];
@@ -821,7 +843,7 @@ class UpdraftPlusAddons2 {
 
 		if (!is_dir($plugin_dir.'/addons')) return array();
 		$local_addons = array();
-		if ($dir_handle = @opendir($plugin_dir.'/addons')) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if ($dir_handle = @opendir($plugin_dir.'/addons')) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 			while (false !== ($e = readdir($dir_handle))) {
 				if (is_file($plugin_dir.'/addons/'.$e) && preg_match('/^(.*)\.php$/i', $e, $matches)) {
 					$addon = $this->get_addon_info($plugin_dir.'/addons/'.$e);

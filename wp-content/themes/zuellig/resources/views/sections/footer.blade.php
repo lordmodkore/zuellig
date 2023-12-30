@@ -1,4 +1,174 @@
-<footer class="content-info">
-  @php(dynamic_sidebar('sidebar-footer'))
+<!--Begin Laetest News Content  -->
+@php
+    $newsletterFormId = get_field('newsletter_form', 'option');
+@endphp
+<section class="default_section-padding section_news-bg">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-xl-12 col-md-12 col-sm-12">
+                <div class="text-center">
+                    <h3 class="text-white fw-bold">Get the latest news, stories and announcements</h3>
+                    <div class="news_input-text justify-content-xl-end justify-content-md-end">
+                        {!! do_shortcode("[gravityform id={$newsletterFormId} title=false description=false ajax=true]") !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Laetest News Content  -->
+<footer class="section-bg default_section-padding">
+    <div class="container">
+        <div class="row border-bottom py-3">
+            <div class="col-xl-4 col-md-12 col-sm-6">
+                <div class="pb-2 mb-3">
+                    <img src="./assets/image/Group 93.png" alt="footer_logo" class="img-fluid">
+                </div>
+                <div class="pe-5 me-5 footer_text-address">
+                    <p class="pe-3">Km. 14 west Service Road
+                        cor. Edison Ave., Parañaque
+                        Manila, Philippines 1700</p>
+                    <p>
+                        hello@zuelligfoundation.org
+                    </p>
+                    <p>
+                        +632 1234 5678 loc 123
+                    </p>
+                </div>
+                <div class="d-flex icons_list py-2">
+                    <div>
+                        <a href="#">
+                            <img src="./assets/image/Property 1=Group 36.png" alt="fb">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="#">
+                            <img src="./assets/image/Property 1=Group 35.png" alt="ig">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="#">
+                            <img src="./assets/image/Property 1=Group 34.png" alt="twitter">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="#">
+                            <img src="./assets/image/Property 1=Group 33.png" alt="yt">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="#">
+                            <img src="./assets/image/Property 1=Group 37.png" alt="linkedin">
+                        </a>
+                    </div>
+                </div>
 
+            </div>
+            <div class="col-xl-8 col-md-12 col-sm-6">
+                <div class="footer_display-flex">
+                    <div>
+                        <div class="footer_content-title">
+                            <h3>WHO WE ARE</h3>
+                        </div>
+
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">Board of Trusstees</a>
+                        </p>
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">Careers</a>
+                        </p>
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">FAQs</a>
+                        </p>
+                    </div>
+                    <div>
+                        <div class="footer_content-title">
+                            <h3>OUR WORK</h3>
+                        </div>
+
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">
+                                Local Health <br />
+                                Systems
+                            </a>
+                        </p>
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">Nutrition</a>
+                        </p>
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">
+                                Adolescent <br />
+                                Reproductve <br />
+                                and Sexual <br />
+                                Health
+                            </a>
+                        </p>
+                    </div>
+                    <div>
+                        <div class="footer_content-title">
+                            <h3>LEARNINGS</h3>
+                        </div>
+
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">
+                                Insights from <br />
+                                the Field
+                            </a>
+                        </p>
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">Reflections</a>
+                        </p>
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">Research</a>
+                        </p>
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">Advocacies</a>
+                        </p>
+                    </div>
+                    <div>
+                        <div class="footer_content-title">
+                            <h3>
+                                COUNTRY <br />
+                                Stories
+                            </h3>
+                        </div>
+
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">Stories</a>
+                        </p>
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">News</a>
+                        </p>
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">Events</a>
+                        </p>
+                    </div>
+                    <div>
+                        <div class="footer_content-title">
+                            <h3>ZIFF INSTITUTE</h3>
+                        </div>
+
+                        <p>
+                            <a href="#" class="text-decoration-none footer_text_link-color">
+                                Resources/<br />
+                                Library/<br />
+                                Publications
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer_copyright mt-3">
+            <div class="flex-grow-1">
+                <p class="footer_copyright-text">©2024 Zuellig Family Foundation. All Rights Reserved.</p>
+            </div>
+            <div class="justify-content-between">
+                <a href="#" class="text-decoration-none footer_text_link-color px-2">Privacy Policy</a>
+                <a href="#" class="text-decoration-none footer_text_link-color px-2">Cookie Policy</a>
+                <a href="#" class="text-decoration-none footer_text_link-color px-2">Terms of Use</a>
+            </div>
+        </div>
+    </div>
 </footer>
+

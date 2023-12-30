@@ -166,7 +166,7 @@ if (is_multisite()) {
 				'updraft_include_wpcore_exclude' => '',
 				'updraft_include_more' => 0,
 				'updraft_include_more_path' => '',
-				'updraft_include_muplugins' => 1,
+				'updraft_include_mu-plugins' => 1,
 				'updraft_include_blogs' => 1,
 				'updraft_include_others_exclude' => UPDRAFT_DEFAULT_OTHERS_EXCLUDE,
 				'updraft_include_uploads_exclude' => UPDRAFT_DEFAULT_UPLOADS_EXCLUDE,
@@ -195,7 +195,7 @@ if (is_multisite()) {
 			update_site_option('updraftplus_options', $arr);
 		}
 
-		public static function options_form_begin($settings_fields = 'updraft-options-group', $allow_autocomplete = true, $get_params = array(), $classes = '') {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+		public static function options_form_begin($settings_fields = 'updraft-options-group', $allow_autocomplete = true, $get_params = array(), $classes = '') {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameters are for future use.
 
 			$page = '';
 			if (!empty($get_params)) {
@@ -230,7 +230,7 @@ if (is_multisite()) {
 		}
 
 		/**
-		 * This is the function outputing the HTML for our options page
+		 * This is the function outputting the HTML for our options page
 		 */
 		public static function options_printpage() {
 			if (!self::user_can_manage()) {
@@ -382,7 +382,7 @@ if (is_multisite()) {
 			return $preserve_existing;
 		}
 		
-		public function restore_delete_recursive($recurse, $ud_foreign, $restore_options) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+		public function restore_delete_recursive($recurse, $ud_foreign, $restore_options) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 			if ($recurse) return $recurse;
 			$selective_restore_site_id = (is_array($restore_options) && !empty($restore_options['updraft_restore_ms_whichsites']) && $restore_options['updraft_restore_ms_whichsites'] > 0) ? $restore_options['updraft_restore_ms_whichsites'] : false;
 			if ($selective_restore_site_id) return true;
@@ -441,9 +441,9 @@ if (is_multisite()) {
 				$updraftplus->log_e("Restoring only the site with id=%s: removing other data (if any) from the unpacked backup", 'main');
 				
 				if ('uploads' == $type) {
-					@$wp_filesystem->delete($move_from.'/sites', true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+					@$wp_filesystem->delete($move_from.'/sites', true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 				} elseif ('others' == $type) {
-					@$wp_filesystem->delete($move_from.'/blogs.dir', true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+					@$wp_filesystem->delete($move_from.'/blogs.dir', true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 				}
 				
 			} else {
@@ -453,7 +453,7 @@ if (is_multisite()) {
 				if ('uploads' == $type) {
 					// Sanity check
 					if (!$wp_filesystem->exists($move_from.'/sites')) {
-						$updraftplus->log("Could not find sites directory: aborting (${move_from}/sites)");
+						$updraftplus->log("Could not find sites directory: aborting ({$move_from}/sites)");
 						return false;
 					}
 					// Remove stuff not in uploads/sites
@@ -461,14 +461,14 @@ if (is_multisite()) {
 					if (empty($potential_del_files)) $potential_del_files = array();
 					foreach ($potential_del_files as $file => $filestruc) {
 						if (empty($file)) continue;
-						if ('sites' != strtolower($file)) @$wp_filesystem->delete($move_from.'/'.$file, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+						if ('sites' != strtolower($file)) @$wp_filesystem->delete($move_from.'/'.$file, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 					}
 					// Remove stuff in uploads/sites that does not match our ID
 					$potential_del_files = $wp_filesystem->dirlist($move_from.'/sites', true, false);
 					if (empty($potential_del_files)) $potential_del_files = array();
 					foreach ($potential_del_files as $file => $filestruc) {
 						if (empty($file)) continue;
-						if ($file != $selective_restore_site_id) @$wp_filesystem->delete($move_from.'/sites/'.$file, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+						if ($file != $selective_restore_site_id) @$wp_filesystem->delete($move_from.'/sites/'.$file, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 					}
 					
 					return $move_from.'/sites/'.$selective_restore_site_id;
@@ -476,7 +476,7 @@ if (is_multisite()) {
 				} elseif ('others' == $type) {
 					// Sanity check
 					if (!$wp_filesystem->exists($move_from.'/blogs.dir')) {
-						$updraftplus->log("Could not find blogs.dir directory: aborting (${move_from}/blogs.dir)");
+						$updraftplus->log("Could not find blogs.dir directory: aborting ({$move_from}/blogs.dir)");
 						return false;
 					}
 					// Remove stuff not in wp-content/blogs.dir
@@ -484,14 +484,14 @@ if (is_multisite()) {
 					if (empty($potential_del_files)) $potential_del_files = array();
 					foreach ($potential_del_files as $file => $filestruc) {
 						if (empty($file)) continue;
-						if ('blogs.dir' != strtolower($file)) @$wp_filesystem->delete($move_from.'/'.$file.'/files', true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+						if ('blogs.dir' != strtolower($file)) @$wp_filesystem->delete($move_from.'/'.$file.'/files', true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 					}
 					// Remove stuff in uploads/sites that does not match our ID
 					$potential_del_files = $wp_filesystem->dirlist($move_from.'/blogs.dir', true, false);
 					if (empty($potential_del_files)) $potential_del_files = array();
 					foreach ($potential_del_files as $file => $filestruc) {
 						if (empty($file)) continue;
-						if ($file != $selective_restore_site_id) @$wp_filesystem->delete($move_from.'/blogs.dir/'.$file.'/files', true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+						if ($file != $selective_restore_site_id) @$wp_filesystem->delete($move_from.'/blogs.dir/'.$file.'/files', true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 					}
 					
 					return $move_from.'/blogs.dir/'.$selective_restore_site_id.'/files';
@@ -541,7 +541,7 @@ if (is_multisite()) {
 		 *
 		 * @return Boolean                        - filtered value
 		 */
-		public function restore_this_site($restore_or_not, $site_id, $unprefixed_table_name, $restore_options) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+		public function restore_this_site($restore_or_not, $site_id, $unprefixed_table_name, $restore_options) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
 		
 			if (!empty($restore_options['updraft_restore_ms_whichsites']) && -1 != $restore_options['updraft_restore_ms_whichsites']) {
 		
@@ -754,15 +754,23 @@ if (is_multisite()) {
 			return $site_results;
 		}
 		
+		/**
+		 * Adds backupable file entities to an array based on specified conditions.
+		 *
+		 * This function is used to add information about backupable file entities to an array.
+		 * It considers whether the WordPress installation is using multisite and the value of the 'ms_files_rewriting' option.
+		 * If multisite is detected and 'ms_files_rewriting' is not enabled, it includes information about the blog uploads directory in the array.
+		 *
+		 * @param array $arr       The array to which backupable file entities information will be added.
+		 * @param bool  $full_info Whether to include detailed information about the backupable file entities or just their paths.
+		 *
+		 * @return array The modified array with backupable file entities information added.
+		 */
 		public function add_backupable_file_entities($arr, $full_info) {
 			// Post-3.5, WordPress multisite puts uploads from blogs by default into the uploads directory (i.e. no separate location). This is indicated not by the WP version number, but by the option ms_files_rewriting (which won't exist pre-3.5). See wp_upload_dir()
 			// This is a compatible way of getting the current blog's upload directory. Because of our access setup, that always resolves to the site owner's upload directory
 			global $updraftplus;
 			if ($full_info) {
-				$arr['mu-plugins'] = array(
-					'path' => WPMU_PLUGIN_DIR,
-					'description' => __('Must-use plugins', 'updraftplus')
-				);
 				if (!get_option('ms_files_rewriting') && defined('UPLOADBLOGSDIR')) {
 					$ud = $updraftplus->wp_upload_dir();
 					if (strpos(UPLOADBLOGSDIR, false === $ud['basedir'])) {
@@ -773,7 +781,6 @@ if (is_multisite()) {
 					}
 				}
 			} else {
-				$arr['mu-plugins'] = WPMU_PLUGIN_DIR;
 				if (!get_option('ms_files_rewriting') && defined('UPLOADBLOGSDIR')) {
 					$ud = $updraftplus->wp_upload_dir();
 					if (strpos(UPLOADBLOGSDIR,  false === $ud['basedir'])) {

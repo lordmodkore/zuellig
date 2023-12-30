@@ -1,8 +1,9 @@
 <header>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="" href="#">
-                <img src="{!! get_field('logo','option') !!}" alt="logo" class="img-fluid">
+            <a class="logo-link" href="/">
+                <img src="{!! get_field('logo','option') !!}" alt="logo" class="logo img-fluid">
+                <img src="{!! get_field('sticky_logo','option') !!}" alt="logo" class="img-fluid sticky-logo">
             </a>
             <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

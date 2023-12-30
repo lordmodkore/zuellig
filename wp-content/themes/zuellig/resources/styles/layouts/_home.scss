@@ -51,7 +51,7 @@
 }
 .tab {
     position: relative;
-    width: 20%;
+    width: 10%;
     height: inherit;
     padding: 20px;
     background: #000;
@@ -94,7 +94,7 @@
 
 .tab:hover,
 .tab.show {
-    width: 80%;
+    width: 100%;
 }
 
 .tab:hover .caption,

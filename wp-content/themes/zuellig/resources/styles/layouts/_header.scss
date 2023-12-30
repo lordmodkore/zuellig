@@ -6,16 +6,37 @@ header{
         width: 100%;
         z-index: 1000;
         padding: 2% 5%;
-
+        .sticky-logo{
+            display:none;
+        }
+        .logo{
+            display:block;
+        }
+        .logo-link{
+            max-width: 250px;
+        }
         &.sticky{
-            background-color: var(--primaryColor); /* Set the background color when sticky */
-            border-bottom: 1px solid var(--primaryColor); /* Set the border when sticky */
+            background-color: #F8F7F7; /* Set the background color when sticky */
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             padding: 1% 5%;
             color:#000;
+            .sticky-logo{
+                display:block;
+            }
+            .logo{
+                display:none;
+            }
+            .navbar-nav {
+                .nav-link {
+                    color: #006AAB;
+                    &:hover{
+                        color: #aaa;
+                    }
+                }
+            }
         }
         /* Adjust padding/margin if necessary */
         .navbar-brand img {
@@ -51,6 +72,7 @@ header{
             padding-top: 1.25rem;
             padding-bottom: 1.25rem;
             color: #fff;
+            width: 25%;
             /* text-align: center; */
         }
         .carousel-indicators [data-bs-target]{

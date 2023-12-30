@@ -1,0 +1,147 @@
+/* footer */
+.icons_list {
+    justify-content: space-between;
+    padding: 0 55% 0 0;
+}
+
+.footer_content-title h3 {
+    font-size: var(--fontSize16) !important;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.footer_text_link-color {
+    color: var(--footerTextLinkColor);
+}
+
+.footer_text_link-color:hover {
+    text-decoration: underline;
+}
+
+.footer_text-address {
+    font-weight: bold;
+}
+
+.footer_copyright-text {
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.section_news-bg {
+    background-color: var(--primaryColor);
+}
+
+.link_news-text {
+    background-color: var(--secondaryColor);
+    border: 1px solid var(--secondaryColor);
+    border-radius: 5px;
+    margin: 0 0.5%;
+    padding: 0.5% 3%;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: var(--fontSize18);
+}
+
+.news_input-text {
+    input[type="submit"]{
+        background-color: var(--secondaryColor);
+        border: 1px solid var(--secondaryColor);
+        border-radius: 5px;
+        margin:0;
+        padding: 5px 15px;
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: var(--fontSize18);
+    }
+}
+
+.project_title-text {
+    font-size: var(--fontSize18);
+}
+
+.img_right-arrow {
+    height: 18px;
+    padding-bottom: 3px;
+    margin-left: 4px;
+}
+
+.link_color {
+    color: var(--primaryColor) !important;
+}
+
+/* Who we are style */
+.border_inner-color {
+    border-top: 1px solid var(--primaryColor);
+    border-bottom: 1px solid var(--primaryColor);
+}
+
+.who_paragraph-size {
+    font-size: 50px;
+    color: var(--primaryColor);
+    padding: 0 6%;
+}
+
+.section_goals-bg {
+    background-color: #C6E9FF;
+}
+
+.card_small-text {
+    color: var(--primaryColor);
+    font-size: 12px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.footer_display-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer_copyright {
+    display: flex;
+}
+
+.block_mobile {
+    display: none !important;
+}
+
+.div_padding {
+    padding: 5%;
+}
+
+.nav-link,
+.nav-link:hover {
+    color: #000;
+}
+
+.nav-tabs .nav-link.active {
+    border-bottom: 2px solid var(--primaryColor);
+    color: #000;
+}
+
+.nav_learning_link {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.institute_small-title {
+    font-size: 22px;
+    font-family: "Calibri" !important;
+    text-transform: capitalize;
+    color: var(--primaryColor);
+}
+
+.heading_content-text {
+    font-size: 30px;
+}
+
+.btn_view {
+    border: 1px solid #000;
+    padding: 10px 20px;
+    color: #000;
+    text-decoration: none;
+}
