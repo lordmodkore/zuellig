@@ -22,45 +22,53 @@
         <div class="row border-bottom py-3">
             <div class="col-xl-4 col-md-12 col-sm-6">
                 <div class="pb-2 mb-3">
-                    <img src="./assets/image/Group 93.png" alt="footer_logo" class="img-fluid">
+                    <img src="@asset('images/Group 93.png')" alt="footer_logo" class="img-fluid">
                 </div>
                 <div class="pe-5 me-5 footer_text-address">
-                    <p class="pe-3">Km. 14 west Service Road
-                        cor. Edison Ave., Parañaque
-                        Manila, Philippines 1700</p>
+                    <p class="pe-3">{!! get_field('contact_address','option') !!}</p>
                     <p>
-                        hello@zuelligfoundation.org
+                        <a href="mailto:{!! get_field('contact_email','option') !!}">{!! get_field('contact_email','option') !!}</a>
                     </p>
                     <p>
-                        +632 1234 5678 loc 123
+                        <a href="tel:{!! get_field('contact_phone','option') !!}">{!! get_field('contact_phone','option') !!}</a>
                     </p>
                 </div>
                 <div class="d-flex icons_list py-2">
-                    <div>
-                        <a href="#">
-                            <img src="./assets/image/Property 1=Group 36.png" alt="fb">
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#">
-                            <img src="./assets/image/Property 1=Group 35.png" alt="ig">
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#">
-                            <img src="./assets/image/Property 1=Group 34.png" alt="twitter">
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#">
-                            <img src="./assets/image/Property 1=Group 33.png" alt="yt">
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#">
-                            <img src="./assets/image/Property 1=Group 37.png" alt="linkedin">
-                        </a>
-                    </div>
+                    @if( get_field('facebook','option'))
+                        <div>
+                            <a href="{!! get_field('facebook','option') !!}">
+                                <img src="@asset('images/Property 1=Group 36.png')" alt="fb">
+                            </a>
+                        </div>
+                    @endif
+                    @if( get_field('instagram','option'))
+                        <div>
+                            <a href="{!! get_field('instagram','option') !!}">
+                                <img src="@asset('images/Property 1=Group 35.png')" alt="ig">
+                            </a>
+                        </div>
+                    @endif
+                    @if( get_field('x','option'))
+                        <div>
+                            <a href="#">
+                                <img src="@asset('images/Property 1=Group 34.png')" alt="twitter">
+                            </a>
+                        </div>
+                    @endif
+                    @if( get_field('youtube','option'))
+                        <div>
+                            <a href="#">
+                                <img src="@asset('images/Property 1=Group 33.png')" alt="yt">
+                            </a>
+                        </div>
+                    @endif
+                    @if( get_field('linkedin','option'))
+                        <div>
+                            <a href="#">
+                                <img src="@asset('images/Property 1=Group 37.png')" alt="linkedin">
+                            </a>
+                        </div>
+                    @endif
                 </div>
 
             </div>

@@ -23,7 +23,26 @@ domReady(async () => {
     })
 
 });
+jQuery(document).ready(function($) {
+    $('.accordion .tab:first-child').addClass('show');
 
+    // Hover event for accordion tabs
+    $('.accordion .tab').hover(
+        function() {
+            // Remove "show" class from all tabs
+            $('.accordion .tab').removeClass('show');
+            // Add "show" class to the hovered tab
+            $(this).addClass('show');
+        },
+        function() {
+            // Mouse leave event
+            // Optionally, you can add behavior when the mouse leaves
+            // For example, add "show" class back to the first tab
+            $(this).removeClass('show');
+            $('.accordion .tab:first-child').addClass('show');
+        }
+    );
+});
 
 /**
  * @see {@link https://webpack.js.org/api/hot-module-replacement/}
