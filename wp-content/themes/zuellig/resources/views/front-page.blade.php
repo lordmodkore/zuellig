@@ -195,8 +195,6 @@
                                 'posts_per_page' => -1,
                             ];
                             $locations_query = new WP_Query($args);
-
-
                         @endphp
                         @if( $locations_query->have_posts())
                             <div class="acf-map">
@@ -320,6 +318,7 @@
         function new_map($el) {
 
             var markers = [];
+            var labelCounter = {};
             $el.find('.marker').each(function() {
                 var $marker = $(this);
                 var lat = $marker.data('lat');
@@ -327,6 +326,10 @@
 
                 var myLatlng = new google.maps.LatLng(lat, lng);
                 markers.push(myLatlng);
+
+                // Update the labelCounter for each location
+                var locationKey = lat + '_' + lng;
+                labelCounter[locationKey] = (labelCounter[locationKey] || 0) + 1;
             });
 
             var bounds = new google.maps.LatLngBounds();
@@ -395,13 +398,29 @@
             map.fitBounds(bounds);
 
             markers.forEach(function(myLatlng) {
+                var locationKey = myLatlng.lat() + '_' + myLatlng.lng();
+                var labelValue = labelCounter[locationKey];
                 var marker = new google.maps.Marker({
                     position: myLatlng,
                     map: map,
+                    label: {
+                        text: labelValue.toString(), // Set to '1' for now, it will be updated dynamically
+                        color: '#006AA0', // Label text color
+                        fontFamily: 'Gill Sans, sans-serif', // Font family
+                        fontSize: '12px', // Font size
+                        fontStyle: 'normal', // Font style
+                        fontWeight: '600', // Font weight
+                        lineHeight: 'normal', // Line height
+                        letterSpacing: '0.8px', // Letter spacing
+                        textTransform: 'uppercase', // Text transform
+                        textAlign: 'center', // Text align
+                    },// Set to '1' for now, it will be updated dynamically
                     icon: {
                         url: '<?php echo $mapMarkerIconUrl;?>',
                         scaledSize : new google.maps.Size(22, 32),
-                    }
+                        labelOrigin: new google.maps.Point(11, 10),
+                    },
+
                 });
             });
             // Adjust zoom level dynamically
