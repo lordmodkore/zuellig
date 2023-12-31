@@ -234,7 +234,7 @@
                                     <h4 class="mb-0 fw-bold project_title-text">local health systems Project partners</h4>
                                 </div>
                             </div>
-                            <div class="row text-center align-items-center justify-content-around">
+                            <div class="row text-center align-items-center justify-content-start">
                                 @while(have_rows('program_partners'))
                                     @php the_row() @endphp
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-4">
@@ -252,7 +252,7 @@
                                     <h4 class="mb-0 fw-bold project_title-text">nutrition Project partners</h4>
                                 </div>
                             </div>
-                            <div class="row text-center align-items-center justify-content-around">
+                            <div class="row text-center align-items-center justify-content-start">
                                 @while(have_rows('nutrition_project_partners'))
                                     @php the_row() @endphp
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-4">
@@ -270,7 +270,7 @@
                                     <h4 class="mb-0 fw-bold project_title-text">ADOLESCENT SEXUAL AND REPRODUCTIVE HEALTH Project partners</h4>
                                 </div>
                             </div>
-                            <div class="row text-center align-items-center justify-content-around">
+                            <div class="row text-center align-items-center justify-content-start">
                                 @while(have_rows('reproductive_health_partners'))
                                     @php the_row() @endphp
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-4">
@@ -288,7 +288,7 @@
                                     <h4 class="mb-0 fw-bold project_title-text">network partners</h4>
                                 </div>
                             </div>
-                            <div class="row text-center align-items-center justify-content-around">
+                            <div class="row text-center align-items-center justify-content-start">
                                 @while(have_rows('resource_partners'))
                                     @php the_row() @endphp
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-4">
