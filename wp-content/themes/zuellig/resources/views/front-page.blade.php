@@ -231,7 +231,7 @@
                         @if(have_rows('program_partners'))
                             <div class="row border-black border-top border-bottom">
                                 <div class="col text-center py-3">
-                                    <h4 class="mb-0 fw-bold project_title-text">PROGRAM PARTNERS</h4>
+                                    <h4 class="mb-0 fw-bold project_title-text">local health systems Project partners</h4>
                                 </div>
                             </div>
                             <div class="row text-center align-items-center justify-content-around">
@@ -246,18 +246,36 @@
                                 @endwhile
                             </div>
                         @endif
-                        @if(have_rows('academic_partners'))
+                        @if(have_rows('nutrition_project_partners'))
                             <div class="row border-black border-top border-bottom">
                                 <div class="col text-center py-3">
-                                    <h4 class="mb-0 fw-bold project_title-text">ACADEMIC AND TRAINING PARTNERS</h4>
+                                    <h4 class="mb-0 fw-bold project_title-text">nutrition Project partners</h4>
                                 </div>
                             </div>
                             <div class="row text-center align-items-center justify-content-around">
-                                @while(have_rows('academic_partners'))
+                                @while(have_rows('nutrition_project_partners'))
                                     @php the_row() @endphp
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-2">
                                         <div>
-                                            <img src="{!! get_sub_field('academic_partner_logo') !!}" alt=""
+                                            <img src="{!! get_sub_field('nutrition_project_partner_logo') !!}" alt=""
+                                                 class="img-fluid partner-logo">
+                                        </div>
+                                    </div>
+                                @endwhile
+                            </div>
+                        @endif
+                        @if(have_rows('reproductive_health_partners'))
+                            <div class="row border-black border-top border-bottom">
+                                <div class="col text-center py-3">
+                                    <h4 class="mb-0 fw-bold project_title-text">ADOLESCENT SEXUAL AND REPRODUCTIVE HEALTH Project partners</h4>
+                                </div>
+                            </div>
+                            <div class="row text-center align-items-center justify-content-around">
+                                @while(have_rows('reproductive_health_partners'))
+                                    @php the_row() @endphp
+                                    <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-2">
+                                        <div>
+                                            <img src="{!! get_sub_field('reproductive_health_partners_logo') !!}" alt=""
                                                  class="img-fluid partner-logo">
                                         </div>
                                     </div>
@@ -267,7 +285,7 @@
                         @if(have_rows('resource_partners'))
                             <div class="row border-black border-top border-bottom">
                                 <div class="col text-center py-3">
-                                    <h4 class="mb-0 fw-bold project_title-text">RESOURCE PARTNERS</h4>
+                                    <h4 class="mb-0 fw-bold project_title-text">network partners</h4>
                                 </div>
                             </div>
                             <div class="row text-center align-items-center justify-content-around">

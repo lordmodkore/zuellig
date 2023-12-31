@@ -826,8 +826,8 @@
                         },
                         {
                             "key": "field_658edd45002b2",
-                            "label": "Academic Partners",
-                            "name": "academic_partners",
+                            "label": "Nutrition Project Partners",
+                            "name": "nutrition_project_partners",
                             "aria-label": "",
                             "type": "repeater",
                             "instructions": "",
@@ -847,8 +847,8 @@
                             "sub_fields": [
                                 {
                                     "key": "field_658edd59002b3",
-                                    "label": "Academic Partner Logo",
-                                    "name": "academic_partner_logo",
+                                    "label": "Nutrition Project Partner Logo",
+                                    "name": "nutrition_project_partner_logo",
                                     "aria-label": "",
                                     "type": "image",
                                     "instructions": "",
@@ -875,7 +875,7 @@
                         },
                         {
                             "key": "field_658ede4649b78",
-                            "label": "Resource Partners",
+                            "label": "Network Partners",
                             "name": "resource_partners",
                             "aria-label": "",
                             "type": "repeater",
@@ -896,7 +896,7 @@
                             "sub_fields": [
                                 {
                                     "key": "field_658ede7b49b79",
-                                    "label": "Resource Partners Logo",
+                                    "label": "Network Partners Logo",
                                     "name": "resource_partners_logo",
                                     "aria-label": "",
                                     "type": "image",
@@ -919,6 +919,50 @@
                                     "mime_types": "",
                                     "preview_size": "medium",
                                     "parent_repeater": "field_658ede4649b78"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_6590e062bd278",
+                            "label": "Reproductive Health Partners",
+                            "name": "reproductive_health_partners",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "table",
+                            "min": 0,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Add Row",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_6590e087bd279",
+                                    "label": "Reproductive Health Partners Logo",
+                                    "name": "reproductive_health_partners_logo",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_6590e062bd278"
                                 }
                             ]
                         }
@@ -965,5 +1009,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1703862488
+    "modified": 1703993498
 }

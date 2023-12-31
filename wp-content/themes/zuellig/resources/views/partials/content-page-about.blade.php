@@ -8,5 +8,8 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            {!! the_content() !!}
+        </div>
     </div>
 </section>
