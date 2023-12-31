@@ -41,3 +41,22 @@ function create_project_locations_post_type() {
 
 // Hook to the init action to register the custom post type
 add_action( 'init', 'create_project_locations_post_type' );
+// Register Custom Taxonomy
+function project_location_taxonomy_function() {
+    $labels = array(
+        'name'                       => _x( 'Project Categories', 'Taxonomy General Name', 'zuellig' ),
+        'singular_name'              => _x( 'Project Category', 'Taxonomy Singular Name', 'zuellig' ),
+        'menu_name'                  => __( 'Project Categories', 'zuellig' ),
+        'all_items'                  => __( 'All Project Categories', 'zuellig' ),
+    );
+    $args = array(
+        'hierarchical'          => true,
+        'labels'                => $labels,
+        'show_ui'               => true,
+        'show_admin_column'     => true,
+        'query_var'             => true,
+        'rewrite'               => array( 'slug' => 'project-categories' ),
+    );
+    register_taxonomy( 'project-categories', array( 'project_location' ), $args );
+}
+add_action( 'init', 'project_location_taxonomy_function', 0 );
