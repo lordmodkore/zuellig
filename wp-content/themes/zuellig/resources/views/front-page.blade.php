@@ -307,14 +307,18 @@
         @endwhile
     @endif
 @endsection
-
+@php
+    $mapMarkerIconUrl = asset('images/map-marker.png');
+@endphp
 <script>
+
     jQuery(document).ready(function($) {
         $('.acf-map').each(function() {
             var map = new_map($(this));
         });
 
         function new_map($el) {
+
             var markers = [];
             $el.find('.marker').each(function() {
                 var $marker = $(this);
@@ -393,7 +397,11 @@
             markers.forEach(function(myLatlng) {
                 var marker = new google.maps.Marker({
                     position: myLatlng,
-                    map: map
+                    map: map,
+                    icon: {
+                        url: '<?php echo $mapMarkerIconUrl;?>',
+                        scaledSize : new google.maps.Size(22, 32),
+                    }
                 });
             });
             // Adjust zoom level dynamically
