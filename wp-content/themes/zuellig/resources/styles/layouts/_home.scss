@@ -14,6 +14,7 @@
 .block_paragraph_small-title{
     font-size: 15px;
     line-height: 40px;
+    text-transform:uppercase;
     font-weight: var(--sectionDefaultPadding);
 }
 .div_heading-title{
@@ -41,6 +42,11 @@
     display: flex;
     flex-wrap: wrap;
     height: 100%;
+}
+.block_programs{
+    .program_button_text{
+        text-transform:uppercase;
+    }
 }
 .accordion {
     max-width: 100%;
