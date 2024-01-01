@@ -20,7 +20,7 @@
 <footer class="section-bg default_section-padding">
     <div class="container">
         <div class="row border-bottom py-3">
-            <div class="col-xl-4 col-md-12 col-sm-6">
+            <div class="col-xl-4 col-md-12 col-sm-12 mt-4">
                 <div class="pb-2 mb-3">
                     <img src="@asset('images/Group 93.png')" alt="footer_logo" class="img-fluid">
                 </div>
@@ -72,7 +72,7 @@
                 </div>
 
             </div>
-            <div class="col-xl-8 col-md-12 col-sm-6">
+            <div class="col-xl-8 col-md-12 col-sm-12 mt-4" >
                 <div class="row">
                     <?php dynamic_sidebar('footer-widgets'); ?>
                 </div>
