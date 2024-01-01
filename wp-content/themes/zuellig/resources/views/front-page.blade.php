@@ -193,6 +193,7 @@
                             $args = [
                                 'post_type' => 'project_location',
                                 'posts_per_page' => -1,
+                                'post_status'   =>  'publish'
                             ];
                             $locations_query = new WP_Query($args);
                         @endphp
@@ -433,6 +434,5 @@
             return map;
         }
     });
-
 
 </script>
