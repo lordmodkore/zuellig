@@ -15,16 +15,16 @@
 </section>
 <section class="default_section-padding">
     <div class="container col-lg-10">
-        <div class="row mb-3 pb-3">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="description_extra-padding p-0">
-                    <div class="div_heading-title">
-                        <h1 class="fw-bold">Programs</h1>
+        @if(have_rows('programs'))
+            <div class="row mb-3 pb-3">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="description_extra-padding p-0">
+                        <div class="div_heading-title">
+                            <h1 class="fw-bold">Programs</h1>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        @if(have_rows('programs'))
             @while(have_rows('programs'))
                 @php the_row(); @endphp
                 <div class="row py-3 mb-5 align-items-center">
