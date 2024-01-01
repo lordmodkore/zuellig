@@ -77,8 +77,8 @@
                             <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
                         @endif
                         <div class="card-body">
-                            @php @endphp
-                            @foreach(get_category($article) as $category)
+
+                            @foreach(get_the_category($article) as $category)
                                    <p class="card_small-text fw-bold">{{ $category->name }}</p>
                             @endforeach
                             <h5 class="card-title fw-bold">{!! get_the_title($article->ID) !!}</h5>
