@@ -142,8 +142,8 @@
                                         @endphp
                                         {!! wp_trim_words( $content, 20 ); !!}
                                     </p>
-                                    <a href="{!! get_the_permalink($featuredPost[0]) !!}" class="d-none text-decoration-none text-white link_default-value">
-                                        <div class="d-fle">
+                                    <a href="{!! get_the_permalink($featuredPost[0]) !!}" class="text-decoration-none text-white link_default-value">
+                                        <div class="d-flex">
                                             <p>READ MORE<span>&nbsp
                                                 <i class="fa fa-chevron-right"></i></span></p>
                                         </div>
