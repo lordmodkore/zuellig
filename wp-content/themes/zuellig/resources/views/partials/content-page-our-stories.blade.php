@@ -45,134 +45,152 @@
             <div class="tab-content mt-3" id="myTabContent">
                 <!--begin:: Tab pane Featured -->
                 <div class="tab-pane fade show active py-2" id="featured-tab-pane" role="tabpanel" aria-labelledby="featured-tab" tabindex="0">
-                    @foreach ($featured_articles as $featured)
+                    @if($featured_articles)
+                        @foreach ($featured_articles as $featured)
                         <div class="row py-3 mb-5 align-items-center">
-                        <div class="col-lg-7 col-md-12 col-sm-12">
-                            @if(has_post_thumbnail($featured->ID))
-                                {!! get_the_post_thumbnail($featured->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                            @else
-                                <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
-                            @endif
-                        </div>
-                        <div class="col-lg-5 col-md-12 col-sm-12">
-                            <div class="block_leaders block_featured-bg text-white">
-                                <p class="featured_date text-uppercase">{!! get_the_date('F d, Y',$featured->ID) !!}</p>
-                                <h1 class="featured_title fw-bold">{!! get_the_title($featured->ID) !!}</h1>
-                                <p class="featured_description">
-                                    @php
-                                        $featured_content =  get_post_field('post_content', $featured->ID);
-                                    @endphp
-                                    {!! wp_trim_words($featured_content, 20 ); !!}
-                                </p>
-                                <a href="{!! get_the_permalink($featured->ID) !!}" class="text-decoration-none text-white link_default-value">
-                                    <div class="d-flex">
-                                        <p>READ MORE<span>&nbsp
+                            <div class="col-lg-7 col-md-12 col-sm-12">
+                                @if(has_post_thumbnail($featured->ID))
+                                    {!! get_the_post_thumbnail($featured->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
+                                @else
+                                    <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
+                                @endif
+                            </div>
+                            <div class="col-lg-5 col-md-12 col-sm-12">
+                                <div class="block_leaders block_featured-bg text-white">
+                                    <p class="featured_date text-uppercase">{!! get_the_date('F d, Y',$featured->ID) !!}</p>
+                                    <h1 class="featured_title fw-bold">{!! get_the_title($featured->ID) !!}</h1>
+                                    <p class="featured_description">
+                                        @php
+                                            $featured_content =  get_post_field('post_content', $featured->ID);
+                                        @endphp
+                                        {!! wp_trim_words($featured_content, 20 ); !!}
+                                    </p>
+                                    <a href="{!! get_the_permalink($featured->ID) !!}" class="text-decoration-none text-white link_default-value">
+                                        <div class="d-flex">
+                                            <p>READ MORE<span>&nbsp
                                                 <i class="fa fa-chevron-right"></i></span></p>
-                                    </div>
-                                </a>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
+                    @else
+                        @include('partials.content-page-in-progress')
+                    @endif
                 </div>
                 <!--end:: Tab pane -->
                 <!--begin:: Tab pane -->
                 <div class="tab-pane fade py-2" id="stories-tab-pane" role="tabpanel" aria-labelledby="stories-tab" tabindex="0">
-                    @foreach ($stories_articles as $stories)
-                        <div class="row py-3 mb-5 align-items-center">
-                            <div class="col-lg-7 col-md-12 col-sm-12">
-                                @if(has_post_thumbnail($stories->ID))
-                                    {!! get_the_post_thumbnail($stories->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                                @else
-                                    <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
-                                @endif
-                            </div>
-                            <div class="col-lg-5 col-md-12 col-sm-12">
-                                <div class="block_leaders block_featured-bg text-white">
-                                    <p class="featured_date text-uppercase">{!! get_the_date('F d, Y',$stories->ID) !!}</p>
-                                    <h1 class="featured_title fw-bold">{!! get_the_title($stories->ID) !!}</h1>
-                                    <p class="featured_description">
-                                        @php
-                                            $stories_content =  get_post_field('post_content', $stories->ID);
-                                        @endphp
-                                        {!! wp_trim_words($stories_content, 20 ); !!}
-                                    </p>
-                                    <a href="{!! get_the_permalink($stories->ID) !!}" class="text-decoration-none text-white link_default-value">
-                                        <div class="d-flex">
-                                            <p>READ MORE<span>&nbsp
+                    @if($stories_articles)
+                        @foreach ($stories_articles as $stories)
+                            <div class="row py-3 mb-5 align-items-center">
+                                <div class="col-lg-7 col-md-12 col-sm-12">
+                                    @if(has_post_thumbnail($stories->ID))
+                                        {!! get_the_post_thumbnail($stories->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
+                                    @else
+                                        <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
+                                    @endif
+                                </div>
+                                <div class="col-lg-5 col-md-12 col-sm-12">
+                                    <div class="block_leaders block_featured-bg text-white">
+                                        <p class="featured_date text-uppercase">{!! get_the_date('F d, Y',$stories->ID) !!}</p>
+                                        <h1 class="featured_title fw-bold">{!! get_the_title($stories->ID) !!}</h1>
+                                        <p class="featured_description">
+                                            @php
+                                                $stories_content =  get_post_field('post_content', $stories->ID);
+                                            @endphp
+                                            {!! wp_trim_words($stories_content, 20 ); !!}
+                                        </p>
+                                        <a href="{!! get_the_permalink($stories->ID) !!}" class="text-decoration-none text-white link_default-value">
+                                            <div class="d-flex">
+                                                <p>READ MORE<span>&nbsp
                                                 <i class="fa fa-chevron-right"></i></span></p>
-                                        </div>
-                                    </a>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @else
+                        @include('partials.content-page-in-progress')
+                    @endif
                 </div>
                 <!--end:: Tab pane -->
                 <!--begin:: Tab pane -->
                 <div class="tab-pane fade py-2" id="news-tab-pane" role="tabpanel" aria-labelledby="news-tab" tabindex="0">
-                    @foreach ($news_articles as $news)
-                        <div class="row py-3 mb-5 align-items-center">
-                            <div class="col-lg-7 col-md-12 col-sm-12">
-                                @if(has_post_thumbnail($news->ID))
-                                    {!! get_the_post_thumbnail($news->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                                @else
-                                    <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
-                                @endif
-                            </div>
-                            <div class="col-lg-5 col-md-12 col-sm-12">
-                                <div class="block_leaders block_featured-bg text-white">
-                                    <p class="featured_date text-uppercase">{!! get_the_date('F d, Y',$news->ID) !!}</p>
-                                    <h1 class="featured_title fw-bold">{!! get_the_title($news->ID) !!}</h1>
-                                    <p class="featured_description">
-                                        @php
-                                            $news_content =  get_post_field('post_content', $news->ID);
-                                        @endphp
-                                        {!! wp_trim_words($news_content, 20 ); !!}
-                                    </p>
-                                    <a href="{!! get_the_permalink($news->ID) !!}" class="text-decoration-none text-white link_default-value">
-                                        <div class="d-flex">
-                                            <p>READ MORE<span>&nbsp
+                    @if($news_articles)
+                        @foreach ($news_articles as $news)
+                            <div class="row py-3 mb-5 align-items-center">
+                                <div class="col-lg-7 col-md-12 col-sm-12">
+                                    @if(has_post_thumbnail($news->ID))
+                                        {!! get_the_post_thumbnail($news->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
+                                    @else
+                                        <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
+                                    @endif
+                                </div>
+                                <div class="col-lg-5 col-md-12 col-sm-12">
+                                    <div class="block_leaders block_featured-bg text-white">
+                                        <p class="featured_date text-uppercase">{!! get_the_date('F d, Y',$news->ID) !!}</p>
+                                        <h1 class="featured_title fw-bold">{!! get_the_title($news->ID) !!}</h1>
+                                        <p class="featured_description">
+                                            @php
+                                                $news_content =  get_post_field('post_content', $news->ID);
+                                            @endphp
+                                            {!! wp_trim_words($news_content, 20 ); !!}
+                                        </p>
+                                        <a href="{!! get_the_permalink($news->ID) !!}" class="text-decoration-none text-white link_default-value">
+                                            <div class="d-flex">
+                                                <p>READ MORE<span>&nbsp
                                                 <i class="fa fa-chevron-right"></i></span></p>
-                                        </div>
-                                    </a>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @else
+                        @include('partials.content-page-in-progress')
+                    @endif
+
                 </div>
                 <!--end:: Tab pane -->
                 <!--begin:: Tab pane -->
                 <div class="tab-pane fade py-2" id="events-tab-pane" role="tabpanel" aria-labelledby="events-tab" tabindex="0">
-                    @foreach ($events_articles as $events)
-                        <div class="row py-3 mb-5 align-items-center">
-                            <div class="col-lg-7 col-md-12 col-sm-12">
-                                @if(has_post_thumbnail($events->ID))
-                                    {!! get_the_post_thumbnail($events->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                                @else
-                                    <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
-                                @endif
-                            </div>
-                            <div class="col-lg-5 col-md-12 col-sm-12">
-                                <div class="block_leaders block_featured-bg text-white">
-                                    <p class="featured_date text-uppercase">{!! get_the_date('F d, Y',$events->ID) !!}</p>
-                                    <h1 class="featured_title fw-bold">{!! get_the_title($events->ID) !!}</h1>
-                                    <p class="featured_description">
-                                        @php
-                                            $events_content =  get_post_field('post_content', $events->ID);
-                                        @endphp
-                                        {!! wp_trim_words($events_content, 20 ); !!}
-                                    </p>
-                                    <a href="{!! get_the_permalink($events->ID) !!}" class="text-decoration-none text-white link_default-value">
-                                        <div class="d-flex">
-                                            <p>READ MORE<span>&nbsp
+                    @if($events_articles)
+                        @foreach ($events_articles as $events)
+                            <div class="row py-3 mb-5 align-items-center">
+                                <div class="col-lg-7 col-md-12 col-sm-12">
+                                    @if(has_post_thumbnail($events->ID))
+                                        {!! get_the_post_thumbnail($events->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
+                                    @else
+                                        <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
+                                    @endif
+                                </div>
+                                <div class="col-lg-5 col-md-12 col-sm-12">
+                                    <div class="block_leaders block_featured-bg text-white">
+                                        <p class="featured_date text-uppercase">{!! get_the_date('F d, Y',$events->ID) !!}</p>
+                                        <h1 class="featured_title fw-bold">{!! get_the_title($events->ID) !!}</h1>
+                                        <p class="featured_description">
+                                            @php
+                                                $events_content =  get_post_field('post_content', $events->ID);
+                                            @endphp
+                                            {!! wp_trim_words($events_content, 20 ); !!}
+                                        </p>
+                                        <a href="{!! get_the_permalink($events->ID) !!}" class="text-decoration-none text-white link_default-value">
+                                            <div class="d-flex">
+                                                <p>READ MORE<span>&nbsp
                                                 <i class="fa fa-chevron-right"></i></span></p>
-                                        </div>
-                                    </a>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @else
+                        @include('partials.content-page-in-progress')
+                    @endif
+
                 </div>
                 <!--end:: Tab pane -->
             </div>

@@ -123,71 +123,65 @@
                                 </div>
                             </div>
                         </div>
-                        @php
-                            $featuredPost = get_sub_field('featured_stories_articles');
-                            $featuredPostCounter = 1;
-                        @endphp
-                            <!-- Featured Primary Post-->
-                        <div class="row py-3 mb-5 align-items-center">
-                            <div class="post-featured-img col-lg-7 col-md-12 col-sm-12">
-                                {!! get_the_post_thumbnail(  $featuredPost[0], 'full', array( 'class' => 'img-fluid w-100' ) ); !!}
-                            </div>
-                            <div class="col-lg-5 col-md-12 col-sm-12">
-                                <div class="block_featured block_featured-bg text-white">
-                                    <p class="featured_date">{!! get_the_date('F d, Y',$featuredPost[0]) !!}</p>
-                                    <h1 class="featured_title fw-bold">{!! get_the_title($featuredPost[0]) !!}</h1>
-                                    <p class="featured_description">
-                                        @php
-                                            $content =  get_post_field('post_content', $featuredPost[0]);
-                                        @endphp
-                                        {!! wp_trim_words( $content, 20 ); !!}
-                                    </p>
-                                    <a href="{!! get_the_permalink($featuredPost[0]) !!}" class="d-none text-decoration-none text-white link_default-value">
-                                        <div class="d-fle">
-                                            <p>READ MORE<span>&nbsp
-                                                <i class="fa fa-chevron-right"></i></span></p>
+                        @if(have_rows('featured_content'))
+                            @php
+                                $featuredPostCounter = 1;
+                            @endphp
+
+                            @while(have_rows('featured_content'))
+                                @php
+                                    the_row();
+                                @endphp
+
+                                @if($featuredPostCounter == 1)
+                                    <div class="row py-3 mb-5 align-items-center">
+                                        <div class="post-featured-img col-lg-7 col-md-12 col-sm-12">
+                                            <img src="{!! get_sub_field('featured_content_image') !!}" class="img-fluid w-100" />
                                         </div>
-                                    </a>
+                                        <div class="col-lg-5 col-md-12 col-sm-12">
+                                            <div class="block_featured block_featured-bg text-white">
+                                                <p class="card_small-text fw-bold text-white">{!! get_sub_field('featured_content_sub_title') !!}</p>
+                                                <h1 class="featured_title fw-bold">{!! get_sub_field('featured_title') !!}</h1>
+                                                <p class="featured_description">
+                                                    {!! get_sub_field('featured_content_text') !!}
+                                                </p>
+                                                @if(get_sub_field('featured_content_button_url'))
+                                                    <a href="{!! get_sub_field('featured_content_button_url') !!}" class="d-none text-decoration-none text-white link_default-value">
+                                                        <div class="d-fle">
+                                                            <p>{!! get_sub_field('featured_button_text') !!}<span>&nbsp<i class="fa fa-chevron-right"></i></span></p>
+                                                        </div>
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    @if($featuredPostCounter % 2 == 0)
+                                </div>
+                                <div class="row py-3">
+                          @endif
+                        <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-stretch">
+                            <div class="card border-0">
+                                <img src="{!! get_sub_field('featured_content_image') !!}" class="card-img-top img-fluid h-100" />
+                                <div class="card-body">
+                                    <p class="card_small-text fw-bold">{!! get_sub_field('featured_content_sub_title') !!}</p>
+                                    <h5 class="card-title fw-bold">{!! get_sub_field('featured_title') !!}</h5>
+                                    <p class="card-text">   {!! get_sub_field('featured_content_text') !!}</p>
+                                    @if(get_sub_field('featured_content_button_url'))
+                                        <a href="{!! get_sub_field('featured_content_button_url') !!}" class="d-none text-decoration-none text-white link_default-value">
+                                            <div class="d-fle">
+                                                <p>{!! get_sub_field('featured_button_text') !!}<span>&nbsp<i class="fa fa-chevron-right"></i></span></p>
+                                            </div>
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
-
-                        <!-- END Featured Primary Post-->
-                        <div class="row py-3">
-                            <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-stretch">
-                                <div class="card border-0">
-                                    {!! get_the_post_thumbnail(  $featuredPost[1], 'full', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                                    <div class="card-body">
-
-                                        @foreach(get_the_category( $featuredPost[1]) as $category)
-                                            <p class="card_small-text fw-bold">{{ $category->name }}</p>
-                                        @endforeach
-                                        <h5 class="card-title fw-bold">{!! get_the_title($featuredPost[1]) !!}</h5>
-                                        <p class="card-text">{!! wp_trim_words( get_post_field('post_content', $featuredPost[1]), 38 ); !!}</p>
-                                        <a href="{!! get_the_permalink($featuredPost[1]) !!}" class="text-primary text-decoration-none link_default-value link_color">
-                                            <p>READ MORE<span>&nbsp
-                                                <i class="fa fa-chevron-right"></i></span></p>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-stretch">
-                                <div class="card border-0">
-                                    {!! get_the_post_thumbnail(  $featuredPost[2], 'full', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                                    <div class="card-body">
-                                        @foreach(get_the_category( $featuredPost[2]) as $category)
-                                            <p class="card_small-text fw-bold">{{ $category->name }}</p>
-                                        @endforeach
-                                        <h5 class="card-title fw-bold">{!! get_the_title($featuredPost[2]) !!}</h5>
-                                        <p class="card-text">{!! wp_trim_words( get_post_field('post_content', $featuredPost[2]), 38 ); !!}</p>
-                                        <a href="{!! get_the_permalink($featuredPost[2]) !!}" class="text-primary text-decoration-none link_default-value link_color">
-                                            <p>READ MORE<span>&nbsp
-                                                <i class="fa fa-chevron-right"></i></span></p>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                          @endif
+                            @php  $featuredPostCounter++; @endphp
+                        @endwhile
+                        </div> <!-- Close the last row -->
+                       @endif
                     </div><!--container-->
                 </section>
         @endif
