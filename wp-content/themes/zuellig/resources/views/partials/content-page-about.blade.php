@@ -113,16 +113,18 @@
         @if(get_row_layout() == 'featured_stories')
                 <section class="default_section-padding">
                     <div class="container">
-                        <div class="row mb-3 pb-3">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="text-center description_extra-padding">
-                                    <div class="div_heading-title">
-                                        <h1 class="fw-bold">{!! get_sub_field('featured_stories_section_header') !!}</h1>
+                        @if(get_sub_field('featured_stories_section_header'))
+                            <div class="row mb-3 pb-3">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="text-center description_extra-padding">
+                                        <div class="div_heading-title">
+                                            <h1 class="fw-bold">{!! get_sub_field('featured_stories_section_header') !!}</h1>
+                                        </div>
+                                        <p class="block_paragraph-description">{!! get_sub_field('featured_stories_section_subtitle') !!}</p>
                                     </div>
-                                    <p class="block_paragraph-description">{!! get_sub_field('featured_stories_section_subtitle') !!}</p>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                         @if(have_rows('featured_content'))
                             @php
                                 $featuredPostCounter = 1;

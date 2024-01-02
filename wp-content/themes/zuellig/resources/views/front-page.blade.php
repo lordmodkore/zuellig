@@ -82,7 +82,11 @@
                                             <p class="program_description">
                                                 {!! get_sub_field('accordion_content') !!}
                                             </p>
-                                            <a href="{!! get_sub_field('accordion_button_url') !!}" class="button_default button_programs">{!! get_sub_field('accordion_button_title') !!}</a>
+                                            @if(get_sub_field('accordion_button_url'))
+                                                <a href="{!! get_sub_field('accordion_button_url') !!}" class="button_default button_programs">
+                                                    {!! get_sub_field('accordion_button_title') !!}
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
