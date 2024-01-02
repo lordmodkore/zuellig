@@ -70,7 +70,7 @@
 
                 @foreach ($latest_articles as $article)
                     <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-stretch">
-                    <div class="card border-0">
+                        <div class="card border-0">
                         @if(has_post_thumbnail($article->ID))
                             {!! get_the_post_thumbnail($article->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
                         @else
@@ -89,7 +89,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                    </div>
                 @endforeach
                 @php  wp_reset_postdata(); @endphp
             </div>

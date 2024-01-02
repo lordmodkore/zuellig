@@ -25,11 +25,11 @@
         </div>
     </nav>
     @if(have_rows('featured_slider'))
-        <div id="carouselExampleCaptions" class="carousel slide">
+        <div id="featured-slider" class="carousel slide">
             <div class="carousel-indicators">
                 @while(have_rows('featured_slider'))
                     @php the_row();  @endphp
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{!! $counter !!}" {!! $counter == 0 ? 'aria-current="true"' : '' !!} class="{!! $counter == 0 ? 'active' : '' !!}"  aria-label="Slide {!! $counter !!}"></button>
+                        <button type="button" data-bs-target="#featured-slider" data-bs-slide-to="{!! $counter !!}" {!! $counter == 0 ? 'aria-current="true"' : '' !!} class="{!! $counter == 0 ? 'active' : '' !!}"  aria-label="Slide {!! $counter !!}"></button>
                     @php
                         $counter++;
                     @endphp
@@ -40,7 +40,7 @@
                     @php the_row();  @endphp
                     <div class="carousel-item {!! $sliderCounter == 0 ? 'active' : '' !!}">
                         <img src="{!! get_sub_field('featured_image') !!}" class="d-block w-100" alt="1">
-                        <div class="carousel-description d-none d-md-block">
+                        <div class="carousel-description d-block">
                             <div class="px-3 carousel-content-container">
                                 <p class="block_paragraph_small-title mb-0 text-white">{!! get_sub_field('featured_header_sub_title') !!}</p>
                                 <div class="div_heading-title text-white fw-bold">
