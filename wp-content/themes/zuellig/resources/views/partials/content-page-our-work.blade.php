@@ -38,12 +38,14 @@
                             <p class="featured_description">
                                 {!! get_sub_field('program_content_text') !!}
                             </p>
-                            <a href=" {!! get_sub_field('program_button_url') !!}" class="text-decoration-none text-white link_default-value">
-                                <div class="d-flex">
-                                    <p class="program_button_text">{!! get_sub_field('program_button_text') !!}<span>&nbsp
-                                    <i class="fa fa-chevron-right"></i></span></p>
-                                </div>
-                            </a>
+                            @if(get_sub_field('program_button_url'))
+                                <a href=" {!! get_sub_field('program_button_url') !!}" class="text-decoration-none text-white link_default-value">
+                                    <div class="d-flex">
+                                        <p class="program_button_text">{!! get_sub_field('program_button_text') !!}<span>&nbsp
+                                        <i class="fa fa-chevron-right"></i></span></p>
+                                    </div>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
