@@ -208,8 +208,11 @@
                                         $locations_query->the_post();
 										$postID = get_the_ID();
 										$locations = get_field('location',$postID);
+										$cat = get_the_terms(get_the_ID(), 'project-categories');
+										$contentBody = get_field('content_body',get_the_ID());
+
                                     @endphp
-                                    <div class="marker" data-lat="{!! $locations['lat'] !!}" data-lng="{!! $locations['lng'] !!}"></div>
+                                    <div class="marker" data-content="{!! $contentBody !!}" data-category="{!! $cat[0]->name !!}" data-location="{!! the_title() !!}" data-lat="{!! $locations['lat'] !!}" data-lng="{!! $locations['lng'] !!}"></div>
                                 @endwhile
                                 @php  wp_reset_postdata(); @endphp
                             </div>

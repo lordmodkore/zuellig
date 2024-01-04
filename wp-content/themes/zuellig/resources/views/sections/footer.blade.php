@@ -36,35 +36,35 @@
                 <div class="d-flex icons_list py-2">
                     @if( get_field('facebook','option'))
                         <div>
-                            <a href="{!! get_field('facebook','option') !!}">
+                            <a href="{!! get_field('facebook','option') !!}" target="_blank">
                                 <img src="@asset('images/Property 1=Group 36.png')" alt="fb">
                             </a>
                         </div>
                     @endif
                     @if( get_field('instagram','option'))
                         <div>
-                            <a href="{!! get_field('instagram','option') !!}">
+                            <a href="{!! get_field('instagram','option') !!}" target="_blank">
                                 <img src="@asset('images/Property 1=Group 35.png')" alt="ig">
                             </a>
                         </div>
                     @endif
                     @if( get_field('x','option'))
                         <div>
-                            <a href="{!! get_field('x','option') !!}">
+                            <a href="{!! get_field('x','option') !!}" target="_blank">
                                 <img src="@asset('images/Property 1=Group 34.png')" alt="twitter">
                             </a>
                         </div>
                     @endif
                     @if( get_field('youtube','option'))
                         <div>
-                            <a href="{!! get_field('youtube','option') !!}">
+                            <a href="{!! get_field('youtube','option') !!}" target="_blank">
                                 <img src="@asset('images/Property 1=Group 33.png')" alt="yt">
                             </a>
                         </div>
                     @endif
                     @if( get_field('linkedin','option'))
                         <div>
-                            <a href="{!! get_field('linkedin','option') !!}">
+                            <a href="{!! get_field('linkedin','option') !!}" target="_blank">
                                 <img src="@asset('images/Property 1=Group 37.png')" alt="linkedin">
                             </a>
                         </div>
