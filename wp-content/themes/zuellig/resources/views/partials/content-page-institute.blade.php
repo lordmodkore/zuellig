@@ -71,7 +71,7 @@
                 <h1 class="fw-bold heading_content-text">{!! get_field('featured_content_area') !!}</h1>
                 @if(get_field('featured_content_button_url'))
                     <div class="px-3 mt-5 pt-2 text-center">
-                        <a href="{!! get_field('featured_content_button_url') !!}" class="button_default button_btnAboutUs  text-decoration-none">{!! get_field('featured_content_button_text') !!}</a>
+                        <a href="{!! get_field('featured_content_button_url') !!}" class="button_default button_btnAboutUs  text-decoration-none" target="_blank">{!! get_field('featured_content_button_text') !!}</a>
                     </div>
                 @endif
 
