@@ -69,3 +69,25 @@ header{
 
 
 }
+.single-post{
+    .navbar{
+        position: relative;
+        width: 100%;
+        z-index: 1000;
+        padding: 1% 5%;
+        .sticky-logo{
+            display: block;
+        }
+        .logo  {
+            display: none;
+        }
+        .nav-link {
+            color: #006AAB!important;
+            font-weight: bold;
+            &:hover{
+                color: #aaa;
+            }
+        }
+    }
+
+}
