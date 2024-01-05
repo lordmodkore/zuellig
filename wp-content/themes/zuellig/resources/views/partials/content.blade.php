@@ -1,15 +1,14 @@
-<article @php(post_class())>
-  <header>
-    <h2 class="entry-title">
-      <a href="{{ get_permalink() }}">
-        {!! $title !!}
-      </a>
-    </h2>
-
-    @include('partials.entry-meta')
-  </header>
-
-  <div class="entry-summary">
-    @php(the_excerpt())
-  </div>
-</article>
+<section class="default_section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="div_heading-title text-center mb-3">
+                    <h1 class="fw-bold">{!! $title !!}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {!! the_content() !!}
+        </div>
+    </div>
+</section>
