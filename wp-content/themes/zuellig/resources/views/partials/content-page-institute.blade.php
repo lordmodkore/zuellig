@@ -56,6 +56,7 @@
                 <div class="col-5"></div>
                 <div class="col-lg-7 col-md-8 col-sm-12 mb-3">
                     <p>{!! get_field('call_to_action_text')  !!}</p>
+
                 </div>
             </div>
         @endif
@@ -68,6 +69,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="fw-bold heading_content-text">{!! get_field('featured_content_area') !!}</h1>
+                @if(get_field('featured_content_button_url'))
+                    <div class="px-3 mt-5 pt-2 text-center">
+                        <a href="{!! get_field('featured_content_button_url') !!}" class="button_default button_btnAboutUs  text-decoration-none">{!! get_field('featured_content_button_text') !!}</a>
+                    </div>
+                @endif
+
             </div>
         </div>
     </div>
