@@ -825,55 +825,6 @@
                             ]
                         },
                         {
-                            "key": "field_658edd45002b2",
-                            "label": "Nutrition Project Partners",
-                            "name": "nutrition_project_partners",
-                            "aria-label": "",
-                            "type": "repeater",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "layout": "table",
-                            "min": 0,
-                            "max": 0,
-                            "collapsed": "",
-                            "button_label": "Add Row",
-                            "rows_per_page": 20,
-                            "sub_fields": [
-                                {
-                                    "key": "field_658edd59002b3",
-                                    "label": "Nutrition Project Partner Logo",
-                                    "name": "nutrition_project_partner_logo",
-                                    "aria-label": "",
-                                    "type": "image",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "return_format": "url",
-                                    "library": "all",
-                                    "min_width": "",
-                                    "min_height": "",
-                                    "min_size": "",
-                                    "max_width": "",
-                                    "max_height": "",
-                                    "max_size": "",
-                                    "mime_types": "",
-                                    "preview_size": "medium",
-                                    "parent_repeater": "field_658edd45002b2"
-                                }
-                            ]
-                        },
-                        {
                             "key": "field_658ede4649b78",
                             "label": "Network Partners",
                             "name": "resource_partners",
@@ -1014,5 +965,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1703996522
+    "modified": 1704631896
 }
