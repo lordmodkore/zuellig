@@ -237,7 +237,7 @@
                         @if(have_rows('program_partners'))
                             <div class="row border-black border-top border-bottom">
                                 <div class="col text-center py-3">
-                                    <h4 class="mb-0 fw-bold project_title-text">local health systems Project partners</h4>
+                                    <h4 class="mb-0 fw-bold project_title-text">GOVERNMENT AND NON-GOVERNMENT PARTNERS</h4>
                                 </div>
                             </div>
                             <div class="row text-center align-items-center justify-content-center">
@@ -255,7 +255,7 @@
                         @if(have_rows('nutrition_project_partners'))
                             <div class="row border-black border-top border-bottom">
                                 <div class="col text-center py-3">
-                                    <h4 class="mb-0 fw-bold project_title-text">nutrition Project partners</h4>
+                                    <h4 class="mb-0 fw-bold project_title-text">ACADEMIC PARTNERS</h4>
                                 </div>
                             </div>
                             <div class="row text-center align-items-center justify-content-center">
