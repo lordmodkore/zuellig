@@ -82,9 +82,11 @@
         @if(get_row_layout() == 'our_history')
             <section class="default_section-padding">
                 <div class="container">
+
                     <div class="row">
-                        <div class="col-12">
-                            <div class="div_heading-title text-center mb-3">
+                        <div class="col-4"></div>
+                        <div class="col-lg-8 col-md-8 col-sm-12 mb-3">
+                            <div class="div_heading-title text-left mb-3">
                                 <h1 class="fw-bold">Our History</h1>
                             </div>
                         </div>
