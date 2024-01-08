@@ -99,7 +99,7 @@
                                         <div>
                                             <h1 class="fw-bold">{!! get_sub_field('history_header_title') !!}</h1>
                                         </div>
-                                        <p>{!! get_sub_field('history_content_area') !!}</p>
+                                        {!! get_sub_field('history_content_area') !!}
                                     </div>
                                 </div>
                             </div>
