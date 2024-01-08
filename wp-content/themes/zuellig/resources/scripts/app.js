@@ -23,6 +23,9 @@ domReady(async () => {
     })
 
 });
+
+
+
 jQuery(document).ready(function($) {
     $('.accordion .tab:first-child').addClass('show');
 
@@ -42,6 +45,34 @@ jQuery(document).ready(function($) {
             $('.accordion .tab:first-child').addClass('show');
         }
     );
+
+    function showPopup() {
+        $('#overlay').show();
+        $('#popup-container').show();
+    }
+
+    // Function to hide the overlay and pop-up
+    function hidePopup() {
+        $('#overlay').hide();
+        $('#popup-container').hide();
+    }
+
+    // Button click to show pop-up
+    $('.openFormButton').click(function() {
+        showPopup();
+    });
+
+    // Button click to hide pop-up
+    $('#closeFormButton').click(function() {
+        hidePopup();
+    });
+
+    // Optionally, you can close the pop-up when clicking outside the content or on the overlay
+    $('#overlay').click(function(event) {
+        if (event.target === this) {
+            hidePopup();
+        }
+    });
 });
 
 /**

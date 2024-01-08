@@ -115,6 +115,9 @@
 
 /* Media 768 */
 @media only screen and (min-width: 768px){
+    #popup-container {
+        padding: 60px;
+    }
     .carousel{
         .carousel-indicators{
             button{

@@ -91,3 +91,13 @@
     </div>
 </footer>
 
+<!-- Overlay -->
+<div id="overlay"></div>
+
+<!-- Pop-up container -->
+<div id="popup-container" class="col-lg-6 col-10">
+    <!-- Content inside the pop-up container -->
+        <!-- Gravity Form shortcode -->
+       {!! do_shortcode('[gravityform id="5" title="false" description="false" ajax="true"]') !!}
+
+</div>
