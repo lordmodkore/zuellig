@@ -249,7 +249,7 @@
 {{--                                            <img src="{!! get_sub_field('program_partner_logo') !!}" alt=""--}}
 {{--                                                 class="img-fluid partner-logo">--}}
                                         </div>
-                                        <p class="block_paragraph_small-title mb-1 mt-1">{!! get_sub_field('partner_name') !!}</p>
+                                        <p class="block_paragraph_small-title mb-1 mt-4">{!! get_sub_field('partner_name') !!}</p>
                                     </div>
                                 @endwhile
                             </div>
@@ -269,7 +269,7 @@
                                             {{--                                            <img src="{!! get_sub_field('reproductive_health_partners_logo') !!}" alt=""--}}
                                             {{--                                                 class="img-fluid partner-logo">--}}
                                         </div>
-                                        <p class="block_paragraph_small-title mb-1 mt-1">{!! get_sub_field('reproductive_partner_name') !!}</p>
+                                        <p class="block_paragraph_small-title mb-1 mt-4">{!! get_sub_field('reproductive_partner_name') !!}</p>
                                     </div>
                                 @endwhile
                             </div>
@@ -287,7 +287,7 @@
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-4">
                                         <div class="partner-logo-container" style="background-image:url({!! get_sub_field('resource_partners_logo') !!});">
                                         </div>
-                                        <p class="block_paragraph_small-title mb-1 mt-1">{!! get_sub_field('network_partner_name') !!}</p>
+                                        <p class="block_paragraph_small-title mb-1 mt-4">{!! get_sub_field('network_partner_name') !!}</p>
                                     </div>
                                 @endwhile
                             </div>
