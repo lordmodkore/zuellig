@@ -776,6 +776,26 @@
                             "append": ""
                         },
                         {
+                            "key": "field_659b46bff71bd",
+                            "label": "Program Partners Title Text",
+                            "name": "program_partners_title_text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
                             "key": "field_658ee0080ade7",
                             "label": "Program Partners",
                             "name": "program_partners",
@@ -821,36 +841,13 @@
                                     "mime_types": "",
                                     "preview_size": "medium",
                                     "parent_repeater": "field_658ee0080ade7"
-                                }
-                            ]
-                        },
-                        {
-                            "key": "field_658ede4649b78",
-                            "label": "Network Partners",
-                            "name": "resource_partners",
-                            "aria-label": "",
-                            "type": "repeater",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "layout": "table",
-                            "min": 0,
-                            "max": 0,
-                            "collapsed": "",
-                            "button_label": "Add Row",
-                            "rows_per_page": 20,
-                            "sub_fields": [
+                                },
                                 {
-                                    "key": "field_658ede7b49b79",
-                                    "label": "Network Partners Logo",
-                                    "name": "resource_partners_logo",
+                                    "key": "field_659b427380215",
+                                    "label": "Partner Name",
+                                    "name": "partner_name",
                                     "aria-label": "",
-                                    "type": "image",
+                                    "type": "text",
                                     "instructions": "",
                                     "required": 0,
                                     "conditional_logic": 0,
@@ -859,19 +856,34 @@
                                         "class": "",
                                         "id": ""
                                     },
-                                    "return_format": "url",
-                                    "library": "all",
-                                    "min_width": "",
-                                    "min_height": "",
-                                    "min_size": "",
-                                    "max_width": "",
-                                    "max_height": "",
-                                    "max_size": "",
-                                    "mime_types": "",
-                                    "preview_size": "medium",
-                                    "parent_repeater": "field_658ede4649b78"
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_658ee0080ade7"
                                 }
                             ]
+                        },
+                        {
+                            "key": "field_659b44beb7217",
+                            "label": "Reproductive Health Partners Title Text",
+                            "name": "reproductive_health_partners_title_text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
                         },
                         {
                             "key": "field_6590e062bd278",
@@ -919,6 +931,117 @@
                                     "mime_types": "",
                                     "preview_size": "medium",
                                     "parent_repeater": "field_6590e062bd278"
+                                },
+                                {
+                                    "key": "field_659b42a9b3000",
+                                    "label": "Reproductive Partner Name",
+                                    "name": "reproductive_partner_name",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_6590e062bd278"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_659b44a9b7216",
+                            "label": "Network Partners Header Text",
+                            "name": "network_partners_header_text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_658ede4649b78",
+                            "label": "Network Partners",
+                            "name": "resource_partners",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "table",
+                            "min": 0,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Add Row",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_658ede7b49b79",
+                                    "label": "Network Partners Logo",
+                                    "name": "resource_partners_logo",
+                                    "aria-label": "",
+                                    "type": "image",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "return_format": "url",
+                                    "library": "all",
+                                    "min_width": "",
+                                    "min_height": "",
+                                    "min_size": "",
+                                    "max_width": "",
+                                    "max_height": "",
+                                    "max_size": "",
+                                    "mime_types": "",
+                                    "preview_size": "medium",
+                                    "parent_repeater": "field_658ede4649b78"
+                                },
+                                {
+                                    "key": "field_659b428b80216",
+                                    "label": "Network Partner Name",
+                                    "name": "network_partner_name",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_658ede4649b78"
                                 }
                             ]
                         }
@@ -965,5 +1088,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1704631896
+    "modified": 1704675475
 }

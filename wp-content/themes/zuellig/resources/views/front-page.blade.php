@@ -234,12 +234,13 @@
                                 </div>
                             </div>
                         </div>
-                        @if(have_rows('program_partners'))
-                            <div class="row border-black border-top border-bottom">
-                                <div class="col text-center py-3">
-                                    <h4 class="mb-0 fw-bold project_title-text">GOVERNMENT AND NON-GOVERNMENT PARTNERS</h4>
-                                </div>
+
+                        <div class="row border-black border-top border-bottom">
+                            <div class="col text-center py-3">
+                                <h4 class="mb-0 fw-bold project_title-text">{!! get_sub_field('program_partners_title_text') !!}</h4>
                             </div>
+                        </div>
+                        @if(have_rows('program_partners'))
                             <div class="row text-center align-items-center justify-content-center">
                                 @while(have_rows('program_partners'))
                                     @php the_row() @endphp
@@ -248,17 +249,19 @@
 {{--                                            <img src="{!! get_sub_field('program_partner_logo') !!}" alt=""--}}
 {{--                                                 class="img-fluid partner-logo">--}}
                                         </div>
+                                        <p class="block_paragraph_small-title mb-1 mt-1">{!! get_sub_field('partner_name') !!}</p>
                                     </div>
                                 @endwhile
                             </div>
                         @endif
-                        @if(have_rows('reproductive_health_partners'))
-                            <div class="row border-black border-top border-bottom">
-                                <div class="col text-center py-3">
-                                    <h4 class="mb-0 fw-bold project_title-text">ACADEMIC PARTNERS</h4>
-                                </div>
+
+                        <div class="row border-black border-top border-bottom">
+                            <div class="col text-center py-3">
+                                <h4 class="mb-0 fw-bold project_title-text">{!! get_sub_field('reproductive_health_partners_title_text') !!}</h4>
                             </div>
-                            <div class="row text-center align-items-center justify-content-center">
+                        </div>
+                        @if(have_rows('reproductive_health_partners'))
+                                <div class="row text-center align-items-center justify-content-center">
                                 @while(have_rows('reproductive_health_partners'))
                                     @php the_row() @endphp
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-4">
@@ -266,24 +269,25 @@
                                             {{--                                            <img src="{!! get_sub_field('reproductive_health_partners_logo') !!}" alt=""--}}
                                             {{--                                                 class="img-fluid partner-logo">--}}
                                         </div>
+                                        <p class="block_paragraph_small-title mb-1 mt-1">{!! get_sub_field('reproductive_partner_name') !!}</p>
                                     </div>
                                 @endwhile
                             </div>
-                        @endif
-                        @if(have_rows('resource_partners'))
-                            <div class="row border-black border-top border-bottom">
-                                <div class="col text-center py-3">
-                                    <h4 class="mb-0 fw-bold project_title-text">network partners</h4>
-                                </div>
+                         @endif
+
+                        <div class="row border-black border-top border-bottom">
+                            <div class="col text-center py-3">
+                                <h4 class="mb-0 fw-bold project_title-text">{!! get_sub_field('network_partners_header_text') !!}</h4>
                             </div>
+                        </div>
+                        @if(have_rows('resource_partners'))
                             <div class="row text-center align-items-center justify-content-center">
                                 @while(have_rows('resource_partners'))
                                     @php the_row() @endphp
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-4">
                                         <div class="partner-logo-container" style="background-image:url({!! get_sub_field('resource_partners_logo') !!});">
-                                            {{--                                            <img src="{!! get_sub_field('resource_partners_logo') !!}" alt=""--}}
-                                            {{--                                                 class="img-fluid partner-logo">--}}
                                         </div>
+                                        <p class="block_paragraph_small-title mb-1 mt-1">{!! get_sub_field('network_partner_name') !!}</p>
                                     </div>
                                 @endwhile
                             </div>
