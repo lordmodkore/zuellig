@@ -17,6 +17,18 @@ header{
         width: 100%;
         z-index: 1000;
         padding: 2% 5%;
+
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            z-index: 1000;
+            list-style-type:none;
+        }
         .sticky-logo{
             display:none;
         }
