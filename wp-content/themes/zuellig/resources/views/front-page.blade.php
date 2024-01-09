@@ -181,6 +181,27 @@
 
             <!-- Project Locations -->
             @if(get_row_layout() == 'projects')
+                <div id="overlay" style="display:none">
+                    <div class="overlay-content">
+                        <div class="close-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="53" height="53" viewBox="0 0 53 53" fill="none">
+                                <line x1="38.3165" y1="12.0992" x2="12.0992" y2="38.3165" stroke="black" stroke-width="3"/>
+                                <line x1="38.3165" y1="12.0992" x2="12.0992" y2="38.3165" stroke="black" stroke-width="3"/>
+                                <line x1="40.3339" y1="38.3175" x2="14.1166" y2="12.1002" stroke="black" stroke-width="3"/>
+                                <line x1="40.3339" y1="38.3175" x2="14.1166" y2="12.1002" stroke="black" stroke-width="3"/>
+                            </svg>
+                        </div>
+                        <div class="content-header">
+
+                        </div>
+                        <div class="wrapper-content">
+                            <div class="bluepin">Local Health Sysytem</div>
+                            <h4>Headline goes here one line</h4>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam aspernatur odio dolorem quaerat</p>
+                        </div>
+
+                    </div>
+                </div>
                 <section class="default_section-padding section-bg">
                     <div class="container">
                         <div class="row py-3 mb-3">
@@ -210,9 +231,10 @@
 										$locations = get_field('location',$postID);
 										$cat = get_the_terms(get_the_ID(), 'project-categories');
 										$contentBody = get_field('content_body',get_the_ID());
+										$header_title = get_field('header_title',get_the_ID());
 
                                     @endphp
-                                    <div class="marker" data-content="{!! $contentBody !!}" data-category="{!! $cat[0]->name !!}" data-location="{!! the_title() !!}" data-lat="{!! $locations['lat'] !!}" data-lng="{!! $locations['lng'] !!}"></div>
+                                    <div class="marker" data-header-title="{!! $header_title !!}" data-content="{!! $contentBody !!}" data-category="{!! $cat[0]->name !!}" data-location="{!! the_title() !!}" data-lat="{!! $locations['lat'] !!}" data-lng="{!! $locations['lng'] !!}"></div>
                                 @endwhile
                                 @php  wp_reset_postdata(); @endphp
                             </div>
@@ -312,6 +334,10 @@
 <script>
 
     jQuery(document).ready(function($) {
+        $('.close-button').on('click',function(){
+            $("#overlay").hide();
+        });
+
         $('.acf-map').each(function() {
             var map = new_map($(this));
         });
@@ -328,10 +354,12 @@
                 var project_content = $marker.data('content');
                 var category = $marker.data('category');
                 var location = $marker.data('location');
+                var header = $marker.data('header-title')
                 var myLatlng = new google.maps.LatLng(lat, lng);
 
                 markers.push({
                     position: myLatlng,
+                    header:header,
                     content: project_content,
                     category: category,
                     location: location
@@ -347,7 +375,8 @@
                 }
                 locationContents[location].push({
                     content: project_content,
-                    category: category
+                    category: category,
+                    header:header
                 });
             });
 
@@ -437,10 +466,32 @@
                 google.maps.event.addListener(mapMarker, 'click', function() {
                     var location = marker.location;
                     var contents = locationContents[location];
-
+                    $(".overlay-content .wrapper-content").html('');
+                    $("#overlay .content-header").html('<h3>'+location+'</h3>');
+                    console.log(contents)
+                    // Append each content item inside a div container
                     contents.forEach(function(content) {
+                        var rowContainer = $('<div class="row-container mt-5 mb-5"></div>'); // Create a div container for each row
+                        var buttonClass = 'category-pin';
+                        if (content.category === 'Nutrition') {
+                            buttonClass += ' green';
+                        } else if (content.category === 'Adolescent Sexual and Reproductive Health') {
+                            buttonClass += ' red';
+                        } else if(content.category === 'Local Health Systems'){
+                            buttonClass += ' blue';
+                        } else {
+                            buttonClass += ' blue';
+                        }
+                        // Append each content item to the row container
+                        rowContainer.append('<div class="'+ buttonClass +'">' + content.category + '</div>');
+                        rowContainer.append('<h4>' + content.header + '</h4>');
+                        rowContainer.append('<p>' + content.content + '</p>');
 
+                        // Append the row container to the wrapper
+                        $(".overlay-content .wrapper-content").append(rowContainer);
                     });
+
+                    $('#overlay').show();
                 });
             });
 
@@ -455,3 +506,70 @@
     });
 
 </script>
+<style>
+    .overlay-content {
+        background: rgb(255 255 255 / 80%);
+        padding: 10%;
+        height: 100vh;
+    }
+    .overlay-content h3{
+        color: #006AAB;
+        font-family: Gill Sans;
+        font-size: 45px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 45px; /* 100% */
+        letter-spacing: 0.45px;
+    }
+    .close-button {
+        right: 0;
+        position: relative;
+        text-align: right;
+    }
+    .category-pin{
+        border-radius: 40px;
+        color: white;
+        display: inline-block;
+        padding: 10px 30px;
+        text-align: center;
+    }
+    .category-pin.blue{
+        background: #03009E;
+    }
+    .category-pin.red{
+        background: #A92829;
+    }
+    .category-pin.green{
+        background:#14A636;
+    }
+    .wrapper-content {
+        max-width: 80%;
+        margin: 0 auto;
+        top: 70px;
+        position: relative;
+    }
+
+    .overlay-content h4 {
+        color: #006AAB;
+        font-family: Gill Sans;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 35px; /* 125% */
+        letter-spacing: 0.28px;
+        margin-top: 29px;
+    }
+
+    .overlay-content p {
+        color: #3F3F3F;
+        font-family: Calibri;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 25px;
+    }
+    .close-button{
+        cursor:pointer;
+    }
+
+</style>
