@@ -73,7 +73,16 @@ jQuery(document).ready(function($) {
             hidePopup();
         }
     });
-
+    $('#menu-primary-navigation .menu-item-has-children').hover(
+        function() {
+            // Hover-in: Show submenu
+            $(this).children('.sub-menu').stop(true, true).slideDown(200);
+        },
+        function() {
+            // Hover-out: Hide submenu
+            $(this).children('.sub-menu').stop(true, true).slideUp(200);
+        }
+    );
 });
 
 /**

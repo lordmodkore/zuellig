@@ -17,24 +17,38 @@ header{
         width: 100%;
         z-index: 1000;
         padding: 2% 5%;
+        .nav-item{
+            padding: 0 40px;
+        }
+        /* Hide submenus and set initial styles */
+        #menu-primary-navigation .menu-item {
+            position: relative;
+        }
 
-        .sub-menu {
+        #menu-primary-navigation .sub-menu {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
+            width: 100%; /* Set the width to match the main menu item */
             background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 10px;
+            padding: 10px; /* Adjust the padding as needed */
             z-index: 1000;
-            list-style-type:none;
-            li {
-                display: block;
+            .nav-link{
+                color: var(--primaryColor)!important;
+            }
+            .nav-item:hover {
+                background:none!important;
             }
         }
-        .menu-item:hover .submenu {
-            display: block;
+
+
+
+        /* Style for the main menu item and submenu background */
+        #menu-primary-navigation .menu-item:hover {
+            background-color: #e0e0e0; /* Change this to your desired background color */
         }
+
         .sticky-logo{
             display:none;
         }
@@ -75,6 +89,7 @@ header{
 
         .navbar-nav {
             margin-right: 20px;
+            position: relative;
             .nav-link {
                 color: white;
                 &:hover{
