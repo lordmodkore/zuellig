@@ -317,33 +317,45 @@
         });
 
         function new_map($el) {
-
             var markers = [];
             var labelCounter = {};
+            var locationContents = {}; // Store contents for each location
+
             $el.find('.marker').each(function() {
                 var $marker = $(this);
                 var lat = $marker.data('lat');
                 var lng = $marker.data('lng');
-
+                var project_content = $marker.data('content');
+                var category = $marker.data('category');
+                var location = $marker.data('location');
                 var myLatlng = new google.maps.LatLng(lat, lng);
-                markers.push(myLatlng);
+
+                markers.push({
+                    position: myLatlng,
+                    content: project_content,
+                    category: category,
+                    location: location
+                });
 
                 // Update the labelCounter for each location
                 var locationKey = lat + '_' + lng;
                 labelCounter[locationKey] = (labelCounter[locationKey] || 0) + 1;
+
+                // Store content for each location
+                if (!locationContents[location]) {
+                    locationContents[location] = [];
+                }
+                locationContents[location].push({
+                    content: project_content,
+                    category: category
+                });
             });
 
             var bounds = new google.maps.LatLngBounds();
 
-            // Extend bounds with each marker's position
-            markers.forEach(function(myLatlng) {
-                bounds.extend(myLatlng);
-            });
-
-
             var mapOptions = {
-                minZoom: 5, // Set the minimum allowed zoom level
-                maxZoom: 16, // Set the maximum allowed zoom level
+                minZoom: 5,
+                maxZoom: 16,
                 center: bounds.getCenter(),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControl: false,
@@ -390,7 +402,6 @@
 
                     // Add more styles as needed
                 ],
-
             };
 
             var map = new google.maps.Map($el[0], mapOptions);
@@ -398,38 +409,46 @@
             // Fit the map to the bounds
             map.fitBounds(bounds);
 
-            markers.forEach(function(myLatlng) {
-                var locationKey = myLatlng.lat() + '_' + myLatlng.lng();
-                var labelValue = labelCounter[locationKey];
-                var marker = new google.maps.Marker({
-                    position: myLatlng,
+            markers.forEach(function(marker) {
+                bounds.extend(marker.position);
+
+                var mapMarker = new google.maps.Marker({
+                    position: marker.position,
                     map: map,
                     label: {
-                        text: labelValue.toString(), // Set to '1' for now, it will be updated dynamically
-                        color: '#006AA0', // Label text color
-                        fontFamily: 'Gill Sans, sans-serif', // Font family
-                        fontSize: '12px', // Font size
-                        fontStyle: 'normal', // Font style
-                        fontWeight: '600', // Font weight
-                        lineHeight: 'normal', // Line height
-                        letterSpacing: '0.8px', // Letter spacing
-                        textTransform: 'uppercase', // Text transform
-                        textAlign: 'center', // Text align
-                    },// Set to '1' for now, it will be updated dynamically
+                        text: labelCounter[marker.position.lat() + '_' + marker.position.lng()].toString(),
+                        color: '#006AA0',
+                        fontFamily: 'Gill Sans, sans-serif',
+                        fontSize: '12px',
+                        fontStyle: 'normal',
+                        fontWeight: '600',
+                        lineHeight: 'normal',
+                        letterSpacing: '0.8px',
+                        textTransform: 'uppercase',
+                        textAlign: 'center'
+                    },
                     icon: {
                         url: '<?php echo $mapMarkerIconUrl;?>',
-                        scaledSize : new google.maps.Size(22, 32),
+                        scaledSize: new google.maps.Size(22, 32),
                         labelOrigin: new google.maps.Point(11, 10),
                     },
+                });
 
+                google.maps.event.addListener(mapMarker, 'click', function() {
+                    var location = marker.location;
+                    var contents = locationContents[location];
+
+                    contents.forEach(function(content) {
+
+                    });
                 });
             });
+
             // Adjust zoom level dynamically
             google.maps.event.addListener(map, 'zoom_changed', function() {
                 if (map.getZoom() < mapOptions.minZoom) map.setZoom(mapOptions.minZoom);
                 if (map.getZoom() > mapOptions.maxZoom) map.setZoom(mapOptions.maxZoom);
             });
-
 
             return map;
         }
