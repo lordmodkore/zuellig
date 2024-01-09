@@ -35,9 +35,9 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link nav_learning_link border-top-0 border-end-0 border-start-0" id="news-tab" data-bs-toggle="tab" data-bs-target="#news-tab-pane" type="button" role="tab" aria-controls="news-tab-pane" aria-selected="false">News</button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link nav_learning_link border-top-0 border-end-0 border-start-0" id="events-tab" data-bs-toggle="tab" data-bs-target="#events-tab-pane" type="button" role="tab" aria-controls="events-tab-pane" aria-selected="false">Events</button>
-                        </li>
+{{--                        <li class="nav-item" role="presentation">--}}
+{{--                            <button class="nav-link nav_learning_link border-top-0 border-end-0 border-start-0" id="events-tab" data-bs-toggle="tab" data-bs-target="#events-tab-pane" type="button" role="tab" aria-controls="events-tab-pane" aria-selected="false">Events</button>--}}
+{{--                        </li>--}}
                     </ul>
                 </div>
             </div>
