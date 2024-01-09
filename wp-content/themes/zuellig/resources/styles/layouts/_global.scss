@@ -23,8 +23,9 @@ strong{
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    background: rgb(255 255 255 / 95%); /* Dark semi-transparent background */
     z-index: 999; /* Set a high z-index to make sure it's above other elements */
+    overflow: scroll;
 }
 
 /* Style for the pop-up container */
@@ -56,9 +57,9 @@ strong{
     text-transform: uppercase;
 }
 .overlay-content {
-    background: rgb(255 255 255 / 80%);
-    padding: 10%;
-    height: 100vh;
+    padding: 5rem;
+    height: 100%;
+
 }
 .overlay-content h3{
     color: #006AAB;
@@ -73,8 +74,12 @@ strong{
     right: 0;
     position: relative;
     text-align: right;
+    cursor:pointer;
+    margin-top:60px;
 }
+
 .category-pin{
+    line-height: 1.3rem;
     border-radius: 40px;
     color: white;
     display: inline-block;
@@ -93,8 +98,8 @@ strong{
 .wrapper-content {
     max-width: 80%;
     margin: 0 auto;
-    top: 70px;
     position: relative;
+    padding-bottom:50px;
 }
 
 .overlay-content h4 {
@@ -116,6 +121,4 @@ strong{
     font-weight: 400;
     line-height: 25px;
 }
-.close-button{
-    cursor:pointer;
-}
+
