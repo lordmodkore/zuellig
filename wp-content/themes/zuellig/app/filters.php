@@ -35,7 +35,7 @@ function insert_and_wrap_content_middle_of_post($content) {
             $paragraphs = explode('</p>', $content);
 
             // Calculate the middle index
-            $middle_index = floor(count($paragraphs) / 2);
+            $middle_index = floor(count($paragraphs) / 3);
 
             // Initialize $custom_html
             $custom_html = '';
