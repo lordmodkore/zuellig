@@ -28,6 +28,12 @@ header{
             padding: 10px;
             z-index: 1000;
             list-style-type:none;
+            li {
+                display: block;
+            }
+        }
+        .menu-item:hover .submenu {
+            display: block;
         }
         .sticky-logo{
             display:none;

@@ -73,6 +73,7 @@ jQuery(document).ready(function($) {
             hidePopup();
         }
     });
+
 });
 
 /**
