@@ -73,6 +73,7 @@ jQuery(document).ready(function($) {
             hidePopup();
         }
     });
+
     $('#menu-primary-navigation .menu-item-has-children').hover(
         function() {
             // Hover-in: Show submenu
