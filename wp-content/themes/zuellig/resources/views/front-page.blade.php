@@ -37,7 +37,7 @@
                                     </div>
                                     <p class="block_paragraph-description">{!! get_sub_field('section_content') !!}</p>
                                     @if(get_sub_field('section_button_title'))
-                                        <div class="pt-3">
+                                        <div class="pt-3 mb-3">
                                             <a href="{!! get_sub_field('section_button_url') !!}" class="button_default button_btnHealthCare text-decoration-none">{!! get_sub_field('section_button_title') !!}</a>
                                         </div>
                                     @endif
