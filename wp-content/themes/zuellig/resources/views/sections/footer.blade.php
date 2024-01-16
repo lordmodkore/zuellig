@@ -19,7 +19,7 @@
 <!--End Latest News Content  -->
 <footer class="section-bg default_section-padding">
     <div class="container">
-        <div class="row py-3">
+        <div class="row py-3 d-none d-md-block">
             <div class="col-12 col-md-12 col-sm-12 mt-4" >
                 <div class="row">
                     <?php dynamic_sidebar('footer-widgets'); ?>
