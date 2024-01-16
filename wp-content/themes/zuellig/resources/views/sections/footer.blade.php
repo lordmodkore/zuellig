@@ -16,65 +16,59 @@
         </div>
     </div>
 </section>
-<!--End Laetest News Content  -->
+<!--End Latest News Content  -->
 <footer class="section-bg default_section-padding">
     <div class="container">
-        <div class="row border-bottom py-3">
-            <div class="col-xl-4 col-md-12 col-sm-12 mt-4">
+        <div class="row py-3">
+            <div class="col-12 col-md-12 col-sm-12 mt-4" >
+                <div class="row">
+                    <?php dynamic_sidebar('footer-widgets'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 border-bottom">
+            <div class="col-md-8">
                 <div class="pb-2 mb-3">
                     <img src="@asset('images/Group 93.png')" alt="footer_logo" class="img-fluid">
                 </div>
-                <div class="pe-5 me-5 footer_text-address">
-                    <p class="pe-3">{!! get_field('contact_address','option') !!}</p>
-                    <p>
-                        <a href="mailto:{!! get_field('contact_email','option') !!}">{!! get_field('contact_email','option') !!}</a>
-                    </p>
-                    <p>
-                        <a href="tel:{!! get_field('contact_phone','option') !!}">{!! get_field('contact_phone','option') !!}</a>
-                    </p>
-                </div>
-                <div class="d-flex icons_list py-2">
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex mb-3 justify-content-lg-end justify-content-sm-center icons_list py-2">
                     @if( get_field('facebook','option'))
-                        <div>
+                        <div class="social-icon">
                             <a href="{!! get_field('facebook','option') !!}" target="_blank">
                                 <img src="@asset('images/Property 1=Group 36.png')" alt="fb">
                             </a>
                         </div>
                     @endif
                     @if( get_field('instagram','option'))
-                        <div>
+                        <div class="social-icon">
                             <a href="{!! get_field('instagram','option') !!}" target="_blank">
                                 <img src="@asset('images/Property 1=Group 35.png')" alt="ig">
                             </a>
                         </div>
                     @endif
                     @if( get_field('x','option'))
-                        <div>
+                        <div class="social-icon">
                             <a href="{!! get_field('x','option') !!}" target="_blank">
                                 <img src="@asset('images/Property 1=Group 34.png')" alt="twitter">
                             </a>
                         </div>
                     @endif
                     @if( get_field('youtube','option'))
-                        <div>
+                        <div class="social-icon">
                             <a href="{!! get_field('youtube','option') !!}" target="_blank">
                                 <img src="@asset('images/Property 1=Group 33.png')" alt="yt">
                             </a>
                         </div>
                     @endif
                     @if( get_field('linkedin','option'))
-                        <div>
+                        <div class="social-icon">
                             <a href="{!! get_field('linkedin','option') !!}" target="_blank">
                                 <img src="@asset('images/Property 1=Group 37.png')" alt="linkedin">
                             </a>
                         </div>
                     @endif
-                </div>
-
-            </div>
-            <div class="col-xl-8 col-md-12 col-sm-12 mt-4" >
-                <div class="row">
-                    <?php dynamic_sidebar('footer-widgets'); ?>
                 </div>
             </div>
         </div>
@@ -99,5 +93,4 @@
     <!-- Content inside the pop-up container -->
         <!-- Gravity Form shortcode -->
        {!! do_shortcode('[gravityform id="5" title="false" description="false" ajax="true"]') !!}
-
 </div>

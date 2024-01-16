@@ -23,6 +23,11 @@
     .footer_copyright{
         display: block;
     }
+    .icons_list{
+        .social-icon{
+            padding: 0 10px;
+        }
+    }
     .default_section-padding{
         padding: 30px;
     }
@@ -180,8 +185,13 @@
         flex-direction: row!important;
         padding-top: 10px;
     }
-    .icons_list {
-        padding: 0 75% 0 0;
+    //.icons_list {
+    //    padding: 0 75% 0 0;
+    //}
+    .icons_list{
+        .social-icon{
+            padding: 0 20px;
+        }
     }
     .who_paragraph-size{
         font-size: 40px;
@@ -333,9 +343,9 @@
         display: flex;
     }
 
-    .icons_list {
-        padding: 0 55% 0 0;
-    }
+    //.icons_list {
+    //    padding: 0 55% 0 0;
+    //}
 
     .navbar {
         padding: 2% 5%;
