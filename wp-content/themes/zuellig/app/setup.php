@@ -142,7 +142,7 @@ add_action('widgets_init', function () {
         'name' => 'Footer Widgets',
         'id' => 'footer-widgets',
         'description' => 'Widgets for footer section.',
-        'before_widget' => '<div class="col-lg-3 col-sm-6 col-md-4  footer-widgets">',
+        'before_widget' => '<div class="col-lg-2 col-sm-6 col-md-3  footer-widgets">',
         'after_widget' => '</div>',
         'before_title' => '<div class="footer_content-title"><h3>',
         'after_title' => '</h3></div>',
