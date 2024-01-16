@@ -48,7 +48,7 @@
                                 </div>
                                 <p class="block_paragraph-description text-white">{!! get_sub_field('featured_content') !!}</p>
                             </div>
-                            <div class="px-3 pt-2 mb-4">
+                            <div class="px-3 pt-2">
                                 <a href="{!! get_sub_field('button_url') !!}" class="button_default button_btnAboutUs text-decoration-none">{!! get_sub_field('button_title') !!}</a>
                             </div>
                         </div>

@@ -1,15 +1,10 @@
 .button_default{
-    padding: 1rem;
+    padding: 1.5rem;
     color: #fff;
     text-transform: uppercase;
     font-size: 18px;
     line-height: 19.09px;
     text-align: center;
-    transition: background-color 0.3s ease;
-    &:hover{
-        transition: background-color 0.3s ease;
-        background: var(--secondaryColor);
-    }
 }
 .button_btnAboutUs, .button_btnHealthCare{
     border: 1px solid var(--primaryColor);

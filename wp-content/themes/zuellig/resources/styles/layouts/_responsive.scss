@@ -5,18 +5,6 @@
             background-size:contain;
         }
     }
-    .carousel-description{
-        background: var(--primaryColor);
-        padding: 20px;
-    }
-    .button_btnAboutUs{
-        background: transparent;
-        border: 1px solid #fff;
-        &:hover{
-            transition: background-color 0.3s ease;
-            background: var(--secondaryColor);
-        }
-    }
     .footer_display-flex{
         flex-direction: column!important;
     }
@@ -130,10 +118,6 @@
     #popup-container {
         padding: 60px;
     }
-    .button_default{
-        background: var(--primaryColor);
-        border: none;
-    }
     .carousel{
         .carousel-indicators{
             button{
@@ -144,7 +128,6 @@
         }
         .carousel-description{
             position: absolute;
-            background: transparent;
             top: 35%;
             /* right: 15%; */
             bottom: 1.25rem;
@@ -152,7 +135,7 @@
             padding-top: 1.25rem;
             padding-bottom: 1.25rem;
             color: #fff;
-            width: 75%;
+            width: 25%;
             /* text-align: center; */
         }
         .carousel-indicators [data-bs-target]{
@@ -195,11 +178,6 @@
 @media only screen and (min-width: 1024px) {
     .hide-m {
         display: flex !important;
-    }
-    .carousel{
-        .carousel-description{
-            width: 25%;
-        }
     }
 
     #navbarNavDropdown {
