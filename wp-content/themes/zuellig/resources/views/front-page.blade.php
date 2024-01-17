@@ -267,10 +267,20 @@
                                 @while(have_rows('program_partners'))
                                     @php the_row() @endphp
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-4">
-                                        <div class="partner-logo-container" style="background-image:url({!! get_sub_field('program_partner_logo') !!});">
-{{--                                            <img src="{!! get_sub_field('program_partner_logo') !!}" alt=""--}}
-{{--                                                 class="img-fluid partner-logo">--}}
-                                        </div>
+                                        @if(get_sub_field('partner_website_url'))
+                                            <a href="{!! get_sub_field('partner_website_url') !!}" target="_blank">
+                                                <div class="partner-logo-container" style="background-image:url({!! get_sub_field('program_partner_logo') !!});">
+                                                    {{--                                            <img src="{!! get_sub_field('program_partner_logo') !!}" alt=""--}}
+                                                    {{--                                                 class="img-fluid partner-logo">--}}
+                                                </div>
+                                            </a>
+                                        @else
+                                            <div class="partner-logo-container" style="background-image:url({!! get_sub_field('program_partner_logo') !!});">
+                                                {{--                                            <img src="{!! get_sub_field('program_partner_logo') !!}" alt=""--}}
+                                                {{--                                                 class="img-fluid partner-logo">--}}
+                                            </div>
+                                        @endif
+
                                         <div>
                                             <p class="block_paragraph_small-title mb-1 mt-4">{!! get_sub_field('partner_name') !!}</p>
                                         </div>
@@ -289,10 +299,19 @@
                                 @while(have_rows('reproductive_health_partners'))
                                     @php the_row() @endphp
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-4">
-                                        <div class="partner-logo-container" style="background-image:url({!! get_sub_field('reproductive_health_partners_logo') !!});">
-                                            {{--                                            <img src="{!! get_sub_field('reproductive_health_partners_logo') !!}" alt=""--}}
-                                            {{--                                                 class="img-fluid partner-logo">--}}
-                                        </div>
+                                        @if(get_sub_field('reproductive_website_url'))
+                                            <a href="{!! get_sub_field('reproductive_website_url') !!}" target="_blank">
+                                                <div class="partner-logo-container" style="background-image:url({!! get_sub_field('reproductive_health_partners_logo') !!});">
+                                                    {{--                                            <img src="{!! get_sub_field('reproductive_health_partners_logo') !!}" alt=""--}}
+                                                    {{--                                                 class="img-fluid partner-logo">--}}
+                                                </div>
+                                            </a>
+                                        @else
+                                            <div class="partner-logo-container" style="background-image:url({!! get_sub_field('reproductive_health_partners_logo') !!});">
+                                                {{--                                            <img src="{!! get_sub_field('reproductive_health_partners_logo') !!}" alt=""--}}
+                                                {{--                                                 class="img-fluid partner-logo">--}}
+                                            </div>
+                                        @endif
                                         <div>
                                             <p class="block_paragraph_small-title mb-1 mt-4">{!! get_sub_field('reproductive_partner_name') !!}</p>
                                         </div>
@@ -311,12 +330,18 @@
                                 @while(have_rows('resource_partners'))
                                     @php the_row() @endphp
                                     <div class="col-lg-3 col-md-3 col-sm-6 py-2 my-4">
-                                        <div class="partner-logo-container" style="background-image:url({!! get_sub_field('resource_partners_logo') !!});">
-                                        </div>
+                                        @if(get_sub_field('network_partner_url'))
+                                            <a href="{!! get_sub_field('network_partner_url') !!}" target="_blank">
+                                                <div class="partner-logo-container" style="background-image:url({!! get_sub_field('resource_partners_logo') !!});">
+                                                </div>
+                                            </a>
+                                        @else
+                                            <div class="partner-logo-container" style="background-image:url({!! get_sub_field('resource_partners_logo') !!});">
+                                            </div>
+                                        @endif
                                         <div>
                                             <p class="block_paragraph_small-title mb-1 mt-4">{!! get_sub_field('network_partner_name') !!}</p>
                                         </div>
-
                                     </div>
                                 @endwhile
                             </div>
