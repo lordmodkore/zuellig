@@ -84,6 +84,17 @@ jQuery(document).ready(function($) {
             $(this).children('.sub-menu').stop(true, true).slideUp(200);
         }
     );
+
+    var maxHeight = 0;
+    $('.career-item .block_leaders').each(function () {
+        var height = $(this).height();
+        if (height > maxHeight) {
+            maxHeight = height;
+        }
+    });
+
+    // Set the same height for all career items
+    $('.career-item .block_leaders').height(maxHeight);
 });
 
 /**

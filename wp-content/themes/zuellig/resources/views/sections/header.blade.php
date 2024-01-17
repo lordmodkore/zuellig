@@ -1,6 +1,6 @@
 <header>
     <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
+        <div class="container">
             <a class="logo-link" href="/">
                 <img src="{!! get_field('logo','option') !!}" alt="logo" class="logo img-fluid">
                 <img src="{!! get_field('sticky_logo','option') !!}" alt="logo" class="img-fluid sticky-logo">

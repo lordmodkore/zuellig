@@ -862,6 +862,27 @@
                                     "prepend": "",
                                     "append": "",
                                     "parent_repeater": "field_658ee0080ade7"
+                                },
+                                {
+                                    "key": "field_65a7c6ffd5785",
+                                    "label": "Partner Website URL",
+                                    "name": "partner_website_url",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_658ee0080ade7"
                                 }
                             ]
                         },
@@ -936,6 +957,27 @@
                                     "key": "field_659b42a9b3000",
                                     "label": "Reproductive Partner Name",
                                     "name": "reproductive_partner_name",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_6590e062bd278"
+                                },
+                                {
+                                    "key": "field_65a7c739d5786",
+                                    "label": "Reproductive Website URL",
+                                    "name": "reproductive_website_url",
                                     "aria-label": "",
                                     "type": "text",
                                     "instructions": "",
@@ -1042,6 +1084,27 @@
                                     "prepend": "",
                                     "append": "",
                                     "parent_repeater": "field_658ede4649b78"
+                                },
+                                {
+                                    "key": "field_65a7c74dd5787",
+                                    "label": "Network Partner URL",
+                                    "name": "network_partner_url",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_658ede4649b78"
                                 }
                             ]
                         }
@@ -1088,5 +1151,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1704675475
+    "modified": 1705494364
 }

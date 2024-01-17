@@ -58,7 +58,8 @@ collect([
      'setup',
     'filters',
     'Helpers/acf',
-    'Helpers/custom-post-type'
+    'Helpers/custom-post-type',
+    'Helpers/pagination'
 ])
     ->each(function ($file) {
         if (! locate_template($file = "app/{$file}.php", true, true)) {

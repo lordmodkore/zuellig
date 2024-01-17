@@ -325,9 +325,13 @@
         left: -18%;
         border: 1px solid var(--primaryColor);
     }
-
+    .career-item{
+        .block_leaders{
+            left:0;
+        }
+    }
     .block_leaders {
-        padding: 13% 20%;
+        padding: 10%;
         border-radius: 20px;
         position: relative;
         left: -18%;
