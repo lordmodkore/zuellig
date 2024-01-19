@@ -5,7 +5,7 @@
                 <h1 class="fw-bold">{!! get_field('page_alternative_title') !!}</h1>
             </div>
         </div>
-        <div class="row mt-5">
+        <div class="row mt-5 mb-5">
             @if(have_rows('management'))
                 @while(have_rows('management'))
                     @php the_row() @endphp
