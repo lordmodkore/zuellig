@@ -64,7 +64,7 @@
                                 the_row();
 								 $formattedNumber = sprintf('%02d', $accordionCount);
                             @endphp
-                            <div class="tab {!! $accordionCount == 1 ? 'show' : '' !!}">
+                            <div class="tab {!! $accordionCount == 1 ? 'show' : '' !!}" data-tab-number="{!! $accordionCount !!}">
                                 <img src="{!! get_sub_field('accordion_bg_image') !!}" />
                                 <div class="program_menu program_active">
                                     <div>
@@ -89,6 +89,10 @@
                                             @endif
                                         </div>
                                     </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="accordion-control">
+                                    <a href="#" class="expand" data-target-tab="{!!  $accordionCount !!}"><i class="fa fa-plus"></i></a>
                                 </div>
                             </div>
                             @php

@@ -132,6 +132,10 @@
 
 /* Media 768 */
 @media only screen and (min-width: 768px){
+    .accordion-control{
+        bottom:3%;
+
+    }
     #popup-container {
         padding: 60px;
     }

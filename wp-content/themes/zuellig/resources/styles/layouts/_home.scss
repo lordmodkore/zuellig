@@ -93,21 +93,31 @@
 }
 
 /** Hover Effects **/
-.tab:hover img,
 .tab.show img {
     opacity: .6;
 }
 
-.tab:hover,
 .tab.show {
     width: 100%;
 }
 
-.tab:hover .caption,
 .tab.show .caption {
     transition: all .5s ease;
     opacity: 1;
 }
+.accordion-control{
+    position: absolute;
+    bottom:50px;
+    right: 4%;
+    font-size: 24px;
+    z-index:999;
+    .expand{
+        color:#fff;
+    }
+}
+
+
+
 
 
 
