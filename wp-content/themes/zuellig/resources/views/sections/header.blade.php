@@ -10,16 +10,16 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                 <?php
-                    $counter = 0;
-					$sliderCounter = 0;
-                    if (has_nav_menu('primary_navigation')) :
-                        wp_nav_menu([
-                            'theme_location' => 'primary_navigation',
-                            'menu_class' => 'navbar-nav' ,
-                            'menu_item_class'  => 'nav-link',
-                            'walker'   =>   new App\Walkers\SageCustomWalkers(),
-                        ]);
-                    endif;
+                $counter = 0;
+                $sliderCounter = 0;
+                if (has_nav_menu('primary_navigation')) :
+                    wp_nav_menu([
+                        'theme_location' => 'primary_navigation',
+                        'menu_class' => 'navbar-nav' ,
+                        'menu_item_class'  => 'nav-link',
+                        'walker'   =>   new App\Walkers\SageCustomWalkers(),
+                    ]);
+                endif;
                 ?>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="carousel-indicators">
                 @while(have_rows('featured_slider'))
                     @php the_row();  @endphp
-                        <button type="button" data-bs-target="#featured-slider" data-bs-slide-to="{!! $counter !!}" {!! $counter == 0 ? 'aria-current="true"' : '' !!} class="{!! $counter == 0 ? 'active' : '' !!}"  aria-label="Slide {!! $counter !!}"></button>
+                    <button type="button" data-bs-target="#featured-slider" data-bs-slide-to="{!! $counter !!}" {!! $counter == 0 ? 'aria-current="true"' : '' !!} class="{!! $counter == 0 ? 'active' : '' !!}"  aria-label="Slide {!! $counter !!}"></button>
                     @php
                         $counter++;
                     @endphp
@@ -59,3 +59,111 @@
         </div>
     @endif
 </header>
+<style>
+    header .navbar .navbar-nav .nav-link{
+        color: #006AAB;
+        text-align: center;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    #menu-primary-navigation .nav-item .sub-menu li a span{
+        color: #B4B4B4;
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+    #menu-primary-navigation .nav-item .sub-menu li {
+        padding: 0;
+        border-top: 1px solid white;
+    }
+
+    #menu-primary-navigation .nav-item .sub-menu li.current-menu-item a span {
+        color: #006AAB;
+    }
+
+    @media(min-width: 768px) {
+        header .navbar .navbar-nav .nav-link{
+            color: #fff;
+        }
+    }
+    @media(max-width: 1199px){
+        header .navbar .nav-item {
+            padding: 0 10px;
+        }
+    }
+
+    @media(max-width: 991px){
+        .button_btnHealthCare{
+            padding:20px
+        }
+        #navbarNavDropdown {
+            background-color: #f0f0f0 !important;
+        }
+        header .navbar .navbar-nav{
+            text-align:left;
+        }
+        header .navbar #menu-primary-navigation .sub-menu{
+            position: relative;
+        }
+        header .navbar #menu-primary-navigation .menu-item:hover {
+            background-color: transparent;
+        }
+        #menu-primary-navigation .nav-item .sub-menu li {
+            list-style: none;
+        }
+        header .navbar .navbar-nav .nav-link{
+            display:inline-block;
+        }
+        #menu-primary-navigation .menu-item-has-children::after {
+            content: '';
+            position:absolute;
+            left: 120px;
+            top: 11px;
+            border: solid #006AAB;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 4px;
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+        .accordion{
+            display: block;
+            height: auto;
+            overflow: visible;
+        }
+        .tab{
+            width:100%;
+            padding: 120px 40px;
+        }
+        .tab img{
+
+        }
+        .caption {
+            opacity: 1;
+            position: relative;
+            top: 0;
+            white-space: nowrap;
+            z-index: 2;
+            width: 100%;
+        }
+        .program_content{
+            display: block;
+        }
+        .div_heading-title,.caption p{
+            white-space: normal;
+        }
+        .program_menu{
+            top:0;
+        }
+        .program_menu-title{
+            display:none;
+        }
+
+
+    }
+
+</style>
