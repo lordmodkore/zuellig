@@ -60,36 +60,65 @@
     @endif
 </header>
 <style>
-    header .navbar .navbar-nav .nav-link{
-        color: #006AAB;
+    .navbar.sticky #menu-primary-navigation .nav-item a span{
+        color: black;
+        font-size: 16px;
+
+    }
+    nav.navbar.sticky #menu-primary-navigation .current-menu-item a span{
+        color: #006AAB ;
+    }
+
+    #menu-primary-navigation .nav-item a span{
         text-align: center;
         font-size: 16px;
         font-style: normal;
         font-weight: 600;
         line-height: normal;
     }
-    header .nav-item .sub-menu li a span{
-        color: #B4B4B4;
+
+    #menu-primary-navigation .nav-item.current_page_parent{
+        color: #006AAB;
+    }
+
+    #menu-primary-navigation .nav-item .sub-menu li a span{
+
         text-align: center;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
     }
-    .header .nav-item .sub-menu li {
+    #menu-primary-navigation .nav-item .sub-menu li {
         padding: 0;
         border-top: 1px solid white;
+        list-style:none;
     }
 
-    header .nav-item .sub-menu li.current-menu-item a span {
+    #menu-primary-navigation .nav-item .sub-menu li.current-menu-item a span {
         color: #006AAB;
     }
-
+    @media(min-width: 320px) and (max-width:767px) {
+        #navbarNavDropdown{
+            padding: 20px;
+        }
+    }
     @media(min-width: 768px) {
         header .navbar .navbar-nav .nav-link{
             color: #fff;
         }
     }
+    @media (max-width: 991px){
+        #navbarNavDropdown {
+            position: fixed;
+            background: #f0f0f0!important;
+            width: 100%;
+            left: 0;
+            top: 80px;
+        }
+        button.navbar-toggler.collapsed::before {
+            content: '';
+        }
 
-
+    }
 </style>
