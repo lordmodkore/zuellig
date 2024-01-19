@@ -52,9 +52,47 @@
                 </div>
             @endwhile
         @endif
-
     </div>
 </section>
+@php
+	$annual_reports = get_field('annual_report');
 
+@endphp
 
-
+@if($annual_reports)
+    <section class="default_section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div>
+                        <h1 class="fw-bold">Latest News</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row py-3">
+                @foreach($annual_reports as $post)
+                    <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-stretch mb-5">
+                        <div class="card border-0">
+                            @if(has_post_thumbnail($post))
+                                {!! get_the_post_thumbnail($post, 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
+                            @else
+                                <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
+                            @endif
+                            <div class="card-body">
+                                @foreach(get_the_category($post) as $category)
+                                    <p class="card_small-text fw-bold">{{ $category->name }}</p>
+                                @endforeach
+                                <h5 class="card-title fw-bold">{!! get_the_title($post) !!}</h5>
+                                <p class="card-text">{!! wp_trim_words( get_post_field('post_content', $post), 38 ); !!} </p>
+                                <a href="{!! get_the_permalink($post) !!}" class="text-primary text-decoration-none link_default-value link_color">
+                                    <p>READ MORE<span>&nbsp
+                                        <i class="fa fa-chevron-right"></i></span></p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+@endif

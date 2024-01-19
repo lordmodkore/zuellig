@@ -175,6 +175,34 @@
                     "parent_repeater": "field_6592480359da6"
                 }
             ]
+        },
+        {
+            "key": "field_65ab07430f51a",
+            "label": "Annual Report",
+            "name": "annual_report",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "post"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "id",
+            "min": "",
+            "max": 2,
+            "elements": ""
         }
     ],
     "location": [
@@ -195,5 +223,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1704086049
+    "modified": 1705707384
 }
