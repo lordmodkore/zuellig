@@ -1,3 +1,12 @@
+@php
+    $args = [
+        'post_type'      => 'post', // Adjust if you're using a custom post type
+        'posts_per_page' => 2,      // Number of posts to display
+        'order'          => 'DESC',  // Order by descending publish date
+        'orderby'        => 'date',  // Order by the publish date
+    ];
+	$latest_posts = new WP_Query($args);
+@endphp
 <section class="default_section-padding">
     <div class="container">
         <div class="row">
@@ -73,4 +82,42 @@
 </section>
 @endif
 <!--End Goals  -->
-
+@if($latest_posts->have_posts())
+    <section class="default_section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div>
+                        <h1 class="fw-bold">Latest News</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row py-3">
+                @while($latest_posts->have_posts())
+                    @php $latest_posts->the_post() @endphp
+                    <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-stretch">
+                        <div class="card border-0">
+                            @if(has_post_thumbnail(get_the_ID()))
+                                {!! get_the_post_thumbnail(get_the_ID() , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
+                            @else
+                                <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
+                            @endif
+                            <div class="card-body">
+                                @foreach(get_the_category(get_the_ID()) as $category)
+                                    <p class="card_small-text fw-bold">{{ $category->name }}</p>
+                                @endforeach
+                                <h5 class="card-title fw-bold">{!! get_the_title() !!}</h5>
+                                <p class="card-text">{!! wp_trim_words( get_post_field('post_content', get_the_ID()), 38 ); !!} </p>
+                                <a href="{!! get_the_permalink(get_the_ID()) !!}" class="text-primary text-decoration-none link_default-value link_color">
+                                    <p>READ MORE<span>&nbsp
+                                        <i class="fa fa-chevron-right"></i></span></p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endwhile
+                @php wp_reset_postdata(); @endphp
+            </div>
+        </div>
+    </section>
+@endif
