@@ -83,7 +83,11 @@
                                     <p class="card_small-text fw-bold">{{ $category->name }}</p>
                                 @endforeach
                                 <h5 class="card-title fw-bold">{!! get_the_title($post) !!}</h5>
-                                <p class="card-text">{!! wp_trim_words( get_post_field('post_content', $post), 38 ); !!} </p>
+                                    @php
+                                        $post_content = get_post_field('post_content', $post);
+                                        $post_content = preg_replace('/\[pdf-embedder[^\]]*\]/', '', $post_content);
+                                    @endphp
+                                <p class="card-text">{!! wp_trim_words($post_content, 38); !!} </p>
                                 <a href="{!! get_the_permalink($post) !!}" class="text-primary text-decoration-none link_default-value link_color">
                                     <p>READ MORE<span>&nbsp
                                         <i class="fa fa-chevron-right"></i></span></p>

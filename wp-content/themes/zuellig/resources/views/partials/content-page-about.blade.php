@@ -171,7 +171,7 @@
                                 <div class="card-body">
                                     <p class="card_small-text fw-bold">{!! get_sub_field('featured_content_sub_title') !!}</p>
                                     <h5 class="card-title fw-bold">{!! get_sub_field('featured_title') !!}</h5>
-                                    <p class="card-text">   {!! get_sub_field('featured_content_text') !!}</p>
+                                    <p class="card-text">  {!! get_sub_field('featured_content_text') !!}</p>
                                     @if(get_sub_field('featured_content_button_url'))
                                         <a href="{!! get_sub_field('featured_content_button_url') !!}" class="text-decoration-none text-blue link_default-value">
                                             <div class="d-fle">
