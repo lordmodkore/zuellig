@@ -204,7 +204,7 @@
             <div class="row">
                 <div class="col-12">
                     <div>
-                        <h1 class="fw-bold">Latest News</h1>
+                        <h1 class="fw-bold">Latest Articles</h1>
                     </div>
                 </div>
             </div>
