@@ -14,11 +14,6 @@
             </div>
         </div>
         <div class="row">
-            <div class="featured-image-container">
-                {!! get_the_post_thumbnail(get_the_ID() ,'full', array( 'class' => 'card-img-top h-100 img-fluid mb-5' ) ); !!}
-            </div>
-        </div>
-        <div class="row">
             {!! the_content() !!}
         </div>
     </div>
