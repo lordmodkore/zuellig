@@ -13,10 +13,9 @@
                <p class="block_paragraph_small-title mb-0">{!! esc_html($category[0]->name). ' | by ' . esc_html($author_name) !!}</p>
             </div>
         </div>
-        <div style="height:200px;overflow:hidden;">
-            {!! get_the_post_thumbnail(get_the_ID() ,'full', array( 'class' => 'card-img-top img-fluid h-100 mb-5' ) ); !!}
+        <div style="max-height:200px;>
+            {!! get_the_post_thumbnail(get_the_ID() ,'full', array( 'class' => 'card-img-top img-fluid mb-5' ) ); !!}
         </div>
-
         <div class="row">
             {!! the_content() !!}
         </div>
