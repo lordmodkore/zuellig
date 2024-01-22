@@ -14,7 +14,7 @@
             </div>
         </div>
         <div style="max-height:200px;">
-            {!! get_the_post_thumbnail(get_the_ID() ,'full', array( 'class' => 'card-img-top img-fluid mb-5' ) ); !!}
+            {!! get_the_post_thumbnail(get_the_ID() ,'full', array( 'class' => 'card-img-top h-100 img-fluid mb-5' ) ); !!}
         </div>
         <div class="row">
             {!! the_content() !!}
