@@ -29,6 +29,11 @@ add_action('enqueue_block_editor_assets', function () {
     bundle('editor')->enqueue();
 }, 100);
 
+/***
+ *  Add Featured Image size
+ */
+
+add_image_size('feature-image-thumb', 1920, 300, ['center','center']);
 /**
  * Register the initial theme setup.
  *
