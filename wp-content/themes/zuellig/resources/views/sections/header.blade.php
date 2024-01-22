@@ -60,38 +60,34 @@
     @endif
 </header>
 <style>
-
-/*   */
-
-   .navbar.sticky #menu-primary-navigation .nav-item a span{
-        color: black;
+    .navbar.sticky #menu-primary-navigation .nav-item a span{
+        color: #006AAB;
         font-size: 16px;
 
     }
-    header .navbar.sticky #menu-primary-navigation .sub-menu{
-        background-color: #e0e0e0;
-    }
-    header .navbar.sticky #menu-primary-navigation .menu-item:hover{
-        background-color: #e0e0e0;
+    nav.navbar.sticky #menu-primary-navigation .current-menu-item a span{
+        color: #006AAB ;
     }
 
-   nav.navbar.sticky #menu-primary-navigation .current-menu-item a span,nav.navbar #menu-primary-navigation .current-menu-item a span{
-            color: #006AAB ;
-    }
-    nav.navbar.sticky #menu-primary-navigation .current-menu-item .sub-menu li a span{
-        color:white;
+    #menu-primary-navigation .nav-item a span{
+        text-align: center;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
     }
 
     #menu-primary-navigation .nav-item.current_page_parent{
         color: #006AAB;
     }
+
     #menu-primary-navigation .nav-item .sub-menu li a span{
-    color: white;
-    text-align: center;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
     }
     #menu-primary-navigation .nav-item .sub-menu li {
         padding: 0;
@@ -100,77 +96,29 @@
     }
 
     #menu-primary-navigation .nav-item .sub-menu li.current-menu-item a span {
-    color: #006AAB;
+        color: #006AAB;
     }
-     .board-of-trustees .menu-primary-navigation-container {
-            background: black !important;
+    @media(min-width: 320px) and (max-width:767px) {
+        #navbarNavDropdown{
+            padding: 20px;
         }
-   .board-of-trustees .sticky .menu-primary-navigation-container{
-        background:transparent !important;
     }
-        @media(min-width: 768px) {
+    @media(min-width: 768px) {
         header .navbar .navbar-nav .nav-link{
             color: #fff;
         }
     }
     @media (max-width: 991px){
-        header .navbar #menu-primary-navigation .sub-menu{
-            display:block !important;
-            pointer-events: none;
-            transition: all 100s ease-in-out !important;
-            height: 100% !important;
-        }
         #navbarNavDropdown {
             position: fixed;
             background: #f0f0f0!important;
             width: 100%;
             left: 0;
-            top: 100px;
+            top: 80px;
         }
-        /* button.navbar-toggler.collapsed::before {
+        button.navbar-toggler.collapsed::before {
             content: '';
         }
 
-        button.navbar-toggler::before {
-            content: 'x';
-            background: white;
-            position:absolute;
-            width:25px;
-            margin-left:-3px;
-
-        } */
-        [aria-expanded="true"]::before  {
-         content: 'x';
-            background: white;
-            position:absolute;
-            width:25px;
-            margin-left:-3px;
-        }
-        #menu-primary-navigation{
-           display: block !important;
-           background:black;
-
-        }
-        #menu-primary-navigation .nav-item .sub-menu li{
-            background:black;
-        }
-        .navbar.sticky #menu-primary-navigation .nav-item a span{
-            color:white;
-        }
-        header .navbar.sticky #menu-primary-navigation .menu-item:hover {
-            background-color: transparent;
-        }
-        .navbar.sticky #menu-primary-navigation .nav-item a span {
-            font-size: 14px;
-        }
-        .menu-primary-navigation-container,header .navbar.sticky #menu-primary-navigation .sub-menu {
-            background: black;
-        }
-         #menu-primary-navigation .current-menu-item a span{
-            color: #006AAB;
-        }
-
     }
-
-
 </style>
