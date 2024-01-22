@@ -19,12 +19,12 @@
                 {!! get_field('contact_details') !!}
             </div>
         @endif
-        <div class="row">
-            <div class="col-12">
-                <h1 class="fw-bold">{!! $title !!}</h1>
-            </div>
-        </div>
         @if($query->have_posts())
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="fw-bold">{!! $title !!}</h1>
+                </div>
+            </div>
             <div class="row mt-5">
                 @while($query->have_posts())
                     @php $query->the_post() @endphp
