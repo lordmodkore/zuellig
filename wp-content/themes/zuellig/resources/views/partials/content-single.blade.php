@@ -13,7 +13,7 @@
                <p class="block_paragraph_small-title mb-0">{!! esc_html($category[0]->name). ' | by ' . esc_html($author_name) !!}</p>
             </div>
         </div>
-        {!! get_the_post_thumbnail(get_the_ID() , 'medium', array( 'class' => 'card-img-top img-fluid mb-5' ) ); !!}
+        {!! get_the_post_thumbnail(get_the_ID() , [600,300], array( 'class' => 'card-img-top img-fluid h-100 mb-5' ) ); !!}
         <div class="row">
             {!! the_content() !!}
         </div>
