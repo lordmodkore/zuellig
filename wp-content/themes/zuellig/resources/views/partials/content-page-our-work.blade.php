@@ -65,7 +65,7 @@
             <div class="row">
                 <div class="col-12">
                     <div>
-                        <h1 class="fw-bold">Latest Reports</h1>
+                        <h1 class="fw-bold">Annual Report</h1>
                     </div>
                 </div>
             </div>
