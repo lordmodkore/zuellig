@@ -11,7 +11,9 @@
         <div class="row">
             <div class=" mb-3 div_heading-title text-left mb-3">
                 <h1 class="fw-bold">{!! $title !!}</h1>
-                @if($display_author == true || $display_author ===null)
+                @if($display_author == true)
+                    <p class="block_paragraph_small-title mb-0">{!! esc_html($category[0]->name). ' | by ' . esc_html($author_name) !!}</p>
+                @elseif($display_author ===null)
                     <p class="block_paragraph_small-title mb-0">{!! esc_html($category[0]->name). ' | by ' . esc_html($author_name) !!}</p>
                 @else
                     <p class="block_paragraph_small-title mb-0">{!! esc_html($category[0]->name) !!}</p>
