@@ -4,13 +4,18 @@
 
     // Get the category information for the current post
     $category = get_the_category($post_id);
+	$display_author = get_field('display_author');
 @endphp
 <section class="default_section-padding mt-5">
     <div class="container">
         <div class="row">
             <div class=" mb-3 div_heading-title text-left mb-3">
                 <h1 class="fw-bold">{!! $title !!}</h1>
-               <p class="block_paragraph_small-title mb-0">{!! esc_html($category[0]->name). ' | by ' . esc_html($author_name) !!}</p>
+                @if($display_author == null || $display_author == true)
+                    <p class="block_paragraph_small-title mb-0">{!! esc_html($category[0]->name). ' | by ' . esc_html($author_name) !!}</p>
+                @else
+                    <p class="block_paragraph_small-title mb-0">{!! esc_html($category[0]->name) !!}</p>
+                @endif
             </div>
         </div>
         <div class="row">
