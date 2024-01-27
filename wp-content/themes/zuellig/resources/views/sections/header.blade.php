@@ -46,9 +46,9 @@
                                 <div class="div_heading-title text-white fw-bold">
                                     <h1 class="mb-0 fw-bold">{!! get_sub_field('featured_header_title') !!}</h1>
                                 </div>
-                                <p class="block_paragraph-description text-white">{!! get_sub_field('featured_content') !!}</p>
+                                <p class="block_paragraph-description text-white mt-3">{!! get_sub_field('featured_content') !!}</p>
                             </div>
-                            <div class="px-3 pt-2 mb-4">
+                            <div class="px-3 pt-2 mb-5 mt-5">
                                 <a href="{!! get_sub_field('button_url') !!}" class="button_default button_btnAboutUs text-decoration-none">{!! get_sub_field('button_title') !!}</a>
                             </div>
                         </div>
@@ -69,13 +69,7 @@
         color: #006AAB ;
     }
 
-    #menu-primary-navigation .nav-item a span{
-        text-align: center;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-    }
+
 
     #menu-primary-navigation .nav-item.current_page_parent{
         color: #006AAB;

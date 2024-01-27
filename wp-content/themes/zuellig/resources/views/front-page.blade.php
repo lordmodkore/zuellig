@@ -58,47 +58,37 @@
                     $accordionCount = 1;
                 @endphp
                 @if(have_rows('accordion_contents'))
-                    <div class="accordion hide-m">
-                        @while(have_rows('accordion_contents'))
-                            @php
-                                the_row();
-								 $formattedNumber = sprintf('%02d', $accordionCount);
-                            @endphp
-                            <div class="tab {!! $accordionCount == 1 ? 'show' : '' !!}" data-tab-number="{!! $accordionCount !!}">
-                                <img src="{!! get_sub_field('accordion_bg_image') !!}" />
-                                <div class="program_menu program_active">
-                                    <div>
-                                        <div class="program_menu-text">{!! $formattedNumber !!}</div>
-                                        <div class="program_menu-title">{!! get_sub_field('accordion_title') !!}</div>
-                                    </div>
-                                </div>
-                                <div class="caption">
-                                    <div class="text-white program_content">
-                                        <div class="program_div-item">
-                                            <p class="block_paragraph_small-title mb-0 text-uppercase">{!! get_sub_field('accordion_block_small_title') !!}</p>
-                                            <div class="div_heading-title">
-                                                <h1 class="fw-bold">{!! get_sub_field('accordion_content_title') !!}</h1>
-                                            </div>
-                                            <p class="program_description">
-                                                {!! get_sub_field('accordion_content') !!}
-                                            </p>
-                                            @if(get_sub_field('accordion_button_url'))
+                    <div id="accordian-container" class="accordian-container alignfull mb-5">
+                        <div class="accordian accordian--horizontal">
+                            @while(have_rows('accordion_contents'))
+                                @php
+                                    the_row();
+                                     $formattedNumber = sprintf('%02d', $accordionCount);
+                                @endphp
+                                <div id="accordian-insert-block-{!! $accordionCount !!}" class="accordian-insert alignfull item" style="background-image: url({!! get_sub_field('accordion_bg_image') !!});">
+                                    <div class="body standard-grid">
+                                        <p class="block_paragraph_small-title mb-0 text-uppercase">{!! get_sub_field('accordion_block_small_title') !!}</p>
+                                        <h1 class="fw-bold">{!! get_sub_field('accordion_content_title') !!}</h1>
+                                        <p class="is-style-large-body">  {!! get_sub_field('accordion_content') !!}</p>
+                                        @if(get_sub_field('accordion_button_url'))
+                                            <div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex">
                                                 <a href="{!! get_sub_field('accordion_button_url') !!}" class="button_default button_programs">
                                                     {!! get_sub_field('accordion_button_title') !!}
                                                 </a>
-                                            @endif
-                                        </div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="header aos-init aos-animate" data-aos="fade-left">
+                                        <p>{!! $formattedNumber !!}</p>
+                                        <h2 class="heading fw-bold">{!! get_sub_field('accordion_content_title') !!}</h2>
+                                        <svg class="svg-inline--fa fa-plus fa-w-12 toggle" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M376 232H216V72c0-4.42-3.58-8-8-8h-32c-4.42 0-8 3.58-8 8v160H8c-4.42 0-8 3.58-8 8v32c0 4.42 3.58 8 8 8h160v160c0 4.42 3.58 8 8 8h32c4.42 0 8-3.58 8-8V280h160c4.42 0 8-3.58 8-8v-32c0-4.42-3.58-8-8-8z"></path></svg><!-- <span class="fal fa-plus toggle"></span> Font Awesome fontawesome.com -->
                                     </div>
                                 </div>
-                                <div class="clearfix"></div>
-                                <div class="accordion-control">
-                                    <a href="#" class="expand" data-target-tab="{!!  $accordionCount !!}"><i class="fa fa-plus"></i></a>
-                                </div>
-                            </div>
-                            @php
-                                $accordionCount++;
-                            @endphp
-                        @endwhile
+                                @php
+                                    $accordionCount++;
+                                @endphp
+                            @endwhile
+                        </div>
                     </div>
                 @endif
             @endif
@@ -366,7 +356,10 @@
         $('.close-button').on('click',function(){
             $("#overlay").hide();
         });
-
+        $('.item').on('click', function () {
+            return $(this).addClass('active').siblings().removeClass('active');
+        });
+        $('.item').first(this).addClass('active'); //find the active card
         $('.acf-map').each(function() {
             var map = new_map($(this));
         });

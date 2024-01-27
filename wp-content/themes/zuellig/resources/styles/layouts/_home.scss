@@ -4,6 +4,7 @@
     padding: 5%;
 }
 .title_div-block{
+    font-family: Gill_Sans_Bold_otf, serif;
     font-size: 70px;
     color: #fff;
 }
@@ -205,11 +206,13 @@
     color: var(--secondaryColor);
 } */
 .program_menu-text {
+    font-family: Gill_Sans_otf,serif;
     font-size: 40px;
     padding: 5px 0;
 }
 
 .program_menu-title {
+    font-family: Gill_Sans_otf,serif;
     writing-mode: vertical-rl;
     text-orientation: mixed;
     text-transform: uppercase;

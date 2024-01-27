@@ -1,5 +1,4 @@
 header{
-
     position: relative;
     .navbar-toggler{
         background-color:#fff;
@@ -18,8 +17,19 @@ header{
         width: 100%;
         z-index: 1000;
         padding: 2% 5%;
+
         .nav-item{
             padding: 0 20px;
+            a{
+                span{
+                    font-family: Gill_Sans_otf, serif;
+                    font-size: 16px;
+                    text-align: center;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: normal;
+                }
+            }
         }
         /* Hide submenus and set initial styles */
         #menu-primary-navigation .menu-item {
@@ -76,6 +86,8 @@ header{
             }
             .navbar-nav {
                 .nav-link {
+                    font-family: Gill Sans, serif;
+                    font-size: 16px;
                     color: #006AAB;
                     &:hover{
                         color: #aaa;
