@@ -73,7 +73,7 @@
                                 @endphp
                                 <div id="accordian-insert-block-{!! $accordionCount !!}" class="accordian-insert alignfull item" style="background-image: url({!! get_sub_field('accordion_bg_image') !!});">
                                     <div class="body standard-grid">
-                                        <p class="block_paragraph_small-title mb-3 text-uppercase">{!! get_sub_field('accordion_block_small_title') !!}</p>
+                                        <p class="block_paragraph_small-title mb-2 text-uppercase">{!! get_sub_field('accordion_block_small_title') !!}</p>
                                         <h1 class="fw-bold">{!! get_sub_field('accordion_content_title') !!}</h1>
                                         <p class="is-style-large-body">  {!! get_sub_field('accordion_content') !!}</p>
                                         @if(get_sub_field('accordion_button_url'))
