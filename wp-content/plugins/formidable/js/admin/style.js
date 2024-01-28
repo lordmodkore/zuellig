@@ -50,6 +50,7 @@
 	function initPreview() {
 		initFloatingLabels();
 		fillMissingSignatureValidationFunction();
+		setSelectPlaceholderColor();
 
 		// Remove .wp-core-ui from the body so the preview can avoid it.
 		// Then add it back where we want to use admin styles (the sidebar, otherwise inputs appear short).
@@ -75,7 +76,9 @@
 	 */
 	function initListPage() {
 		document.addEventListener( 'click', handleClickEventsForListPage );
-		setTimeout( addHamburgerMenusToCards, 0 ); // Add a timeout so Pro has a chance to add a filter first.
+		// Add a timeout so Pro has a chance to add a filter first.
+		// 0 does not always work in Google Chrome, so use 1.
+		setTimeout( addHamburgerMenusToCards, 1 );
 		initDatepickerSample();
 
 		const enableToggle              = document.getElementById( 'frm_enable_styling' );
@@ -1159,7 +1162,10 @@
 					nonce: frmGlobal.nonce,
 					frm_style_setting: locStr
 				},
-				success: handleChangeStylingSuccess
+				success: ( css ) => {
+					handleChangeStylingSuccess( css );
+					setSelectPlaceholderColor();
+				}
 			});
 		}
 
@@ -1353,6 +1359,40 @@
 		if ( $sample.length && 'function' === typeof $sample.datepicker ) {
 			$sample.datepicker({ changeMonth: true, changeYear: true });
 		}
+	}
+
+	/**
+	 * Set color for select placeholders.
+	 *
+	 * @since 6.5.1
+	 */
+	function setSelectPlaceholderColor() {
+		const selects = document.querySelectorAll( '.form-field select' );
+		const styleElement = document.querySelector( '.with_frm_style' );
+		const textColorDisabled = styleElement ? getComputedStyle( styleElement ).getPropertyValue( '--text-color-disabled' ).trim() : '';
+
+		// Exit if there are no select elements or the textColorDisabled property is missing
+		if ( ! selects.length || ! textColorDisabled ) {
+			return;
+		}
+
+		// Function to change the color of a select element
+		const changeSelectColor = ( select ) => {
+			if ( select.options[select.selectedIndex] && select.options[select.selectedIndex].classList.contains( 'frm-select-placeholder' ) ) {
+				select.style.setProperty( 'color', textColorDisabled, 'important' );
+			} else {
+				select.style.color = '';
+			}
+		};
+
+		// Use a loop to iterate through each select element
+		selects.forEach( ( select ) => {
+			// Apply the color change to each select element
+			changeSelectColor( select );
+
+			// Add an event listener for future changes
+			select.addEventListener( 'change', () => changeSelectColor( select ) );
+		});
 	}
 
 	// Hook into the styleInit function in formidable_admin.js

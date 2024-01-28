@@ -26,11 +26,11 @@ class ContentTicker extends EAE_Widget_Base{
 		return 'wts-content-ticker';
 	}
     public function get_title() {
-		return __( 'EAE - Content Ticker', 'wts-eae' );
+		return __( 'Content Ticker', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-code-highlight';
+		return 'eae-icon eae-content-ticker';
 	}
 
 	public function get_categories() {

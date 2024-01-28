@@ -3,22 +3,22 @@ Contributors: wpvibes, hardiksharma, satishprajapati, webtechpooja, priyanshii5,
 Tags: elementor, addons, elements, elementor addon, elementor widget, page-builder, WordPress page builder, elementor extensions, elementor page builder
 Requires at least: 5.0
 Requires PHP: 7.0
-Tested up to: 6.2
+Tested up to: 6.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Elementor Addon Elements comes with 24+ widgets and extensions to extend the power of Elementor Page Builder.
+Elementor Addon Elements comes with 40+ widgets and extensions to extend the power of Elementor Page Builder.
 
 == Description ==
 
-Supercharge your Elementor Page Builder experience by using our free addon - Elementor Addon Elements. This addon comes with 24+ widgets and extensions that will give more power to your Elementor based website. It has an easy-to-use interface that will allow you to create any design with just a few clicks!
+Supercharge your Elementor Page Builder experience by using our free addon - Elementor Addon Elements. This addon comes with 40+ widgets and extensions that will give more power to your Elementor based website. It has an easy-to-use interface that will allow you to create any design with just a few clicks!
 Incorporate these creative elements in Elementor to make your WordPress website look more attractive and accessible than before.
 [Check out Elementor Widgets & Extensions Demo Pages](https://www.elementoraddons.com/elementor-addon-elements/?utm_source=wporg&utm_medium=eae&utm_campaign=readme)
 
 == Elementor Addon Elements Features ==
 
-We have built 25+ useful widgets and extensions to enhance your Elementor Page Building experience.
+We have built 40+ useful widgets and extensions to enhance your Elementor Page Building experience.
 
 1. [Timeline](https://www.elementoraddons.com/elementor-addon-elements/timeline-for-elementor/?utm_source=wporg&utm_medium=eae&utm_campaign=readme) - Create a stunning horizontal timeline in Elementor for your posts, page, custom post types, or for any static text.
 2. [Info Circle](https://www.elementoraddons.com/elementor-addon-elements/info-circle-for-elementor/?utm_source=wporg&utm_medium=eae&utm_campaign=readme) - The Info Circle widget for Elementor lets you present your content in an attractive circle layout, using pre-defined styles.
@@ -116,6 +116,9 @@ Yes, absolutely.
 
 New elements are added at the end of the default elementor widget area under the category “Elementor Addons Elements”.
 
+= How can I report security bugs? = 
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/addon-elements-for-elementor-page-builder)
 
 == Screenshots ==
 
@@ -129,6 +132,41 @@ New elements are added at the end of the default elementor widget area under the
 8. Elementor addon widgets section
 
 == Changelog ==
+= 1.12.11 =
+* Fixed : Input sanitization and output escaping added on some of missing fields.
+
+= 1.12.10 =
+* Fixed : Timeline widget resize issue
+
+= 1.12.9 =
+* Fixed : Thumbnail Gallery stops working when autoplay is disabled.
+
+= 1.12.8 =
+* Tweak : Modal Poupup & Content Switcher container template support added
+* Fixed : Split Text split count empty fixed
+* Fixed : Security fix
+ 
+
+= 1.12.7 =
+* Fixed : Fixed compatibility issue with latest version of Elementor
+
+= 1.12.6 =
+* New Widget : Image Stack
+* Fixed : Filtrable Gallery lightbox bug
+
+= 1.12.5 =
+* Fixed : Issue in Content Switcher widget causing fatal error in some cases.
+* Updated complatibility for Elementor 3.15
+
+= 1.12.4 =
+* Fixed: Glitch in Content Switcher widget with inner widgets
+* Fixed: Removed all admin notices for now (including review reminder), will add then later with a better way that will not annoy users.
+
+= 1.12.3 =
+* Fixed: Fixed Modal Popup Issue.
+* Fixed: Issue in Content Switcher, background images not loading when switching the content.
+* Fixed: Issue in Filterable Gallery, small images open in Lightbox.
+
 = 1.12.2 =
 * Fixed : Issue in Modal Popup when Video widget used in popup.
 * Fixed : Add Compatibility for new Swiper Version.

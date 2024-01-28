@@ -50,19 +50,14 @@ if ( isset( $field['post_field'] ) && $field['post_field'] == 'post_category' &&
 		$option_params = array(
 			'value' => $field_val,
 		);
-		if ( $selected ) {
-			$option_params['selected'] = 'selected';
-		}
+
 		if ( FrmFieldsHelper::is_other_opt( $opt_key ) ) {
 			$option_params['class'] = 'frm_other_trigger';
 		}
-		?>
-		<option <?php FrmAppHelper::array_to_html_params( $option_params, true ); ?>>
-			<?php echo esc_html( $opt == '' ? ' ' : $opt ); ?>
-		</option>
-		<?php
+
+		FrmHtmlHelper::echo_dropdown_option( $opt, (bool) $selected, $option_params );
 		unset( $option_params );
-	}
+	}//end foreach
 	?>
 	</select>
 	<?php
@@ -81,4 +76,4 @@ if ( isset( $field['post_field'] ) && $field['post_field'] == 'post_category' &&
 			)
 		);
 	}
-}
+}//end if

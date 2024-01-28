@@ -22,11 +22,11 @@ class ImageCompare extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - After/Before Image', 'wts-eae' );
+		return __( 'After/Before Image', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eae-icons eae-ba';
+		return 'eae-icon eae-image-compare';
 	}
 
 

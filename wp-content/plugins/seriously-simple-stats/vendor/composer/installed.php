@@ -1,33 +1,32 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'type' => 'wordpress-plugin',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '282c83c31edd16289fb502b733de5c5910ad7109',
+        'name' => 'castos/seriously-simple-stats',
+        'dev' => false,
     ),
-    'reference' => '7edcccdb7092d31a955b909a2d31fd3c45f00e7f',
-    'name' => 'castos/seriously-simple-stats',
-  ),
-  'versions' => 
-  array (
-    'castos/seriously-simple-stats' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '7edcccdb7092d31a955b909a2d31fd3c45f00e7f',
+    'versions' => array(
+        'castos/seriously-simple-stats' => array(
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '282c83c31edd16289fb502b733de5c5910ad7109',
+            'dev_requirement' => false,
+        ),
+        'jaybizzle/crawler-detect' => array(
+            'pretty_version' => 'v1.2.114',
+            'version' => '1.2.114.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jaybizzle/crawler-detect',
+            'aliases' => array(),
+            'reference' => '62d0e6b38f6715c673e156ffb0fc894791de3452',
+            'dev_requirement' => false,
+        ),
     ),
-    'jaybizzle/crawler-detect' => 
-    array (
-      'pretty_version' => 'v1.2.103',
-      'version' => '1.2.103.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '3efa2860959cc971f17624b40bf0699823f9d0f3',
-    ),
-  ),
 );

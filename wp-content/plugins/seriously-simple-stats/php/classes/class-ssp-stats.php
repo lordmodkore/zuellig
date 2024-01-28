@@ -152,9 +152,12 @@ class Stats {
 	 */
 	public $episode_id_where = '';
 
-	public $upgrade = null;
+	public $upgrade;
 
-	public $all_episode_stats = null;
+    /**
+     * @var All_Episode_Stats
+     * */
+	public $all_episode_stats;
 
 	/**
 	 * Constructor function.
@@ -255,13 +258,16 @@ class Stats {
 		}
 
 		// Set episode selection for charts
+		// Can be either integer or string 'all'
 		if ( isset( $_GET['episode'] ) ) {
-			$this->episode = sanitize_text_field( $_GET['episode'] );
+			$episode       = sanitize_text_field( $_GET['episode'] );
+			$this->episode = is_numeric( $episode ) ? intval( $episode ) : 'all';
 		}
 
-		// Set filter selection for charts
+		// Set filter selection for charts. Can be either series or episode.
 		if ( isset( $_GET['filter'] ) ) {
-			$this->filter = sanitize_text_field( $_GET['filter'] );
+			$allowed_filters = array( 'series', 'episode' );
+			$this->filter    = in_array( $_GET['filter'], $allowed_filters ) ? $_GET['filter'] : 'series';
 		}
 	}
 
@@ -269,8 +275,6 @@ class Stats {
 	 * Load episode ids for stats
 	 */
 	public function load_episode_ids () {
-
-
 
 		switch( $this->filter ) {
 			case 'series':
@@ -282,13 +286,13 @@ class Stats {
 						if( $this->episode_ids ) {
 							$this->episode_ids .= ',';
 						}
-						$this->episode_ids .= $episode->ID;
+						$this->episode_ids .= intval( $episode->ID );
 					}
 				}
 			break;
 
 			case 'episode':
-				if( 'all' != $this->episode ) {
+				if ( 'all' != $this->episode && is_integer( $this->episode ) ) {
 					$this->episode_ids = $this->episode;
 				}
 			break;
@@ -320,9 +324,9 @@ class Stats {
 			$fields = implode( ', ', $fields );
 		}
 
-		$results = $wpdb->get_results( $wpdb->prepare( 'SELECT ' . $fields . ' FROM ' . $this->_table.' WHERE post_id = %d', $episode_id ) );
-
-		return $results;
+		return $wpdb->get_results(
+			$wpdb->prepare( 'SELECT ' . $fields . ' FROM ' . $this->_table . ' WHERE post_id = %d', $episode_id )
+		);
 	}
 
 	/**
@@ -517,7 +521,7 @@ class Stats {
 				}
 			break;
 			case 'episode':
-				if( 'all' != $this->episode ) {
+				if ( 'all' != $this->episode && is_integer( $this->episode ) ) {
 					$episode_name = get_the_title( $this->episode );
 					if( $episode_name ) {
 						$title_tail = sprintf( __( 'for Episode: %s', 'seriously-simple-stats' ), '<u>' . $episode_name . '</u>' );
@@ -646,9 +650,9 @@ class Stats {
 							} else {
 								$week_diff = round( ( $listens_this_week / $listens_last_week * 100 ), 1 );
 								if( $week_diff < 100 ) {
-									$week_diff = '-' . ( 100 - $week_diff ) . '%';
+									$week_diff = '-' . round(100 - $week_diff, 1) . '%';
 								} elseif( $week_diff > 100 ) {
-									$week_diff = '+' . ( $week_diff - 100 ) . '%';
+									$week_diff = '+' . round( $week_diff - 100, 1 ) . '%';
 								} else {
 									$week_diff = '0%';
 								}
@@ -711,6 +715,9 @@ class Stats {
 								$li_class = 'alternate';
 								foreach( $results as $result ) {
 									$episode = get_post( $result->post_id );
+									if ( ! $episode ) {
+										continue;
+									}
 									$episode_link = admin_url( 'post.php?post=' . $episode->ID . '&action=edit' );
 									$html .= '<li class="' . esc_attr( $li_class ) . '"><span class="first-col top-ten-count">' . sprintf( _n( '%d %slisten%s', '%d %slistens%s', $result->listens, 'seriously-simple-stats' ), $result->listens, '<span>', '</span>' ) . '</span> <span class="top-ten-title"><a href="' . $episode_link . '">' . esc_html( $episode->post_title ) . '</a></span></li>' . "\n";
 									if( '' == $li_class ) {

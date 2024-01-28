@@ -5,6 +5,7 @@ namespace WTS_EAE;
 use Elementor;
 use WTS_EAE\Classes\Helper;
 use const EAE_PATH;
+use Elementor\Plugin as EPlugin;
 
 class Plugin {
 
@@ -15,6 +16,7 @@ class Plugin {
 
 	public static $helper       = null;
 	private static $show_notice = true;
+	public static $is_pro = false;
 
 	public static function get_instance() {
 		if ( ! isset( self::$instance ) ) {
@@ -26,6 +28,13 @@ class Plugin {
 
 	public function __construct() {
 		$this->register_autoloader();
+
+		if(file_exists(EAE_PATH.'pro/pro.php')){
+			require_once(EAE_PATH.'pro/pro.php');
+			self::$is_pro = true;
+		}
+
+
 		self::$helper = new Helper();
 
 		add_action( 'elementor/init', [ $this, 'eae_elementor_init' ], -10 );
@@ -34,21 +43,190 @@ class Plugin {
 		add_action( 'elementor/editor/wp_head', [ $this, 'eae_editor_enqueue_scripts' ] );
 		add_action( 'elementor/controls/controls_registered', [ $this, 'register_controls' ] );
 		add_action( 'plugins_loaded', [ $this, '_plugins_loaded' ] );
+		if(!self::$is_pro){
+			add_filter('elementor/editor/localize_settings', [$this, 'eae_promote_pro_elements']);
+			add_filter( 'plugin_action_links_' . EAE_PLUGIN_BASE, [ $this, 'plugin_action_links' ] );
+		}
+		add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 2 );
 		// WPML 4.5.0 move wpml move from plugin_loaded to after_setup_theme
 		add_action('after_setup_theme', [$this,'_after_setup_theme']);
 		add_action( 'admin_enqueue_scripts', [ $this, 'eae_admin_scripts' ] );
+		
 
 		$this->_includes();
 
 		$this->module_manager = new Managers\Module_Manager();
+		//add_action( 'wp_enqueue_scripts', [ $this, 'pro_enqueue_scripts']);
+		// $wpv_notice = [];
 
-		$wpv_notice = [];
+		// $wpv_notice = apply_filters( 'eae/admin_notices', $wpv_notice );
 
-		$wpv_notice = apply_filters( 'eae/admin_notices', $wpv_notice );
+		// if ( $wpv_notice ) {
+		// 	add_action( 'admin_init', [ $this, $wpv_notice[0] ], 10 );
+		// }
+	}
+	
 
-		if ( $wpv_notice ) {
-			add_action( 'admin_init', [ $this, $wpv_notice[0] ], 10 );
+	public function plugin_action_links( $links ) {
+		$links['go_pro'] = sprintf( '<a href="%1$s" target="_blank" class="eae-plugin-gopro" style="color: #93003c;
+		font-weight: bold;">%2$s</a>', 'https://wpvibes.link/go/eae-upgrade', esc_html__( 'Get Pro', 'wts-eae' ) );
+		return $links;
+	}
+
+	public function plugin_row_meta( $plugin_meta, $plugin_file ) {
+		if ( EAE_PLUGIN_BASE === $plugin_file ) {
+			$row_meta = [
+				'docs' => '<a href="https://docs.wpvibes.com/eae/" aria-label="' . esc_attr( esc_html__( 'View Documentation', 'wts-eae' ) ) . '" target="_blank">' . esc_html__( 'Docs', 'wts-eae' ) . '</a>',
+				'settings' => '<a href="admin.php?page=eae-settings" aria-label="' . esc_attr( esc_html__( 'Settings', 'wts-eae' ) ) . '">' . esc_html__( 'Settings', 'wts-eae' ) . '</a>',
+			];
+
+			$plugin_meta = array_merge( $plugin_meta, $row_meta );
 		}
+
+		return $plugin_meta;
+	}
+
+	public function eae_promote_pro_elements($config){
+		// echo '<pre>';  print_r($config['promotionWidgets']); echo '</pre>';
+		// die();
+		if(!self::$is_pro){
+		
+			$promotion_widgets = [];
+
+			if ( isset( $config['promotionWidgets'] ) ) {
+				$promotion_widgets = $config['promotionWidgets'];
+			}
+
+			$combine_array = array_merge( $promotion_widgets, [
+				[
+					'name'		=>	'add-to-calendar',
+					'title'      => __( 'Add to Calendar', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-add-to-calendar pro-widget',
+					'categories' => '["wts-eae"]',	
+				],
+				[
+					'name'		=>	'advanced-heading',
+					'title'      => __( 'Advanced Heading', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-advanced-heading pro-widget',
+					'categories' => '["wts-eae"]',	
+				],
+				[
+					'name'		=>	'advanced-list',
+					'title'      => __( 'Advanced List', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-advanced-list pro-widget',
+					'categories' => '["wts-eae"]',	
+				],
+				[
+					'name'		=>	'advanced-price-table',
+					'title'      => __( 'Advanced Price Table', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-advance-price-table pro-widget',
+					'categories' => '["wts-eae"]',	
+				],
+				[
+					'name'		=>	'business-hour',
+					'title'      => __( 'Business Hour', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-business-hours pro-widget',
+					'categories' => '["wts-eae"]',	
+				],
+
+				[
+					'name'       => 'call-to-action',
+					'title'      => __( 'Call To Action', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-call-to-action pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+
+				[
+					'name'       => 'circular-progres',
+					'title'      => __( 'Circular Progress', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-circular-progress pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+
+				[
+					'name'       => 'devices',
+					'title'      => __( 'Devices', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-devices pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+
+				[
+					'name'       => 'faq',
+					'title'      => __( 'FAQ', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-faq pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
+					'name'       => 'floating-element',
+					'title'      => __( 'Floating Element', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-floating-elements pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
+					'name'       => 'image-accordion',
+					'title'      => __( 'Image Accordion', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-image-accordion pro-widget',
+					'categories' => '["wts-eae"]',	
+				],
+				[
+					'name'       => 'image-hotspot',
+					'title'      => __( 'Image Hotspot', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-image-hotspot pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
+					'name'       => 'image-scroll',
+					'title'      => __( 'Image Scroll', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-image-scroll pro-widget',
+					'categories' => '["wts-eae"]',	
+				],
+				[
+					'name'       => 'info-group',
+					'title'      => __( 'Info Group', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-info-group pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
+					'name'       => 'instagram-feed',
+					'title'      => __( 'Instagram Feed', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-instagram-feed pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
+					'name'       => 'radial-charts',
+					'title'      => __( 'Radial Charts', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-radial-charts pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
+					'name'       => 'table-of-content',
+					'title'      => __( 'Table of Content', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-table-of-content pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
+					'name'       => 'team-member',
+					'title'      => __( 'Team Member', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-team-members pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
+					'name'       => 'video-box',
+					'title'      => __( 'Video Box', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-video-box pro-widget',
+					'categories' => '["wts-eae"]',
+				],	
+				[
+					'name'       => 'video-gallery',
+					'title'      => __( 'Video Gallery', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-video-gallery pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+			]);
+			$config['promotionWidgets'] = $combine_array;
+			
+		}
+		return $config;
 	}
 
 	public function eae_elementor_init() {     }
@@ -116,9 +294,9 @@ class Plugin {
 	public function eae_admin_scripts() {
 		$screen = get_current_screen();
 
-		wp_enqueue_style( 'eae-admin-css', EAE_URL . 'assets/css/eae-admin.css', [], '1.0', '' );
-
+		
 		if ( $screen->id === 'toplevel_page_eae-settings' ) {
+			wp_enqueue_style( 'eae-admin-css', EAE_URL . 'assets/css/eae-admin.css', [], '1.0', '' );
 			add_action( 'admin_print_scripts', [ $this, 'eae_disable_admin_notices' ] );
 
 			wp_enqueue_script( 'eae-admin', EAE_URL . 'assets/js/admin.js', [ 'wp-components' ], '1.0', true );
@@ -139,6 +317,8 @@ class Plugin {
 				]
 			);
 		}
+
+		wp_enqueue_script( 'eae-promotion-js', EAE_URL . 'assets/js/promotion.js', [ 'jquery' ], '1.0', true );
 	}
 
 	public function eae_disable_admin_notices() {
@@ -157,13 +337,45 @@ class Plugin {
 
 	public function eae_scripts() {
 		wp_enqueue_style( 'eae-css', EAE_URL . 'assets/css/eae' . EAE_SCRIPT_SUFFIX . '.css', [], EAE_VERSION );
-
+		wp_enqueue_script( 'eae-iconHelper', EAE_URL . 'assets/js/iconHelper.js', [], '1.0' );
 		/* chart js file */
+		
 		wp_register_script( 'eae-chart', EAE_URL . 'assets/lib/chart/chart.js', [], '4.1.2', true );
 		wp_register_script( 'eae-data-table', EAE_URL . 'assets/lib/tablesorter/tablesorter.js', [], '2.31.3', true );
 		wp_register_script( 'eae-lottie', EAE_URL . 'assets/lib/lottie/lottie' . EAE_SCRIPT_SUFFIX . '.js', [], '5.6.8', true );
 		/* animated text css and js file*/
 		wp_register_script( 'animated-main', EAE_URL . 'assets/js/animated-main' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '1.0', true );
+		
+		if(self::$is_pro){
+
+			//  peel js 
+			wp_register_script( 'eae-peel', EAE_URL . 'pro/assets/lib/peel/peel.js', [], '1.0.0', true );
+			wp_enqueue_style( 'eae-peel-css', EAE_URL . 'pro/assets/lib/peel/peel.css', [], EAE_VERSION );
+			
+			// Floating Images
+			wp_register_script( 'eae-keyframes', EAE_URL . 'pro/assets/lib/keyframes/jquery.keyframes' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '1.0.8', true );
+
+			//Lightgallery CSS
+			wp_enqueue_style( 'lightgallery-css', EAE_URL . 'pro/assets/lib/lightgallery/css/lightgallery-bundle' . EAE_SCRIPT_SUFFIX . '.css', [], EAE_VERSION );
+			// LightGallery JS
+			wp_register_script( 'lightgallery-js', EAE_URL . 'pro/assets/lib/lightgallery/lightgallery' . EAE_SCRIPT_SUFFIX . '.js', [], '2.7.1', true );
+			wp_register_script( 'lg-fullscreen-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/fullscreen/lg-fullscreen.min.js', [], '2.7.1', true );
+			wp_register_script( 'lg-hash-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/hash/lg-hash.min.js', [], '2.7.1', true );
+			wp_register_script( 'lg-rotate-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/rotate/lg-rotate.min.js', [], '2.7.1', true );
+			wp_register_script( 'lg-share-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/share/lg-share.min.js', [], '2.7.1', true );
+			wp_register_script( 'lg-video-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/video/lg-video.min.js', [], '2.7.1', true );
+			wp_register_script( 'lg-zoom-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/zoom/lg-zoom.min.js', [], '2.7.1', true );
+			wp_register_script( 'lg-thumbnail-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js', [], '2.7.1', true );
+			// For Vimeo video-Video Box Widget
+			wp_register_script( 'eae-player-js', EAE_URL . 'pro/assets/lib/lightgallery/player.min.js', [], '2.19.0', true );
+			// For selfhosted video-Video Box Widget
+			wp_register_script( 'eae-video-js', EAE_URL . 'pro/assets/lib/lightgallery/video.min.js', [], '8.3.0', true );
+			wp_enqueue_style( 'eae-video-css', EAE_URL . 'pro/assets/lib/lightgallery/css/video'  . '.css', [], EAE_VERSION );
+			
+			wp_register_script('eae-popper', EAE_URL . 'pro/assets/lib/tippy/popper.js', [], '2.11.8', false);
+			wp_register_script( 'eae-tippy', EAE_URL . 'pro/assets/lib/tippy/tippy.js', [], '1.1', false );
+			wp_register_style('eae-tippy-css',EAE_URL . 'pro/assets/lib/tippy/tippy.css', [], '1.1', false);
+		}
 
 		wp_enqueue_script(
 			'eae-main',
@@ -174,6 +386,18 @@ class Plugin {
 			EAE_VERSION,
 			true
 		);
+
+		//merged js
+		wp_enqueue_script(
+			'eae-index',
+			EAE_URL . 'build/index' . EAE_SCRIPT_SUFFIX . '.js',
+			[
+				'jquery',
+			],
+			EAE_VERSION,
+			true
+		);
+
 		if ( is_plugin_active( 'elementor/elementor.php' ) ) {
 			wp_localize_script(
 				'eae-main',
@@ -181,7 +405,6 @@ class Plugin {
 				[
 					'ajaxurl'     => admin_url( 'admin-ajax.php' ),
 					'current_url' => base64_encode( self::$helper->get_current_url_non_paged() ),
-					'breakpoints' => Elementor\Core\Responsive\Responsive::get_breakpoints(),
 				]
 			);
 		}
@@ -229,16 +452,40 @@ class Plugin {
 	}
 
 	public function eae_editor_enqueue_scripts() {
-		wp_enqueue_style( 'eae-icons', EAE_URL . 'assets/lib/eae-icons/style.css', [], '1.0', '' );
 		wp_enqueue_script( 'eae-editor-js', EAE_URL . 'assets/js/editor.js', [ 'jquery' ], '1.0', true );
+		wp_enqueue_script( 'eae-iconHelper', EAE_URL . 'assets/js/iconHelper.js', [], '1.0' );
+		wp_enqueue_script( 'eae-swiperDataHelper', EAE_URL . 'assets/js/swiperDataHelper.js', [], '1.0');
+		wp_enqueue_style( 'eae-icons', EAE_URL . 'assets/lib/eae-icons/style.css', [], '1.0', '' );
+		wp_enqueue_style( 'eae-editor-css', EAE_URL . 'assets/css/editor.css', [], '1.0', '' );
+		
+		
 		wp_localize_script(
 			'eae-editor-js',
 			'eaeEditor',
 			[
 				'ajaxurl'    => admin_url( 'admin-ajax.php' ),
+				'nonce'		 => wp_create_nonce('wp_eae_elementor_editor_nonce'),
+				'elementorBreakpoints' => wp_json_encode( $this->get_eae_ele_breakpoints() )
 			]
 		);
+
+		wp_enqueue_script( 'eae-promotion-js', EAE_URL . 'assets/js/promotion.js', [ 'jquery' ], '1.0', true );
+		
 	}
+
+	public function get_eae_ele_breakpoints(){
+		$ele_breakpoints           = EPlugin::$instance->breakpoints->get_active_breakpoints();
+		$active_devices            = EPlugin::$instance->breakpoints->get_active_devices_list();
+		$active_breakpoints        = array_keys( $ele_breakpoints );
+		$break_value               = [];
+		foreach ( $active_devices as $active_device ) {
+			$min_breakpoint                = EPlugin::$instance->breakpoints->get_device_min_breakpoint( $active_device );
+			$break_value[ $active_device ] = $min_breakpoint;
+		}
+		return  $break_value;
+	}
+
+
 	private function register_autoloader() {
 		spl_autoload_register( [ __CLASS__, 'autoload' ] );
 	}

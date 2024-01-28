@@ -135,7 +135,13 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 										}
 										echo EPlugin::instance()->frontend->get_builder_content_for_display( $item['ae_templates'] );
 										break;
-								}
+									case 'saved_container':
+										if ( empty( $item['saved_container'] ) ) {
+											return;
+										}
+										echo EPlugin::instance()->frontend->get_builder_content_for_display( $item['saved_container'] );
+										break;
+								}		
 								?>
 								</div>
 								<?php

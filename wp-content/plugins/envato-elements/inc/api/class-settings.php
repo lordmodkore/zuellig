@@ -276,6 +276,14 @@ class Settings extends API {
 			];
 		}
 
+        if ( ! class_exists( '\ZipArchive' ) ) {
+            $limits['zip_archive'] = [
+                'ok'      => false,
+                'title'   => 'PHP ZipArchive Extension',
+                'message' => 'ZipArchive extension not enabled. Please ask hosting provider or Google search "Enable ZipArchive for PHP".'
+            ];
+        }
+
 		return $this->format_success(
 			[
 				'limits' => $limits,

@@ -22,7 +22,7 @@ class TestimonialSlider extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Testimonial Slider', 'wts-eae' );
+		return __( 'Testimonial Slider', 'wts-eae' );
 	}
 
 	public function get_icon() {

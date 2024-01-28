@@ -9,7 +9,47 @@ require_once(__DIR__.'/wp-security-abstract-ids.php');
  * Helper class for firewall as shared library
  * Use core php not wordpress.
  */
+if (class_exists('AIOS_Helper')) return;
+
 class AIOS_Helper {
+
+	/**
+	 * Maps a firewall rule to its admin URL
+	 *
+	 * @param string $rule - The key to the rule's URL. The key format is '<rule_name>::<rule_family>'
+	 * @return string
+	 */
+	public static function get_firewall_rule_location($rule) {
+		//normalise key
+		$rule = strtolower($rule);
+
+		$basic_firewall = array(
+			'completely block xmlrpc::general' => 'page=aiowpsec_firewall',
+		);
+		$additional_firewall = array(
+			'advanced character filter::general' => 'page=aiowpsec_firewall&tab=additional-firewall',
+			'bad query strings::general' => 'page=aiowpsec_firewall&tab=additional-firewall',
+			'proxy comment posting::general' => 'page=aiowpsec_firewall&tab=additional-firewall',
+		);
+		$bruteforce = array(
+			'cookie based prevent bruteforce::bruteforce' => 'page=aiowpsec_brute_force&tab=cookie-based-brute-force-prevention',
+		);
+		$blacklist = array(
+			'blocked ips::blacklist' => 'page=aiowpsec_blacklist',
+			'blocked user agents::blacklist' => 'page=aiowpsec_blacklist',
+		);
+		$firewall_6g = array(
+			'block request methods::6g' => 'page=aiowpsec_firewall&tab=6g-firewall',
+			'block query strings::6g' => 'page=aiowpsec_firewall&tab=6g-firewall',
+			'block referrer strings::6g' => 'page=aiowpsec_firewall&tab=6g-firewall',
+			'block request strings::6g' => 'page=aiowpsec_firewall&tab=6g-firewall',
+			'block user-agents::6g' => 'page=aiowpsec_firewall&tab=6g-firewall',
+		);
+
+		// merge all the locations to one
+		$locations = array_merge($firewall_6g, $blacklist, $bruteforce, $basic_firewall, $additional_firewall);
+		return isset($locations[$rule]) ? $locations[$rule] : '';
+	}
 	
 	/**
 	 * Get server detected visitor IP Address.
@@ -34,8 +74,8 @@ class AIOS_Helper {
 		// Check if multiple IPs were given - these will be present as comma-separated list
 		if (preg_match('/^([^,]+),/', $visitor_ip, $matches)) $visitor_ip = $matches[1];
 
-		// Now remove port portion if ipv4 address with port
-		if (preg_match('/(.+):\d+$/', $visitor_ip, $matches)) $visitor_ip = $matches[1];
+		// Now remove port portion if ipv4 address with port, for ipv6 it was making issue so using fiter_var valid ip checked first.
+		if (!filter_var($visitor_ip, FILTER_VALIDATE_IP) && preg_match('/(.+):\d+$/', $visitor_ip, $matches)) $visitor_ip = $matches[1];
 
 		if (!filter_var($visitor_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) && !filter_var($visitor_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
 			$visitor_ip = empty($_SERVER['REMOTE_ADDR']) ? '' : $_SERVER['REMOTE_ADDR'];
@@ -114,7 +154,12 @@ class AIOS_Helper {
 	 * @return string|boolean external ip address if from one of lookup service gets response otherwise false.
 	 */
 	public static function get_external_ip_address() {
+		global $aiowps_constants;
 		$external_ip_address = false;
+		
+		//Running from cronjob REQUEST_URI is empty or DOING_CRON, if from command line cli is PHP_SAPI, constant set by user
+		if (empty($_SERVER['REQUEST_URI']) || (defined('DOING_CRON') && DOING_CRON) || 'cli' == PHP_SAPI || $aiowps_constants->AIOS_DISABLE_EXTERNAL_IP_ADDR) return $external_ip_address;
+		
 		$ip_lookup_services = AIOS_Abstracted_Ids::get_ip_lookup_services();
 		$ip_lookup_services_keys = array_keys($ip_lookup_services);
 		shuffle($ip_lookup_services_keys);
@@ -156,12 +201,12 @@ class AIOS_Helper {
 				Requests::set_certificate_path($root . $includes . '/certificates/ca-bundle.crt');
 			}
 		}
+		$timeout = isset($aiowps_constants->AIOS_REQUEST_TIMEOUT) ? $aiowps_constants->AIOS_REQUEST_TIMEOUT : 4;
 		
 		try {
 			$headers = isset($args['headers']) ? $args['headers'] : array();
 			$data = isset($args['body']) ? $args['body'] : array();
 			$method = isset($args['method']) ? $args['method'] : 'GET';
-			$timeout = isset($aiowps_constants->AIOS_REQUEST_TIMEOUT) ? $aiowps_constants->AIOS_REQUEST_TIMEOUT : 4;
 			$options = array('timeout' => $timeout);
 			//WP 6.2+ the request library 2.0.5 namespaced name WpOrg\Requests\Requests instead just Requests
 			if (class_exists('WpOrg\Requests\Requests')) {
@@ -179,8 +224,56 @@ class AIOS_Helper {
 		}
 		
 		if (empty($response) && ini_get('allow_url_fopen')) {
-			$response = file_get_contents($url);
+			$response = @file_get_contents($url, false, stream_context_create(array('http' => array("timeout" => $timeout)))); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- ignore this to silence request failed warning for IP lookup services
 		}
 		return $response;
+	}
+
+	/**
+	 * Performs reverse IP lookup for the given IP address
+	 *
+	 * @param string $ip_address - IP address to perform reverse lookup
+	 *
+	 * @return array - Reverse lookup data
+	 */
+	public static function get_ip_reverse_lookup($ip_address) {
+		global $aio_wp_security;
+		$reverse_lookup_data = array();
+		$ip_reverse_lookup_services = AIOS_Abstracted_Ids::get_reverse_ip_lookup_services();
+		$ip_reverse_lookup_services_keys = array_keys($ip_reverse_lookup_services);
+		shuffle($ip_reverse_lookup_services_keys);
+
+		foreach ($ip_reverse_lookup_services_keys as $service_name) {
+			$endpoint = $ip_reverse_lookup_services[$service_name];
+			$url = sprintf($endpoint, $ip_address);
+			$response = wp_safe_remote_get($url, array( 'timeout' => 2 ));
+
+			if (!is_wp_error($response) && $response['body']) {
+				$data = json_decode($response['body'], true);
+				if (!$data) {
+					$aio_wp_security->debug_logger->log_debug("Error decoding IP lookup result", 4);
+					return $reverse_lookup_data;
+				}
+				switch ($service_name) {
+					case 'ip-api':
+						$fields_to_copy = array('org', 'as');
+						foreach ($fields_to_copy as $field) {
+							$reverse_lookup_data[$field] = empty($data[$field]) ? 'Not found' : $data[$field];
+						}
+						break;
+					case 'ipinfo':
+						$reverse_lookup_data['org'] = empty($data['org']) ? 'Not Found' : $data['org'];
+						$reverse_lookup_data['as'] = $reverse_lookup_data['org'];
+						break;
+					default:
+						break;
+				}
+
+				$reverse_lookup_data = apply_filters('aiowps_login_lockdown_lookup_result', $reverse_lookup_data, $data, $service_name);
+				break;
+			}
+		}
+
+		return $reverse_lookup_data;
 	}
 }

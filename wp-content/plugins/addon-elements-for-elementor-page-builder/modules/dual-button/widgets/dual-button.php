@@ -23,11 +23,11 @@ class DualButton extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Dual Button', 'wts-eae' );
+		return __( 'Dual Button', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eae-icons eae-dual-button';
+		return 'eae-icon eae-dual-button';
 	}
 
 	public function get_categories() {

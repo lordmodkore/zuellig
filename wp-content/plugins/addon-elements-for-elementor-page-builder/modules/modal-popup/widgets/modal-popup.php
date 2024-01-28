@@ -25,11 +25,11 @@ class ModalPopup extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Modal Popup', 'wts-eae' );
+		return __( 'Modal Popup', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eae-icons eae-popup';
+		return 'eae-icon eae-modal-popup';
 	}
 
 	public function get_categories() {
@@ -40,6 +40,7 @@ class ModalPopup extends EAE_Widget_Base {
 		$options = [
 			'content'      => __( 'Content', 'wts-eae' ),
 			'savedsection' => __( 'Saved Section', 'wts-eae' ),
+			'savedcontainer' => __('Saved Container','wts-eae'),
 			'savedpage'    => __( 'Saved Page', 'wts-eae' ),
 			'aetemplate'   => __( 'AE Template', 'wts-eae' ),
 		];
@@ -115,6 +116,20 @@ class ModalPopup extends EAE_Widget_Base {
 				'condition' => [
 					'content_type' => 'savedsection',
 				],
+			]
+		);
+
+		$saved_container[''] = __('Select Container','wts-eae');
+		$saved_container     = $saved_container + $this->select_elementor_page( 'container' );
+		$this->add_control(
+			'saved_container',
+			[
+				'label' => esc_html__('Container','wts-eae'),
+				'type' => Controls_Manager::SELECT,
+				'options' => $saved_container,
+				'condition' => [
+					'content_type' => 'savedcontainer'
+				]
 			]
 		);
 
@@ -1137,7 +1152,18 @@ class ModalPopup extends EAE_Widget_Base {
 						<?php echo EPlugin::instance()->frontend->get_builder_content_for_display( $settings['saved_ae_template'] ); ?>
 					</div>
 					<?php
-				} else {
+				} elseif ( $settings['content_type'] === 'savedcontainer' ) {
+					if ( $settings['modal_title'] !== '' ) {
+						?>
+						<div class="eae-modal-title mfp-title">
+							<?php echo $settings['modal_title']; ?>
+						</div>
+					<?php } ?>
+					<div class="eae-modal-content">
+						<?php echo EPlugin::instance()->frontend->get_builder_content_for_display( $settings['saved_container'] ); ?>
+					</div>
+					<?php
+				}else {
 					echo $settings['content_type'];
 				}
 				?>

@@ -176,15 +176,14 @@ class AIOWPSecurity_Firewall_Setup_Notice {
 	}
 
 	/**
-	 * Dismisses the notice 
+	 * Dismisses the notice.
 	 *
 	 * @return void
 	 */
 	private function do_dismiss() {
 		global $aio_wp_security;
 
-		$aio_wp_security->configs->set_value('aios_firewall_dismiss', true);
-		$aio_wp_security->configs->save_config();
+		$aio_wp_security->configs->set_value('aios_firewall_dismiss', true, true);
 	}
 
 	/**
@@ -204,7 +203,9 @@ class AIOWPSecurity_Firewall_Setup_Notice {
 	 * @return void
 	 */
 	public function handle_setup_form() {
-		if (isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'aiowpsec-firewall-setup')) {
+		$nonce = isset($_POST['_wpnonce']) ? $_POST['_wpnonce'] : '';
+		$result = AIOWPSecurity_Utility_Permissions::check_nonce_and_user_cap($nonce, 'aiowpsec-firewall-setup');
+		if (!is_wp_error($result)) {
 			$this->do_setup();
 			$this->do_redirect();
 		}
@@ -216,7 +217,9 @@ class AIOWPSecurity_Firewall_Setup_Notice {
 	 * @return void
 	 */
 	public function handle_dismiss_form() {
-		if (isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'aiowpsec-firewall-setup-dismiss')) {
+		$nonce = isset($_POST['_wpnonce']) ? $_POST['_wpnonce'] : '';
+		$result = AIOWPSecurity_Utility_Permissions::check_nonce_and_user_cap($nonce, 'aiowpsec-firewall-setup-dismiss');
+		if (!is_wp_error($result)) {
 			$this->do_dismiss();
 			$this->do_redirect();
 		}
@@ -228,7 +231,9 @@ class AIOWPSecurity_Firewall_Setup_Notice {
 	 * @return void
 	 */
 	public function handle_downgrade_protection_form() {
-		if (isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'aiowpsec-firewall-downgrade')) {
+		$nonce = isset($_POST['_wpnonce']) ? $_POST['_wpnonce'] : '';
+		$result = AIOWPSecurity_Utility_Permissions::check_nonce_and_user_cap($nonce, 'aiowpsec-firewall-downgrade');
+		if (!is_wp_error($result)) {
 			AIOWPSecurity_Utility_Firewall::remove_firewall();
 			$this->do_redirect();
 		}
@@ -387,7 +392,7 @@ class AIOWPSecurity_Firewall_Setup_Notice {
 				<p><?php _e('If you would like to manually set up the necessary file, please follow these steps:', 'all-in-one-wp-security-and-firewall');?></p>
 				<p>
 				    <?php
-				    /* translators: %s Boostrap file name. */
+				    /* translators: %s Bootstrap file name. */
 				    printf(__('1. Create a file with the name %s in the same directory as your WordPress install is in, i.e.:', 'all-in-one-wp-security-and-firewall'), pathinfo($this->bootstrap, PATHINFO_BASENAME));
                     ?>
                 </p>
@@ -604,7 +609,7 @@ class AIOWPSecurity_Firewall_Setup_Notice {
             return true;
         }
 
-        if (!current_user_can(apply_filters('aios_management_permission', 'manage_options'))) {
+        if (!AIOWPSecurity_Utility_Permissions::has_manage_cap()) {
 			return true;
 		}
 

@@ -208,13 +208,13 @@ jQuery(function($) {
 	$(".aiowps_more_info_body").hide();//hide the more info on page load
 	$('.aiowps_more_info_anchor').on('click', function() {
 		$(this).next(".aiowps_more_info_body").animate({ "height": "toggle"});
-		var toogle_char_ref = $(this).find(".aiowps_more_info_toggle_char");
-		var toggle_char_value = toogle_char_ref.text();
+		var toggle_char_ref = $(this).find(".aiowps_more_info_toggle_char");
+		var toggle_char_value = toggle_char_ref.text();
 		if(toggle_char_value === "+"){
-			toogle_char_ref.text("-");
+			toggle_char_ref.text("-");
 		}
 		else{
-			 toogle_char_ref.text("+");
+			 toggle_char_ref.text("+");
 		}
 	});
 	//End of more info toggle
@@ -235,7 +235,7 @@ jQuery(function($) {
 		jQuery('input[name=aiowps_brute_force_secret_word]').prop('disabled', !jQuery(this).prop('checked'));
 		jQuery('input[name=aiowps_cookie_based_brute_force_redirect_url]').prop('disabled', !jQuery(this).prop('checked'));
 		jQuery('input[name=aiowps_brute_force_attack_prevention_pw_protected_exception]').prop('disabled', !jQuery(this).prop('checked'));
-		jQuery('input[name=aiowps_brute_force_attack_prevention_ajax_exception]').prop('disabled', !jQuery(this).prop('checked'));	
+		jQuery('input[name=aiowps_brute_force_attack_prevention_ajax_exception]').prop('disabled', !jQuery(this).prop('checked'));
 	});
 	// End of brute force attack prevention toggle handling
 
@@ -296,7 +296,7 @@ jQuery(function($) {
 	function deprecated_copy(text) {
 		var $temp = $('<input>');
 		$('body').append($temp);
-		$temp.val(event.target.value).select();
+		$temp.val(text).select();
 		if (document.execCommand('copy')) {
 			alert(aios_trans.copied);
 		}
@@ -316,4 +316,144 @@ jQuery(function($) {
 		}
 	});
 	// End of copy-to-clipboard click handling
+
+	// Start of database table prefix handling
+	jQuery('#aiowps_enable_random_prefix').on('click', function() {
+		jQuery('#aiowps_new_manual_db_prefix').prop('disabled', jQuery(this).prop('checked'));
+	});
+
+	jQuery('#aiowps_new_manual_db_prefix').on('input', function() {
+		if (jQuery(this).prop('value')) {
+			jQuery('#aiowps_enable_random_prefix').prop('disabled', true);
+		} else {
+			jQuery('#aiowps_enable_random_prefix').prop('disabled', false);
+		}
+	});
+	// End of database table prefix handling
+
+	// Dashboard menu ajaxify
+	jQuery("#locked-ip-list-table .aios-unlock-ip-button").on('click', function(e) {
+		e.preventDefault();
+		confirm(jQuery(this).data('message')) ? aios_send_command('unlocked_ip', {id: jQuery(this).data('id')}, function(response){
+			jQuery('#aios_message').remove();
+			jQuery('#wpbody-content .wrap h2:first').after(response.message);
+			if (response.status === 'success') $('#locked-ip-list-table').load(' #locked-ip-list-table > *');
+		}): false
+	});
+
+	jQuery("#locked-ip-list-table .aios-delete-ip-button").on('click', function(e) {
+		e.preventDefault();
+		confirm(jQuery(this).data('message')) ? aios_send_command('delete_locked_ip', {id: jQuery(this).data('id')}, function(response){
+			jQuery('#aios_message').remove();
+			jQuery('#wpbody-content .wrap h2:first').after(response.message);
+			if (response.status === 'success') $('#locked-ip-list-table').load(' #locked-ip-list-table > *');
+		}): false
+	});
+
+	jQuery("#permanent-ip-list-table .aios-unblock-permanent-ip").on('click', function(e) {
+		e.preventDefault();
+		confirm(jQuery(this).data('message')) ? aios_send_command('unblock_ip', {id: jQuery(this).data('id')}, function(response){
+			jQuery('#aios_message').remove();
+			jQuery('#wpbody-content .wrap h2:first').after(response.message)
+			if (response.status === 'success') $('#permanent-ip-list-table').load(' #permanent-ip-list-table > *');
+		}): false
+	});
+
+	jQuery("#audit-log-list-table .aios-delete-audit-log").on('click', function(e) {
+		e.preventDefault();
+		confirm(jQuery(this).data('message')) ? aios_send_command('delete_audit_log', {id: jQuery(this).data('id')}, function(response){
+			jQuery('#aios_message').remove();
+			jQuery('#wpbody-content .wrap h2:first').after(response.message);
+			if (response.status === 'success') $('#audit-log-list-table').load(' #audit-log-list-table > *'); 
+		}): false;
+	
+	});
+
+	jQuery("#aios-clear-debug-logs").on('submit', function(e) {
+		e.preventDefault();
+		aios_send_command('clear_debug_logs', {}, function(response){
+			jQuery('#aios_message').remove();
+			jQuery('#wpbody-content .wrap h2:first').after(response.message);
+			if ("success" === response.status) $('#debug-list-table').load(' #debug-list-table > *');  
+		})
+	
+	});
+	// End of dashboard menu ajaxify
+	// Start of file scan handling
+	jQuery('.aiowps_next_scheduled_scan_wrapper').on('click', '.aiowps_view_last_fcd_results', view_scan_results_handler);
+	jQuery('#aiowps_fcds_change_detected').on('click', '.aiowps_view_last_fcd_results', view_scan_results_handler);
+
+	/**
+	 * This function handles the view last scan result event
+	 *
+	 * @param {*} e - the event
+	 */
+	function view_scan_results_handler(e) {
+		e.preventDefault();
+		
+		var reset_change_detected = $(this).data('reset_change_detected') ? 1 : 0;
+		
+		aios_send_command('get_last_scan_results', { reset_change_detected: reset_change_detected
+		}, function(resp) {
+			if (resp.hasOwnProperty('content')) {
+				if (reset_change_detected) jQuery('#aiowps_fcds_change_detected').remove();
+				jQuery('#aiowps_previous_scan_wrapper').html(resp.content);
+			}
+		});
+	}
+
+	jQuery('#aiowps_manual_fcd_scan').on('click', function(e) {
+		e.preventDefault();
+
+		jQuery('#aiowps_activejobs_table').html('<p><span class="aiowps_spinner spinner">'+ aios_trans.processing + '</span></p>');
+		jQuery('#aiowps_activejobs_table .aiowps_spinner').addClass('visible');
+
+		aios_send_command('perform_file_scan', {
+		}, function (resp) {
+			if (resp.hasOwnProperty('content')) {
+				jQuery('#aiowps-previous-files-scan-inner').html(resp.content.last_scan);
+			}
+			if (resp.hasOwnProperty('messages')) {
+				jQuery('#aiowps_activejobs_table').html('');
+				resp.messages.forEach(function(message) {
+					jQuery('#aiowps_activejobs_table').append('<p>'+message+'</p>');
+				});
+			}
+		});
+
+	});
+	// End of file scan handling
+	
+	// Start of login whitelist suggests both IPv4 and IPv6
+	if (jQuery('#aios_user_ip_maybe_also').length) {
+		var selector = '#aios-ipify-ip-address';
+		var ipfield = '#aios_user_ip_maybe_also';
+		var getting_text = jQuery(ipfield).attr('getting_text');
+		var ip_maybe = jQuery(ipfield).attr('ip_maybe');
+		if ('v6' == ip_maybe) {
+			var url = 'https://api64.ipify.org/?format=json';
+		} else {
+			var url = 'https://api.ipify.org/?format=json';
+		}
+		jQuery(selector).html(getting_text);
+		jQuery.ajax({
+			type: 'GET',
+			dataType: 'json',
+			url: url,
+			success: function (response, status) {
+				if (response.hasOwnProperty('ip') && response.ip != jQuery('#aiowps_user_ip').val()) {
+					jQuery(ipfield).val(response.ip);
+					jQuery(ipfield).removeClass('aio_hidden');
+				} else {
+					console.log(response);
+				}
+				jQuery(selector).html('');
+			},
+			error: function (response, status, error_code) {
+				console.log(response);
+				jQuery(selector).html('');
+			}
+		});
+	}
+	// End of login whitelist suggests both IPv4 and IPv6
 });

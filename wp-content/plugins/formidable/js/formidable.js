@@ -202,8 +202,9 @@ function frmFrontFormJS() {
 	}
 
 	function validateForm( object ) {
-		var r, rl, n, nl, fields, field, value, requiredFields,
-			errors = [];
+		var errors, r, rl, n, nl, fields, field, requiredFields;
+
+		errors = [];
 
 		// Make sure required text field is filled in
 		requiredFields = jQuery( object ).find(
@@ -223,15 +224,47 @@ function frmFrontFormJS() {
 		if ( fields.length ) {
 			for ( n = 0, nl = fields.length; n < nl; n++ ) {
 				field = fields[n];
-				if ( '' !== field.value ) {
-					validateFieldValue( field, errors );
+				if ( '' === field.value ) {
+					if ( 'number' === field.type ) {
+						// A number field will return an empty string when it is invalid.
+						checkValidity( field, errors );
+					}
+					continue;
 				}
+
+				validateFieldValue( field, errors );
+				checkValidity( field, errors );
 			}
 		}
 
 		errors = validateRecaptcha( object, errors );
 
 		return errors;
+	}
+
+	/**
+	 * Check the ValidityState interface for the field.
+	 * If it is invalid, show an error for it.
+	 *
+	 * @param {HTMLElement} field
+	 * @param {Array} errors
+	 * @returns
+	 */
+	function checkValidity( field, errors ) {
+		var fieldID;
+		if ( 'object' !== typeof field.validity || false !== field.validity.valid ) {
+			return;
+		}
+
+		fieldID = getFieldId( field, true );
+		if ( 'undefined' === typeof errors[ fieldID ]) {
+			errors[ fieldID ] = getFieldValidationMessage( field, 'data-invmsg' );
+		}
+
+		if ( 'function' === typeof field.reportValidity ) {
+			// This triggers an error pop up.
+			field.reportValidity();
+		}
 	}
 
 	/**
@@ -491,6 +524,43 @@ function frmFrontFormJS() {
 		}
 	}
 
+	/**
+	 * Set color for select placeholders.
+	 *
+	 * @since 6.5.1
+	 */
+	function setSelectPlaceholderColor() {
+		var selects = document.querySelectorAll( '.form-field select' ),
+			styleElement = document.querySelector( '.with_frm_style' ),
+			textColorDisabled = styleElement ? getComputedStyle( styleElement ).getPropertyValue( '--text-color-disabled' ).trim() : '',
+			changeSelectColor;
+
+		// Exit if there are no select elements or the textColorDisabled property is missing
+		if ( ! selects.length || ! textColorDisabled ) {
+			return;
+		}
+
+		// Function to change the color of a select element
+		changeSelectColor = function( select ) {
+			if ( select.options[select.selectedIndex] && hasClass( select.options[select.selectedIndex], 'frm-select-placeholder' ) ) {
+				select.style.setProperty( 'color', textColorDisabled, 'important' );
+			} else {
+				select.style.color = '';
+			}
+		};
+
+		// Use a loop to iterate through each select element
+		Array.prototype.forEach.call( selects, function( select ) {
+			// Apply the color change to each select element
+			changeSelectColor( select );
+
+			// Add an event listener for future changes
+			select.addEventListener( 'change', function() {
+				changeSelectColor( select );
+			});
+		});
+	}
+
 	function hasInvisibleRecaptcha( object ) {
 		var recaptcha, recaptchaID, alreadyChecked;
 
@@ -591,7 +661,7 @@ function frmFrontFormJS() {
 
 		success = function( response ) {
 			var defaultResponse, formID, replaceContent, pageOrder, formReturned, contSubmit, delay,
-				$fieldCont, key, inCollapsedSection, frmTrigger;
+				$fieldCont, key, inCollapsedSection, frmTrigger, newTab;
 
 			defaultResponse = {
 				content: '',
@@ -617,8 +687,21 @@ function frmFrontFormJS() {
 				}
 
 				jQuery( document ).trigger( 'frmBeforeFormRedirect', [ object, response ]);
-				window.location = response.redirect;
-			} else if ( response.content !== '' ) {
+
+				if ( ! response.openInNewTab ) {
+					// We return here because we're redirecting there is no need to update content.
+					window.location = response.redirect;
+					return;
+				}
+
+				// We don't return here because we're opening in a new tab, the old tab will still update.
+				newTab = window.open( response.redirect, '_blank' );
+				if ( ! newTab && response.fallbackMsg && response.content ) {
+					response.content = response.content.trim().replace( /(<\/div><\/div>)$/, ' ' + response.fallbackMsg + '</div></div>' );
+				}
+			}
+
+			if ( response.content !== '' ) {
 				// the form or success message was returned
 
 				if ( shouldTriggerEvent ) {
@@ -1116,9 +1199,8 @@ function frmFrontFormJS() {
 
 		function makeHoneypotFieldsUntabbable() {
 			document.querySelectorAll( '.frm_verify' ).forEach(
-				function( wrapper ) {
-					var input = wrapper.querySelector( 'input[id^=frm_email]' );
-					if ( input ) {
+				function( input ) {
+					if ( input.id && 0 === input.id.indexOf( 'frm_email_' ) ) {
 						input.setAttribute( 'tabindex', -1 );
 					}
 				}
@@ -1348,6 +1430,64 @@ function frmFrontFormJS() {
 		});
 	}
 
+	function shouldUpdateValidityMessage( target ) {
+		if ( 'INPUT' !== target.nodeName ) {
+			return false;
+		}
+
+		if ( ! target.dataset.invmsg ) {
+			return false;
+		}
+
+		if ( 'text' !== target.getAttribute( 'type' ) ) {
+			return false;
+		}
+
+		if ( target.classList.contains( 'frm_verify' ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function maybeClearCustomValidityMessage( event, field ) {
+		var key,
+			isInvalid = false;
+
+		if ( ! shouldUpdateValidityMessage( field ) ) {
+			return;
+		}
+
+		for ( key in field.validity ) {
+			if ( 'customError' === key ) {
+				continue;
+			}
+			if ( 'valid' !== key && field.validity[ key ] === true ) {
+				isInvalid = true;
+				break;
+			}
+		};
+
+		if ( ! isInvalid ) {
+			field.setCustomValidity( '' );
+		}
+	}
+
+	function maybeShowNewTabFallbackMessage() {
+		var messageEl;
+
+		if ( ! window.frmShowNewTabFallback ) {
+			return;
+		}
+
+		messageEl = document.querySelector( '#frm_form_' + frmShowNewTabFallback.formId + '_container .frm_message' );
+		if ( ! messageEl ) {
+			return;
+		}
+
+		messageEl.insertAdjacentHTML( 'beforeend', ' ' + frmShowNewTabFallback.message );
+	}
+
 	function setCustomValidityMessage() {
 		var forms, length, index;
 
@@ -1360,27 +1500,26 @@ function frmFrontFormJS() {
 				function( event ) {
 					var target = event.target;
 
-					if ( 'INPUT' !== target.nodeName ) {
-						return;
+					if ( shouldUpdateValidityMessage( target ) ) {
+						target.setCustomValidity( target.dataset.invmsg );
 					}
-
-					if ( ! target.dataset.invmsg ) {
-						return;
-					}
-
-					if ( 'text' !== target.getAttribute( 'type' ) ) {
-						return;
-					}
-
-					if ( target.classList.contains( 'frm_verify' ) ) {
-						return;
-					}
-
-					target.setCustomValidity( target.dataset.invmsg );
 				},
 				true
 			);
 		}
+	}
+
+	function enableSubmitButtonOnBackButtonPress() {
+		window.addEventListener( 'pageshow', function( event ) {
+			if ( event.persisted ) {
+				document.querySelectorAll( '.frm_loading_form' ).forEach(
+					function( form ) {
+						enableSubmitButton( jQuery( form ) );
+					}
+				);
+				removeSubmitLoading();
+			}
+		});
 	}
 
 	return {
@@ -1420,9 +1559,18 @@ function frmFrontFormJS() {
 			addFilterFallbackForIE(); // Filter is not supported in any version of IE.
 
 			initFloatingLabels();
+			maybeShowNewTabFallbackMessage();
 
 			jQuery( document ).on( 'frmAfterAddRow', setCustomValidityMessage );
 			setCustomValidityMessage();
+			jQuery( document ).on( 'frmFieldChanged', maybeClearCustomValidityMessage );
+
+			setSelectPlaceholderColor();
+
+			// Elementor popup show event. Fix Elementor Popup && FF Captcha field conflicts
+			jQuery( document ).on( 'elementor/popup/show', frmRecaptcha );
+
+			enableSubmitButtonOnBackButtonPress();
 		},
 
 		getFieldId: function( field, fullID ) {
@@ -1736,7 +1884,9 @@ function frmFrontFormJS() {
 
 		visible: function( classes ) {
 			jQuery( classes ).css( 'visibility', 'visible' );
-		}
+		},
+
+		triggerCustomEvent: triggerCustomEvent
 	};
 }
 frmFrontForm = frmFrontFormJS();

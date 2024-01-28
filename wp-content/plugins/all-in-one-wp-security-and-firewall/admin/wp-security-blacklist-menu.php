@@ -15,73 +15,31 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu {
 	 *
 	 * @var string
 	 */
-	private $menu_page_slug = AIOWPSEC_BLACKLIST_MENU_SLUG;
-
-	/**
-	 * Specify all the tabs of this menu
-	 *
-	 * @var array
-	 */
-	protected $menu_tabs;
-
-	/**
-	 * Specify all the tabs handler methods
-	 *
-	 * @var array
-	 */
-	protected $menu_tabs_handler = array(
-		'ban-users' => 'render_ban_users',
-	);
+	protected $menu_page_slug = AIOWPSEC_BLACKLIST_MENU_SLUG;
 	
 	/**
-	 * Construct adds menu for blacklist
+	 * Constructor adds menu for Blacklist manager
 	 */
 	public function __construct() {
-		$this->render_menu_page();
+		parent::__construct(__('Blacklist manager', 'all-in-one-wp-security-and-firewall'));
 	}
 
 	/**
-	 * Set menu tabs name.
+	 * This function will setup the menus tabs by setting the array $menu_tabs
+	 *
+	 * @return void
 	 */
-	private function set_menu_tabs() {
-		$this->menu_tabs = array(
-			'ban-users' => __('Ban users', 'all-in-one-wp-security-and-firewall'),
+	protected function setup_menu_tabs() {
+		$menu_tabs = array(
+			'ban-users' => array(
+				'title' => __('Ban users', 'all-in-one-wp-security-and-firewall'),
+				'render_callback' => array($this, 'render_ban_users'),
+			),
 		);
+
+		$this->menu_tabs = array_filter($menu_tabs, array($this, 'should_display_tab'));
 	}
 
-	/**
-	 * Renders our tabs of this menu as nav items
-	 */
-	private function render_menu_tabs() {
-		$current_tab = $this->get_current_tab();
-		echo '<h2 class="nav-tab-wrapper">';
-		foreach ($this->menu_tabs as $tab_key => $tab_caption) {
-			$active = $current_tab == $tab_key ? 'nav-tab-active' : '';
-			echo '<a class="nav-tab ' . $active . '" href="?page=' . $this->menu_page_slug . '&tab=' . $tab_key . '">' . $tab_caption . '</a>';
-		}
-		echo '</h2>';
-	}
-
-	/**
-	 * The menu rendering goes here
-	 */
-	private function render_menu_page() {
-		echo '<div class="wrap">';
-		echo '<h2>' . __('Blacklist manager', 'all-in-one-wp-security-and-firewall') . '</h2>'; // Interface title
-		$this->set_menu_tabs();
-		$tab = $this->get_current_tab();
-		$this->render_menu_tabs();
-		?>
-		<div id="poststuff"><div id="post-body">
-		<?php
-		// $tab_keys = array_keys($this->menu_tabs);
-		call_user_func(array($this, $this->menu_tabs_handler[$tab]));
-		?>
-		</div></div>
-		</div><!-- end of wrap -->
-		<?php
-	}
-	
 	/**
 	 * Renders ban user tab for blacklist IPs and user agents
 	 *
@@ -89,7 +47,7 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu {
 	 * @global $aiowps_feature_mgr
 	 * @global $aiowps_firewall_config
 	 */
-	private function render_ban_users() {
+	protected function render_ban_users() {
 		global $aio_wp_security, $aiowps_feature_mgr, $aiowps_firewall_config;
 		$result = 1;
 		if (isset($_POST['aiowps_save_blacklist_settings'])) {
@@ -114,7 +72,11 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu {
 						//success case
 						$list = $payload[1];
 						$banned_ip_data = implode("\n", $list);
-						$aio_wp_security->configs->set_value('aiowps_banned_ip_addresses', $banned_ip_data);
+						$banned_ip_addresses_list = preg_split('/\R/', $aio_wp_security->configs->get_value('aiowps_banned_ip_addresses')); // historical settings where the separator may have depended on PHP_EOL
+						if ($banned_ip_addresses_list !== $list) {
+							$aio_wp_security->configs->set_value('aiowps_banned_ip_addresses', $banned_ip_data);
+							$aiowps_firewall_config->set_value('aiowps_blacklist_ips', $list);
+						}
 						$_POST['aiowps_banned_ip_addresses'] = ''; // Clear the post variable for the banned address list
 					} else {
 						$result = -1;
@@ -123,6 +85,7 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu {
 					}
 				} else {
 					$aio_wp_security->configs->set_value('aiowps_banned_ip_addresses', ''); // Clear the IP address config value
+					$aiowps_firewall_config->set_value('aiowps_blacklist_ips', array());
 				}
 
 				if ('1' == $aiowps_enable_blacklisting && !empty($_POST['aiowps_banned_user_agents'])) {
@@ -134,25 +97,22 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu {
 				}
 
 				if (1 == $result) {
-					$aio_wp_security->configs->set_value('aiowps_enable_blacklisting', $aiowps_enable_blacklisting);
-					$aio_wp_security->configs->save_config(); // Save the configuration
+					$aio_wp_security->configs->set_value('aiowps_enable_blacklisting', $aiowps_enable_blacklisting, true);
+					if ('1' == $aio_wp_security->configs->get_value('aiowps_is_ip_blacklist_settings_notice_on_upgrade')) {
+						$aio_wp_security->configs->delete_value('aiowps_is_ip_blacklist_settings_notice_on_upgrade');
+					}
 
 					// Recalculate points after the feature status/options have been altered
 					$aiowps_feature_mgr->check_feature_status_and_recalculate_points();
-					
-					$write_result = AIOWPSecurity_Utility_Htaccess::write_to_htaccess(); // Now let's write to the .htaccess file
-					
-					if ($write_result) {
-						$this->show_msg_settings_updated();
-					} else {
-						$this->show_msg_error(__('The plugin was unable to write to the .htaccess file. Please edit the file manually.', 'all-in-one-wp-security-and-firewall'));
-						$aio_wp_security->debug_logger->log_debug("AIOWPSecurity_Blacklist_Menu - The plugin was unable to write to the .htaccess file.");
-					}
+					$this->show_msg_settings_updated();
 				}
 			}
 		}
 
-		$aio_wp_security->include_template('wp-admin/blacklist/ban-users.php', false, array('result' => $result, 'aiowps_feature_mgr' => $aiowps_feature_mgr));
+        $aiowps_banned_user_agents = isset($_POST['aiowps_banned_user_agents']) ? wp_unslash($_POST['aiowps_banned_user_agents']) : '';
+        $aiowps_banned_ip_addresses = isset($_POST['aiowps_banned_ip_addresses']) ? wp_unslash($_POST['aiowps_banned_ip_addresses']) : '';
+
+		$aio_wp_security->include_template('wp-admin/blacklist/ban-users.php', false, array('result' => $result, 'aiowps_feature_mgr' => $aiowps_feature_mgr, 'aiowps_banned_user_agents' => $aiowps_banned_user_agents, 'aiowps_banned_ip_addresses' => $aiowps_banned_ip_addresses));
 	}
 
 	/**
@@ -165,25 +125,17 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu {
 	 */
 	private function validate_user_agent_list($banned_user_agents) {
 		global $aio_wp_security, $aiowps_firewall_config;
-		@ini_set('auto_detect_line_endings', true);
-		$submitted_agents = explode("\n", $banned_user_agents);
-		$agents = array();
-		if (!empty($submitted_agents)) {
-			foreach ($submitted_agents as $agent) {
-				if (!empty($agent)) {
-					$text = sanitize_text_field($agent);
-					$agents[] = $text;
-				}
-			}
-		}
-
-		if (sizeof($agents) > 1) {
-			sort( $agents );
-			$agents = array_unique($agents, SORT_STRING);
-		}
-
-		$banned_user_agent_data = implode("\n", $agents);
-		$aio_wp_security->configs->set_value('aiowps_banned_user_agents', $banned_user_agent_data);
+		$submitted_agents = AIOWPSecurity_Utility::splitby_newline_trim_filter_empty($banned_user_agents);
+		$agents = array_unique(
+					array_filter(
+						array_map(
+							'sanitize_text_field',
+							$submitted_agents
+						),
+						'strlen'
+					)
+				);
+		$aio_wp_security->configs->set_value('aiowps_banned_user_agents', implode("\n", $agents));
 		$aiowps_firewall_config->set_value('aiowps_blacklist_user_agents', $agents);
 		$_POST['aiowps_banned_user_agents'] = ''; // Clear the post variable for the banned address list
 		return 1;

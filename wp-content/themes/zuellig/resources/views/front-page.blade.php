@@ -37,7 +37,7 @@
                                     </div>
                                     <p class="block_paragraph-description">{!! get_sub_field('section_content') !!}</p>
                                     @if(get_sub_field('section_button_title'))
-                                        <div class="pt-3 mb-3">
+                                        <div class="pt-3 mb-5">
                                             <a href="{!! get_sub_field('section_button_url') !!}" class="button_default button_btnHealthCare text-decoration-none">{!! get_sub_field('section_button_title') !!}</a>
                                         </div>
                                     @endif
@@ -64,6 +64,12 @@
                                 @php
                                     the_row();
                                      $formattedNumber = sprintf('%02d', $accordionCount);
+									 $headingColor = match ($accordionCount) {
+                                        2 => 'red',
+                                        3 => 'green',
+                                        default => 'purple',
+                                    };
+
                                 @endphp
                                 <div id="accordian-insert-block-{!! $accordionCount !!}" class="accordian-insert alignfull item" style="background-image: url({!! get_sub_field('accordion_bg_image') !!});">
                                     <div class="body standard-grid">
@@ -80,7 +86,7 @@
                                     </div>
                                     <div class="header aos-init aos-animate" data-aos="fade-left">
                                         <p>{!! $formattedNumber !!}</p>
-                                        <h2 class="heading fw-bold">{!! get_sub_field('accordion_content_title') !!}</h2>
+                                        <h2 class="heading fw-bold {!!  $headingColor !!}">{!! get_sub_field('accordion_title') !!}</h2>
                                         <svg class="svg-inline--fa fa-plus fa-w-12 toggle" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M376 232H216V72c0-4.42-3.58-8-8-8h-32c-4.42 0-8 3.58-8 8v160H8c-4.42 0-8 3.58-8 8v32c0 4.42 3.58 8 8 8h160v160c0 4.42 3.58 8 8 8h32c4.42 0 8-3.58 8-8V280h160c4.42 0 8-3.58 8-8v-32c0-4.42-3.58-8-8-8z"></path></svg><!-- <span class="fal fa-plus toggle"></span> Font Awesome fontawesome.com -->
                                     </div>
                                 </div>

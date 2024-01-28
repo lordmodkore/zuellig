@@ -15,84 +15,46 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 	 *
 	 * @var string
 	 */
-	private $menu_page_slug = AIOWPSEC_BRUTE_FORCE_MENU_SLUG;
+	protected $menu_page_slug = AIOWPSEC_BRUTE_FORCE_MENU_SLUG;
 
 	/**
-	 * Specify all the tabs of this menu
-	 *
-	 * @var array
-	 */
-	protected $menu_tabs;
-
-	/**
-	 * Specify all the tabs handler methods
-	 *
-	 * @var array
-	 */
-	protected $menu_tabs_handler = array(
-		'rename-login' => 'render_rename_login',
-		'cookie-based-brute-force-prevention' => 'render_cookie_based_brute_force_prevention',
-		'captcha-settings' => 'render_captcha_settings',
-		'login-whitelist' => 'render_login_whitelist',
-		'honeypot' => 'render_honeypot',
-	);
-
-	/**
-	 * Construct adds tab for brute force pervention
+	 * Constructor adds menu for Brute force
 	 */
 	public function __construct() {
-		$this->render_menu_page();
+		parent::__construct(__('Brute force', 'all-in-one-wp-security-and-firewall'));
 	}
 	
 	/**
-	 * Set menu tabs name.
+	 * This function will setup the menus tabs by setting the array $menu_tabs
+	 *
+	 * @return void
 	 */
-	private function set_menu_tabs() {
-		$this->menu_tabs = array(
-			'rename-login' => __('Rename login page','all-in-one-wp-security-and-firewall'),
-			'cookie-based-brute-force-prevention' => __('Cookie based brute force prevention', 'all-in-one-wp-security-and-firewall'),
-			'captcha-settings' => __('CAPTCHA settings', 'all-in-one-wp-security-and-firewall'),
-			'login-whitelist' => __('Login whitelist', 'all-in-one-wp-security-and-firewall'),
-			'honeypot' => __('Honeypot', 'all-in-one-wp-security-and-firewall'),
+	protected function setup_menu_tabs() {
+		$menu_tabs = array(
+			'rename-login' => array(
+				'title' => __('Rename login page', 'all-in-one-wp-security-and-firewall'),
+				'render_callback' => array($this, 'render_rename_login'),
+			),
+			'cookie-based-brute-force-prevention' => array(
+				'title' => __('Cookie based brute force prevention', 'all-in-one-wp-security-and-firewall'),
+				'render_callback' => array($this, 'render_cookie_based_brute_force_prevention'),
+				'display_condition_callback' => 'is_main_site',
+			),
+			'captcha-settings' => array(
+				'title' => __('CAPTCHA settings', 'all-in-one-wp-security-and-firewall'),
+				'render_callback' => array($this, 'render_captcha_settings'),
+			),
+			'login-whitelist' => array(
+				'title' => __('Login whitelist', 'all-in-one-wp-security-and-firewall'),
+				'render_callback' => array($this, 'render_login_whitelist'),
+			),
+			'honeypot' => array(
+				'title' => __('Honeypot', 'all-in-one-wp-security-and-firewall'),
+				'render_callback' => array($this, 'render_honeypot'),
+			),
 		);
-	}
 
-	/**
-	 * Renders our tabs of this menu as nav items
-	 */
-	private function render_menu_tabs() {
-		$current_tab = $this->get_current_tab();
-	
-		echo '<h2 class="nav-tab-wrapper">';
-		foreach ( $this->menu_tabs as $tab_key => $tab_caption ) {
-		if ((!is_main_site()) && false === stristr($tab_caption, 'Rename login page') && false === stristr($tab_caption, 'Login CAPTCHA')) {
-			// Suppress the all Brute Force menu tabs if site is a multi site AND not the main site except "rename login" and "CAPTCHA"
-		} else {
-				$active = $current_tab == $tab_key ? 'nav-tab-active' : '';
-				echo '<a class="nav-tab ' . $active . '" href="?page=' . $this->menu_page_slug . '&tab=' . $tab_key . '">' . $tab_caption . '</a>';
-			}
-		}
-		echo '</h2>';
-	}
-
-	/**
-	 * The menu rendering goes here
-	 */
-	private function render_menu_page() {
-		echo '<div class="wrap">';
-		echo '<h2>' . __('Brute force','all-in-one-wp-security-and-firewall') . '</h2>';// Interface title
-		$this->set_menu_tabs();
-		$tab = $this->get_current_tab();
-		$this->render_menu_tabs();
-		?>
-		<div id="poststuff"><div id="post-body">
-		<?php
-		// $tab_keys = array_keys($this->menu_tabs);
-		call_user_func(array($this, $this->menu_tabs_handler[$tab]));
-		?>
-		</div></div>
-		</div><!-- end of wrap -->
-		<?php
+		$this->menu_tabs = array_filter($menu_tabs, array($this, 'should_display_tab'));
 	}
 	
 	/**
@@ -102,7 +64,7 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 	 * @global $aio_wp_security
 	 * @global $aiowps_feature_mgr
 	 */
-	private function render_rename_login() {
+	protected function render_rename_login() {
 		global $wpdb, $aio_wp_security, $aiowps_feature_mgr;
 		$aiowps_login_page_slug = '';
 
@@ -179,7 +141,7 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 	 *
 	 * @return void
 	 */
-	private function render_cookie_based_brute_force_prevention() {
+	protected function render_cookie_based_brute_force_prevention() {
 		global $aio_wp_security;
 		global $aiowps_feature_mgr;
 		global $aiowps_firewall_config;
@@ -251,7 +213,9 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 			}
 		}
 
-		$aio_wp_security->include_template('wp-admin/brute-force/cookie-based-brute-force-prevention.php', false, array('aiowps_feature_mgr' => $aiowps_feature_mgr));
+		$aiowps_cookie_test = isset($_POST['aiowps_cookie_test']) ? $_POST['aiowps_cookie_test'] : '';
+
+		$aio_wp_security->include_template('wp-admin/brute-force/cookie-based-brute-force-prevention.php', false, array('aiowps_feature_mgr' => $aiowps_feature_mgr, 'aiowps_cookie_test' => $aiowps_cookie_test));
 	}
 
 	/**
@@ -262,7 +226,7 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 	 *
 	 * @return void
 	 */
-	private function render_captcha_settings() {
+	protected function render_captcha_settings() {
 		global $aio_wp_security, $aiowps_feature_mgr;
 
 		$supported_captchas = $aio_wp_security->captcha_obj->get_supported_captchas();
@@ -283,12 +247,16 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 			// Save all the form values to the options
 			$random_20_digit_string = AIOWPSecurity_Utility::generate_alpha_numeric_random_string(20); // Generate random 20 char string for use during CAPTCHA encode/decode
 			$aio_wp_security->configs->set_value('aiowps_captcha_secret_key', $random_20_digit_string);
-			$aio_wp_security->configs->set_value('aiowps_enable_login_captcha',isset($_POST["aiowps_enable_login_captcha"])?'1':'');
-			$aio_wp_security->configs->set_value('aiowps_enable_woo_login_captcha',isset($_POST["aiowps_enable_woo_login_captcha"])?'1':'');
-			$aio_wp_security->configs->set_value('aiowps_enable_woo_register_captcha',isset($_POST["aiowps_enable_woo_register_captcha"])?'1':'');
-			$aio_wp_security->configs->set_value('aiowps_enable_woo_lostpassword_captcha',isset($_POST["aiowps_enable_woo_lostpassword_captcha"])?'1':'');
-			$aio_wp_security->configs->set_value('aiowps_enable_custom_login_captcha',isset($_POST["aiowps_enable_custom_login_captcha"])?'1':'');
-			$aio_wp_security->configs->set_value('aiowps_enable_lost_password_captcha',isset($_POST["aiowps_enable_lost_password_captcha"])?'1':'');
+			$aio_wp_security->configs->set_value('aiowps_enable_login_captcha', isset($_POST["aiowps_enable_login_captcha"]) ? '1' : '');
+			$aio_wp_security->configs->set_value('aiowps_enable_registration_page_captcha', isset($_POST["aiowps_enable_registration_page_captcha"]) ? '1' : '');
+			$aio_wp_security->configs->set_value('aiowps_enable_comment_captcha', isset($_POST["aiowps_enable_comment_captcha"]) ? '1' : '');
+			$aio_wp_security->configs->set_value('aiowps_enable_bp_register_captcha', isset($_POST["aiowps_enable_bp_register_captcha"]) ? '1' : '');
+			$aio_wp_security->configs->set_value('aiowps_enable_bbp_new_topic_captcha', isset($_POST["aiowps_enable_bbp_new_topic_captcha"]) ? '1' : '');
+			$aio_wp_security->configs->set_value('aiowps_enable_woo_login_captcha', isset($_POST["aiowps_enable_woo_login_captcha"]) ? '1' : '');
+			$aio_wp_security->configs->set_value('aiowps_enable_woo_register_captcha', isset($_POST["aiowps_enable_woo_register_captcha"]) ? '1' : '');
+			$aio_wp_security->configs->set_value('aiowps_enable_woo_lostpassword_captcha', isset($_POST["aiowps_enable_woo_lostpassword_captcha"]) ? '1' : '');
+			$aio_wp_security->configs->set_value('aiowps_enable_custom_login_captcha', isset($_POST["aiowps_enable_custom_login_captcha"]) ? '1' : '');
+			$aio_wp_security->configs->set_value('aiowps_enable_lost_password_captcha', isset($_POST["aiowps_enable_lost_password_captcha"]) ? '1' : '');
 
 			$aio_wp_security->configs->set_value('aiowps_turnstile_site_key', stripslashes($_POST['aiowps_turnstile_site_key']));
 			$aio_wp_security->configs->set_value('aiowps_recaptcha_site_key', stripslashes($_POST['aiowps_recaptcha_site_key']));
@@ -319,6 +287,10 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 			$this->show_msg_settings_updated();
 		}
 
+		if ('cloudflare-turnstile' == $aio_wp_security->configs->get_value('aiowps_default_captcha') && false === $aio_wp_security->captcha_obj->cloudflare_turnstile_verify_configuration($aio_wp_security->configs->get_value('aiowps_turnstile_site_key'), $aio_wp_security->configs->get_value('aiowps_turnstile_secret_key'))) {
+			echo '<div class="notice notice-warning aio_red_box"><p>'.__('Your Cloudflare Turnstile configuration is invalid.', 'all-in-one-wp-security-and-firewall').' '.__('Please enter the correct Cloudflare Turnstile keys below to use the Turnstile feature.', 'all-in-one-wp-security-and-firewall').'</p></div>';
+		}
+
 		if ('1' == $aio_wp_security->configs->get_value('aios_google_recaptcha_invalid_configuration')) {
 			echo '<div class="notice notice-warning aio_red_box"><p>'.__('Your Google reCAPTCHA configuration is invalid.', 'all-in-one-wp-security-and-firewall').' '.__('Please enter the correct reCAPTCHA keys below to use the reCAPTCHA feature.', 'all-in-one-wp-security-and-firewall').'</p></div>';
 		}
@@ -335,10 +307,12 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 	 * 
 	 * @return void
 	 */
-	private function render_login_whitelist() {
+	protected function render_login_whitelist() {
 		global $aio_wp_security, $aiowps_feature_mgr;
 		$result = 0;
+		$ip_v4 = false;
 		$your_ip_address = AIOWPSecurity_Utility_IP::get_user_ip_address();
+		if (filter_var($your_ip_address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) $ip_v4 = true;
 		if (isset($_POST['aiowps_save_whitelist_settings'])) {
 			$nonce = $_POST['_wpnonce'];
 			if (!wp_verify_nonce($nonce, 'aiowpsec-whitelist-settings-nonce')) {
@@ -366,6 +340,7 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 						$this->show_msg_error($error_msg);
 					}
 				} else {
+					$result = 1;
 					$aio_wp_security->configs->set_value('aiowps_allowed_ip_addresses', ''); // Clear the IP address config value
 				}
 
@@ -384,7 +359,10 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 			}
 		}
 
-		$aio_wp_security->include_template('wp-admin/brute-force/login-whitelist.php', false, array('aiowps_feature_mgr' => $aiowps_feature_mgr, 'your_ip_address' => $your_ip_address, 'result' => $result));
+		$aiowps_allowed_ip_addresses = isset($_POST['aiowps_allowed_ip_addresses']) ? wp_unslash($_POST['aiowps_allowed_ip_addresses']) : '';
+		$aiowps_allowed_ip_addresses = -1 == $result ? $aiowps_allowed_ip_addresses : $aio_wp_security->configs->get_value('aiowps_allowed_ip_addresses');
+
+		$aio_wp_security->include_template('wp-admin/brute-force/login-whitelist.php', false, array('aiowps_feature_mgr' => $aiowps_feature_mgr, 'your_ip_address' => $your_ip_address, 'ip_v4' => $ip_v4, 'aiowps_allowed_ip_addresses' => $aiowps_allowed_ip_addresses));
 	}
 
 	/**
@@ -392,10 +370,10 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 	 *
 	 * @global $aio_wp_security
 	 * @global $aiowps_feature_mgr
-	 * 
+	 *
 	 * @return void
 	 */
-	private function render_honeypot() {
+	protected function render_honeypot() {
 		global $aio_wp_security, $aiowps_feature_mgr;
 
 		if (isset($_POST['aiowpsec_save_honeypot_settings'])) { // Do form submission tasks
@@ -408,15 +386,16 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 
 			// Save all the form values to the options
 			$aio_wp_security->configs->set_value('aiowps_enable_login_honeypot', isset($_POST["aiowps_enable_login_honeypot"]) ? '1' : '');
-			$aio_wp_security->configs->save_config();
+			$aio_wp_security->configs->set_value('aiowps_enable_registration_honeypot', isset($_POST["aiowps_enable_registration_honeypot"]) ? '1' : '');
+			$aio_wp_security->configs->save_config(); // Save the configuration
 
 			// Recalculate points after the feature status/options have been altered
 			$aiowps_feature_mgr->check_feature_status_and_recalculate_points();
 
 			$this->show_msg_settings_updated();
 		}
-		
+
 		$aio_wp_security->include_template('wp-admin/brute-force/honeypot.php', false, array('aiowps_feature_mgr' => $aiowps_feature_mgr));
 	}
-	
+
 } //end class

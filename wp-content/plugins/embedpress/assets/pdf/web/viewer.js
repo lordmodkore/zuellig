@@ -1981,7 +1981,14 @@ const PDFViewerApplication = {
     if (location.hash) {
       let hash = location.hash;
       let hashParams = new URLSearchParams(hash.substring(1));
-      if(hashParams.get('download') === 'false' || hashParams.get('download') === ''){
+
+      if(hashParams.get('key') !== null) {
+          hashParams = '#' + atob(hashParams.get('key'));
+          hashParams = new URLSearchParams(hashParams.substring(1));
+      }
+      
+      const element = document.querySelector('#download');
+      if((hashParams.get('download') === 'false' || hashParams.get('download') === '')  || element.offsetParent === null){
         return false;
       }
     } // added by EP developer 
@@ -2003,7 +2010,18 @@ const PDFViewerApplication = {
     if (location.hash) {
       let hash = location.hash;
       let hashParams = new URLSearchParams(hash.substring(1));
-      if(hashParams.get('download') === 'false' || hashParams.get('download') === ''){
+
+      if(hashParams.get('key') !== null) {
+          hashParams = '#' + atob(hashParams.get('key'));
+          hashParams = new URLSearchParams(hashParams.substring(1));
+      }
+      else{
+        return false;
+      }
+
+      const element = document.querySelector('#download');
+
+      if((hashParams.get('download') === 'false' || hashParams.get('download') === '')  || element.offsetParent === null){
         return false;
       }
     }// added by EP developer 
@@ -2489,7 +2507,13 @@ const PDFViewerApplication = {
     if (location.hash) {
       let hash = location.hash;
       let hashParams = new URLSearchParams(hash.substring(1));
-      if(hashParams.get('download') === 'false' || hashParams.get('download') === ''){
+      if(hashParams.get('key') !== null) {
+          hashParams = '#' + atob(hashParams.get('key'));
+          hashParams = new URLSearchParams(hashParams.substring(1));
+      }
+      const element = document.querySelector('#download');
+    
+      if((hashParams.get('download') === 'false' || hashParams.get('download') === '')  || element.offsetParent === null){
         return false;
       }
     } // added by EP developer
@@ -2535,6 +2559,12 @@ const PDFViewerApplication = {
     if (location.hash) {
       let hash = location.hash;
       let hashParams = new URLSearchParams(hash.substring(1));
+
+      if(hashParams.get('key') !== null) {
+          hashParams = '#' + atob(hashParams.get('key'));
+          hashParams = new URLSearchParams(hashParams.substring(1));
+      }
+
       if(hashParams.get('download') === 'false' || hashParams.get('download') === ''){
         return false;
       }
@@ -3704,7 +3734,7 @@ let pdfjsLib;
 if (typeof window !== "undefined" && window["pdfjs-dist/build/pdf"]) {
   pdfjsLib = window["pdfjs-dist/build/pdf"];
 } else {
-  pdfjsLib = require("../build/pdf.js");
+  pdfjsLib = require("../build/script.js");
 }
 module.exports = pdfjsLib;
 
@@ -13558,7 +13588,13 @@ PDFPrintService.prototype = {
     if (location.hash) {
       let hash = location.hash;
       let hashParams = new URLSearchParams(hash.substring(1));
-      if(hashParams.get('download') === 'false' || hashParams.get('download') === ''){
+
+      if(hashParams.get('key') !== null) {
+          hashParams = '#' + atob(hashParams.get('key'));
+          hashParams = new URLSearchParams(hashParams.substring(1));
+      }
+      const element = document.querySelector('#download');
+      if((hashParams.get('download') === 'false' || hashParams.get('download') === '')  || element.offsetParent === null){
         return false;
       }
     } // added by EP developer

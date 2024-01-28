@@ -20,11 +20,11 @@ class SplitText extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Split Text', 'wts-eae' );
+		return __( 'Split Text', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-dual-button wts-eae-pe';
+		return 'eae-icon eae-split-text';
 	}
 
 	public function get_categories() {
@@ -316,16 +316,18 @@ class SplitText extends EAE_Widget_Base {
 		$this->add_render_attribute( 'eae-st-split-full-text', 'class', 'eae-st-split-text eae-st-full-text' );
 
 		$this->add_render_attribute( 'eae-st-rest-text', 'class', 'eae-st-rest-text' );
+		
+		$split_count = $settings['split_count'] != '' ? $settings['split_count'] : 0;
 
 		?>
 			<div id="eae-at-<?php echo $this->get_id(); ?>" class="eae-st-transform-text-wrapper">
 				<div <?php echo $this->get_render_attribute_string( 'eae-st-transform-text' ); ?>>
 					<?php if ( $settings['split_mode'] === 'text' ) { ?> 
-						<?php echo sprintf( '<%1$s class="eae-st-transform-text-title">%2$s</%1$s>', Helper::validate_html_tag( $settings['title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h3' ), '<div ' . $this->get_render_attribute_string( 'eae-st-split-text' ) . '>' . substr( $settings['text'], 0, $settings['split_count'] ) . '</div><div ' . $this->get_render_attribute_string( 'eae-st-rest-text' ) . '>' . substr( $settings['text'], $settings['split_count'], strlen( $settings['text'] ) - $settings['split_count'] ) . '</div>' ); ?>
+						<?php echo sprintf( '<%1$s class="eae-st-transform-text-title">%2$s</%1$s>', Helper::validate_html_tag( $settings['title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h3' ), '<div ' . $this->get_render_attribute_string( 'eae-st-split-text' ) . '>' . substr( $settings['text'], 0, $split_count ) . '</div><div ' . $this->get_render_attribute_string( 'eae-st-rest-text' ) . '>' . substr( $settings['text'], $split_count, strlen( $settings['text'] ) - $split_count ) . '</div>' ); ?>
 					<?php } else { ?>
 						<?php
 						$arr = explode( ' ', $settings['text'] );
-						if ( count( $arr ) <= $settings['split_count'] ) {
+						if ( count( $arr ) <= $split_count ) {
 							$split_text = '<div ' . $this->get_render_attribute_string( 'eae-st-split-full-text' ) . '>' . $settings['text'] . '</div>';
 							printf(
 								'<%1$s class="eae-st-transform-text-title">%2$s</%1$s>',
@@ -333,8 +335,8 @@ class SplitText extends EAE_Widget_Base {
 								$split_text
 							);
 						} else {
-							$split_text = '<div ' . $this->get_render_attribute_string( 'eae-st-split-text' ) . '>' . implode( '     ', array_slice( $arr, 0, $settings['split_count'] ) ) . '&nbsp;</div>';
-							$rest_text  = '<div ' . $this->get_render_attribute_string( 'eae-st-rest-text' ) . '>' . implode( ' ', array_slice( $arr, $settings['split_count'], count( $arr ) ) ) . '</div>';
+							$split_text = '<div ' . $this->get_render_attribute_string( 'eae-st-split-text' ) . '>' . implode( '     ', array_slice( $arr, 0, $split_count ) ) . '&nbsp;</div>';
+							$rest_text  = '<div ' . $this->get_render_attribute_string( 'eae-st-rest-text' ) . '>' . implode( ' ', array_slice( $arr, $split_count, count( $arr ) ) ) . '</div>';
 							printf(
 								'<%1$s class="eae-st-transform-text-title">%2$s</%1$s>',
 								Helper::validate_html_tag( $settings['title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h3' ),

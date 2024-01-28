@@ -21,11 +21,11 @@ class AnimatedText extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Animated Text', 'wts-eae' );
+		return __( 'Animated Text', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-animation-text wts-eae-pe';
+		return 'eae-icon eae-animated-text';
 	}
 
 	public function get_categories() {

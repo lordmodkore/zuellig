@@ -30,10 +30,9 @@ class AIOWPSecurity_Scan {
 			// the fcd file containing the results doesn't exist
 			$random_suffix = AIOWPSecurity_Utility::generate_alpha_numeric_random_string(10);
 			$fcd_filename = 'aiowps_fcd_data_' . $random_suffix;
-			$aio_wp_security->configs->set_value('aiowps_fcd_filename', $fcd_filename);
-			$aio_wp_security->configs->save_config();
+			$aio_wp_security->configs->set_value('aiowps_fcd_filename', $fcd_filename, true);
 		}
-		
+
 		$fcd_data = self::get_fcd_data(); // get previous scan data if any
 
 		if (false === $fcd_data) {
@@ -55,15 +54,13 @@ class AIOWPSecurity_Scan {
 			$this->save_fcd_data($scanned_data, $scan_result);
 			if (!empty($scan_result['files_added']) || !empty($scan_result['files_removed']) || !empty($scan_result['files_changed'])) {
 				//This means there was a change detected
-				$aio_wp_security->configs->set_value('aiowps_fcds_change_detected', true);
-				$aio_wp_security->configs->save_config();
+				$aio_wp_security->configs->set_value('aiowps_fcds_change_detected', true, true);
 				$aio_wp_security->debug_logger->log_debug(__METHOD__ . " - change to filesystem detected!");
 
 				$this->aiowps_send_file_change_alert_email($scan_result); //Send file change scan results via email if applicable
 			} else {
 				//Reset the change flag
-				$aio_wp_security->configs->set_value('aiowps_fcds_change_detected', false);
-				$aio_wp_security->configs->save_config();
+				$aio_wp_security->configs->set_value('aiowps_fcds_change_detected', false, true);
 			}
 			return $scan_result;
 		}
@@ -78,11 +75,7 @@ class AIOWPSecurity_Scan {
 	public function aiowps_send_file_change_alert_email($scan_result) {
 		global $aio_wp_security;
 		if ('1' == $aio_wp_security->configs->get_value('aiowps_send_fcd_scan_email')) {
-			$site_title = get_bloginfo('name');
-			$from_name = empty($site_title) ? 'WordPress' : $site_title;
-			
-			$headers = 'From: ' . $from_name . ' <' . get_option('admin_email') . '>' . PHP_EOL;
-			$subject = __('All In One WP Security - File change detected!', 'all-in-one-wp-security-and-firewall') . ' ' . date('l, F jS, Y \a\\t g:i a', current_time('timestamp'));
+			$subject = __('All In One WP Security - File change detected', 'all-in-one-wp-security-and-firewall') . ' ' . date('l, F jS, Y \a\\t g:i a', current_time('timestamp'));
 			//$attachment = array();
 			$message = __('A file change was detected on your system for site URL', 'all-in-one-wp-security-and-firewall') . ' ' . network_site_url() . __('. Scan was generated on', 'all-in-one-wp-security-and-firewall') . ' ' . date('l, F jS, Y \a\\t g:i a', current_time('timestamp'));
 			$message .= "\r\n\r\n".__('A summary of the scan results is shown below:', 'all-in-one-wp-security-and-firewall');
@@ -94,52 +87,76 @@ class AIOWPSecurity_Scan {
 			$addresses = AIOWPSecurity_Utility::get_array_from_textarea_val($aio_wp_security->configs->get_value('aiowps_fcd_scan_email_address'));
 			// If no explicit email address(es) are given, send email to site admin.
 			$to = empty($addresses) ? array(get_site_option('admin_email')) : $addresses;
-			if (!wp_mail($to, $subject, $message, $headers)) {
+			if (!wp_mail($to, $subject, $message)) {
 				$aio_wp_security->debug_logger->log_debug(__METHOD__ . " - File change notification email failed to send.", 4);
 			}
 
 		}
 	}
 	
+	/**
+	 * This function is called via the following filter 'aiowps_perform_fcd_scan_tasks' and will start the file scan
+	 *
+	 * @return void
+	 */
 	public function aiowps_scheduled_fcd_scan_handler() {
 		global $aio_wp_security;
-		if ($aio_wp_security->configs->get_value('aiowps_enable_automated_fcd_scan')=='1') {
-			$aio_wp_security->debug_logger->log_debug_cron(__METHOD__ . " - Scheduled fcd_scan is enabled. Checking now to see if scan needs to be done...");
-			$time_now = current_time('mysql');
-			$current_time = strtotime($time_now);
-			$fcd_scan_frequency = $aio_wp_security->configs->get_value('aiowps_fcd_scan_frequency'); //Number of hours or days or months interval
-			$interval_setting = $aio_wp_security->configs->get_value('aiowps_fcd_scan_interval'); //Hours/Days/Months
-			switch ($interval_setting) {
-				case '0':
-					$interval = 'hours';
-					break;
-				case '1':
-					$interval = 'days';
-					break;
-				case '2':
-					$interval = 'weeks';
-					break;
-			}
-			$last_fcd_scan_time_string = $aio_wp_security->configs->get_value('aiowps_last_fcd_scan_time');
-			if (null != $last_fcd_scan_time_string) {
-				$last_fcd_scan_time = strtotime($last_fcd_scan_time_string);
-				$next_fcd_scan_time = strtotime("+".abs($fcd_scan_frequency).$interval, $last_fcd_scan_time);
-				if ($next_fcd_scan_time <= $current_time) {
-					//It's time to do a filescan
-					$result = $this->execute_file_change_detection_scan();
-					if (false === $result) {
-						$aio_wp_security->debug_logger->log_debug(__METHOD__ . " - Scheduled filescan operation failed!", 4);
-					} else {
-						$aio_wp_security->configs->set_value('aiowps_last_fcd_scan_time', $time_now);
-						$aio_wp_security->configs->save_config();
-					}
-				}
+		
+		if ('1' != $aio_wp_security->configs->get_value('aiowps_enable_automated_fcd_scan')) return;
+		
+		$aio_wp_security->debug_logger->log_debug_cron(__METHOD__ . " - Scheduled fcd_scan is enabled. Checking now to see if scan needs to be done...");
+		
+		$current_time = time();
+		
+		$next_fcd_scan_time = self::get_next_scheduled_scan();
+
+		if ($next_fcd_scan_time <= $current_time) {
+			// It's time to do a filescan
+			$result = $this->execute_file_change_detection_scan();
+			if (false === $result) {
+				$aio_wp_security->debug_logger->log_debug(__METHOD__ . " - Scheduled filescan operation failed.", 4);
 			} else {
-				//Set the last scan time to now so it can trigger for the next scheduled period
-				$aio_wp_security->configs->set_value('aiowps_last_fcd_scan_time', $time_now);
-				$aio_wp_security->configs->save_config();
+				$aio_wp_security->configs->set_value('aiowps_last_fcd_scan_time', $current_time, true);
 			}
 		}
+
+	}
+
+	/**
+	 * This function will get the next scheduled scan timestamp and return it
+	 *
+	 * @return int|bool - the next scheduled scan timestamp, or false if the scheduled scan is not setup
+	 */
+	public static function get_next_scheduled_scan() {
+		global $aio_wp_security;
+
+		if ('1' != $aio_wp_security->configs->get_value('aiowps_enable_automated_fcd_scan')) return false;
+
+		$fcd_scan_frequency = $aio_wp_security->configs->get_value('aiowps_fcd_scan_frequency'); // Number of hours or days or months interval
+		$interval_setting = $aio_wp_security->configs->get_value('aiowps_fcd_scan_interval'); // Hours/Days/Months
+		switch ($interval_setting) {
+			case '0':
+				$interval = 'hours';
+				break;
+			case '1':
+				$interval = 'days';
+				break;
+			case '2':
+				$interval = 'weeks';
+				break;
+		}
+		$last_fcd_scan_time = $aio_wp_security->configs->get_value('aiowps_last_fcd_scan_time');
+		if (null == $last_fcd_scan_time) {
+			// Set the last scan time to now so it can trigger for the next scheduled period
+			$last_fcd_scan_time = time();
+			$aio_wp_security->configs->set_value('aiowps_last_fcd_scan_time', $last_fcd_scan_time, true);
+		} elseif (is_string($last_fcd_scan_time)) {
+			$last_fcd_scan_time = strtotime($last_fcd_scan_time);
+			$aio_wp_security->configs->set_value('aiowps_last_fcd_scan_time', $last_fcd_scan_time, true);
+		}
+		$next_fcd_scan_time = strtotime("+".abs($fcd_scan_frequency).$interval, $last_fcd_scan_time);
+
+		return $next_fcd_scan_time;
 	}
 	
 	/**

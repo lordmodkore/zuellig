@@ -96,18 +96,23 @@ class Modules_Manager {
 			'shapes',
 			'favorites',
 			'admin-top-bar',
+			'element-manager',
 			'nested-elements',
 			// Depends on Nested Elements module
 			'nested-tabs',
+			'nested-accordion',
 			'container-converter',
 			'web-cli',
 			'promotions',
 			'notes',
 			'performance-lab',
 			'lazyload',
+			'image-loading-optimization',
 			'kit-elements-defaults',
 			'announcements',
 			'site-navigation',
+			'styleguide',
+			'apps',
 		];
 	}
 

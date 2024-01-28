@@ -21,11 +21,11 @@ class Content_Switcher extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Content Switcher', 'wts-eae' );
+		return __( 'Content Switcher', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-flip-box';
+		return 'eae-icon eae-content-switcher';
 	}
 
 	public function get_categories() {
@@ -92,6 +92,7 @@ class Content_Switcher extends EAE_Widget_Base {
 					'saved_section' => __( 'Saved Section', 'wts-eae' ),
 					'saved_page'    => __( 'Saved Page', 'wts-eae' ),
 					'ae_template'   => __( 'AE-Template', 'wts-eae' ),
+					'saved_container' => __('Saved Container','wts-eae'),
 				],
 				'default' => 'plain_content',
 			]
@@ -110,6 +111,21 @@ class Content_Switcher extends EAE_Widget_Base {
 				'default'   => __( 'Add some nice text here.', 'wts-eae' ),
 			]
 		);
+
+		$saved_container[''] = __('Select Container','wts-eae');
+		$saved_container     = $saved_container + Helper::select_elementor_page( 'container' );
+		$repeater->add_control(
+			'saved_container',
+			[
+				'label' => esc_html__('Container','wts-eae'),
+				'type' => Controls_Manager::SELECT,
+				'options' => $saved_container,
+				'condition' => [
+					'content_type' => 'saved_container'
+				]
+			]
+		);
+
 		$saved_sections[''] = __( 'Select Section', 'wts-eae' );
 		$saved_sections     = $saved_sections + Helper::select_elementor_page( 'section' );
 		$repeater->add_control(

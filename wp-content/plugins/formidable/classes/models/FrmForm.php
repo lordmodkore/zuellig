@@ -211,7 +211,7 @@ class FrmForm {
 			if ( $new_val !== $value ) {
 				$new_values[ $key ] = $new_val;
 			}
-		}
+		}//end foreach
 
 		if ( ! empty( $new_values ) ) {
 			FrmField::update( $field['id'], $new_values );
@@ -277,7 +277,7 @@ class FrmForm {
 			return $new_values;
 		}
 
-		$options = isset( $values['options'] ) ? (array) $values['options'] : array();
+		$options = ! empty( $values['options'] ) ? (array) $values['options'] : array();
 		FrmFormsHelper::fill_form_options( $options, $values );
 
 		$options['custom_style'] = isset( $values['options']['custom_style'] ) ? $values['options']['custom_style'] : 0;
@@ -349,9 +349,10 @@ class FrmForm {
 				}
 			}
 
-			//updating the form
+			// Updating the form.
 			$update_options = FrmFieldsHelper::get_default_field_options_from_field( $field );
-			unset( $update_options['custom_html'] ); // don't check for POST html
+			// Don't check for POST html.
+			unset( $update_options['custom_html'] );
 			$update_options = apply_filters( 'frm_field_options_to_update', $update_options );
 
 			foreach ( $update_options as $opt => $default ) {
@@ -377,14 +378,40 @@ class FrmForm {
 			}
 
 			self::prepare_field_update_values( $field, $values, $new_field );
+			self::maybe_update_max_option( $field, $values, $new_field );
 
 			FrmField::update( $field_id, $new_field );
 
 			FrmField::delete_form_transient( $field->form_id );
-		}
+		}//end foreach
 		self::clear_form_cache();
 
 		return $values;
+	}
+
+	/**
+	 * Resets the 'max' option of a field when changing paragraph field type to other field types like text, email etc.
+	 *
+	 * @since 6.7
+	 *
+	 * @param array $field
+	 * @param array $values
+	 * @param array $new_field
+	 * @return void
+	 */
+	private static function maybe_update_max_option( $field, $values, &$new_field ) {
+		if ( $field->type === 'textarea' &&
+			! empty( $values['field_options'][ 'type_' . $field->id ] ) &&
+			in_array( $values['field_options'][ 'type_' . $field->id ], array( 'text', 'email', 'url', 'password', 'phone' ), true ) ) {
+
+			$new_field['field_options']['max'] = '';
+
+			/**
+			 * Update posted field setting so that new 'max' option is displayed after form is saved and page reloads.
+			 * FrmFieldsHelper::fill_default_field_opts populates field options by calling self::get_posted_field_setting.
+			 */
+			$_POST['field_options'][ 'max_' . $field->id ] = '';
+		}
 	}
 
 	/**
@@ -429,7 +456,8 @@ class FrmForm {
 		if ( false !== strpos( $value, '<' ) ) {
 			$value = self::normalize_calc_spaces( $value );
 		}
-		$allow = array( '<= ', ' >=' ); // Allow <= and >=
+		// Allow <= and >=.
+		$allow = array( '<= ', ' >=' );
 		$temp  = array( '< = ', ' > =' );
 		$value = str_replace( $allow, $temp, $value );
 		$value = strip_tags( $value );
@@ -502,7 +530,7 @@ class FrmForm {
 	 * on a multilingual site.
 	 *
 	 * @since 3.06.01
-	 * @param object $form - The form object
+	 * @param object $form The form object.
 	 */
 	public static function translatable_strings( $form ) {
 		$strings = array(
@@ -521,6 +549,7 @@ class FrmForm {
 	}
 
 	/**
+	 * @param int    $id
 	 * @param string $status
 	 *
 	 * @return int|boolean
@@ -651,7 +680,7 @@ class FrmForm {
 	public static function scheduled_delete( $delete_timestamp = '' ) {
 		global $wpdb;
 
-		$trash_forms = FrmDb::get_results( $wpdb->prefix . 'frm_forms', array( 'status' => 'trash' ), 'id, options' );
+		$trash_forms = FrmDb::get_results( $wpdb->prefix . 'frm_forms', array( 'status' => 'trash' ), 'id, parent_form_id, options' );
 
 		if ( ! $trash_forms ) {
 			return 0;
@@ -666,7 +695,9 @@ class FrmForm {
 			FrmAppHelper::unserialize_or_decode( $form->options );
 			if ( ! isset( $form->options['trash_time'] ) || $form->options['trash_time'] < $delete_timestamp ) {
 				self::destroy( $form->id );
-				$count ++;
+				if ( empty( $form->parent_form_id ) ) {
+					$count ++;
+				}
 			}
 
 			unset( $form );
@@ -688,7 +719,9 @@ class FrmForm {
 
 		$query_key = is_numeric( $id ) ? 'id' : 'form_key';
 		$r         = FrmDb::get_var( 'frm_forms', array( $query_key => $id ), 'name' );
-		$r         = stripslashes( $r );
+
+		// An empty form name can result in a null value.
+		$r = is_null( $r ) ? '' : stripslashes( $r );
 
 		return $r;
 	}
@@ -789,7 +822,7 @@ class FrmForm {
 		} else {
 			global $wpdb;
 
-			// the query has already been prepared if this is not an array
+			// The query has already been prepared if this is not an array.
 			$query   = 'SELECT * FROM ' . $wpdb->prefix . 'frm_forms' . FrmDb::prepend_and_or_where( ' WHERE ', $where ) . FrmDb::esc_order( $order_by ) . FrmDb::esc_limit( $limit );
 			$results = $wpdb->get_results( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		}
@@ -937,7 +970,7 @@ class FrmForm {
 		}
 
 		if ( $form->id == $values['posted_form_id'] ) {
-			//if there are two forms on the same page, make sure not to submit both
+			// If there are two forms on the same page, make sure not to submit both.
 			foreach ( $default_values as $var => $default ) {
 				if ( $var == 'action' ) {
 					$values[ $var ] = FrmAppHelper::get_param( $action_var, $default, 'get', 'sanitize_title' );
@@ -1128,6 +1161,48 @@ class FrmForm {
 	 */
 	public static function is_ajax_on( $form ) {
 		return ! empty( $form->options['ajax_submit'] );
+	}
+
+	/**
+	 * Get the latest form available.
+	 *
+	 * @since 6.8
+	 * @return object
+	 */
+	public static function get_latest_form() {
+
+		$args = array(
+			array(
+				'or'               => 1,
+				'parent_form_id'   => null,
+				'parent_form_id <' => 1,
+			),
+			'is_template' => 0,
+			'status !'    => 'trash',
+		);
+
+		return self::getAll( $args, 'created_at desc', 1 );
+	}
+
+	/**
+	 * Count and return total forms.
+	 *
+	 * @since 6.8
+	 * @return int
+	 */
+	public static function get_forms_count() {
+
+		$args = array(
+			array(
+				'or'               => 1,
+				'parent_form_id'   => null,
+				'parent_form_id <' => 1,
+			),
+			'is_template' => 0,
+			'status !'    => 'trash',
+		);
+
+		return FrmDb::get_count( 'frm_forms', $args );
 	}
 
 	/**

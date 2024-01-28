@@ -100,12 +100,18 @@ mark {
 }
 @media (min-width: 1440px) {
     .accordian-container .accordian .item.active .body {
-        max-width: 70%;
-        padding: 15% 15rem;
+        //max-width: 70%;
+        //padding: 15% 15rem;
+        position: absolute;
+        top: 50%;
+        padding: 0;
+        left: 15%;
+        max-width: 30%;
+
     }
 }
 .accordian-container .accordian .item.active div.header h2.heading {
-    color: #FCD223;
+    color: #9493FF;
 }
 .accordian-container .accordian .item.active div.header p {
     opacity: 1;
@@ -203,8 +209,8 @@ mark {
     }
 }
 .accordian-container .accordian .item .header .heading {
-    font-family: "brandon-grotesque", Arial, sans-serif;
-    font-size: 0.8125rem;
+    font-family: "Gill_Sans_otf", serif;
+    font-size: 18px;
     font-weight: 400;
     letter-spacing: 1.8px;
     line-height: 22px;

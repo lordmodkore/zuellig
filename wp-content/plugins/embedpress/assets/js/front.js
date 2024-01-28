@@ -6,6 +6,8 @@
  * @since       1.7.0
  */
 
+
+
 let epGlobals = {};
 
 (function ($) {
@@ -173,6 +175,7 @@ let epGlobals = {};
             }
         }
     }
+
     function youtubeChannelEvents(playerWrap) {
 
         delegate(playerWrap, "click", ".item", function (event) {
@@ -321,8 +324,7 @@ let epGlobals = {};
     const unlockSubmitHander = (perentSel, that) => {
         var ep_client_id = jQuery(that).closest('form').find('input[name="ep_client_id"]').val();
         var password = jQuery(`input[name="pass_${ep_client_id}"]`).val();
-        var epbase = jQuery(`input[name="ep_base_${ep_client_id}"]`).val();
-        var hash_key = jQuery(`input[name="hash_key_${ep_client_id}"]`).val();
+        var post_id = jQuery(`input[name="post_id"]`).val();
         const buttonText = jQuery(that).closest('.password-form-container').find('input[type="submit"]').val();
         const unlokingText = jQuery(that).data('unlocking-text');
 
@@ -331,8 +333,7 @@ let epGlobals = {};
             'action': 'lock_content_form_handler',
             'client_id': ep_client_id,
             'password': password,
-            'hash_key': hash_key,
-            'epbase': epbase
+            'post_id': post_id,
         };
 
         jQuery('#' + perentSel + '-' + ep_client_id + ' .password-form input[type="submit"]').val(unlokingText);
@@ -356,6 +357,16 @@ let epGlobals = {};
                         epLoadMore();
                     }
 
+                    // Custom player initialization when content protection enabled
+                    document.querySelector('#' + perentSel + '-' + ep_client_id + ' .ep-embed-content-wraper').classList.remove('plyr-initialized');
+
+                    initPlayer(document.querySelector('#' + perentSel + '-' + ep_client_id + ' .ep-embed-content-wraper'));
+                    
+                    if(eplocalize.is_pro_plugin_active){
+                        const adIdEl = document.querySelector('#' + perentSel + '-' + ep_client_id + ' [data-ad-id]');
+                        adInitialization(adIdEl, adIdEl.getAttribute('data-ad-index'));
+                    }
+
                 }
             } else {
                 jQuery('#password-error_' + ep_client_id).html(response.form);
@@ -369,8 +380,6 @@ let epGlobals = {};
         e.preventDefault(); // Prevent the default form submission
         unlockSubmitHander('ep-gutenberg-content', this);
     });
-
-
 
     window.addEventListener('load', function (e) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -392,6 +401,11 @@ let epGlobals = {};
 jQuery(window).on("elementor/frontend/init", function () {
 
     var filterableGalleryHandler = function ($scope, $) {
+
+        // Get the Elementor unique selector for this widget
+        let classes = $scope[0].className;
+        let selectorEl = '.' + classes.split(' ').join('.');
+
         const epElLoadMore = () => {
 
             const spinicon = '<svg width="18" height="18" fill="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_GuJz{transform-origin:center;animation:spinner_STY6 1.5s linear infinite}@keyframes spinner_STY6{100%{transform:rotate(360deg)}}</style><g class="spinner_GuJz"><circle cx="3" cy="12" r="2"/><circle cx="21" cy="12" r="2"/><circle cx="12" cy="21" r="2"/><circle cx="12" cy="3" r="2"/><circle cx="5.64" cy="5.64" r="2"/><circle cx="18.36" cy="18.36" r="2"/><circle cx="5.64" cy="18.36" r="2"/><circle cx="18.36" cy="5.64" r="2"/></g></svg>';
@@ -431,8 +445,7 @@ jQuery(window).on("elementor/frontend/init", function () {
         const unlockElSubmitHander = (perentSel, that) => {
             var ep_client_id = jQuery(that).closest('form').find('input[name="ep_client_id"]').val();
             var password = jQuery(`input[name="pass_${ep_client_id}"]`).val();
-            var epbase = jQuery(`input[name="ep_base_${ep_client_id}"]`).val();
-            var hash_key = jQuery(`input[name="hash_key_${ep_client_id}"]`).val();
+            var post_id = jQuery(`input[name="post_id"]`).val();
             const buttonText = jQuery(that).closest('.password-form-container').find('input[type="submit"]').val();
             const unlokingText = jQuery(that).data('unlocking-text');
 
@@ -440,8 +453,7 @@ jQuery(window).on("elementor/frontend/init", function () {
                 'action': 'lock_content_form_handler',
                 'client_id': ep_client_id,
                 'password': password,
-                'hash_key': hash_key,
-                'epbase': epbase
+                'post_id': post_id,
             };
 
             jQuery('#' + perentSel + '-' + ep_client_id + ' .password-form input[type="submit"]').val(unlokingText);
@@ -482,10 +494,32 @@ jQuery(window).on("elementor/frontend/init", function () {
             e.preventDefault(); // Prevent the default form submission
             unlockElSubmitHander('ep-elementor-content', this);
         });
-
     };
+
+    const adsHandler = function ($scope, $) {
+        window.epAdIndex = typeof(window.epAdIndex) === 'undefined' ? 0 : window.epAdIndex + 1;
+        console.log(window.epAdIndex);
+        let classes = $scope[0].className;
+        let classJoint = '.' + classes.split(' ').join('.');
+        const selectorEl = document.querySelector(classJoint + ' [data-ad-id]');
+        
+
+        console.log(classJoint);
+        if (jQuery('body').hasClass('elementor-editor-active') && eplocalize.is_pro_plugin_active) {
+            adInitialization(selectorEl, window.epAdIndex);
+        }
+
+    }
+
     elementorFrontend.hooks.addAction("frontend/element_ready/embedpres_elementor.default", filterableGalleryHandler);
     elementorFrontend.hooks.addAction("frontend/element_ready/embedpress_pdf.default", filterableGalleryHandler);
     elementorFrontend.hooks.addAction("frontend/element_ready/embedpres_document.default", filterableGalleryHandler);
+    elementorFrontend.hooks.addAction("frontend/element_ready/embedpres_elementor.default", adsHandler);
 });
 
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     testHellowWorld();
+// });
+
+// testHellowWorld();

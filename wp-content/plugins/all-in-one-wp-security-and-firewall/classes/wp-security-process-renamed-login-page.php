@@ -17,25 +17,10 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 	}
 
 	public function aiowps_login_init() {
-		if (strpos($_SERVER['REQUEST_URI'], 'wp-login') !== false) {
-			$referer = wp_get_referer();
-			if ($referer && strpos($referer, 'wp-activate.php') !== false) {
-				$parsed_referer = parse_url($referer);
-				if ($parsed_referer && !empty($parsed_referer['query'])) {
-					parse_str($parsed_referer['query'], $referer);
-					if (!empty($parsed_referer['key'])) {
-						$result = wpmu_activate_signup($parsed_referer['key']); //MS site creation
-						if ($result && is_wp_error($result) && ($result->get_error_code() === 'already_active' || $result->get_error_code() === 'blog_taken')) {
-							$aiowps_new_login_url = AIOWPSecurity_Process_Renamed_Login_Page::new_login_url();
-							wp_safe_redirect($aiowps_new_login_url . (!empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : ''));
-							die;
-						}
-					}
-				}
-			}
+		$parsed_request = parse_url($_SERVER['REQUEST_URI']);
+		if ($parsed_request && preg_match('/wp-login\.php$/', $parsed_request['path'])) {
 			AIOWPSecurity_Process_Renamed_Login_Page::aiowps_set_404();
 		}
-
 	}
 
 	public function aiowps_site_url($url) {
@@ -99,6 +84,8 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 				parse_str($args[1], $args);
 				$url = esc_url(add_query_arg($args, AIOWPSecurity_Process_Renamed_Login_Page::new_login_url()));
 				$url = html_entity_decode($url);
+			} elseif (isset($_SERVER['REQUEST_URI']) && stripos(urldecode($_SERVER['REQUEST_URI']), 'wp-admin/install.php')) {
+				return $url;
 			} else {
 				$url = AIOWPSecurity_Process_Renamed_Login_Page::new_login_url();
 			}
@@ -153,7 +140,7 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 		}
 
 		//case where someone attempting to reach wp-login
-		if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'wp-login.php') && !is_user_logged_in()) {
+		if (isset($_SERVER['REQUEST_URI']) && stripos(urldecode($_SERVER['REQUEST_URI']), 'wp-login.php') && !is_user_logged_in()) {
 
 			// Handle export personal data request for rename login case
 			if (isset($_GET['request_id'])) {
@@ -186,7 +173,7 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 		}
 
 		//case where someone attempting to reach the standard register or signup pages
-		if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'wp-register.php') || isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'wp-signup.php')) {
+		if (isset($_SERVER['REQUEST_URI']) && stripos(urldecode($_SERVER['REQUEST_URI']), 'wp-register.php') || isset($_SERVER['REQUEST_URI']) && stripos(urldecode($_SERVER['REQUEST_URI']), 'wp-signup.php')) {
 			//Check if the maintenance (lockout) mode is active - if so prevent access to site by not displaying 404 page!
 			if ($aio_wp_security->configs->get_value('aiowps_site_lockout') == '1') {
 				AIOWPSecurity_WP_Loaded_Tasks::site_lockout_tasks();
@@ -195,34 +182,12 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 			}
 		}
 
-		$parsed_url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
 		$login_slug = $aio_wp_security->configs->get_value('aiowps_login_page_slug');
-		$home_url_with_slug = home_url($login_slug, 'relative');
 
-		/*
-		 * Compatibility fix for WPML plugin
-		 */
-		if (function_exists('wpml_object_id') && strpos($home_url_with_slug, $login_slug)) {
-			$home_url_with_slug = home_url($login_slug);// phpcs:ignore Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore,PEAR.WhiteSpace.ScopeClosingBrace.Line,Squiz.PHP.InnerFunctions.NotAllowed
-		}
-
-		/*
-		 * *** Compatibility fix for qTranslate-X plugin ***
-		 * qTranslate-X plugin modifies the result for the following command by adding the protocol and host to the url path:
-		 * home_url($login_slug, 'relative');
-		 * Therefore we will remove the protocol and host for the following cases:
-		 * qTranslate-X is active AND the URL being accessed contains the secret slug
-		 */
-		if (function_exists('qtranxf_init_language') && strpos($home_url_with_slug, $login_slug)) {
-			$parsed_home_url_with_slug = parse_url($home_url_with_slug);
-			$home_url_with_slug = $parsed_home_url_with_slug['path']; //this will return just the path minus the protocol and host
-		}
-
-		if (untrailingslashit($parsed_url_path) === $home_url_with_slug || (!get_option('permalink_structure') && isset($_GET[$login_slug]))) {
+		if (self::is_renamed_login_page_requested($login_slug)) {
 			if (empty($action) && is_user_logged_in()) {
 				//if user is already logged in but tries to access the renamed login page, send them to the dashboard
-				// or to requested redirect-page, filterd in 'login_redirect'.
+				// or to requested redirect-page, filtered in 'login_redirect'.
 				if (isset($_REQUEST['redirect_to'])) {
 				  $redirect_to = wp_sanitize_redirect($_REQUEST['redirect_to']);
 				  $redirect_to = wp_validate_redirect($redirect_to, apply_filters('wp_safe_redirect_fallback', admin_url(), 302));
@@ -268,10 +233,39 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 
 		status_header(404);
 		$wp_query->set_404();
-		if ((($template = get_404_template()) || ($template = get_index_template())) && ($template = apply_filters('template_include', $template))) {// phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
-			include($template);
-		}
+		$template = get_404_template();
+		if (empty($template)) $template = get_index_template();
+		$template = apply_filters('template_include', $template);
+		if ($template) include($template);
 		die;
+	}
+	
+	/**
+	 * Check renamed login page is requested
+	 *
+	 * @param string $login_slug Renamed loginpage slug
+	 *
+	 * @return boolean
+	 */
+	public static function is_renamed_login_page_requested($login_slug) {
+	
+		$parsed_url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		$home_url_with_slug = home_url($login_slug, 'relative');
+
+		/*
+		 * Compatibility fix for WPML, TranslatePress plugin
+		 */
+		if (function_exists('wpml_object_id') || function_exists('trp_enable_translatepress')) {
+			$home_url_with_slug = home_url($login_slug);
+			$parsed_home_url_with_slug = parse_url($home_url_with_slug);
+			$home_url_with_slug = $parsed_home_url_with_slug['path']; //this will return just the path minus the protocol and host
+		}
+		
+		if (untrailingslashit($parsed_url_path) === $home_url_with_slug || (!get_option('permalink_structure') && isset($_GET[$login_slug]))) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }

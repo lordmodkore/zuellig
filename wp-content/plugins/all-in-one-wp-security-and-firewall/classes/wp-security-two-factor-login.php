@@ -34,6 +34,7 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 	public function __construct() {
 
 		add_filter('aiowpsecurity_setting_tabs', array($this, 'add_two_factor_setting_tab'));
+		add_filter('tfa_user_ip_address', array($this, 'aios_set_user_ip_address'));
 
 		if (false !== $this->is_incompatible_plugin_active()) return;
 
@@ -115,12 +116,21 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 		
 		global $current_user;
 		if ($this->is_activated_for_user($current_user->ID)) {
-			if (!current_user_can(apply_filters('aios_management_permission', 'manage_options'))) {
+			if (!AIOWPSecurity_Utility_Permissions::has_manage_cap()) {
 				$menu_icon_url = AIO_WP_SECURITY_URL . '/images/plugin-icon.png';
 				add_menu_page(__('WP Security', 'all-in-one-wp-security-and-firewall'), __('WP Security', 'all-in-one-wp-security-and-firewall'), apply_filters('aios_management_permission', 'manage_options'), AIOWPSEC_MAIN_MENU_SLUG, '', $menu_icon_url);
 			}
 			add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('Two Factor Auth', 'all-in-one-wp-security-and-firewall'),  __('Two Factor Auth', 'all-in-one-wp-security-and-firewall'), 'read', AIOWPSEC_TWO_FACTOR_AUTH_MENU_SLUG, array($this, 'show_dashboard_user_settings_page'));
 		}
+	}
+	
+	/**
+	 * AIOS settings based user IP address
+	 *
+	 * @return string IP address
+	 */
+	public function aios_set_user_ip_address() {
+		return AIOS_Helper::get_user_ip_address();
 	}
 	
 	/**
@@ -130,7 +140,7 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 	 * @return array Returns all tabs with callback function name
 	 */
 	public function add_two_factor_setting_tab($tabs = array()) {
-		if (!current_user_can(apply_filters('aios_management_permission', 'manage_options'))) return;
+		if (!AIOWPSecurity_Utility_Permissions::has_manage_cap()) return;
 
 		$tabs['two-factor-authentication'] = array(
 			'title' => __('Two factor authentication', 'all-in-one-wp-security-and-firewall-premium'),
@@ -144,8 +154,8 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 	 * Display the Two Factor Authentication tab & handle the operations
 	 */
 	public function render_two_factor_authentication() {
-		
-		if (false !== ($plugin = $this->is_incompatible_plugin_active())) { // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
+		$plugin = $this->is_incompatible_plugin_active();
+		if (false !== $plugin) {
 			global $aio_wp_security;
 			$aio_wp_security->include_template('admin/incompatible-plugin.php', false, array(
 				'incompatible_plugin' => $plugin,
@@ -161,7 +171,14 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 	 */
 	public function show_admin_settings_page() {
 
-		if (!is_admin() || !current_user_can(apply_filters('aios_management_permission', 'manage_options'))) return;
+		if (!is_admin() || !AIOWPSecurity_Utility_Permissions::has_manage_cap()) return;
+		
+		// Check if there are any settings errors and display them (this is needed because the forms from this template submit to the TFA options page not AIOS, so we need to grab them and output them manually).
+		$settings_errors = get_settings_errors();
+		foreach ($settings_errors as $error) {
+			$type = 'success' == $error['type'] ? 'updated' : 'error';
+			$this->show_admin_warning($error['message'], $type);
+		}
 		
 		// The value for totp_controller is already set by versions of the TFA plugin after 3 Oct 2022
 		$this->include_template('admin-settings.php', array(

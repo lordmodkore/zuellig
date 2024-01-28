@@ -26,7 +26,7 @@ class ShapeSeparator extends EAE_Widget_Base {
 	}
 
 	public function get_icon() {
-		return 'eicon-divider-shape wts-eae-pe';
+		return 'eae-icon eae-shape-separator';
 	}
 
 	public function get_categories() {

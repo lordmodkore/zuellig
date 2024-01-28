@@ -78,6 +78,8 @@ class Core {
 
         add_action('admin_notices',[$this,'embedpress_admin_notice']);
 
+        add_filter('upload_mimes', [$this, 'extended_mime_types']);
+
     }
 
     /**
@@ -279,7 +281,7 @@ class Core {
             //'#https?://(.+\.)?clyp\.it/.+#i' => 'clyp',
 
             // https://gist.github.com
-            '#https?://(.+\.)?gist\.github\.com/.+#i' => 'github',
+            // '#https?://(.+\.)?gist\.github\.com/.+#i' => 'github',
 
             // https://portfolium.com
             //'#https?://(.+\.)?portfolium\.com/.+#i' => 'portfolium',
@@ -545,5 +547,9 @@ class Core {
         return $isAllowed;
     }
 
+    public function extended_mime_types( $mimes ) {
+        $mimes['ppsx'] = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+        return $mimes;
+    }
 
 }

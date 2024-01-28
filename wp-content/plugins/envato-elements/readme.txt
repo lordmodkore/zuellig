@@ -2,9 +2,9 @@
 Contributors: envato
 Tags: elementor, elements, templates, template kit
 Requires at least: 4.6
-Tested up to: 5.8
+Tested up to: 6.2
 Requires PHP: 5.6
-Stable tag: 2.0.11
+Stable tag: 2.0.12
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,6 +78,11 @@ If you have any questions or feedback for the team, please send an email to exte
 
 
 == Changelog ==
+
+= 2.0.12 - 2023-04-17 =
+* Fix: Improved error message around missing ZipArchive extension
+* Fix: Improved errors around installations that are missing NONCE_SALT constant
+* Feature: Updated WordPress and Elementor version compatability numbers
 
 = 2.0.11 - 2021-10-21 =
 * Fix: Swap to using ZipArchive for Template Kit extraction

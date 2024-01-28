@@ -23,7 +23,7 @@ class Twitter extends EAE_Widget_Base {
 	}
 
 	public function get_icon() {
-		return 'eicon-twitter';
+		return 'eae-icon eae-twitter-feed';
 	}
 
 	public function get_categories() {

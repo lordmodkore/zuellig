@@ -21,11 +21,11 @@ class TextSeparator extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Text Separator', 'wts-eae' );
+		return __( 'Text Separator', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-divider wts-eae-pe';
+		return 'eae-icon eae-text-separator';
 	}
 
 	public function get_categories() {
@@ -461,6 +461,7 @@ class TextSeparator extends EAE_Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		//echo '<pre>';  print_r($settings); echo '</pre>';
 		$this->add_render_attribute( 'separator_wrapper', 'class', 'wts-eae-textseparator' );
 		$this->add_render_attribute( 'separator_wrapper', 'class', 'sep-align-' . $settings['align'] );
 		if ( ! empty( $settings['icon_new'] ) ) {
@@ -487,7 +488,7 @@ class TextSeparator extends EAE_Widget_Base {
 				<div class="eae-sep-lines"></div>
 			</div>
 
-			<?php if ( ! empty( $settings['icon_new'] ) && $settings['icon_position'] === 'before' ) { ?>
+			<?php if ( !empty( $settings['icon_new']['value'] ) && $settings['icon_position'] === 'before' ) { ?>
 				<div class="eae-separator-icon-wrapper">
 					<div class="eae-separator-icon-inner">
 						<?php
@@ -512,7 +513,7 @@ class TextSeparator extends EAE_Widget_Base {
 			}
 			?>
 
-			<?php if ( ! empty( $settings['icon_new'] ) && $settings['icon_position'] === 'after' ) { ?>
+			<?php if ( ! empty( $settings['icon_new']['value'] ) && $settings['icon_position'] === 'after' ) { ?>
 				<div class="eae-separator-icon-wrapper">
 					<div class="eae-separator-icon-inner">
 						<?php
@@ -559,7 +560,7 @@ class TextSeparator extends EAE_Widget_Base {
 			<div class="eae-sep-lines"></div>
 		</div>
 
-		<# if((settings.icon_new) && settings.icon_position == 'before') { #>
+		<# if((iconHTML.rendered) && settings.icon_position == 'before') { #>
 		<div class="eae-separator-icon-wrapper">
 			<div class="eae-separator-icon-inner">
 				<# if ( iconHTML.rendered && ( ! settings.icon || migrated ) ) { #>
@@ -573,7 +574,7 @@ class TextSeparator extends EAE_Widget_Base {
 
 		<{{{settings.html_tag}}} {{{ view.getRenderAttributeString( 'title' ) }}} >{{{ settings.title }}}</{{{settings.html_tag}}}>
 
-		<# if((settings.icon_new) && settings.icon_position == 'after') { #>
+		<# if((iconHTML.rendered) && settings.icon_position == 'after') { #>
 		<div class="eae-separator-icon-wrapper">
 			<div class="eae-separator-icon-inner">
 				<# if ( iconHTML.rendered && ( ! settings.icon || migrated ) ) { #>

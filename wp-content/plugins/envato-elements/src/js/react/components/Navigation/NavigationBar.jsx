@@ -30,7 +30,9 @@ const NavigationBar = () => {
                   to='/template-kits'
                   className={`${styles.menuLink} ${useRouteMatch({
                     path: '/template-kits/premium-kits*'
-                  }) ? styles.menuLinkActive : ''}`}
+                  })
+? styles.menuLinkActive
+: ''}`}
                 >
                   Premium Kits
                 </Link>
@@ -40,7 +42,9 @@ const NavigationBar = () => {
                   to='/template-kits/free-kits'
                   className={`${styles.menuLink} ${useRouteMatch({
                     path: '/template-kits/free-kits*'
-                  }) ? styles.menuLinkActive : ''}`}
+                  })
+? styles.menuLinkActive
+: ''}`}
                 >
                   Free Kits
                 </Link>
@@ -50,7 +54,9 @@ const NavigationBar = () => {
                   to='/template-kits/free-blocks'
                   className={`${styles.menuLink} ${useRouteMatch({
                     path: '/template-kits/free-blocks*'
-                  }) ? styles.menuLinkActive : ''}`}
+                  })
+? styles.menuLinkActive
+: ''}`}
                 >
                   Free Blocks
                 </Link>
@@ -60,7 +66,9 @@ const NavigationBar = () => {
                   to='/template-kits/installed-kits'
                   className={`${styles.menuLink} ${useRouteMatch({
                     path: '/template-kits/installed-kits*'
-                  }) ? styles.menuLinkActive : ''}`}
+                  })
+? styles.menuLinkActive
+: ''}`}
                 >
                   Installed Kits
                 </Link>

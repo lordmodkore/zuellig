@@ -13,7 +13,9 @@ use Elementor\Group_Control_Border;
 use Elementor\Icons_Manager;
 use Elementor\Repeater;
 use Elementor\Utils;
-
+use Elementor\Plugin as EPlugin;
+use WTS_EAE\Classes\Helper;
+use WTS_EAE\Plugin as EAE;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -26,11 +28,11 @@ class ThumbGallery extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Thumbnail Slider', 'wts-eae' );
+		return __( 'Thumbnail Slider', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-thumbnails-down';
+		return 'eae-icon eae-thumbnail-slider';
 	}
 
 	public function get_categories() {
@@ -49,6 +51,102 @@ class ThumbGallery extends EAE_Widget_Base {
 	}
 
 	protected function register_controls() {
+		$this->start_controls_section(
+			'general',
+			[
+				'label' => __('General', 'wts-eae')
+			]
+		);
+
+		$this->add_control(
+			'thumb_horizontal_align',
+			[
+				'label'   => __( 'Thumbnail Position', 'wts-eae' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => [
+					'top'    => __( 'Top', 'wts-eae' ),
+					'bottom' => __( 'Bottom', 'wts-eae' ),
+					'inside' => __( 'Inside', 'wts-eae' ),
+				],
+				'default' => 'bottom',
+			]
+		);
+
+		$this->add_responsive_control(
+			'thumb_container_width',
+			[
+				'label'	=>	__('Width', 'wts-eae'),
+				'type'	=>	Controls_Manager::SLIDER,
+				'range'      => [
+					'px' => [
+						'min' => 100,
+						'max' => 1000,
+					],
+					'%'	=>	[
+						'min'	=>	10,
+						'max'	=>	100
+					],
+				],
+				'default' => [
+					'size' => 100,
+					'unit' => '%',
+				],
+				'render_type' => 'template',
+				'size_units' => [ 'px','%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .eae-thumb-container' => 'width: {{SIZE}}{{UNIT}} !important;',
+				],
+				
+			]
+		);
+
+		$this->add_responsive_control(
+			'thumb_alignment',
+			[
+				'label'        => __( 'Horizontal Position', 'wts-eae' ),
+				'type'         => Controls_Manager::CHOOSE,
+				'default'      => 'center',
+				'options'      => [
+					'left' => [
+						'title' => __( 'Left', 'wts-eae' ),
+						'icon'  => 'eicon-h-align-left',
+					],
+					'center' => [
+						'title' => __( 'Center', 'wts-eae' ),
+						'icon'  => 'eicon-h-align-center',
+					],
+					'right' => [
+						'title' => __( 'Right', 'wts-eae' ),
+						'icon'  => 'eicon-h-align-right',
+					],
+				],
+				'selectors_dictionary' => [
+					'left' => '100%',
+					'center' => 'auto',
+					'right'	=> '0%'
+				],
+				'selectors' => [
+					'{{WRAPPER}} .eae-swiper-outer-wrapper :not(.eae-thumb-horizontal-inside).eae-thumb-container.swiper' => 'margin-right: {{VALUE}}; width : 100%;',
+				],
+				'condition' => [
+				 	'thumb_horizontal_align' =>  ['top', 'bottom'],
+				],
+				
+			]
+		);
+
+		$args = [
+            'name' => 'thumb_align_pro_notice',
+            'conditions' => [
+                'thumb_horizontal_align' => [ 'inside' ],
+            ],
+        ];
+
+        Helper::add_eae_pro_notice_controls($this, $args);
+
+
+		$this->end_controls_section();
+
 		$this->start_controls_section(
 			'section_gallery',
 			[
@@ -242,7 +340,8 @@ class ThumbGallery extends EAE_Widget_Base {
 						'title' => __( 'Right', 'wts-eae' ),
 						'icon'  => 'eicon-h-align-right',
 					],
-				],
+				],				
+				'toggle' => true,
 				'selectors'            => [
 					'{{WRAPPER}} .eae-swiper-slide{{CURRENT_ITEM}} .eae-slide-inner .eae-slide-content' => '{{value}}',
 				],
@@ -280,7 +379,8 @@ class ThumbGallery extends EAE_Widget_Base {
 						'title' => __( 'Bottom', 'wts-eae' ),
 						'icon'  => 'eicon-v-align-bottom',
 					],
-				],
+				],				
+				'toggle' => false,
 				'selectors'            => [
 					'{{WRAPPER}} .eae-swiper-slide{{CURRENT_ITEM}} .eae-slide-inner' => 'align-items: {{VALUE}}',
 				],
@@ -606,6 +706,11 @@ class ThumbGallery extends EAE_Widget_Base {
 			]
 		);
 
+
+
+		
+
+
 		$this->add_responsive_control(
 			'slide_height',
 			[
@@ -756,28 +861,7 @@ class ThumbGallery extends EAE_Widget_Base {
 			]
 		);
 
-		$this->add_responsive_control(
-			'thumb_container_width',
-			[
-				'label'	=>	__('Width', 'wts-eae'),
-				'type'	=>	Controls_Manager::SLIDER,
-				'range'      => [
-					'px' => [
-						'min' => 100,
-						'max' => 1000,
-					],
-					'%'	=>	[
-						'min'	=>	10,
-						'max'	=>	100
-					],
-				],
-				'size_units' => [ 'px','%' ],
-				'selectors'  => [
-					'{{WRAPPER}} .eae-thumb-container' => 'width: {{SIZE}}{{UNIT}} !important;',
-				],
-				
-			]
-		);
+		
 
 		$this->add_responsive_control(
 			'thumb_slides_per_view',
@@ -867,7 +951,7 @@ class ThumbGallery extends EAE_Widget_Base {
 		$this->add_responsive_control(
 			'thumb_background_repeat',
 			[
-				'label'     => __( 'Image Position', 'wts-eae' ),
+				'label'     => __( 'Image Repeat', 'wts-eae' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'repeat',
 				'options'   => [
@@ -909,50 +993,11 @@ class ThumbGallery extends EAE_Widget_Base {
 			]
 		);
 
-		$this->add_responsive_control(
-			'thumb_alignment',
-			[
-				'label'        => __( 'Horizontal Position', 'wts-eae' ),
-				'type'         => Controls_Manager::CHOOSE,
-				'default'      => 'center',
-				'options'      => [
-					'left' => [
-						'title' => __( 'Left', 'wts-eae' ),
-						'icon'  => 'eicon-h-align-left',
-					],
-					'center' => [
-						'title' => __( 'Center', 'wts-eae' ),
-						'icon'  => 'eicon-h-align-center',
-					],
-					'right' => [
-						'title' => __( 'Right', 'wts-eae' ),
-						'icon'  => 'eicon-h-align-right',
-					],
-				],
-				'selectors_dictionary' => [
-					'left' => '100%',
-					'center' => 'auto',
-					'right'	=> '0%'
-				],
-				'selectors' => [
-					'{{WRAPPER}} .eae-swiper-outer-wrapper .eae-thumb-container.swiper-container' => 'margin-right: {{VALUE}}; width : 100%;',
-				],
-				
-			]
-		);
+		
 
-		$this->add_control(
-			'thumb_horizontal_align',
-			[
-				'label'   => __( 'Position', 'wts-eae' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					'top'    => __( 'Top', 'wts-eae' ),
-					'bottom' => __( 'Bottom', 'wts-eae' ),
-				],
-				'default' => 'bottom',
-			]
-		);
+		
+
+		
 
 		$this->end_controls_section();
 
@@ -1310,6 +1355,7 @@ class ThumbGallery extends EAE_Widget_Base {
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
+				'toggle' => false,
 				'prefix_class' => 'eae--hr-position-',
 			]
 		);
@@ -1334,6 +1380,7 @@ class ThumbGallery extends EAE_Widget_Base {
 						'icon'  => 'eicon-v-align-bottom',
 					],
 				],
+				'toggle' => false,
 				'prefix_class' => 'eae--vr-position-',
 			]
 		);
@@ -1880,6 +1927,16 @@ class ThumbGallery extends EAE_Widget_Base {
 			]
 		);
 
+		// Start Tabs
+		$this->start_controls_tabs( 'tabs_thumbnails_style' );
+
+		$this->start_controls_tab(
+			'style_normal_tab',
+			[
+				'label' => esc_html__( 'Normal', 'wts-eae' ),
+			]
+		);
+
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
@@ -1917,6 +1974,44 @@ class ThumbGallery extends EAE_Widget_Base {
 				],
 			]
 		);
+		
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'thumb_style_active_tab',
+			[
+				'label' => esc_html__( 'Active', 'wts-eae' ),
+			]
+		);
+
+		$this->add_control(
+			'thumb_active_border_color',
+			[
+				'label'      => __( 'Border Color', 'wts-eae' ),
+				'type'       => Controls_Manager::COLOR,
+				'selectors'  => [
+					'{{WRAPPER}} .eae-thumb-slide.swiper-slide-thumb-active' => 'border-color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'thumbnail_border_radius_active',
+			[
+				'label'      => __( 'Border Radius', 'wts-eae' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .eae-thumb-slide.swiper-slide-thumb-active'       => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+		
+		$this->end_controls_tabs();
+
+		
 
 		$this->add_control(
 			'thumb_arrows_heading',
@@ -1983,22 +2078,24 @@ class ThumbGallery extends EAE_Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		apply_filters('eae_thumbnail_slider/add_pro_controls', $this);
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();	
 		$slides   = $settings['slides'];
 
-		$slides_per_view['desktop'] = $settings['thumb_slides_per_view'] !== '' ? $settings['thumb_slides_per_view'] : 1;
-		$slides_per_view['tablet']  = $settings['thumb_slides_per_view_tablet'] !== '' ? $settings['thumb_slides_per_view_tablet'] : 1;
-		$slides_per_view['mobile']  = $settings['thumb_slides_per_view_mobile'] !== '' ? $settings['thumb_slides_per_view_mobile'] : 1;
+		// $slides_per_view['desktop'] = $settings['thumb_slides_per_view'] !== '' ? $settings['thumb_slides_per_view'] : 1;
+		// $slides_per_view['tablet']  = $settings['thumb_slides_per_view_tablet'] !== '' ? $settings['thumb_slides_per_view_tablet'] : 1;
+		// $slides_per_view['mobile']  = $settings['thumb_slides_per_view_mobile'] !== '' ? $settings['thumb_slides_per_view_mobile'] : 1;
 
-		$space_between['desktop'] = $settings['thumb_space_between'] !== '' ? $settings['thumb_space_between'] : 5;
-		$space_between['tablet']  = $settings['thumb_space_between_tablet'] !== '' ? $settings['thumb_space_between_tablet'] : 15;
-		$space_between['mobile']  = $settings['thumb_space_between_mobile'] !== '' ? $settings['thumb_space_between_mobile'] : 10;
+		// $space_between['desktop'] = $settings['thumb_space_between'] !== '' ? $settings['thumb_space_between'] : 5;
+		// $space_between['tablet']  = $settings['thumb_space_between_tablet'] !== '' ? $settings['thumb_space_between_tablet'] : 15;
+		// $space_between['mobile']  = $settings['thumb_space_between_mobile'] !== '' ? $settings['thumb_space_between_mobile'] : 10;
 
 		$slider_data = $this->get_swiper_settings( $settings );
-
+		//echo '<pre>';  print_r($slider_data); echo '</pre>';
 		$this->add_render_attribute( 'outer-wrapper', 'class', [ 'eae-swiper-outer-wrapper', 'eae-swiper' ] );
 
 		$this->add_render_attribute( 'outer-wrapper', 'data-swiper-settings', wp_json_encode( $slider_data ) );
@@ -2016,13 +2113,13 @@ class ThumbGallery extends EAE_Widget_Base {
 		<div <?php echo $this->get_render_attribute_string( 'outer-wrapper' ); ?>>
 			<?php
 
-			if ( $settings['thumb_horizontal_align'] === 'top' ) {
+			if ( $settings['thumb_horizontal_align'] === 'top' || $settings['thumb_horizontal_align'] === 'inside') {
 				$this->render_thumbslider( $slides, $settings );
 			}
 
 				$this->render_slider( $slides, $settings );
 
-			if ( $settings['thumb_horizontal_align'] === 'bottom' ) {
+			if ( $settings['thumb_horizontal_align'] === 'bottom'  ) {
 				$this->render_thumbslider( $slides, $settings );
 			}
 
@@ -2033,7 +2130,7 @@ class ThumbGallery extends EAE_Widget_Base {
 
 	public function render_slider( $slides, $settings ) {
 
-		$this->add_render_attribute( 'slider-container', 'class', [ 'eae-swiper-container', 'swiper-container' ] );
+		$this->add_render_attribute( 'slider-container', 'class', [ 'eae-swiper-container', 'swiper' ] );
 
 		$this->add_render_attribute( 'slider-wrapper', 'class', [ 'eae-swiper-wrapper', 'swiper-wrapper', 'slider_vertical_wrapper' ] );
 
@@ -2045,6 +2142,8 @@ class ThumbGallery extends EAE_Widget_Base {
 				<div <?php echo $this->get_render_attribute_string( 'slider-wrapper' ); ?>>
 					<?php
 					foreach ( $slides as $slide ) {
+						// echo '<pre>';  print_r($slide); echo '</pre>';
+						// die('df');
 						$link = '';
 						$id          = $slide['_id'];
 						$heading     = $slide['slide_heading'];
@@ -2062,14 +2161,14 @@ class ThumbGallery extends EAE_Widget_Base {
 							$this->remove_render_attribute( 'swiper-repeater-item', 'style' );
 						}
 
-						$this->set_render_attribute( 'slide-inner', 'class', 'eae-slide-inner' );
+						$this->set_render_attribute( "slide-inner-$id", 'class', 'eae-slide-inner' );
 						if ( $link !== '' && $slide['slide_link_click'] === 'slide' ) {
 							$slide_element = 'a';
-							$this->set_render_attribute( 'slide-inner', 'href', $link );
-							if ($slide['slide_link']['is_external'] == 'on') {
-								$this->set_render_attribute( 'slide-inner', 'target', '_blank' );
-							}
-							// $this->add_link_attributes( 'button', $settings['link'] );
+							//$this->set_render_attribute( 'slide-inner', 'href', $link );
+							// if ($slide['slide_link']['is_external'] == 'on') {
+							// 	$this->set_render_attribute( "slide-inner", 'target', '_blank' );
+							// }
+							$this->add_link_attributes( "slide-inner-$id", $slide['slide_link'] );
 						}else {
 							$this->remove_render_attribute( 'slide-inner', 'href' );
 							$this->remove_render_attribute( 'slide-inner', 'target');
@@ -2086,7 +2185,7 @@ class ThumbGallery extends EAE_Widget_Base {
 						printf(
 							'<%1$s %2$s>',
 							$slide_element,
-							$this->get_render_attribute_string( 'slide-inner' )
+							$this->get_render_attribute_string( "slide-inner-$id" )
 						);
 						?>
 							<?php if ( ! empty( $heading || $description || $button_text ) ) { ?>
@@ -2101,15 +2200,14 @@ class ThumbGallery extends EAE_Widget_Base {
 
 									<?php if ( ! empty( $button_text ) ) { ?>
 									<div class="eae-slide-button">
-										<?php if ( $link !== '' && $slide['slide_link_click'] === 'button' ) { 
-											$target = '';
-											if ($slide['slide_link']['is_external'] == 'on') {
-												$target = "_blank";
-											}
+										<?php
+											$this->add_render_attribute("eae-slide-button-$id", 'class', 'eae-slide-btn' ); 
+											if ( $link !== '' && $slide['slide_link_click'] === 'button' ) { 
+												$this->add_link_attributes("eae-slide-button-$id", $slide['slide_link']);
 											?>
-											<a class="eae-slide-btn" href="<?php echo $link; ?>" target="<?php echo $target; ?>"><?php echo $button_text; ?></a> 
+											<a <?php echo $this->get_render_attribute_string("eae-slide-button-$id");?>><?php echo $button_text; ?></a> 
 										<?php } else { ?>
-											<span class="eae-slide-btn"><?php echo $button_text; ?></span> 
+											<span <?php echo $this->get_render_attribute_string("eae-slide-button-$id");?>><?php echo $button_text; ?></span> 
 										<?php } ?>
 									</div>
 									<?php } ?>
@@ -2145,18 +2243,21 @@ class ThumbGallery extends EAE_Widget_Base {
 
 	public function render_thumbslider( $slides, $settings ) {
 
-		$this->add_render_attribute( 'thumb-container', 'class', [ 'eae-thumb-container', 'swiper-container', 'eae-gallery-thumbs' ] );
+		$this->add_render_attribute( 'thumb-container', 'class', [ 'eae-thumb-container', 'swiper', 'eae-gallery-thumbs' ] );
 		$this->add_render_attribute( 'thumb-wrapper', 'class', [ 'eae-thumb-wrapper', 'swiper-wrapper' ] );
-
 		$thumb_navigation = $settings['thumb_navigation'];
-
-		if ( $settings['thumb_horizontal_align'] === 'top' ) {
-			$this->add_render_attribute( 'thumb-container', 'class', [ 'eae-thumb-horizontal-top' ] );
-		}
-		if ( $settings['thumb_horizontal_align'] === 'bottom' ) {
-			$this->add_render_attribute( 'thumb-container', 'class', [ 'eae-thumb-horizontal-bottom' ] );
+		$pos = $settings['thumb_horizontal_align'];
+		if(!EAE::$is_pro && $pos == 'inside'){
+			$pos = 'top';
 		}
 
+		$this->add_render_attribute( 'thumb-container', 'class', [ 'eae-thumb-horizontal-'.$pos ] );
+		// if ( $settings['thumb_horizontal_align'] === 'top' ) {
+		// 	$this->add_render_attribute( 'thumb-container', 'class', [ 'eae-thumb-horizontal-top' ] );
+		// }
+		// if ( $settings['thumb_horizontal_align'] === 'bottom' ) {
+		// 	$this->add_render_attribute( 'thumb-container', 'class', [ 'eae-thumb-horizontal-bottom' ] );
+		// }
 		?>
 
 			<div <?php echo $this->get_render_attribute_string( 'thumb-container' ); ?>>
@@ -2180,7 +2281,6 @@ class ThumbGallery extends EAE_Widget_Base {
 						}
 
 						$this->set_render_attribute( 'thumb-repeater-item', 'style', 'background-image : url(' . $thumb_image_url . ');' );
-
 						?>
 					   
 						<div <?php echo $this->get_render_attribute_string( 'thumb-repeater-item' ); ?>>
@@ -2204,6 +2304,53 @@ class ThumbGallery extends EAE_Widget_Base {
 	}
 
 	public function get_swiper_settings( $settings ) {
+		$ele_breakpoints           = EPlugin::$instance->breakpoints->get_active_breakpoints();
+		$active_devices            = EPlugin::$instance->breakpoints->get_active_devices_list();
+		$active_breakpoints        = array_keys( $ele_breakpoints );
+		$break_value               = [];
+		foreach ( $active_devices as $active_device ) {
+			$min_breakpoint                = EPlugin::$instance->breakpoints->get_device_min_breakpoint( $active_device );
+			$break_value[ $active_device ] = $min_breakpoint;
+		}
+		$slider_data['breakpoints_value'] = $break_value;
+		foreach ( $active_devices as $break_key => $active_device ) {
+			//phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+			if ( in_array( $active_device, [ 'mobile', 'tablet', 'desktop' ] ) ) {
+				switch ( $active_device ) {
+					case 'mobile':
+						$slider_data['thumbs']['spaceBetween'][ $active_device ] = intval( $settings['thumb_space_between_' . $active_device] !== '' ? $settings['thumb_space_between_' . $active_device] : 10 );
+						break;
+					case 'tablet':
+						$slider_data['thumbs']['spaceBetween'][ $active_device ] = intval( $settings['thumb_space_between_' . $active_device] !== '' ? $settings['thumb_space_between_' . $active_device] : 15 );
+						break;
+					case 'desktop':
+						$slider_data['thumbs']['spaceBetween']['default'] = intval( $settings['thumb_space_between'] !== '' ? $settings['thumb_space_between'] : 5 );
+						break;
+				}
+			} else {
+				$slider_data['thumbs']['spaceBetween'][ $active_device ] = intval( $settings['thumb_space_between_' . $active_device] !== '' ? $settings['thumb_space_between_' . $active_device]: 15 );
+			}
+		}
+		// SlidesPerView
+		foreach ( $active_devices as $break_key => $active_device ) {
+			//phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+			if ( in_array( $active_device, [ 'mobile', 'tablet', 'desktop' ] ) ) {
+				switch ( $active_device ) {
+					case 'mobile':
+						$slider_data['thumbs']['slidesPerView'][ $active_device ] = intval( $settings['thumb_slides_per_view_' . $active_device] !== '' ? $settings['thumb_slides_per_view_' . $active_device] : 1 );
+						break;
+					case 'tablet':
+						$slider_data['thumbs']['slidesPerView'][ $active_device ] = intval( $settings['thumb_slides_per_view_' . $active_device] !== '' ? $settings['thumb_slides_per_view_' . $active_device] : 2 );
+						break;
+					case 'desktop':
+						$slider_data['thumbs']['slidesPerView']['default'] = intval( $settings['thumb_slides_per_view'] !== '' ? $settings['thumb_slides_per_view'] : 3 );
+						break;
+				}
+			} else {
+				$slider_data['thumbs']['slidesPerView'][ $active_device ] = intval( $settings['thumb_slides_per_view_' . $active_device] !== '' ? $settings['thumb_slides_per_view_' . $active_device] : 2 );
+			}
+		}
+
 
 		$slider_data['effect'] = $settings['slider_effect'];
 
@@ -2227,9 +2374,28 @@ class ThumbGallery extends EAE_Widget_Base {
 			$swiper_data['autoplay'] = false;
 		}
 
-		$slider_data['spaceBetween']['desktop'] = $settings['slider_space_between']['size'];
-		$slider_data['spaceBetween']['tablet']  = $settings['slider_space_between_tablet']['size'];
-		$slider_data['spaceBetween']['mobile']  = $settings['slider_space_between_mobile']['size'];
+		foreach ( $active_devices as $break_key => $active_device ) {
+			//phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+			if ( in_array( $active_device, [ 'mobile', 'tablet', 'desktop' ] ) ) {
+				switch ( $active_device ) {
+					case 'mobile':
+						$slider_data['spaceBetween'][ $active_device ] = intval( $settings['slider_space_between_' . $active_device]['size'] !== '' ? $settings['slider_space_between_' . $active_device] : 10 );
+						break;
+					case 'tablet':
+						$slider_data['spaceBetween'][ $active_device ] = intval( $settings['slider_space_between_' . $active_device]['size'] !== '' ? $settings['slider_space_between_' . $active_device] : 15 );
+						break;
+					case 'desktop':
+						$slider_data['spaceBetween']['default'] = intval( $settings['slider_space_between']['size'] !== '' ? $settings['slider_space_between']['size'] : 5 );
+						break;
+				}
+			} else {
+				$slider_data['spaceBetween'][ $active_device ] = intval( $settings['slider_space_between_' . $active_device]['size'] !== '' ? $settings['slider_space_between_' . $active_device]['size']: 15 );
+			}
+		}
+
+		// $slider_data['spaceBetween']['desktop'] = $settings['slider_space_between']['size'];
+		// $slider_data['spaceBetween']['tablet']  = $settings['slider_space_between_tablet']['size'];
+		// $slider_data['spaceBetween']['mobile']  = $settings['slider_space_between_mobile']['size'];
 
 		if ( ! empty( $settings['slider_loop'] ) ) {
 			$slider_data['loop'] = $settings['slider_loop'];
@@ -2246,7 +2412,7 @@ class ThumbGallery extends EAE_Widget_Base {
 		$settings['slider_clickable'] === 'yes' ? $slider_data['clickable'] = true : $slider_data['clickable'] = false;
 
 		$settings['slider_keyboard'] === 'yes' ? $slider_data['keyboard'] = true : $slider_data['keyboard'] = false;
-
+		
 		return $slider_data;
 	}
 }

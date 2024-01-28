@@ -17,11 +17,11 @@ class Chart extends EAE_Widget_Base {
 
 	public function get_title() {
 
-		return __( 'EAE - Chart', 'wts-eae' );
+		return __( 'Chart', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-text-align-left';
+		return 'eae-icon eae-chart';
 	}
 
 	public function get_categories() {
@@ -79,7 +79,7 @@ class Chart extends EAE_Widget_Base {
 				'label'       => __( 'Label', 'wts-eae' ),
 				'label_block' => true,
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Lable', 'wts-eae' ),
+				'default'     => __( 'Label', 'wts-eae' ),
 				'placeholder' => __( 'Enter your label', 'wts-eae' ),
 			]
 		);
@@ -712,15 +712,15 @@ class Chart extends EAE_Widget_Base {
 				'options'   => [
 					'start' => [
 						'title' => __( 'Left', 'wts-eae' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center' => [
 						'title' => __( 'Center', 'wts-eae' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
 					'end' => [
 						'title' => __( 'Right', 'wts-eae' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default'   => 'center',
@@ -1586,6 +1586,7 @@ class Chart extends EAE_Widget_Base {
 				],
 			]
 		);
+		
 
 		$this->add_control(
 			'yaxes_lable_style',
@@ -2283,17 +2284,17 @@ class Chart extends EAE_Widget_Base {
 				'label'     => __( 'Alignment', 'wts-eae' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left' => [
+					'start' => [
 						'title' => __( 'Left', 'wts-eae' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center' => [
 						'title' => __( 'Center', 'wts-eae' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'end' => [
 						'title' => __( 'Right', 'wts-eae' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default'   => 'left',
@@ -2453,17 +2454,17 @@ class Chart extends EAE_Widget_Base {
 				'label'     => __( 'Alignment', 'wts-eae' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left' => [
+					'start' => [
 						'title' => __( 'Left', 'wts-eae' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center' => [
 						'title' => __( 'Center', 'wts-eae' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'end' => [
 						'title' => __( 'Right', 'wts-eae' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default'   => 'left',

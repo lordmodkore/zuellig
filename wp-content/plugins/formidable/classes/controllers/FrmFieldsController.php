@@ -73,16 +73,22 @@ class FrmFieldsController {
 	/**
 	 * Set up and create a new field
 	 *
-	 * @param string $field_type
+	 * @param string  $field_type
 	 * @param integer $form_id
 	 *
 	 * @return array|bool
 	 */
 	public static function include_new_field( $field_type, $form_id ) {
 		$field_values = FrmFieldsHelper::setup_new_vars( $field_type, $form_id );
-		$field_values = apply_filters( 'frm_before_field_created', $field_values );
 
-		$field_id = FrmField::create( $field_values );
+		// When a new field is added to the form, flag it as draft and hide it from the front-end.
+		$field_values['field_options']['draft'] = 1;
+
+		/**
+		 * @param array $field_values
+		 */
+		$field_values = apply_filters( 'frm_before_field_created', $field_values );
+		$field_id     = FrmField::create( $field_values );
 
 		if ( ! $field_id ) {
 			return false;
@@ -138,8 +144,8 @@ class FrmFieldsController {
 	 * @since 3.0
 	 *
 	 * @param int|array|object $field_object
-	 * @param array $values
-	 * @param int $form_id
+	 * @param array            $values
+	 * @param int              $form_id
 	 */
 	public static function load_single_field( $field_object, $values, $form_id = 0 ) {
 		global $frm_vars;
@@ -204,8 +210,9 @@ class FrmFieldsController {
 		wp_die();
 	}
 
-	/* Field Options */
-
+	/**
+	 * Field Options.
+	 */
 	public static function import_options() {
 		FrmAppHelper::permission_check( 'frm_edit_forms' );
 		check_ajax_referer( 'frm_ajax', 'nonce' );
@@ -313,7 +320,8 @@ class FrmFieldsController {
 		if ( $display['clear_on_focus'] && is_array( $field['placeholder'] ) ) {
 			$field['placeholder'] = implode( ', ', $field['placeholder'] );
 		}
-		include( FrmAppHelper::plugin_path() . '/classes/views/frm-fields/back-end/settings.php' );
+
+		include FrmAppHelper::plugin_path() . '/classes/views/frm-fields/back-end/settings.php';
 	}
 
 	/**
@@ -389,8 +397,11 @@ class FrmFieldsController {
 		}
 
 		$pro_fields = FrmField::pro_field_selection();
-		$types      = array_keys( $pro_fields );
-		if ( in_array( $type, $types ) ) {
+		// We want to keep credit_card types as credit card types for Stripe Lite.
+		// The credit_card key is set for backward compatibility.
+		unset( $pro_fields['credit_card'] );
+
+		if ( array_key_exists( $type, $pro_fields ) ) {
 			$type = 'text';
 		}
 
@@ -398,7 +409,7 @@ class FrmFieldsController {
 	}
 
 	/**
-	 * @param array $settings
+	 * @param array  $settings
 	 * @param object $field_info
 	 *
 	 * @return array
@@ -494,7 +505,7 @@ class FrmFieldsController {
 	}
 
 	private static function add_html_cols( $field, array &$add_html ) {
-		if ( ! in_array( $field['type'], array( 'textarea', 'rte' ) ) ) {
+		if ( ! in_array( $field['type'], array( 'textarea', 'rte' ), true ) ) {
 			return;
 		}
 
@@ -611,12 +622,29 @@ class FrmFieldsController {
 			$placeholder = self::get_default_value_from_name( $field );
 		}
 
+		$use_placeholder = $placeholder;
+		$autocomplete    = FrmField::get_option( $field, 'autocom' );
+
+		if ( $autocomplete ) {
+			$use_chosen = ! is_callable( 'FrmProAppHelper::use_chosen_js' ) || FrmProAppHelper::use_chosen_js();
+			if ( $use_chosen ) {
+				$use_placeholder = '';
+			}
+		}
+
 		if ( $placeholder !== '' ) {
-			?>
-			<option value="">
-				<?php echo esc_html( FrmField::get_option( $field, 'autocom' ) ? '' : $placeholder ); ?>
-			</option>
-			<?php
+			$placeholder_attributes = array(
+				'class'            => 'frm-select-placeholder',
+				'value'            => '',
+				'data-placeholder' => 'true',
+			);
+
+			if ( $autocomplete && empty( $use_chosen ) ) {
+				// This is required for Slim Select.
+				$placeholder_attributes['data-placeholder'] = 'true';
+			}
+
+			FrmHtmlHelper::echo_dropdown_option( $use_placeholder, false, $placeholder_attributes );
 			return true;
 		}
 
@@ -753,7 +781,14 @@ class FrmFieldsController {
 	 * @param array $add_html
 	 */
 	private static function maybe_add_html_required( $field, array &$add_html ) {
-		if ( in_array( $field['type'], array( 'file', 'data', 'lookup' ), true ) ) {
+		$excluded_field_types =
+			FrmField::is_radio( $field ) ||
+			FrmField::is_checkbox( $field ) ||
+			FrmField::is_field_type( $field, 'file' ) ||
+			FrmField::is_field_type( $field, 'nps' ) ||
+			FrmField::is_field_type( $field, 'scale' );
+
+		if ( $excluded_field_types ) {
 			return;
 		}
 
@@ -901,9 +936,9 @@ class FrmFieldsController {
 	 * @deprecated 3.0
 	 * @codeCoverageIgnore
 	 *
-	 * @param int $field_id
+	 * @param int   $field_id
 	 * @param array $values
-	 * @param int $form_id
+	 * @param int   $form_id
 	 *
 	 * @return array
 	 */

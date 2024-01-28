@@ -53,7 +53,7 @@ class AIOWPSecurity_Blocking {
 	}
 
 	/**
-	 * Will add an IP address to the permament block list
+	 * Will add an IP address to the permanent block list
 	 *
 	 * @param int    $ip_address
 	 * @param string $reason
@@ -62,7 +62,8 @@ class AIOWPSecurity_Blocking {
 	public static function add_ip_to_block_list($ip_address, $reason = '') {
 		global $wpdb, $aio_wp_security;
 		$user = wp_get_current_user();
-		if (array_intersect(array('administrator', 'editor', 'author'), $user->roles) && AIOWPSecurity_Utility_IP::get_user_ip_address() == $ip_address) {
+		$roles_allowed_to_block_ips = apply_filters('aio_roles_allowed_to_block_ips', array('administrator', 'editor', 'author'));
+		if ('spam_discard' != $reason && array_intersect($roles_allowed_to_block_ips, $user->roles) && AIOWPSecurity_Utility_IP::get_user_ip_address() == $ip_address) {
 			return;
 		}
 

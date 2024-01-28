@@ -23,16 +23,30 @@ jQuery(document).ready(function($){
 
               const tab_anchors = document.querySelectorAll('.eae-tabs .eae-title');
               const tab_id = e.target.dataset.tabid;
-
+              
+              if(tab_id === 'eae-get-pro'){
+                const pro_link = e.target.getAttribute('href');
+                window.open(pro_link, '_blank');
+                return;
+              }
               tab_anchors.forEach( tab_anchor => tab_anchor.classList.remove('active') );
               e.target.parentElement.classList.add('active');
-
-              
               document.querySelectorAll('.eae-tab-content').forEach( tab_content => tab_content.classList.remove('active') );
-              document.querySelector(`#${tab_id}`).classList.add('active');
+            //   document.querySelector(`#${tab_id}`).classList.add('active');
+                document.querySelectorAll('.eae-tab-content').forEach( tab_content => tab_content.hasAttribute('id') ? tab_content.getAttribute('id') === tab_id ? tab_content.classList.add('active') : '' : ''); 
 
           });
       });
+
+      let $hashtag = window.location.hash.substring(1);
+      let all_tabs = document.querySelectorAll('.eae-tabs .eae-title');
+      
+        if ($hashtag) {
+            all_tabs.forEach( tab => tab.classList.remove('active') );
+            document.querySelectorAll('.eae-tab-content').forEach( tab_content => tab_content.classList.remove('active') );
+            all_tabs.forEach( tab => tab.hasAttribute('id') ? tab.getAttribute('id') === $hashtag ? tab.classList.add('active') : '' : '');
+            document.querySelectorAll('.eae-tab-content').forEach( tab_content => tab_content.hasAttribute('id') ? tab_content.getAttribute('id') === $hashtag ? tab_content.classList.add('active') : '' : '');                
+        }
 
 
 
@@ -53,10 +67,20 @@ jQuery(document).ready(function($){
 
 
       // Bind event for Activate/Deactivate button
+
       moduleCtas.forEach(function(moduleAction){
-          moduleAction.addEventListener('click', function(e){
+          moduleAction.addEventListener('click', function(e){  
               e.stopPropagation();
               e.preventDefault();
+              
+              // check if target has href and it is not blank
+            if(e.target.hasAttribute('href') && e.target.getAttribute('href') !== '#'){
+                // redirect to the link
+                const link = e.target.getAttribute('href');
+                window.open(link, '_blank');
+                return;
+            }
+              
 
               const cta = e.target;
               const moduleKey = cta.dataset.moduleid;
@@ -73,13 +97,15 @@ jQuery(document).ready(function($){
                   data: {
                       action : 'eae_elements_save',
                       moduleData,
-                      //nonce : eaeGlobalVar.nonce
+                      nonce: eaeGlobalVar.nonce
                   },
                   success: function(res){
 
-                      const modules = res.modules;
+                    const modules = res.modules;
+                    
+                    if(modules != undefined){
 
-                      for(module in modules){
+                        for(module in modules){
                            
                           if (modules.hasOwnProperty(module)) {
                               let status = modules[module];
@@ -107,8 +133,8 @@ jQuery(document).ready(function($){
                               moduleCBs = document.querySelectorAll('.eae-module-item');
                               moduleCBs.forEach( modulecb => modulecb.checked = false );
                           }
-                      }
-
+                        }
+                    }
                   }
               });
 
@@ -132,8 +158,8 @@ jQuery(document).ready(function($){
               
               if(module.checked){
                   moduleData[module.value] = bulkAction;
-                  if(module.nextSibling.nextSibling.children[0].hasAttribute('data-moduleid')){
-                      module.nextSibling.nextSibling.children[0].classList.add('updating');
+                  if(module.closest('.eae-module-row').querySelector('.eae-module-action').children[0].hasAttribute('data-moduleid')){
+                    module.closest('.eae-module-row').querySelector('.eae-module-action').classList.add('updating');
                   }
               }
               
@@ -151,7 +177,7 @@ jQuery(document).ready(function($){
               data: {
                   action : 'eae_elements_save',
                   moduleData,
-                  //nonce : eaeGlobalVar.nonce
+                  nonce : eaeGlobalVar.nonce
               },
               success: function(res){
 
@@ -194,8 +220,11 @@ jQuery(document).ready(function($){
       // Save Config
 
       saveConfig.addEventListener('click', function(e){
-
+          let wts_eae_youtube_api_key = '';
           const wts_eae_gmap_key = document.querySelector('#wts_eae_gmap_key').value;
+          if(document.querySelector('#wts_eae_youtube_api_key') !== null){
+             wts_eae_youtube_api_key = document.querySelector('#wts_eae_youtube_api_key').value;
+          }
           //const use_tsParticle = document.querySelector('#use_tsParticle').checked;
           //const eae_particle_library = document.querySelector('[name="eae-particle-library"]').value;
           //console.log(use_tsParticle);
@@ -211,14 +240,16 @@ jQuery(document).ready(function($){
                   action: 'eae_save_config',
                   config: {
                       wts_eae_gmap_key,
+                      wts_eae_youtube_api_key
                       //eae_particle_library
                   },
-                  
-
+                nonce: eaeGlobalVar.nonce
               },
               
               success: function(res){
-                  btn.classList.remove('loading');
+                if(res.success == 1){
+                    btn.classList.remove('loading');
+                }   
               }
           })
       })

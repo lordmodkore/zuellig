@@ -6,6 +6,7 @@ if (!defined('AIOWPS_FIREWALL_DIR')) {
 	exit();
 }
 
+
 /**
  * Loads and executes our firewall
  */
@@ -34,7 +35,13 @@ class Loader {
 			if ($this->is_preloader_directly_accessed()) return;
 			
 			$this->init();
+
+			global $aiowps_constants;
+			if ($aiowps_constants->AIOS_NO_FIREWALL) return;
 	
+			//Allow list for bypassing PHP rules
+			if (Allow_List::is_ip_allowed()) return;
+
 			$families = new Family_Collection(Family_Builder::get_families());
 
 			foreach (Rule_Builder::get_active_rule() as $rule) {
@@ -45,6 +52,9 @@ class Loader {
 				$member->apply_all();
 			}
 			
+		} catch (Exit_Exception $e) {
+			$this->log_message($e->getMessage());
+			exit();
 		} catch (\Exception $e) {
 			$this->log_message($e->getMessage());
 		} catch (\Error $e) {
@@ -54,7 +64,7 @@ class Loader {
 	}
 
 	/**
-	 * Performs general initalisation
+	 * Performs general initialisation
 	 *
 	 * @return void
 	 */
@@ -102,7 +112,10 @@ class Loader {
 			throw new \Exception('unable to locate workspace.');
 		}
 
+		
 		$GLOBALS['aiowps_firewall_config'] = new Config($workspace . 'settings.php');
+		$GLOBALS['aiowps_constants'] = new Constants();
+		Allow_List::set_path($workspace.'allowlist.php');
 		
 	 }
 
@@ -151,7 +164,10 @@ class Loader {
 					AIOWPS_FIREWALL_DIR."/rule/rules/6g/{$rule}",
 					AIOWPS_FIREWALL_DIR."/rule/rules/bruteforce/{$rule}",
 					AIOWPS_FIREWALL_DIR."/rule/rules/blacklist/{$rule}",
+					AIOWPS_FIREWALL_DIR."/rule/rules/general/{$rule}",
+					AIOWPS_FIREWALL_DIR."/rule/rules/bots/{$rule}",
 					AIOWPS_FIREWALL_DIR."/libs/{$file}",
+					AIOWPS_FIREWALL_DIR."/libs/traits/{$classname}.php",
 				);
 
 				clearstatcache();
@@ -164,6 +180,21 @@ class Loader {
 			}
 		});
 		
+		// Manually include needed files
+		$classes_dir = dirname(AIOWPS_FIREWALL_DIR);
+
+		$manual_files = array(
+			$classes_dir.'/wp-security-helper.php',
+		);
+
+		foreach ($manual_files as $file) {
+			clearstatcache();
+			if (file_exists($file)) include_once $file;
+		}
+
+		if (Context::wordpress_safe()) {
+			include_once("{$classes_dir}/wp-security-utility-file.php");
+		}
 	}
 
 	/**

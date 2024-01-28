@@ -20,17 +20,6 @@ class AIOWPSecurity_Utility {
 	}
 
 	/**
-	 * Check whether the current logged in user has the capability to manage the AIOWPS plugin
-	 *
-	 * @return Boolean True if the logged in user has capability to manage the AIOWPS plugin, otherwise false
-	 */
-	public static function has_manage_cap() {
-		// This filter will useful when the administrator would like to give permission to access AIOWPS to Security Analyst.
-		$cap = apply_filters('aiowps_management_capability', apply_filters('aios_management_permission', 'manage_options'));
-		return current_user_can($cap);
-	}
-
-	/**
 	 * Explode $string with $delimiter, trim all lines and filter out empty ones.
 	 *
 	 * @param string $string
@@ -40,6 +29,17 @@ class AIOWPSecurity_Utility {
 	public static function explode_trim_filter_empty($string, $delimiter = PHP_EOL) {
 		return array_filter(array_map('trim', explode($delimiter, $string)), 'strlen');
 	}
+	
+	/**
+	 * Split $string with newline, trim all lines and filter out empty ones.
+	 * This method to be used on historical settings where the separator may have depended on PHP_EOL
+	 *
+	 * @param string $string
+	 * @return array
+	 */
+	public static function splitby_newline_trim_filter_empty($string) {
+		return array_filter(array_map('trim', preg_split('/\R/', $string)), 'strlen'); //\R line break: matches \n, \r and \r\n
+	}
 
 	/**
 	 * Returns the current URL
@@ -47,7 +47,7 @@ class AIOWPSecurity_Utility {
 	 * @return string
 	 */
 	public static function get_current_page_url() {
-		if (defined('WP_CLI') && WP_CLI) return '';
+		if ((defined('WP_CLI') && WP_CLI) || (defined('DOING_CRON') && DOING_CRON)) return '';
 
 		$pageURL = 'http';
 		if (isset($_SERVER["HTTPS"]) && "on" == $_SERVER["HTTPS"]) {
@@ -171,7 +171,7 @@ class AIOWPSecurity_Utility {
 	 * @return string
 	 */
 	public static function generate_alpha_numeric_random_string($string_length) {
-		//Charecters present in table prefix
+		//Characters present in table prefix
 		$allowed_chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
 		$string = '';
 		//Generate random string
@@ -189,7 +189,7 @@ class AIOWPSecurity_Utility {
 	 * @return string
 	 */
 	public static function generate_alpha_random_string($string_length) {
-		//Charecters present in table prefix
+		//Characters present in table prefix
 		$allowed_chars = 'abcdefghijklmnopqrstuvwxyz';
 		$string = '';
 		//Generate random string
@@ -248,12 +248,14 @@ class AIOWPSecurity_Utility {
 	}
 
 	/**
-	 * This is a general yellow box message for when we want to suppress a feature's config items because site is subsite of multi-site
+	 * This is a general yellow box message for when we want to suppress a feature's config items on multisite because current user is not super admin.
+	 *
+	 * @return void
 	 */
-	public static function display_multisite_message() {
+	public static function display_multisite_super_admin_message() {
 		echo '<div class="aio_yellow_box">';
 		echo '<p>' . __('The plugin has detected that you are using a Multi-Site WordPress installation.', 'all-in-one-wp-security-and-firewall') . '</p>
-			  <p>' . __('This feature can only be configured by the "superadmin" on the main site.', 'all-in-one-wp-security-and-firewall') . '</p>';
+			  <p>' . __('Some features on this page can only be configured by the "superadmin".', 'all-in-one-wp-security-and-firewall') . '</p>';
 		echo '</div>';
 	}
 
@@ -397,7 +399,7 @@ class AIOWPSecurity_Utility {
 			$user_id = 0;
 		}
 
-		if ('404' == $event_type) {
+		if ('404' == $event_type || 'spam_discard' == $event_type) {
 			//if 404 event get some relevant data
 			$url = isset($_SERVER['REQUEST_URI']) ? esc_attr($_SERVER['REQUEST_URI']) : '';
 			$referer_info = isset($_SERVER['HTTP_REFERER']) ? esc_attr($_SERVER['HTTP_REFERER']) : '';
@@ -592,7 +594,43 @@ class AIOWPSecurity_Utility {
 		}
 		return (false === $result) ? false : true;
 	}
+
+	/**
+	 * Add backquotes to tables and db-names in SQL queries. Taken from phpMyAdmin.
+	 *
+	 * @param  string $a_name - the table name
+	 * @return string - the quoted table name
+	 */
+	public static function backquote($a_name) {
+		if (!empty($a_name) && '*' != $a_name) {
+			if (is_array($a_name)) {
+				$result = array();
+				foreach ($a_name as $key => $val) {
+					$result[$key] = '`'.$val.'`';
+				}
+				return $result;
+			} else {
+				return '`'.$a_name.'`';
+			}
+		} else {
+			return $a_name;
+		}
+	}
 	
+	/**
+	 * Replace the first, and only the first, instance within a string
+	 *
+	 * @param String $needle   - the search term
+	 * @param String $replace  - the replacement term
+	 * @param String $haystack - the string to replace within
+	 *
+	 * @return String - the filtered string
+	 */
+	public static function str_replace_once($needle, $replace, $haystack) {
+		$pos = strpos($haystack, $needle);
+		return (false !== $pos) ? substr_replace($haystack, $replace, $pos, strlen($needle)) : $haystack;
+	}
+
 	/**
 	 * Delete expired CAPTCHA info option
 	 *
@@ -766,12 +804,41 @@ class AIOWPSecurity_Utility {
 	}
 
 	/**
+	 * Normalise call stacks by clearing out unnecessary objects from their arguments list, leaving only the first arguments as a string. The call stacks should be one that is generated by debug_backtrace() function.
+	 *
+	 * @param array $backtrace The output of the debug_backtrace() function
+	 * @return array An array of associative arrays after being normalised
+	 */
+	public static function normalise_call_stack_args($backtrace) {
+		foreach ($backtrace as $index => $element) {
+			if (!isset($element['args']) || !is_array($element['args']) || !isset($element['args'][0])) $backtrace[$index]['args'] = array('');
+			foreach ($backtrace[$index]['args'] as $key => $arg) {
+				if (is_object($arg)) {
+					$backtrace[$index]['args'][$key] = array(get_class($backtrace[$index]['args'][$key]));
+				} elseif (!is_string($arg)) {
+					$backtrace[$index]['args'][$key] = array('');
+				}
+			}
+			
+			if ('apply_filters' == $backtrace[$index]['function'] && 'authenticate' == $backtrace[$index]['args'][0]) {
+				$backtrace[$index]['args'] = array('authenticate');
+			}
+			
+			$keys_to_filter = array('wp_create_user', 'wpmu_create_user', 'wp_authenticate', 'post_authenticate');
+			if (in_array($backtrace[$index]['function'], $keys_to_filter)) {
+				$backtrace[$index]['args'] = array();
+			}
+		}
+		return $backtrace;
+	}
+
+	/**
 	 * Check whether the WooCommerce plugin is active.
 	 *
 	 * @return Boolean True if the WooCommerce plugin is active, otherwise false.
 	 */
 	public static function is_woocommerce_plugin_active() {
-		return class_exists('WooCommerce');
+		return is_plugin_active('woocommerce/woocommerce.php');
 	}
 
 	/**
@@ -843,5 +910,136 @@ class AIOWPSecurity_Utility {
 	 */
 	public static function is_apache_server() {
 		return (false !== strpos(self::get_server_software(), 'Apache'));
+	}
+
+	/**
+	 * Change salt postfixes.
+	 *
+	 * @return boolean True if the salt postfixes are changed otherwise false.
+	 */
+	public static function change_salt_postfixes() {
+		global $aio_wp_security;
+
+		$salt_postfixes = array(
+			'auth' => wp_generate_password(64, true, true),
+			'secure_auth' => wp_generate_password(64, true, true),
+			'logged_in' => wp_generate_password(64, true, true),
+			'nonce' => wp_generate_password(64, true, true),
+		);
+
+		return $aio_wp_security->configs->set_value('aiowps_salt_postfixes', $salt_postfixes, true);
+	}
+
+	/**
+	 * This function checks to see if there is a display condition for the item and if so runs it otherwise it returns true to display the item
+	 *
+	 * @param array $item_info - the item information array
+	 *
+	 * @return boolean - true if the item should be displayed or false to hide it
+	 */
+	public static function should_display_item($item_info) {
+		if (!empty($item_info['display_condition_callback']) && is_callable($item_info['display_condition_callback'])) {
+			return call_user_func($item_info['display_condition_callback']);
+		} elseif (!empty($item_info['display_condition_callback']) && !is_callable($item_info['display_condition_callback'])) {
+			$item = isset($item_info['page_title']) ? $item_info['page_title'] : '';
+			error_log("Callback function set but not callable (coding error). Item: " . $item);
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Verify the username is valid based on logged_in cookie information
+	 *
+	 * @see https://developer.wordpress.org/reference/functions/wp_validate_auth_cookie/
+	 * @param  string $info  - Cookie info
+	 * @param  int    $grace - A grace period for the expiration in seconds
+	 * @return string       - Username if valid; blank string otherwise
+	 */
+	public static function verify_username($info, $grace = 3600) {
+		
+		if (!is_string($info)) return '';
+
+		$elements = wp_parse_auth_cookie($info, 'logged_in');
+
+		if (empty($elements)) return '';
+
+		$username   = $elements['username'];
+		$expiration = $elements['expiration'];
+		$token      = $elements['token'];
+		$hmac       = $elements['hmac'];
+		$scheme     = $elements['scheme'];
+
+		// Add a grace period to the expiration check since there may be a delay in processing the user data
+		if (!empty($grace) && ($expiration + absint($grace)) < time()) return '';
+
+		$user = get_user_by('login', $username);
+
+		if (false === $user) return '';
+
+		$pass_frag = substr($user->user_pass, 8, 4);
+
+		$key = wp_hash($username . '|' . $pass_frag . '|' . $expiration . '|' . $token, $scheme);
+
+		// Use sha1, if sha256 is not available
+		$algo = function_exists('hash') ? 'sha256' : 'sha1';
+		$hash = hash_hmac($algo, $username . '|' . $expiration . '|' . $token, $key);
+
+		if (hash_equals($hash, $hmac)) {
+			return $username;
+		}
+
+		return '';
+	}
+
+	/**
+	 * Get the blog ID from the provided request
+	 *
+	 * @param array $request
+	 * @return int - returns the blog_id or 0 if it cannot be found
+	 */
+	public static function get_blog_id_from_request($request) {
+
+		if (!is_multisite()) return get_current_blog_id();
+
+		$can_get_blog_id = isset($request['REQUEST_SCHEME']) && isset($request['HTTP_HOST']) && isset($request['REQUEST_URI']);
+		if (!$can_get_blog_id) return 0;
+
+		$site_url   = $request['REQUEST_SCHEME'].'://'.$request['HTTP_HOST'].$request['REQUEST_URI'];
+		$components = parse_url(trailingslashit($site_url));
+
+		$can_get_blog_id = isset($components['host']) && isset($components['path']);
+		if (!$can_get_blog_id) return 0;
+
+		$default_path = defined('PATH_CURRENT_SITE') ? constant('PATH_CURRENT_SITE') : '/';
+
+		$domain = $components['host'];
+		$path   = SUBDOMAIN_INSTALL ? $default_path : ($default_path === $components['path'] ? $components['path'] : '/'.explode('/', $components['path'])[1].'/');
+
+		$blog_id = get_blog_id_from_url($domain, $path);
+		
+		// On a subdirectory installation, if the blog_id cannot be found for the subdirectory given, we assume it's a path belonging to the main site
+		// So use the main site's blog_id.
+		if (0 === $blog_id && !SUBDOMAIN_INSTALL) $blog_id = get_blog_id_from_url($domain, $default_path);
+
+		return $blog_id;
+	}
+
+	/**
+	 * Checks if the bbPress plugin is active.
+	 *
+	 * @return Boolean True if the bbPress plugin is active, otherwise false.
+	 */
+	public static function is_bbpress_plugin_active() {
+		return is_plugin_active('bbpress/bbpress.php');
+	}
+
+	/**
+	 * Checks if the Buddypress plugin is active.
+	 *
+	 * @return Boolean True if the Buddypress plugin is active, otherwise false.
+	 */
+	public static function is_buddypress_plugin_active() {
+		return is_plugin_active('buddypress/bp-loader.php');
 	}
 }

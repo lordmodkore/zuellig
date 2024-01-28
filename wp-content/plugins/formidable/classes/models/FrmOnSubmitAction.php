@@ -52,6 +52,7 @@ class FrmOnSubmitAction extends FrmFormAction {
 			'show_form'       => '',
 			'success_url'     => '',
 			'success_page_id' => '',
+			'open_in_new_tab' => '',
 		);
 	}
 
@@ -60,8 +61,8 @@ class FrmOnSubmitAction extends FrmFormAction {
 	 * The newly calculated value of $instance should be returned.
 	 * If "false" is returned, the instance won't be saved/updated.
 	 *
-	 * @param array $new_instance New settings for this instance as input by the user via form()
-	 * @param array $old_instance Old settings for this instance
+	 * @param array $new_instance New settings for this instance as input by the user via form().
+	 * @param array $old_instance Old settings for this instance.
 	 *
 	 * @return array Settings to save or bool false to cancel saving
 	 */

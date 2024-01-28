@@ -29,11 +29,11 @@ class FilterableGallery extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Filterable Gallery', 'wts-eae' );
+		return __( 'Filterable Gallery', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-gallery-group wts-eae-pe';
+		return 'eae-icon eae-filterable-gallery';
 	}
 
 	public function get_categories() {
@@ -1394,12 +1394,12 @@ class FilterableGallery extends EAE_Widget_Base {
 		?>
 		<div <?php echo $this->get_render_attribute_string( 'gallery-wrapper' ); ?>>
 			<div class="eae-gallery-filter">
-				<?PHP if ( $settings['show_all'] === 'yes' && count( $settings['eae_filterable_gallery_content'] ) > 1 ) { ?>
+				<?php if ( $settings['show_all'] === 'yes' && count( $settings['eae_filterable_gallery_content'] ) > 1 ) { ?>
 					<a href="#" data-filter="*" data-filter-name="all" class="eae-filter-label current"><?php echo $settings['show_all_tab_text']; ?></a>
 				<?php } ?>
 				<?php
+				$demo_images = [];
 				if ( count( $settings['eae_filterable_gallery_content'] ) > 1 ) {
-					$demo_images = [];
 					if ( empty( $filter_group[0]['eae_img_gallery'] ) && empty( $filter_group[1]['eae_img_gallery'] ) && empty( $filter_group[0]['eae_img_gallery'] ) ) {
 						$demo_images[] = $this->get_placeholder_images();
 					}
@@ -1412,10 +1412,11 @@ class FilterableGallery extends EAE_Widget_Base {
 							$filter_label = $filter_group['eae_filter_label'];
 							$filter_name  = strtolower( $filter_group['eae_filter_label'] );
 							$filter_name  = str_replace( ' ', '-', $filter_name );
-							?>
-							<a href="#" data-filter=".<?php echo $filter_name; ?>"
-							class="eae-filter-label" data-filter-name="<?php echo $filter_name; ?>"> <?php echo $filter_label; ?></a>
-							<?php
+							$this->add_render_attribute( 'filter-item-' . $filter_group['_id'], 'class', ['eae-filter-label' ] );
+							$this->add_render_attribute( 'filter-item-' . $filter_group['_id'], 'href', '#' );
+							$this->add_render_attribute( 'filter-item-' . $filter_group['_id'], 'data-filter-name', $filter_name );
+							$this->add_render_attribute( 'filter-item-' . $filter_group['_id'], 'data-filter', '.'.$filter_name );
+							echo sprintf( '<a %1$s>%2$s</a>', $this->get_render_attribute_string( 'filter-item-' . $filter_group['_id'] ), $filter_label );
 						}
 					}
 				}
@@ -1438,6 +1439,9 @@ class FilterableGallery extends EAE_Widget_Base {
 					if ( ! empty( $images ) ) {
 						foreach ( $images as $image ) {
 							$image_url = wp_get_attachment_image_url( $image['id'], 'full' );
+							if( $settings['open_lightbox'] === 'yes'){
+								$this->add_lightbox_data_attributes( 'link', $image['id'], 'gallery-item-' . $filter_group['_id'], '', true);
+							}
 							?>
 							<div <?php echo $this->get_render_attribute_string( 'gallery-item-' . $filter_group['_id'] ); ?>>
 								<div class="eae-gallery-item-inner">

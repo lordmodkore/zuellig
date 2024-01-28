@@ -3,6 +3,7 @@
 namespace WTS_EAE;
 
 use WTS_EAE\Classes\Helper;
+use WTS_EAE\Plugin;
 
 class Admin_Ui {
     public static $instance;
@@ -26,6 +27,7 @@ class Admin_Ui {
 		add_action( 'wp_ajax_eae_elements_save', [ $this, 'eae_save_elements' ] );
 		add_action( 'wp_ajax_eae_save_config', [ $this, 'eae_save_config' ] );
 		$this->set_screens();
+		
 	}
 	// public function load_eae_modules(){
 	// 	$helper        = new Helper();
@@ -44,6 +46,11 @@ class Admin_Ui {
 	// }
 
 	public function eae_save_elements() {
+		if(!wp_verify_nonce($_REQUEST['nonce'], 'eae_ajax_nonce')){
+			wp_send_json([
+				'success' => 0
+			]);
+		}
 		$helper        = new Helper();
 		//check_ajax_referer( 'eae_ajax_nonce', 'nonce' );
 		$elements = $_REQUEST['moduleData'];
@@ -68,22 +75,30 @@ class Admin_Ui {
 			update_option( 'wts_eae_elements', $items );
 		}
 		wp_send_json([
-			'modules' => $items
+			'modules' => $items,
+			'success' => 1,
 		]);
 	}
 
 	public function eae_save_config() {
+		if(!wp_verify_nonce($_REQUEST['nonce'], 'eae_ajax_nonce')){
+			wp_send_json([
+				'success' => 0
+			]);
+		}
 		$settings = $_REQUEST['config'];
 		$gmap_api = sanitize_text_field($settings['wts_eae_gmap_key']);
+		$youtube_api_key = sanitize_text_field($settings['wts_eae_youtube_api_key']);
 		if ( current_user_can( 'manage_options' ) ) {
 			update_option( 'wts_eae_gmap_key', $gmap_api );
-			if($settings['eae_particle_library'] == 'tsParticle'){
-				$use_tsParticle = 'true';
-			}else{
-				$use_tsParticle = 'false';	
-			}
+			update_option('wts_eae_youtube_api_key', $youtube_api_key);
+			// if($settings['eae_particle_library'] == 'tsParticle'){
+			// 	$use_tsParticle = 'true';
+			// }else{
+			// 	$use_tsParticle = 'false';	
+			// }
 
-			update_option( 'use_tsParticle', $use_tsParticle);
+			// update_option( 'use_tsParticle', $use_tsParticle);
 		}
 		wp_send_json([
 			'success' => 1
@@ -109,8 +124,11 @@ class Admin_Ui {
 		$eae_ext = [];
 		$this->modules = $helper->get_eae_modules();
 		$map_key = get_option('wts_eae_gmap_key');
+		$youtube_api_key = get_option('wts_eae_youtube_api_key');
 		$use_tsParticle = get_option('use_tsParticle' ,false);
 		$modules = apply_filters( 'wts_eae_active_modules', $this->modules );
+
+		
 		foreach($modules as $module_key => $module){
 			if($module['type'] == 'widget'){
 				$eae_widgets[$module_key] = $module;
@@ -118,6 +136,10 @@ class Admin_Ui {
 				$eae_ext[$module_key] = $module;
 			}
 		}
+
+		// sort $eae_widgets by array key
+		ksort($eae_widgets);
+
 		?>
 		<div class="eae-wrap">
 			<div class="eae-content-wrapper">
@@ -126,9 +148,21 @@ class Admin_Ui {
 						<h3 class="eae-title eae-modules active">
 							<a href="#" data-tabid="eae-module-manager">Modules</a>
 						</h3>
-						<h3 class="eae-title eae-config">
+						<h3 class="eae-title eae-config" id="eae-config">
 							<a href="#" data-tabid="eae-config">Configuration</a>
 						</h3>
+
+						<?php 
+							if(Plugin::$is_pro === false){
+								?>
+								<h3 class="eae-title eae-get-pro">
+									<a href="https://wpvibes.link/go/eae-upgrade" data-tabid="eae-get-pro">Get Pro</a>
+								</h3>
+								<?php
+							}
+
+						?>
+						
 					</div>
 					<div class="eae-settings-box eae-metabox">	
 						<div class="eae-metabox-content">
@@ -147,6 +181,7 @@ class Admin_Ui {
 								</div>
 								<?php
 									foreach ($eae_widgets as $module_key => $widget) {
+										$pro_text = '';
 										//echo "<pre>";  print_r($widget);  echo "</pre>";
 										$class = 'eae-module-row';
 										if ($widget['enabled'] === 'true' || $widget['enabled'] === true) {
@@ -157,14 +192,52 @@ class Admin_Ui {
 											$class .= ' eae-disabled';
 											$action_text = __('Activate', 'eae-wts');
 											$action = 'activate';
-										}?>
+										}
+										
+										if(isset($widget['pro']) && $widget['pro'] === true){
+											$pro_text = 'Pro';
+										}
+										
+										?>
 										<div class="<?php echo $class; ?>">
-											<input class="eae-module-item" type="checkbox" name="eae_modules[]" value="<?php echo $module_key; ?>" />
+											<?php 
+											
+											if(isset($widget['pro']) && Plugin::$is_pro === false){
+												?>
+												<input class="" type="checkbox" name="" disabled value="<?php echo $module_key; ?>" />
+												<?php
+											}else{
+												?>
+												<input class="eae-module-item" type="checkbox" name="eae_modules[]" value="<?php echo $module_key; ?>" />
+												<?php
+											}	
+											?>
+											
 											<?php echo $widget['name']; ?>
 
-											<div class="eae-module-action">
-												<a data-action="<?php echo $action; ?>" data-moduleId="<?php echo $module_key; ?>" href="#"> <?php echo $action_text; ?> </a>
-											</div>
+											<?php
+												if(!empty($pro_text)){
+													echo '<span class="eae-pro-label">'.$pro_text.'</span>';
+												}
+											?>
+
+											<?php 
+												
+												if(!empty($pro_text) && Plugin::$is_pro === false){
+													?>
+													<div class="eae-module-action eae-pro-missing">
+														<a href="https://wpvibes.link/go/eae-upgrade/" target="_blank">Upgrade to Pro</a>
+													</div>
+													<?php
+												}else{
+													?>
+														<div class="eae-module-action">
+															<a data-action="<?php echo $action; ?>" data-moduleId="<?php echo $module_key; ?>" href="#"> <?php echo $action_text; ?> </a>
+														</div>
+													<?php
+												}
+											?>
+											
 										</div>
 								<?php } ?>
 								<div class="eae-module-row eae-module-group eae-extension">
@@ -203,7 +276,7 @@ class Admin_Ui {
 											<label for="wts_eae_gmap_key"> Google Map Api Key </label>
 										</td>
 										<td>
-											<input type="text" name="wts_eae_gmap_key" id="wts_eae_gmap_key" class="regular-text" value="<?php echo $map_key; ?>">
+											<input type="text" name="wts_eae_gmap_key" id="wts_eae_gmap_key" class="regular-text" value="<?php echo esc_html($map_key); ?>">
 											<br/>
 											<span class="eae-field-desc">
 												<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">
@@ -212,6 +285,24 @@ class Admin_Ui {
 											</span>
 										</td>
 									</tr>
+									<?php  
+										if(Plugin::$is_pro === true){											
+									?>
+										<tr>
+											<td>
+												<label for="wts_eae_youtube_api_key"> Youtube Api Key </label>
+											</td>
+											<td>
+												<input type="text" name="wts_eae_youtube_api_key" id="wts_eae_youtube_api_key" class="regular-text" value="<?php echo esc_html($youtube_api_key); ?>">
+												<br/>
+												<span class="eae-field-desc">
+													<a href="https://wpvibes.link/go/youtube-api-key/" target="_blank">
+														<?php echo _e('Click Here') ?>
+													</a> How to generate API KEY
+												</span>
+											</td>
+										</tr>
+									<?php } ?>
 									<tr>
 										<td colspan="2">
 											<button type="button" value="Save" class="button button-primary" name="save_config" id="save-config" data-action="save-config">
@@ -227,7 +318,28 @@ class Admin_Ui {
 						</div>
 					</div>
 				</div>
-				<div class="eae-settings-sidebar-wrapper"></div>
+				<div class="eae-settings-sidebar-wrapper">
+					<?php if(!Plugin::$is_pro){
+						?>
+						<div class="eae-promo-box eae-sidebar-box">
+							<h3>🚀 Upgrade to <b>Elementor Addon Elements Pro</b> Today!</h3>
+							<p>
+							Get meticulously crafted premium widgets to enhance your creative potential. Unleash your imagination and design captivating layouts with ease. 	
+							</p>
+							<ul class="eae-pro-features">
+								<li>Premium Widgets</li>
+								<li>Priority Support</li>
+								<li>Lifetime deal available</li>
+								<li>14 Days Money Back Guarantee</li>					
+							</ul>
+							<a href="https://wpvibes.link/go/eae-upgrade" target="_blank" class="eae-go-pro">Upgrade Now</a>	
+							<em>Give it a risk free trial with our <b>14 Days No Questions Asked</b> refund policy.</em>
+						</div>
+						<?php
+					}
+					?>
+					
+				</div>
 			</div>
 		</div>
 		<?php

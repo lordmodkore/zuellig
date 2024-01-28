@@ -25,11 +25,11 @@ class DataTable extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Data Table', 'wts-eae' );
+		return __( 'Data Table', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-table';
+		return 'eae-icon eae-data-table';
 	}
 
 	public function get_categories() {

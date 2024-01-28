@@ -160,6 +160,7 @@ if ( '' === $field_height || 'auto' === $field_height ) {
 	display:none<?php echo esc_html( $important ); ?>;
 }
 
+<?php if ( FrmAppHelper::pro_is_installed() ) : ?>
 .<?php echo esc_html( $style_class ); ?> .frm_scale label{
 	<?php if ( ! empty( $check_weight ) ) { ?>
 		font-weight:<?php echo esc_html( $check_weight . $important ); ?>;
@@ -174,6 +175,7 @@ if ( '' === $field_height || 'auto' === $field_height ) {
 		color:<?php echo esc_html( $check_label_color . $important ); ?>;
 	<?php } ?>
 }
+<?php endif; ?>
 
 /* These do not work if they are combined */
 .<?php echo esc_html( $style_class ); ?> input::placeholder,
@@ -342,8 +344,8 @@ if ( '' === $field_height || 'auto' === $field_height ) {
 		<?php } ?>
 }
 		<?php
-	}
-}
+	}//end if
+}//end if
 ?>
 
 .<?php echo esc_html( $style_class ); ?>.frm_inline_top .frm_submit::before,

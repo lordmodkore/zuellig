@@ -121,14 +121,14 @@ class FrmStylesHelper {
 	 */
 	public static function icon_key_to_class( $key, $icon = '+', $type = 'arrow' ) {
 		if ( 'arrow' === $type && is_numeric( $key ) ) {
-			//frm_arrowup6_icon
+			// frm_arrowup6_icon.
 			$arrow = array(
 				'-' => 'down',
 				'+' => 'up',
 			);
 			$class = 'frm_arrow' . $arrow[ $icon ];
 		} else {
-			//frm_minus1_icon
+			// frm_minus1_icon.
 			$key   = str_replace( 'p', '', $key );
 			$plus  = array(
 				'-' => 'minus',
@@ -219,8 +219,70 @@ class FrmStylesHelper {
 	}
 
 	/**
-	 * @param $hex string - The original color in hex format #ffffff
-	 * @param $steps integer - should be between -255 and 255. Negative = darker, positive = lighter
+	 * @since 6.8
+	 *
+	 * @param string $hsl
+	 * @return string|null Null if it fails to parse the HSL string.
+	 */
+	private static function hsl_to_hex( $hsl ) {
+		// Convert hsla to hsl.
+		$hsl = preg_replace( '/hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/', 'hsl($1, $2%, $3%)', $hsl );
+
+		// Extract HSL components from the color string.
+		preg_match( '/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/', $hsl, $matches );
+
+		if ( count( $matches ) !== 4 ) {
+			// Invalid HSL string format.
+			return null;
+		}
+
+		// Extract HSL values.
+		$h = (int) $matches[1];
+		$s = (int) $matches[2] / 100;
+		$l = (int) $matches[3] / 100;
+
+		// Calculate RGB values.
+		$c = ( 1 - abs( 2 * $l - 1 ) ) * $s;
+		$x = $c * ( 1 - abs( ( (int) ( $h / 60 ) % 2 ) - 1 ) );
+		$m = $l - $c / 2;
+		$r = 0;
+		$g = 0;
+		$b = 0;
+
+		if ( $h >= 0 && $h < 60 ) {
+			$r = $c;
+			$g = $x;
+		} elseif ( $h >= 60 && $h < 120 ) {
+			$r = $x;
+			$g = $c;
+		} elseif ( $h >= 120 && $h < 180 ) {
+			$g = $c;
+			$b = $x;
+		} elseif ( $h >= 180 && $h < 240 ) {
+			$g = $x;
+			$b = $c;
+		} elseif ( $h >= 240 && $h < 300 ) {
+			$r = $x;
+			$b = $c;
+		} elseif ( $h >= 300 && $h < 360 ) {
+			$r = $c;
+			$b = $x;
+		}//end if
+
+		// Convert RGB to 8-bit values
+		$r = round( ( $r + $m ) * 255 );
+		$g = round( ( $g + $m ) * 255 );
+		$b = round( ( $b + $m ) * 255 );
+
+		// Convert RGB to hex
+		$hex = sprintf( '%02x%02x%02x', $r, $g, $b );
+
+		return $hex;
+	}
+
+	/**
+	 * @param string $hex   string  The original color in hex format #ffffff.
+	 * @param int    $steps integer Should be between -255 and 255. Negative = darker, positive = lighter.
 	 *
 	 * @since 2.3
 	 */
@@ -245,9 +307,13 @@ class FrmStylesHelper {
 		$return      = '#';
 
 		foreach ( $color_parts as $color ) {
-			$color  = hexdec( $color ); // Convert to decimal
-			$color  = max( 0, min( 255, $color + $steps ) ); // Adjust color
-			$return .= str_pad( dechex( $color ), 2, '0', STR_PAD_LEFT ); // Make two char hex code
+			// Convert to decimal.
+			$color = hexdec( $color );
+			// Adjust color.
+			$color = max( 0, min( 255, $color + $steps ) );
+
+			// Make two char hex code.
+			$return .= str_pad( dechex( $color ), 2, '0', STR_PAD_LEFT );
 		}
 
 		return $return;
@@ -262,6 +328,15 @@ class FrmStylesHelper {
 	public static function get_color_brightness( $color ) {
 		if ( 0 === strpos( $color, 'rgb' ) ) {
 			$color = self::rgb_to_hex( $color );
+		}
+
+		if ( 0 === strpos( $color, 'hsl' ) ) {
+			$hsl_to_hex = self::hsl_to_hex( $color );
+			if ( is_null( $hsl_to_hex ) ) {
+				// Fallback if we cannot convert the HSL value.
+				return 0;
+			}
+			$color = $hsl_to_hex;
 		}
 
 		self::fill_hex( $color );
@@ -279,7 +354,7 @@ class FrmStylesHelper {
 	 *
 	 * @since 6.0
 	 *
-	 * @return array
+	 * @return void
 	 */
 	private static function fill_hex( &$color ) {
 		if ( 3 === strlen( $color ) ) {
@@ -355,7 +430,7 @@ class FrmStylesHelper {
 		} else {
 			$settings                = $style->post_content;
 			$settings['style_class'] = 'frm_style_' . $style->post_name . '.';
-		}
+		}//end if
 
 		$settings['style_class']  .= 'with_frm_style';
 		$settings['font']          = stripslashes( $settings['font'] );
@@ -440,9 +515,35 @@ class FrmStylesHelper {
 		} elseif ( false !== strpos( $color, 'rgb(' ) ) {
 			$color = str_replace( 'rgb(', 'rgba(', $color );
 			$color = str_replace( ')', ',1)', $color );
-		} elseif ( strpos( $color, '#' ) === false && false === strpos( $color, 'rgba(' ) ) {
+		} elseif ( strpos( $color, '#' ) === false && self::is_hex( $color ) ) {
 			$color = '#' . $color;
 		}
+	}
+
+	/**
+	 * If a color looks like a hex code without the #, prepend the #.
+	 * A color looks like a hex code if it does not contain the substrings "rgb", "rgba", "hsl", "hsla", or "hwb".
+	 *
+	 * @since 6.8
+	 *
+	 * @param string $color
+	 * @return bool
+	 */
+	private static function is_hex( $color ) {
+		$non_hex_substrings = array(
+			'rgba(',
+			'hsl(',
+			'hsla(',
+			'hwb(',
+		);
+
+		foreach ( $non_hex_substrings as $substring ) {
+			if ( false !== strpos( $color, $substring ) ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -553,8 +654,9 @@ class FrmStylesHelper {
 	 * @return int
 	 */
 	public static function get_form_count_for_style( $style_id, $is_default ) {
-		$serialized      = serialize( array( 'custom_style' => (string) $style_id ) );
-		$substring       = substr( $serialized, 5, -1 ); // Chop off the "a:1:{" from the front and the "}" from the back.
+		$serialized = serialize( array( 'custom_style' => (string) $style_id ) );
+		// Chop off the "a:1:{" from the front and the "}" from the back.
+		$substring       = substr( $serialized, 5, -1 );
 		$number_of_forms = FrmDb::get_count(
 			'frm_forms',
 			array(

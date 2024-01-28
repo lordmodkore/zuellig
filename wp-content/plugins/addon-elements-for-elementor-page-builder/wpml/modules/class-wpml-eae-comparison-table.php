@@ -10,7 +10,7 @@ class WPML_EAE_Comparison_Table extends WPML_Elementor_Module_With_Items {
 	}
 
 	public function get_fields() {
-		return [ 'legend_feature_text', 'legend_feature_tooltip_text' ];
+		return [ 'legend_feature_text', 'legend_feature_tooltip_text'  ];
 	}
 
 	protected function get_title( $field ) {

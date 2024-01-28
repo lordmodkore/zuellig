@@ -162,6 +162,17 @@ class FrmApplicationsController {
 	}
 
 	/**
+	 * @usedby FrmAppController::admin_init().
+	 *
+	 * @since 6.8
+	 *
+	 * @return void
+	 */
+	public static function load_page() {
+		self::load_assets();
+	}
+
+	/**
 	 * @return void
 	 */
 	public static function load_assets() {
@@ -173,7 +184,8 @@ class FrmApplicationsController {
 
 		$js_dependencies = array(
 			'wp-i18n',
-			'wp-hooks', // This prevents a console error "wp.hooks is undefined" in WP versions older than 5.7.
+			// This prevents a console error "wp.hooks is undefined" in WP versions older than 5.7.
+			'wp-hooks',
 			'formidable_dom',
 		);
 		wp_register_script( 'formidable_applications', $plugin_url . '/js/admin/applications.js', $js_dependencies, $version, true );

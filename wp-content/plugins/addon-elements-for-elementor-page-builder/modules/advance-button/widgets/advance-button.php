@@ -24,11 +24,11 @@ class AdvanceButton extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Advanced Button', 'wts-eae' );
+		return __( 'Advanced Button', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eae-icons eae-dual-button';
+		return 'eae-icon eae-advance-button';
 	}
     
     protected function register_controls()
@@ -619,7 +619,7 @@ class AdvanceButton extends EAE_Widget_Base {
 		$this->add_control(//primary_color
 			'primary_color',
 			[
-				'label' => esc_html__( 'Primary Color', 'elementor' ),
+				'label' => esc_html__( 'Primary Color', 'wts-eae' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'condition' => [
@@ -635,7 +635,7 @@ class AdvanceButton extends EAE_Widget_Base {
 		$this->add_control(//secondary color
 			'secondary_color',
 			[
-				'label' => esc_html__( 'Secondary Color', 'elementor' ),
+				'label' => esc_html__( 'Secondary Color', 'wts-eae' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'condition' => [
@@ -677,7 +677,7 @@ class AdvanceButton extends EAE_Widget_Base {
 			$this->add_control(//primary_color
 				'primary_hover_color',
 				[
-					'label' => esc_html__( 'Primary Hover Color', 'elementor' ),
+					'label' => esc_html__( 'Primary Hover Color', 'wts-eae' ),
 					'type' => Controls_Manager::COLOR,
 					'default' => '',
 					'condition' => [
@@ -692,7 +692,7 @@ class AdvanceButton extends EAE_Widget_Base {
 			$this->add_control(//secondary color
 				'secondary_hover_color',
 				[
-					'label' => esc_html__( 'Secondary Hover Color', 'elementor' ),
+					'label' => esc_html__( 'Secondary Hover Color', 'wts-eae' ),
 					'type' => Controls_Manager::COLOR,
 					'default' => '',
 					'condition' => [

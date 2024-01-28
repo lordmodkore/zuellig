@@ -62,18 +62,28 @@ class FrmAppController {
 			}
 		}
 
+		if ( self::is_grey_page() ) {
+			$classes .= ' frm-grey-body ';
+		}
+
 		if ( FrmAppHelper::is_full_screen() ) {
 			$full_screen_on = self::get_full_screen_setting();
 			$add_class = '';
 			if ( $full_screen_on ) {
 				$add_class = ' frm-full-screen is-fullscreen-mode';
-				wp_enqueue_style( 'wp-edit-post' ); // Load the CSS for .is-fullscreen-mode.
+
+				// Load the CSS for .is-fullscreen-mode.
+				wp_enqueue_style( 'wp-edit-post' );
 			}
 			$classes .= apply_filters( 'frm_admin_full_screen_class', $add_class );
 		}
 
 		if ( ! FrmAppHelper::pro_is_installed() ) {
 			$classes .= ' frm-lite ';
+		}
+
+		if ( get_user_setting( 'unfold' ) && 'f' !== get_user_setting( 'mfold' ) ) {
+			$classes .= ' frm-unfold ';
 		}
 
 		return $classes;
@@ -132,17 +142,21 @@ class FrmAppController {
 			'formidable-styles',
 			'formidable-styles2',
 			'formidable-inbox',
-			'formidable-welcome',
-			'formidable-applications',
+			FrmFormTemplatesController::PAGE_SLUG,
 		);
 
-		$get_page      = FrmAppHelper::simple_get( 'page', 'sanitize_title' );
-		$is_white_page = in_array( $get_page, $white_pages, true );
+		if ( ! class_exists( 'FrmTransHooksController', false ) && ! FrmTransLiteAppHelper::should_fallback_to_paypal() ) {
+			// Only consider the payments page as a "white page" when the Payments submodule is off.
+			// Otherwise this causes a lot of styling issues when the Stripe add-on (or Authorize.Net) is active.
 
-		if ( ! $is_white_page ) {
-			$screen        = get_current_screen();
-			$is_white_page = ( $screen && strpos( $screen->id, 'frm_display' ) !== false );
+			// Add an extra check to avoid white page styling on the PayPal "edit" action.
+			// We fallback to the PayPal add on for the "edit" action since Stripe Lite does not have an edit view.
+			if ( ! in_array( FrmAppHelper::simple_get( 'action' ), array( 'edit', 'new' ), true ) || ! is_callable( 'FrmPaymentsController::route' ) ) {
+				$white_pages[] = 'formidable-payments';
+			}
 		}
+
+		$is_white_page = self::is_page_in_list( $white_pages ) || self::is_grey_page() || FrmAppHelper::is_view_builder_page();
 
 		/**
 		 * Allow another add on to style a page as a Formidable "white page", which adds a white background color.
@@ -157,6 +171,43 @@ class FrmAppController {
 	}
 
 	/**
+	 * Add a grey bg instead of white.
+	 *
+	 * @since 6.8
+	 *
+	 * @return bool
+	 */
+	private static function is_grey_page() {
+		$grey_pages = array(
+			'formidable-applications',
+			'formidable-dashboard',
+		);
+
+		$is_grey_page = self::is_page_in_list( $grey_pages );
+
+		/**
+		 * Filter to change FF wrapper background to grey.
+		 *
+		 * @since 6.8
+		 *
+		 * @param bool $is_grey_page
+		 * @return bool
+		 */
+		return apply_filters( 'frm_is_grey_page', $is_grey_page );
+	}
+
+	/**
+	 * @since 6.8
+	 *
+	 * @param array $pages A list of page names to check.
+	 * @return bool
+	 */
+	private static function is_page_in_list( $pages ) {
+		$get_page = FrmAppHelper::simple_get( 'page', 'sanitize_title' );
+		return in_array( $get_page, $pages, true );
+	}
+
+	/**
 	 * @return void
 	 */
 	public static function load_wp_admin_style() {
@@ -164,8 +215,9 @@ class FrmAppController {
 	}
 
 	/**
-	 * @param bool $show_nav
-	 * @param string $title
+	 * @param int|object $form
+	 * @param bool       $show_nav
+	 * @param string     $title
 	 *
 	 * @psalm-param 'hide'|'show' $title
 	 *
@@ -287,7 +339,8 @@ class FrmAppController {
 		$settings = array();
 
 		if ( ! FrmAppHelper::pro_is_installed() ) {
-			$settings[] = '<a href="' . esc_url( FrmAppHelper::admin_upgrade_link( 'plugin-row' ) ) . '" target="_blank" rel="noopener"><b>' . esc_html__( 'Upgrade to Pro', 'formidable' ) . '</b></a>';
+			$label      = FrmAddonsController::is_license_expired() ? __( 'Renew', 'formidable' ) : __( 'Upgrade to Pro', 'formidable' );
+			$settings[] = '<a href="' . esc_url( FrmAppHelper::admin_upgrade_link( 'plugin-row' ) ) . '" target="_blank" rel="noopener"><b style="color:#1da867;font-weight:700;">' . esc_html( $label ) . '</b></a>';
 		}
 
 		$settings[] = '<a href="' . esc_url( admin_url( 'admin.php?page=formidable' ) ) . '">' . __( 'Build a Form', 'formidable' ) . '</a>';
@@ -369,61 +422,24 @@ class FrmAppController {
 
 		include $shared_path . 'upgrade_overlay.php';
 		include $shared_path . 'confirm-overlay.php';
-
-		if ( FrmAppHelper::is_admin_page( 'formidable-welcome' ) || FrmAppHelper::on_form_listing_page() ) {
-			self::new_form_overlay_html();
-		}
 	}
 
 	/**
+	 * Create a basic form with an email field.
+	 *
+	 * @param string $form_key
+	 * @param string $title
+	 * @param string $description
 	 * @return void
 	 */
-	private static function new_form_overlay_html() {
-		FrmFormsController::before_list_templates();
-
-		$plugin_path      = FrmAppHelper::plugin_path();
-		$path             = $plugin_path . '/classes/views/frm-forms/';
-		$expired          = FrmFormsController::expired();
-		$expiring         = FrmAddonsController::is_license_expiring();
-		$user             = wp_get_current_user(); // $user used in leave-email.php to determine a default value for field
-		$view_path        = $path . 'new-form-overlay/';
-		$modal_class      = '';
-		$upgrade_link     = FrmAppHelper::admin_upgrade_link(
-			array(
-				'medium'  => 'new-template',
-				'content' => 'upgrade',
-			)
+	public static function api_email_form( $form_key, $title, $description ) {
+		$user        = wp_get_current_user();
+		$args = array(
+			'api_url'     => 'https://sandbox.formidableforms.com/api/wp-json/frm/v2/forms/' . $form_key . '?return=html&exclude_script=jquery&exclude_style=formidable-css',
+			'title'       => $title,
+			'description' => $description,
 		);
-		$renew_link       = FrmAppHelper::admin_upgrade_link(
-			array(
-				'medium'  => 'new-template',
-				'content' => 'renew',
-			)
-		);
-		$blocks_to_render = array();
-
-		if ( ! FrmAppHelper::pro_is_installed() ) {
-			// avoid rendering the email and code blocks for users who have upgraded or have a free license already
-			$api = new FrmFormTemplateApi();
-			if ( ! $api->has_free_access() ) {
-				array_push( $blocks_to_render, 'email', 'code' );
-			}
-		}
-
-		// avoid rendering the upgrade block for users with elite
-		if ( 'elite' !== FrmAddonsController::license_type() ) {
-			$blocks_to_render[] = 'upgrade';
-		}
-
-		// avoid rendering the renew block for users who are not currently expired
-		if ( $expired ) {
-			$blocks_to_render[] = 'renew';
-			$modal_class        = 'frm-expired';
-		} elseif ( $expiring ) {
-			$modal_class = 'frm-expiring';
-		}
-
-		include $path . 'new-form-overlay.php';
+		require FrmAppHelper::plugin_path() . '/classes/views/form-templates/modals/leave-email-modal.php';
 	}
 
 	/**
@@ -522,6 +538,10 @@ class FrmAppController {
 	 * @return void
 	 */
 	public static function admin_init() {
+		if ( FrmAppHelper::get_param( 'delete_all' ) && FrmAppHelper::is_admin_page( 'formidable' ) && 'trash' === FrmAppHelper::get_param( 'form_type' ) ) {
+			FrmFormsController::delete_all();
+		}
+
 		if ( FrmAppHelper::is_admin_page( 'formidable' ) && 'duplicate' === FrmAppHelper::get_param( 'frm_action' ) ) {
 			FrmFormsController::duplicate();
 		}
@@ -531,7 +551,8 @@ class FrmAppController {
 			FrmStylesController::save_style();
 		}
 
-		new FrmPersonalData(); // register personal data hooks
+		// Register personal data hooks.
+		new FrmPersonalData();
 
 		if ( ! FrmAppHelper::doing_ajax() && self::needs_update() ) {
 			self::network_upgrade_site();
@@ -542,11 +563,18 @@ class FrmAppController {
 			self::admin_js();
 		}
 
-		if ( FrmAppHelper::is_admin_page( 'formidable' ) ) {
-			$action = FrmAppHelper::get_param( 'frm_action' );
+		self::trigger_page_load_hooks();
 
-			if ( in_array( $action, array( 'add_new', 'list_templates' ), true ) ) {
-				wp_safe_redirect( admin_url( 'admin.php?page=formidable&triggerNewFormModal=1' ) );
+		if ( FrmAppHelper::is_admin_page( 'formidable' ) ) {
+			// Redirect to the "Form Templates" page if the 'frm_action' parameter matches specific actions.
+			// This provides backward compatibility for old addons that use legacy modal templates.
+			$action = FrmAppHelper::get_param( 'frm_action' );
+			$trigger_name_modal = FrmAppHelper::get_param( 'triggerNewFormModal' );
+			if ( $trigger_name_modal || in_array( $action, array( 'add_new', 'list_templates' ), true ) ) {
+				$application_id = FrmAppHelper::simple_get( 'applicationId', 'absint' );
+				$url_param = $application_id ? '&applicationId=' . $application_id : '';
+
+				wp_safe_redirect( admin_url( 'admin.php?page=' . FrmFormTemplatesController::PAGE_SLUG . $url_param ) );
 				exit;
 			}
 
@@ -554,6 +582,29 @@ class FrmAppController {
 		}
 
 		self::maybe_add_ip_warning();
+	}
+
+	/**
+	 * Get the current page and check for a possible function to trigger.
+	 * If a class name matches the page name, and the class has a load_page() method, trigger it.
+	 *
+	 * @since 6.8
+	 *
+	 * @return void
+	 */
+	private static function trigger_page_load_hooks() {
+		$page = FrmAppHelper::simple_get( 'page', 'sanitize_title' );
+		if ( strpos( $page, 'formidable-' ) !== 0 ) {
+			// Only trigger hooks on Formidable pages.
+			return;
+		}
+
+		$page  = str_replace( array( 'formidable-', '-' ), array( '', ' ' ), $page );
+		$page  = str_replace( ' ', '', ucwords( $page ) );
+		$class = 'Frm' . $page . 'Controller';
+		if ( class_exists( $class ) && method_exists( $class, 'load_page' ) ) {
+			call_user_func( array( $class, 'load_page' ) );
+		}
 	}
 
 	/**
@@ -624,6 +675,12 @@ class FrmAppController {
 
 		FrmAppHelper::load_admin_wide_js();
 
+		if ( class_exists( 'FrmOverlayController' ) ) {
+			// This should always exist.
+			// But it may not have loaded properly when updating the plugin.
+			FrmOverlayController::register_assets();
+		}
+
 		wp_register_style( 'formidable_admin_global', $plugin_url . '/css/admin/frm_admin_global.css', array(), $version );
 		wp_enqueue_style( 'formidable_admin_global' );
 
@@ -638,10 +695,16 @@ class FrmAppController {
 
 		$page = FrmAppHelper::simple_get( 'page', 'sanitize_title' );
 
-		if ( 'formidable-applications' === $page ) {
-			FrmApplicationsController::load_assets();
-			return;
+		// Enqueue Floating Links.
+		$is_valid_page =
+			FrmAppHelper::is_formidable_admin() &&
+			! FrmAppHelper::is_style_editor_page() &&
+			! FrmAppHelper::is_admin_page( 'formidable-views-editor' ) &&
+			! FrmAppHelper::simple_get( 'frm_action', 'sanitize_title' );
+		if ( $is_valid_page && FrmAppHelper::is_formidable_branding() ) {
+			self::enqueue_floating_links( $plugin_url, $version );
 		}
+		unset( $is_valid_page );
 
 		$dependencies = array(
 			'formidable_admin_global',
@@ -652,7 +715,8 @@ class FrmAppController {
 			'bootstrap_tooltip',
 			'bootstrap-multiselect',
 			'wp-i18n',
-			'wp-hooks', // Required in WP versions older than 5.7
+			// Required in WP versions older than 5.7
+			'wp-hooks',
 			'formidable_dom',
 			'formidable_embed',
 		);
@@ -670,6 +734,17 @@ class FrmAppController {
 		}
 
 		wp_register_script( 'bootstrap-multiselect', $plugin_url . '/js/bootstrap-multiselect.js', array( 'jquery', 'bootstrap_tooltip', 'popper' ), '1.1.1', true );
+
+		if ( ! class_exists( 'FrmTransHooksController', false ) ) {
+			/**
+			 * Gateway fields are included for add-on compatibility but we do not want it to be visible.
+			 * They do however need to be visible when the payments submodule is active.
+			 */
+			wp_add_inline_style(
+				'formidable-admin',
+				'#frm_builder_page li[data-ftype="gateway"] { display: none; }'
+			);
+		}
 
 		$post_type = FrmAppHelper::simple_get( 'post_type', 'sanitize_title' );
 
@@ -694,6 +769,10 @@ class FrmAppController {
 			if ( 'formidable-entries' === $page ) {
 				// Load front end js for entries.
 				wp_enqueue_script( 'formidable' );
+
+				// Registers and enqueues the entries page scripts.
+				wp_register_script( 'formidable_entries', $plugin_url . '/js/admin/entries.js', array( 'formidable_admin', 'wp-dom-ready' ), $version, true );
+				wp_enqueue_script( 'formidable_entries' );
 			}
 
 			do_action( 'frm_enqueue_builder_scripts' );
@@ -715,8 +794,21 @@ class FrmAppController {
 			if ( $post_type === 'frm_display' ) {
 				self::enqueue_legacy_views_assets();
 			}
-		}
+		}//end if
 
+		if ( 'formidable-addons' === $page ) {
+			wp_register_script( 'formidable_addons', $plugin_url . '/js/admin/addons.js', array( 'formidable_admin', 'wp-dom-ready' ), $version, true );
+			wp_enqueue_script( 'formidable_addons' );
+		}
+	}
+
+	/**
+	 * @since 6.3.2
+	 *
+	 * @return void
+	 */
+	public static function admin_enqueue_scripts() {
+		self::load_wp_admin_style();
 		self::maybe_force_formidable_block_on_gutenberg_page();
 	}
 
@@ -976,7 +1068,7 @@ class FrmAppController {
 		$frmdb = new FrmMigrate();
 		$frmdb->uninstall();
 
-		//disable the plugin and redirect after uninstall so the tables don't get added right back
+		// Disable the plugin and redirect after uninstall so the tables don't get added right back.
 		$plugins = array( FrmAppHelper::plugin_folder() . '/formidable.php', 'formidable-pro/formidable-pro.php' );
 		deactivate_plugins( $plugins, false, false );
 		echo esc_url_raw( admin_url( 'plugins.php?deactivate=true' ) );
@@ -1008,12 +1100,108 @@ class FrmAppController {
 		wp_die();
 	}
 
+	/**
+	 * This is triggered when Formidable is activated.
+	 *
+	 * @return void
+	 */
+	public static function handle_activation() {
+		self::maybe_activate_payment_cron();
+	}
+
+	/**
+	 * The payment cron is unscheduled when Formidable is deactivated.
+	 * We need to add it back again on activation if Stripe is configured.
+	 *
+	 * @since 6.5
+	 *
+	 * @return void
+	 */
+	private static function maybe_activate_payment_cron() {
+		if ( ! FrmStrpLiteConnectHelper::stripe_connect_is_setup() ) {
+			return;
+		}
+
+		FrmTransLiteAppController::maybe_schedule_cron();
+	}
+
 	public static function set_footer_text( $text ) {
 		if ( FrmAppHelper::is_formidable_admin() ) {
 			$text = '';
 		}
 
 		return $text;
+	}
+
+	/**
+	 * Add admin footer links.
+	 *
+	 * @since 6.4.1
+	 *
+	 * @return void
+	 */
+	public static function add_admin_footer_links() {
+		if ( self::should_show_footer_links() ) {
+			include FrmAppHelper::plugin_path() . '/classes/views/shared/admin-footer-links.php';
+		}
+	}
+
+	/**
+	 * Check if the footer links should be shown.
+	 *
+	 * @since 6.7
+	 *
+	 * @return bool
+	 */
+	private static function should_show_footer_links() {
+		$post_type          = FrmAppHelper::simple_get( 'post_type', 'sanitize_title' );
+		$is_formidable_page = FrmAppHelper::is_formidable_admin() || 'frm_logs' === $post_type;
+		$show_footer_links  = $is_formidable_page;
+		if ( FrmAppHelper::is_full_screen() || ! FrmAppHelper::is_formidable_branding() ) {
+			$show_footer_links = false;
+		}
+
+		/**
+		 * Filter whether to show the Formidable footer links.
+		 *
+		 * @since 6.7
+		 *
+		 * @param bool $show_footer_links
+		 * @return bool
+		 */
+		return apply_filters( 'frm_show_footer_links', $show_footer_links );
+	}
+
+	/**
+	 * Show an error modal and terminate the script execution.
+	 *
+	 * @since 6.7
+	 *
+	 * @param array $error_args Arguments that control the behavior of the error modal.
+	 *
+	 * @return void
+	 */
+	public static function show_error_modal( $error_args ) {
+		$defaults = array(
+			'title'            => '',
+			'body'             => '',
+			'cancel_url'       => '',
+			'cancel_classes'   => '',
+			'continue_url'     => '',
+			'continue_classes' => '',
+			'icon'             => 'frm_lock_simple',
+		);
+
+		$error_args = wp_parse_args( $error_args, $defaults );
+		if ( ! isset( $error_args['cancel_text'] ) && ! empty( $error_args['cancel_url'] ) ) {
+			$error_args['cancel_text'] = __( 'Cancel', 'formidable' );
+		}
+
+		if ( ! isset( $error_args['continue_text'] ) && ! empty( $error_args['continue_url'] ) ) {
+			$error_args['continue_text'] = __( 'Continue', 'formidable' );
+		}
+
+		include FrmAppHelper::plugin_path() . '/classes/views/frm-forms/error-modal.php';
 	}
 
 	/**
@@ -1056,5 +1244,39 @@ class FrmAppController {
 	public static function get_form_shortcode( $atts ) {
 		_deprecated_function( __FUNCTION__, '1.07.05', 'FrmFormsController::get_form_shortcode' );
 		return FrmFormsController::get_form_shortcode( $atts );
+	}
+
+	/**
+	 * Handles Floating Links' scripts and styles enqueueing.
+	 *
+	 * @since 6.4
+	 *
+	 * @param string $plugin_url URL of the plugin.
+	 * @param string $version Current version of the plugin.
+	 * @return void
+	 */
+	private static function enqueue_floating_links( $plugin_url, $version ) {
+		if ( ! $plugin_url || ! $version ) {
+			// If any required parameters are missing, exit early.
+			return;
+		}
+
+		// Enqueue the Floating Links styles.
+		wp_enqueue_style( 's11-floating-links', $plugin_url . '/css/packages/s11-floating-links.css', array(), $version );
+
+		// Enqueue the Floating Links script.
+		wp_enqueue_script( 's11-floating-links', $plugin_url . '/js/packages/floating-links/s11-floating-links.js', array(), $version, true );
+
+		// Enqueue the config script.
+		wp_enqueue_script( 's11-floating-links-config', $plugin_url . '/js/packages/floating-links/config.js', array( 'wp-i18n' ), $version, true );
+
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 's11-floating-links-config', 's11-' );
+		}
+
+		$floating_links_data = array(
+			'proIsInstalled' => FrmAppHelper::pro_is_installed(),
+		);
+		wp_localize_script( 's11-floating-links-config', 's11FloatingLinksData', $floating_links_data );
 	}
 }

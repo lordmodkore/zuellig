@@ -22,11 +22,11 @@ class Timeline extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Timeline', 'wts-eae' );
+		return __( 'Timeline', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-time-line';
+		return 'eae-time-line eae-icon';
 	}
 	protected function register_skins() {
 		$this->add_skin( new Skins\Skin_1( $this ) );

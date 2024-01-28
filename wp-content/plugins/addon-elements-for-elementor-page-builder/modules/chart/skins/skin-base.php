@@ -29,7 +29,6 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 				'data-settings' => Map_Data::render_chart( $settings ),
 			]
 		);
-		// echo "<pre>"; print_r( Map_Data::render_chart( $settings )); echo "</pre>";
 
 
 		$this->parent->add_render_attribute( 'wrapper', 'class', 'eae-chart-wrapper' );

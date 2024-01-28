@@ -16,11 +16,11 @@ class Gmap extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Google Map', 'wts-eae' );
+		return __( 'Google Map', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-google-maps wts-eae-map';
+		return 'eae-icon eae-google-map';
 	}
 
 
@@ -202,7 +202,13 @@ class Gmap extends EAE_Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-
+		$map_key  = get_option( 'wts_eae_gmap_key' );
+		if( ! isset( $map_key ) || $map_key === '' ) {
+			if(\Elementor\Plugin::$instance->editor->is_edit_mode()){
+				echo "<div class='eae-vg-error message'><p class='elementor-alert elementor-alert-warning'>Please add Google Map api key in Dashboard > Elementor Addons Elements > Configuration</p></div>";
+			}
+			return;
+		}
 		$markers = $settings['markers'];
 
 		$this->add_render_attribute( 'wrapper', 'data-zoom', $settings['zoom']['size'] );

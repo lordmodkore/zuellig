@@ -55,7 +55,7 @@ class Importer extends Base {
 	 */
 	private function unpack_template_kit_zip_to_folder( $temporary_zip_file, $destination_folder ) {
 		if ( ! class_exists( '\ZipArchive' ) ) {
-			return new \WP_Error( 'zip_error', 'PHP Zip extension not loaded' );
+			return new \WP_Error( 'zip_error', 'ZipArchive extension not enabled. Please ask hosting provider or Google search "Enable ZipArchive for PHP".' );
 		}
 
 		$allowed_file_types = [ 'json', 'jpg', 'png', 'css', 'html' ];
@@ -121,7 +121,7 @@ class Importer extends Base {
 		$wp_upload_dir                  = wp_upload_dir();
 		$template_kit_base_path         = $wp_upload_dir['basedir'] . '/template-kits/';
 		$template_kit_base_url          = $wp_upload_dir['baseurl'] . '/template-kits/';
-		$template_kit_random_folder     = md5( mt_rand() . NONCE_SALT );
+		$template_kit_random_folder     = md5( mt_rand() . time() );
 		$template_kit_extract_directory = $template_kit_base_path . $template_kit_random_folder;
 		$template_kit_extract_url       = $template_kit_base_url . $template_kit_random_folder;
 		wp_mkdir_p( $template_kit_extract_directory );

@@ -3,65 +3,34 @@
 namespace WTS_EAE\Classes;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Files\CSS\Global_CSS;
 use Elementor\Core\Kits\Documents\Tabs\Colors_And_Typography;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use WTS_EAE\Controls\Group\Group_Control_Icon;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
+use Elementor\Group_Control_Image_Size;
 use Elementor\Icons_Manager;
-
+use Elementor\Utils;
+use Elementor\Plugin as EPlugin;
+use WTS_EAE\Plugin as EAE;
 class Helper {
 
 	public function __construct() {
-		add_action( 'wp_ajax_eae_post_data', [ $this, 'ajax_eae_post_data' ] );
-		add_action( 'wp_ajax_nopriv_eae_post_data', [ $this, 'ajax_eae_post_data' ] );
+		
+		add_action( 'wp_ajax_eae_refresh_insta_cache', [ $this, 'ajax_refresh_insta_cache' ] );
+		add_action( 'wp_ajax_nopriv_eae_refresh_insta_cache', [ $this, 'ajax_refresh_insta_cache' ] );
 	}
 
-	public function ajax_eae_post_data() {
-		$fetch_mode = $_REQUEST['fetch_mode'];
-
-		$results = [];
-		switch ( $fetch_mode ) {
-			case 'posts':
-				$params = $query_params = [
-					's' => $_REQUEST['q'],
-				];
-				$query  = new \WP_Query( $params );
-
-				foreach ( $query->posts as $post ) {
-						$results[] = [
-							'id'   => $post->ID,
-							'text' => $post->post_title,
-						];
-				}
-				break;
-
-			// case 'paged':
-			// 	ob_start();
-			// 	$this->get_widget_output( $_POST['pid'], $_POST['wid'] );
-			// 	$results = ob_get_contents();
-			// 	ob_end_clean();
-			// 	break;
-
-			case 'selected_posts':
-				$args  = [
-					'post__in'  => $_POST['selected_posts'],
-					'post_type' => 'any',
-					'orderby'   => 'post__in',
-				];
-				$posts = get_posts( $args );
-				if ( count( $posts ) ) {
-					foreach ( $posts as $p ) {
-						$results[] = [
-							'id'   => $p->ID,
-							'text' => $p->post_title,
-						];
-					}
-				}
-				break;
+	public function ajax_refresh_insta_cache() {
+		
+		if(!wp_verify_nonce($_REQUEST['nonce'], 'wp_eae_elementor_editor_nonce')){
+			return wp_send_json_error( 'Invalid Nonce' );
 		}
-
-		wp_send_json_success( $results );
+		$transient_key = $_REQUEST['transient_key'];
+		$result = delete_transient($transient_key);
+		
+		return wp_send_json_success( $result );
 	}
 
 	public function eae_get_post_data( $args ) {
@@ -1353,6 +1322,7 @@ class Helper {
 		}
 	}
 
+	// EAE Modules List
 	public function get_eae_modules() {
 		$modules = [
 			'timeline' => [
@@ -1474,6 +1444,7 @@ class Helper {
 				'name'    => 'Thumbnail Slider',
 				'enabled' => true,
 				'type'    => 'widget',
+				'freemium' => true,
 			],
 			'data-table' => [
 				'name'    => 'Data Table',
@@ -1485,32 +1456,176 @@ class Helper {
 				'enabled' => true,
 				'type'    => 'widget',
 			],
-			
-			// 'radial-charts' => [
-			// 	'name'    => 'Radial Charts',
-			// 	'enabled' => true,
-			// 	'type'    => 'widget',
-			// ],
-      
-			// 'anything-carousel' => [
-			// 	'name'    => 'Anything Carousel',
-			// 	'enabled' => true,
-			// 	'type'    => 'widget',
-			// ],
-      
-			// 'alert-message' => [
-			// 	'name' => 'Alert Message',
-			// 	'enabled' => true,
-			// 	'type'	=> 'widget'
-			// ],
       
 			'advance-button' => [
 				'name' => 'Advance Button',
 				'enabled' => true,
 				'type'	=> 'widget'
-			]
+			],
+
+			'radial-charts' => [
+				'name'	=> 'Radial Charts',
+				'enabled' => true, 
+				'type'	=> 'widget',
+				'pro'	=> true
+			],
+
+			'advanced-heading' => [
+				'name'	=> 'Advanced Heading',
+				'enabled' => true, 
+				'type'	=> 'widget',
+				'pro'	=> true
+			],
+
+			'image-accordion' => [
+				'name'	=> 'Image Accordion',
+				'enabled' => true, 
+				'type'	=> 'widget',
+				'pro'	=> true
+			],
+
+			'faq' => [
+				'name'	=> 'FAQ',
+				'enabled' => true, 
+				'type'	=> 'widget',
+				'pro'	=> true
+			],
+			
+			'advanced-list' => [
+				'name' => 'Advanced List',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true
+			],
+
+			
+			'video-box' => [
+				'name'	=> 'Video',
+				'enabled' => true, 
+				'type'	=> 'widget',
+				'pro'	=> true
+			],
+			'business-hours'=>[
+				'name'=>'Business Hours',
+				'enabled'=>true,
+				'type'=>'widget',
+				'pro'=>true
+			],
+
+			'instagram-feed' => [
+				'name'	=> 'Instagram Feed',
+				'enabled' => true, 
+				'type'	=> 'widget',
+				'pro'	=> true
+			],
+
+			'team-member' => [
+				'name' => 'Team Member',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+
+
+			'floating-element' => [
+				'name' => 'Floating Element',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+
+			'advanced-price-table' => [
+				'name' => 'Advanced Price Table',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+
+			'image-scroll' => [
+				'name' => 'Image Scroll',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+
+			'video-gallery' => [
+				'name' => 'Video Gallery',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+
+			'info-group' => [
+				'name' => 'Info Group',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],	
+			'circular-progress' => [
+				'name' => 'Circular Progress',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+
+			'image-stack' => [
+				'name' => 'Image Stack',
+				'enabled' => true,
+				'type' => 'widget',
+				//'pro' => true,
+				'freemium' => true,
+			],
+
+			'devices' => [
+				'name' => 'Devices',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+			'image-hotspot' => [
+				'name' => 'Image Hotspot',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+			'call-to-action' => [
+				'name' => 'Call To Action',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+			'table-of-content' => [
+				'name' => 'Table Of Content',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+			// 'coupon-code' => [
+			// 	'name' => 'Coupon Code',
+			// 	'enabled' => true,
+			// 	'type' => 'widget',
+			// 	'pro' => true,
+			// ],
+			'elementor-form-action' => [
+				'name'    => 'Elementor Form Action',
+				'enabled' => true,
+				'type'    => 'feature',
+				'pro' => true,
+			],
 		];
 
+		// check php verison 8.0
+		// if ( version_compare( PHP_VERSION, '8.0.0', '>=' ) ) {
+			$modules['add-to-calendar'] = [
+				'name'=>'Add To Calendar',
+				'enabled'=>true,
+				'type'=>'widget',
+				'pro'=>true
+			];
+		// }
+
+		$modules = apply_filters('eae/register_modules', $modules);
+		
 		$saved_modules = get_option( 'wts_eae_elements' );
 
 		if ( $saved_modules !== false ) {
@@ -1614,5 +1729,1131 @@ class Helper {
 		return in_array( strtolower( $tag ), $allowed_tags ) ? $tag : $fallback;
 	}
 
+	public static function eae_media_controls($widget, $args){
+		// 
+		$defaults = [
+			'icon'      => true,
+			'image' 	=> true,
+			'lottie'    => true,
+		];
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$graphic_type['none'] = [
+				'title' => __( 'None', 'wts-eae' ),
+				'icon'  => 'eicon-ban',
+			];
+
+		foreach($args as $key => $value){
+			if($key === 'icon' && $value){
+				$graphic_type['icon'] = [
+						'title' => __( 'Icon', 'wts-eae' ),
+						'icon'  => 'eicon-star',
+					];
+			}
+
+			if($key === 'image' && $value){
+				$graphic_type['image'] = [
+						'title' => __( 'Image', 'wts-eae' ),
+						'icon'  => 'eicon-image-bold',
+				];
+			}
+
+			if($key === 'lottie' && $value){
+				$graphic_type['lottie'] = [
+						'title' => __( 'Lottie Animation', 'wts-eae' ),
+						'icon'  => 'eicon-lottie',
+					];
+			}
+		}
+		$condition = [];
+		if(isset($args['conditions'])){
+			foreach ($args['conditions'] as $key => $cond) {
+				$condition[$cond['key']] = $cond['value'];# code...
+			}
+		}
+
+        
+
+		$graphic_type_default =  $args['defaults']['graphic_type_default'] ?? 'none';
+		
+		$widget->add_control(
+			$args['name'] . '_graphic_type',
+			[
+				'label'       => __( 'Icon Type', 'wts-eae' ),
+				'label_block' => false,
+				'type'        => Controls_Manager::CHOOSE,
+				'options'     => $graphic_type,
+				'default'     => $graphic_type_default,
+				'condition'   => $condition,
+				'toggle'	  => false,	
+			]
+		);
+		
+		$graphic_type_icon_condition = [
+			$args['name'] . '_graphic_type'         => 'icon',
+		];
+		if(isset($args['conditions'])){
+			$graphic_type_icon_condition = array_merge($graphic_type_icon_condition, $condition);
+		}
+	
+		$graphic_icon_default = $args['defaults']['graphic_icon_default'] ?? ['value'   => 'fas fa-star','library' => 'fa-solid']; 
+         $widget->add_control(
+			$args['name'] . '_graphic_icon',
+			[
+				'label'            => __( 'Icon', 'wts-eae' ),
+				'type'             => Controls_Manager::ICONS,
+				'label_block'      => true,
+				'fa4compatibility' => 'head_icon',
+				'default'          => $graphic_icon_default,
+				'condition'        => $graphic_type_icon_condition,
+			]
+		);
+
+
+		$graphic_type_image_condition = [
+			$args['name'] . '_graphic_type'         => 'image',
+		];
+		if(isset($args['conditions'])){
+			$graphic_type_image_condition = array_merge($graphic_type_image_condition, $condition);
+		}
+
+        $widget->add_control(
+			$args['name'] . '_graphic_image',
+			[
+				'label'       => __( 'Image', 'wts-eae' ),
+				'label_block' => true,
+				'type'        => Controls_Manager::MEDIA,
+				'dynamic'     => [
+					'active' => true,
+				],
+				'default'     => [
+					'url' => Utils::get_placeholder_image_src(),
+				],
+				'condition'   => $graphic_type_image_condition
+			]
+		);
+
+		$widget->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			[
+				'name'      => $args['name'] . '_graphic_image',
+				'label'     => __( 'Image Size', 'wts-eae' ),
+				'default'   => 'full',
+				'condition' => $graphic_type_image_condition,
+			]
+		);
+
+		$graphic_type_lottie_condition = [
+			$args['name'] . '_graphic_type'         => 'lottie',
+		];
+		if(isset($args['conditions'])){
+			$graphic_type_lottie_condition = array_merge($graphic_type_lottie_condition, $condition);
+		}
+
+        
+        $widget->add_control(
+			$args['name'] . '_source',
+			[
+				'label' => esc_html__( 'Source', 'elementor-pro' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'media_file',
+				'options' => [
+					'media_file' => esc_html__( 'Media File', 'elementor-pro' ),
+					'external_url' => esc_html__( 'External URL', 'elementor-pro' ),
+				],
+				'frontend_available' => true,
+                'condition'   => $graphic_type_lottie_condition,
+			]
+		);
+
+		$graphic_type_lottie_au_condition = [
+			$args['name'] . '_source' => 'external_url',
+					$args['name'] . '_graphic_type'         => 'lottie',
+		];
+		if(isset($args['conditions'])){
+			$graphic_type_lottie_au_condition = array_merge($graphic_type_lottie_au_condition, $condition);
+		}
+
+        $widget->add_control(
+			$args['name'] . '_lottie_animation_url',
+			[
+				'label'       => __( 'Animation JSON URL', 'wts-eae' ),
+				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => [ 'active' => true ],
+				'description' => 'Get JSON code URL from <a href="https://lottiefiles.com/" target="_blank">here</a>',
+				'label_block' => true,
+				'condition'   => $graphic_type_lottie_au_condition,
+			]
+		);
+
+		$graphic_type_lottie_json_condition = [
+			$args['name'] . '_source' => 'media_file',
+            $args['name'] . '_graphic_type'         => 'lottie',
+		];
+		if(isset($args['conditions'])){
+			$graphic_type_lottie_json_condition = array_merge($graphic_type_lottie_json_condition, $condition);
+		}
+
+		$widget->add_control(
+			$args['name'] . '_source_json',
+			[
+				'label' => esc_html__( 'Upload JSON File', 'elementor-pro' ),
+				'type' => Controls_Manager::MEDIA,
+				'media_type' => 'application/json',
+				'frontend_available' => true,
+				'condition' => $graphic_type_lottie_json_condition,
+			]
+		);
+
+
+		$widget->add_control(
+			$args['name'] . '_lottie_animation_loop',
+			[
+				'label'        => __( 'Loop', 'wts-eae' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => 'Yes',
+				'label_off'    => 'No',
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => $graphic_type_lottie_condition,
+			]
+		);
+
+		$widget->add_control(
+			$args['name'] . '_lottie_animation_reverse',
+			[
+				'label'        => __( 'Reverse', 'wts-eae' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => 'Yes',
+				'label_off'    => 'No',
+				'return_value' => 'yes',
+				'default'      => '',
+				'condition'    => $graphic_type_lottie_condition,
+			]
+		);
+
+		$graphic_type_icon_layout_condition = [
+			$args['name'] . '_graphic_type!' => 'none',
+		];
+		if(isset($args['conditions'])){
+			$graphic_type_icon_layout_condition = array_merge($graphic_type_icon_layout_condition, $condition);
+		}
+		$default_view = $args['defaults']['view_default'] ?? 'default';
+        $widget->add_control(
+			$args['name'] . '_view',
+			[
+				'label' => esc_html__( 'View', 'wts-eae' ),
+				'type' => Controls_Manager::SELECT,
+				'options' => [
+					'default' => esc_html__( 'Default', 'wts-eae' ),
+					'stacked' => esc_html__( 'Stacked', 'wts-eae' ),
+					'framed' => esc_html__( 'Framed', 'wts-eae' ),
+				],
+				'default' => $default_view,
+                'condition'    => $graphic_type_icon_layout_condition,
+			]
+		);
+
+		$graphic_type_icon_shape_condition = [
+			$args['name'] . '_view!' => 'default',
+                    $args['name'] . '_graphic_type!' => 'none',
+		];
+		if(isset($args['conditions'])){
+			$graphic_type_icon_shape_condition = array_merge($graphic_type_icon_shape_condition, $condition);
+		}
+
+		$widget->add_control(
+			$args['name'] . '_shape',
+			[
+				'label' => esc_html__( 'Shape', 'wts-eae' ),
+				'type' => Controls_Manager::SELECT,
+				'options' => [
+					'circle' => esc_html__( 'Circle', 'wts-eae' ),
+					'square' => esc_html__( 'Square', 'wts-eae' ),
+				],
+				'default' => 'circle',
+				'condition' => $graphic_type_icon_shape_condition
+			]
+		);
+
+    }
+
+	/**
+	 * Add global Icon Html 
+	 * @since 1.0.0 pro
+	 * @param array Required It may be $settings or repeater_item
+	 * @param string Optional. You can add your class at icon wrap element
+	 * @param object Required Object of render funciton
+	 * @param string Name of Icon Control. Which you gave while creating icon control
+	 */
+	
+
+	public static function render_icon_html($data,$tag, $control_name, $wClass = ''){
+		
+        if($data[$control_name.'_graphic_type'] != 'none'){
+            $icon_class = ['eae-gbl-icon', 'eae-graphic-type-'.$data[$control_name.'_graphic_type']];
+
+            if($wClass != ''){
+                $icon_class[] = $wClass;     
+            }
+            $icon_class[] = 'eae-graphic-view-'.$data[$control_name.'_view']; 
+            if($data[$control_name.'_view'] != 'default'){
+                $icon_class[] = 'eae-graphic-shape-'.$data[$control_name.'_shape'];
+            }
+			if(isset($data[$control_name.'_hover_animation']) && $data[$control_name.'_hover_animation'] != 'none'){
+                $icon_class[] = 'elementor-animation-'.$data[$control_name.'_hover_animation'];
+            }
+			
+            if($data[$control_name.'_graphic_type'] == 'lottie'){   
+                if(! empty( $data[$control_name.'_lottie_animation_url'] ) ||  !empty($data[$control_name.'_source_json']['url'])) {
+                    $icon_class[] = 'eae-lottie-animation';
+                    $icon_class[] = 'eae-lottie';
+                    $lottie_data = [
+                        'loop'    => ( $data[$control_name.'_lottie_animation_loop'] === 'yes' ) ? true : false,
+                        'reverse' => ( $data[$control_name.'_lottie_animation_reverse'] === 'yes' ) ? true : false,
+                    ];
+                    if($data[$control_name.'_source'] == 'media_file' && !empty($data[$control_name.'_source_json']['url'])){
+                        $lottie_data['url'] = $data[$control_name.'_source_json']['url'];
+                    }else{
+                        $lottie_data['url'] = $data[$control_name.'_lottie_animation_url'];
+                    }                      
+                    $tag->set_render_attribute('panel-icon', 'data-lottie-settings', wp_json_encode( $lottie_data ));
+                }    
+            }
+			// add filter to add class in icon
+			$icon_class = apply_filters('eae/eae-icon-class',$icon_class, $data, $control_name);
+            $tag->set_render_attribute('panel-icon', 'class', $icon_class);
+            if($data[$control_name.'_graphic_type'] == 'lottie') {
+                if(!empty($lottie_data['url'])){
+					
+                    ?><span <?php echo $tag->get_render_attribute_string('panel-icon');?>></span><?php
+					$tag->remove_render_attribute('panel-icon');
+                }
+            }else{
+                switch ($data[$control_name.'_graphic_type']) {
+                    case 'icon':    
+                                    ?>
+                                    <span <?php echo $tag->get_render_attribute_string('panel-icon');?>>
+                                        <?php
+                                        Icons_Manager::render_icon( $data[$control_name.'_graphic_icon'], [ 'aria-hidden' => 'true' ] );
+                                        ?> 
+                                    </span>
+                                    <?php 
+                                     break;
+                    case 'image':	
+                                    if(!empty($data[$control_name.'_graphic_image']['id'])){
+                                        $imgHtml = wp_get_attachment_image($data[$control_name.'_graphic_image']['id'], $data[$control_name.'_graphic_image_size'], false);
+                                        ?><span <?php echo $tag->get_render_attribute_string('panel-icon');?>><?php echo $imgHtml; ?></span>
+                                    <?php }
+                                    break;
+                }                    
+            }
+        }
+    }
+
+	public static function repeater_icon_style_controls($widget, $args){
+		$wrapper_selector = '{{WRAPPER}} {{CURRENT_ITEM}} ' .$args['selector'];
+	
+		$hover_wrapper_selector = '{{WRAPPER}} {{CURRENT_ITEM}} ' .$args['selector'];
+		$hover = ':hover';
+		if(isset($args['is_parent_hover']) && $args['is_parent_hover'] == true){			
+			$hover = '';
+			$hover_wrapper_selector = '{{WRAPPER}} {{CURRENT_ITEM}}' .$args['hover_selector'];
+		}
+
+		$widget->add_control(
+			$args['name'].'_popover_toggle',
+			[
+				'label' => esc_html__( 'Icon', 'wts-eae' ),
+				'type' => \Elementor\Controls_Manager::POPOVER_TOGGLE,
+				'return_value' => 'yes',
+				'default' => '',
+			]
+		);
+
+		$widget->start_popover();
+	
+		$widget->add_control(
+			$args['name'].'_primary_color',
+			[
+				'label' => esc_html__( 'Primary Color', 'wts-eae' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked' => 'background-color: {{VALUE}};',
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed, '.$wrapper_selector.'.eae-graphic-view-default' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed, '.$wrapper_selector.'.eae-graphic-view-default svg' => 'fill: {{VALUE}};',
+				],
+				'condition' => [
+					$args['name'].'_popover_toggle' => 'yes'
+				]
+			]
+		);
+	
+		$widget->add_control(
+			$args['name'].'_secondary_color',
+			[
+				'label' => esc_html__( 'Secondary Color', 'wts-eae' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed' => 'background-color: {{VALUE}};',
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked' => 'color: {{VALUE}};',
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked svg' => 'fill: {{VALUE}};',
+				],
+				'condition' => [
+					$args['name'].'_popover_toggle' => 'yes'
+				]
+			]
+		);
+	
+	
+		$widget->add_responsive_control(
+			$args['name'].'_size',
+			[
+				'label' => esc_html__( 'Size', 'wts-eae' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+				'range' => [
+					'px' => [
+						'min' => 6,
+						'max' => 300,
+					],
+				],
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-type-icon, '.$wrapper_selector.'.eae-gbl-icon.eae-graphic-type-lottie' => 'font-size: {{SIZE}}{{UNIT}};',
+					$wrapper_selector .'.eae-graphic-type-image img' => 'width : {{SIZE}}{{UNIT}}; height : {{SIZE}}{{UNIT}};'
+				],
+				'condition' => [
+					$args['name'].'_popover_toggle' => 'yes'
+				]
+			]
+		);
+	
+		$widget->add_control(
+			$args['name'].'_padding',
+			[
+				'label' => esc_html__( 'Padding', 'wts-eae' ),
+				'type' => Controls_Manager::SLIDER,
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon:not(.eae-graphic-view-default)' => 'padding: {{SIZE}}{{UNIT}};',
+				],
+				'range' => [
+					'em' => [
+						'min' => 0,
+						'max' => 5,
+					],
+				],
+				'condition' => [
+					$args['name'].'_popover_toggle' => 'yes'
+				]
+			]
+		);
+	
+		$widget->add_responsive_control(
+			$args['name'].'_rotate',
+			[
+				'label' => esc_html__( 'Rotate', 'wts-eae' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'deg', 'grad', 'rad', 'turn', 'custom' ],
+				'default' => [
+					'unit' => 'deg',
+				],
+				'tablet_default' => [
+					'unit' => 'deg',
+				],
+				'mobile_default' => [
+					'unit' => 'deg',
+				],
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon i ,'.$wrapper_selector.'.eae-gbl-icon svg,'.$wrapper_selector.'.eae-gbl-icon img' => 'transform: rotate({{SIZE}}{{UNIT}}) !important;',
+				],
+				'condition' => [
+					$args['name'].'_popover_toggle' => 'yes'
+				]
+			]
+		);
+	
+		$widget->add_control(
+			$args['name'].'_border_width',
+			[
+				'label' => esc_html__( 'Border Width', 'wts-eae' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition' => [
+					$args['name'].'_popover_toggle' => 'yes'
+				]
+			]
+		);
+	
+		$widget->add_responsive_control(
+			$args['name'].'_border_radius',
+			[
+				'label' => esc_html__( 'Border Radius', 'wts-eae' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon:not(.eae-graphic-view-default)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition' => [
+					$args['name'].'_popover_toggle' => 'yes'
+				]
+			]
+		);
+
+		$widget->end_popover();
+		if(!isset($args['show_hover_controls'])){
+
+		
+		$widget->add_control(
+			$args['name'].'_hover_popover_toggle',
+			[
+				'label' => esc_html__( 'Icon Hover', 'wts-eae' ),
+				'type' => \Elementor\Controls_Manager::POPOVER_TOGGLE,
+				'return_value' => 'yes',
+				'default' => '',
+			]
+		);
+
+		$widget->start_popover();
+	
+		$widget->add_control(
+			$args['name'].'_hover_primary_color',
+			[
+				'label' => esc_html__( 'Primary Color', 'wts-eae' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked'.$hover => 'background-color: {{VALUE}};',
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed'.$hover.', '.$hover_wrapper_selector.'.eae-gbl-icon.eae-graphic-view-default'.$hover => 'color: {{VALUE}}; border-color: {{VALUE}};',
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed'.$hover.','.$hover_wrapper_selector.'.eae-gbl-icon.eae-graphic-view-defult'.$hover.' svg' => 'fill: {{VALUE}};',
+				],
+				'condition' => [
+					$args['name'].'_hover_popover_toggle' => 'yes'
+				]
+			]
+		);
+	
+		$widget->add_control(
+			$args['name'].'_hover_secondary_color',
+			[
+				'label' => esc_html__( 'Secondary Color', 'wts-eae' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed'.$hover => 'background-color: {{VALUE}};',
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked'.$hover => 'color: {{VALUE}};',
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked'.$hover.' svg' => 'fill: {{VALUE}};',
+				],
+				'condition' => [
+					$args['name'].'_hover_popover_toggle' => 'yes'
+				]
+			]
+		);
+	
+		$widget->add_control(
+			$args['name'].'_hover_animation',
+			[
+				'label' => esc_html__( 'Hover Animation', 'wts-eae' ),
+				'type' => Controls_Manager::HOVER_ANIMATION,
+				'condition' => [
+					$args['name'].'_hover_popover_toggle' => 'yes'
+				]
+			]
+		);
+
+		$widget->end_popover();
+		}
+		if(isset($args['is_active_tab'])){
+			$is_active_tab = $args['is_active_tab'];
+			$active_selector = '{{WRAPPER}}  {{CURRENT_ITEM}} ' . $is_active_tab['selector'] . ' ' . $args['selector'];
+
+			$widget->add_control(
+				$args['name'].'_active_popover_toggle',
+				[
+					'label' => esc_html__( 'Icon Active', 'wts-eae' ),
+					'type' => \Elementor\Controls_Manager::POPOVER_TOGGLE,
+					'return_value' => 'yes',
+					'default' => '',
+				]
+			);
+
+			$widget->start_popover();
+
+			$widget->add_control(
+				$args['name'].'_active_primary_color',
+				[
+					'label' => esc_html__( 'Primary Color', 'wts-eae' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '',
+					'selectors' => [
+						$active_selector .'.eae-gbl-icon.eae-graphic-view-stacked' => 'background-color: {{VALUE}};',
+						$active_selector .'.eae-gbl-icon.eae-graphic-view-framed, '.$active_selector.'.eae-graphic-view-default' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+						$active_selector .'.eae-gbl-icon.eae-graphic-view-framed, '.$active_selector.'.eae-graphic-view-default svg' => 'fill: {{VALUE}};',
+					],
+					'condition' => [
+						$args['name'].'_active_popover_toggle' => 'yes'
+					]
+				]
+			);
+
+			$widget->add_control(
+				$args['name'].'_active_secondary_color',
+				[
+					'label' => esc_html__( 'Secondary Color', 'wts-eae' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '',
+					'selectors' => [
+						$active_selector .'.eae-gbl-icon.eae-graphic-view-framed' => 'background-color: {{VALUE}};',
+						$active_selector .'.eae-gbl-icon.eae-graphic-view-stacked' => 'color: {{VALUE}};',
+						$active_selector .'.eae-gbl-icon.eae-graphic-view-stacked svg' => 'fill: {{VALUE}};',
+					],
+					'condition' => [
+						$args['name'].'_active_popover_toggle' => 'yes'
+					]
+				]
+			);
+
+			$widget->start_popover();
+		}
+	}
+
+
+	public static function global_icon_style_controls($widget, $args){
+		
+		$wrapper_selector = '{{WRAPPER}} ' .$args['selector'];
+		$hover_wrapper_selector = '{{WRAPPER}} ' .$args['selector'];
+		$hover = ':hover';
+		if(isset($args['is_parent_hover']) && $args['is_parent_hover'] == true){			
+			$hover = '';
+			$hover_wrapper_selector = '{{WRAPPER}} ' .$args['hover_selector'];
+		}
+
+		$condition = [];
+		if(isset($args['conditions'])){
+			foreach ($args['conditions'] as $key => $cond) {
+				$condition[$cond['key']] = $cond['value'];# code...
+			}
+			//echo '<pre>';  print_r($condition); echo '</pre>';
+			
+		}
+		
+		if(!isset($args['show_hover_controls'])){
+			$widget->start_controls_tabs( $args['name'].'_icon_colors' );
+			$widget->start_controls_tab(
+				$args['name'].'_colors_normal',
+				[
+					'label' => esc_html__( 'Normal', 'wts-eae' ),
+					'condition' => $condition
+				]
+			);
+		}
+		if(isset($args['default']['primary_color'])){
+			$p_default = $args['default']['primary_color'];
+		}else{
+			$p_default = Global_Colors::COLOR_PRIMARY;
+		}
+		if(isset($args['default']['custom_primary_color'])){
+			$p_default = $args['default']['primary_color'] ?? '#ffffff';
+		}
+
+		
+
+		if(!isset($args['default']['custom_primary_color'])){
+			$widget->add_control(
+				$args['name'].'_primary_color',
+				[
+					'label' => esc_html__( 'Primary Color', 'wts-eae' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '',
+					'selectors' => [
+						$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked' => 'background-color: {{VALUE}};',
+						$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed, '.$wrapper_selector.'.eae-graphic-view-default' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+						$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed, '.$wrapper_selector.'.eae-graphic-view-default svg' => 'fill: {{VALUE}};',
+					],
+					'global' => [
+						'default' => $p_default
+					],
+					'condition' => $condition
+				]
+			);
+		}else{
+			$widget->add_control(
+				$args['name'].'_primary_color',
+				[
+					'label' => esc_html__( 'Primary Color', 'wts-eae' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '',
+					'selectors' => [
+						$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked' => 'background-color: {{VALUE}};',
+						$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed, '.$wrapper_selector.'.eae-graphic-view-default' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+						$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed, '.$wrapper_selector.'.eae-graphic-view-default svg' => 'fill: {{VALUE}};',
+					],
+					'default' => $p_default,
+					'condition' => $condition
+				]
+			);
+		}
+		
+		$widget->add_control(
+			$args['name'].'_secondary_color',
+			[
+				'label' => esc_html__( 'Secondary Color', 'wts-eae' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed' => 'background-color: {{VALUE}};',
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked' => 'color: {{VALUE}};',
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked svg' => 'fill: {{VALUE}};',
+				],
+				'condition' => $condition
+			]
+		);
+
+
+		if(!isset($args['show_hover_controls']) ){
+			$widget->end_controls_tab();
+
+			$widget->start_controls_tab(
+				$args['name'].'_colors_hover',
+				[
+					'label' => esc_html__( 'Hover', 'wts-eae' ),
+					'condition' => $condition
+				]
+			);
+		}
+
+		if(!isset($args['show_hover_controls'])){
+
+		
+		$widget->add_control(
+			$args['name'].'_hover_primary_color',
+			[
+				'label' => esc_html__( 'Primary Color', 'wts-eae' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked'.$hover => 'background-color: {{VALUE}};',
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed'.$hover.', '.$hover_wrapper_selector.'.eae-gbl-icon.eae-graphic-view-default'.$hover => 'color: {{VALUE}}; border-color: {{VALUE}};',
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed'.$hover.','.$hover_wrapper_selector.'.eae-gbl-icon.eae-graphic-view-defult'.$hover.' svg' => 'fill: {{VALUE}};',
+				],
+			]
+		);
+
+		$widget->add_control(
+			$args['name'].'_hover_secondary_color',
+			[
+				'label' => esc_html__( 'Secondary Color', 'wts-eae' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '',
+				'selectors' => [
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed'.$hover => 'background-color: {{VALUE}};',
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked'.$hover => 'color: {{VALUE}};',
+					$hover_wrapper_selector .'.eae-gbl-icon.eae-graphic-view-stacked'.$hover.' svg' => 'fill: {{VALUE}};',
+				],
+			]
+		);
+
+		$widget->add_control(
+			$args['name'].'_hover_animation',
+			[
+				'label' => esc_html__( 'Hover Animation', 'wts-eae' ),
+				'type' => Controls_Manager::HOVER_ANIMATION,
+			]
+		);
+
+		}
+
+		if(!isset($args['show_hover_controls']) ){
+			$widget->end_controls_tab();
+		}
+		
+
+		if(isset($args['is_active_tab']) ){
+			
+			$is_active_tab = $args['is_active_tab'];
+			$active_selector = '{{WRAPPER}} ' . $is_active_tab['selector'] . ' ' . $args['selector'];
+			if(!isset($args['show_hover_controls'])){
+				$widget->start_controls_tab(
+					$args['name'].'_colors_active',
+					[
+						'label' => esc_html__( $is_active_tab['label'], 'wts-eae' ),
+						'condition' => $condition
+					]
+				);
+			}
+			$widget->add_control(
+				$args['name'].'_active_primary_color',
+				[
+					'label' => esc_html__( 'Primary Color', 'wts-eae' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '',
+					'selectors' => [
+						$active_selector . '.eae-gbl-icon.eae-graphic-view-stacked' => 'background-color: {{VALUE}};',
+						$active_selector . '.eae-gbl-icon.eae-graphic-view-framed, ' . $active_selector . '.eae-gbl-icon.eae-graphic-view-default' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+						$active_selector . '.eae-gbl-icon.eae-graphic-view-framed, ' . $active_selector . '.eae-gbl-icon.eae-graphic-view-defult svg' => 'fill: {{VALUE}};',
+					],
+					'global'    => [
+							'default' => Global_Colors::COLOR_ACCENT,
+						],
+				]
+			);
+
+			$widget->add_control(
+				$args['name'].'_active_secondary_color',
+				[
+					'label' => esc_html__( 'Secondary Color', 'wts-eae' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '',
+					'selectors' => [
+						$active_selector . '.eae-gbl-icon.eae-graphic-view-framed' => 'background-color: {{VALUE}};',
+						$active_selector . '.eae-gbl-icon.eae-graphic-view-stacked' => 'color: {{VALUE}};',
+						$active_selector . '.eae-gbl-icon.eae-graphic-view-stacked svg' => 'fill: {{VALUE}};',
+					],
+				]
+			);
+			if(!isset($args['show_hover_controls'])){
+				$widget->end_controls_tab();
+			}
+			
+		
+		}
+		if(!isset($args['show_hover_controls'])){
+			$widget->end_controls_tabs();
+		}
+		
+		$widget->add_responsive_control(
+			$args['name'].'_size',
+			[
+				'label' => esc_html__( 'Size', 'wts-eae' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+				'range' => [
+					'px' => [
+						'min' => 6,
+						'max' => 300,
+					],
+				],
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-type-icon, '.$wrapper_selector.'.eae-gbl-icon.eae-graphic-type-lottie' => 'font-size: {{SIZE}}{{UNIT}};',
+                    $wrapper_selector .'.eae-graphic-type-image img' => 'width : {{SIZE}}{{UNIT}}; height : {{SIZE}}{{UNIT}};'
+				],
+				'separator' => 'before',
+				'condition' => $condition
+			]
+		);
+
+		$widget->add_control(
+			$args['name'].'_padding',
+			[
+				'label' => esc_html__( 'Padding', 'wts-eae' ),
+				'type' => Controls_Manager::SLIDER,
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon:not(.eae-graphic-view-default)' => 'padding: {{SIZE}}{{UNIT}};',
+				],
+				'range' => [
+					'em' => [
+						'min' => 0,
+						'max' => 5,
+					],
+				],
+				'condition' => $condition
+			]
+		);
+
+		$widget->add_responsive_control(
+			$args['name'].'_rotate',
+			[
+				'label' => esc_html__( 'Rotate', 'wts-eae' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'deg', 'grad', 'rad', 'turn', 'custom' ],
+				'default' => [
+					'unit' => 'deg',
+				],
+				'tablet_default' => [
+					'unit' => 'deg',
+				],
+				'mobile_default' => [
+					'unit' => 'deg',
+				],
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon i ,'.$wrapper_selector.'.eae-gbl-icon svg,'.$wrapper_selector.'.eae-gbl-icon img' => 'transform: rotate({{SIZE}}{{UNIT}}) !important;',
+				],
+				'condition' => $condition
+			]
+		);
+
+		$widget->add_control(
+			$args['name'].'_border_width',
+			[
+				'label' => esc_html__( 'Border Width', 'wts-eae' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon.eae-graphic-view-framed' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition' => $condition
+			]
+		);
+
+		$widget->add_responsive_control(
+			$args['name'].'_border_radius',
+			[
+				'label' => esc_html__( 'Border Radius', 'wts-eae' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'selectors' => [
+					$wrapper_selector .'.eae-gbl-icon:not(.eae-graphic-view-default)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$wrapper_selector .'.eae-gbl-icon:not(.eae-graphic-view-default) img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition' => $condition
+			]
+		);
+	}
+
+	public static function eae_flex_controls($widget, $selector){
+		$start = is_rtl() ? 'right' : 'left';
+		$end = is_rtl() ? 'left' : 'right';
+
+		$widget->add_control(
+			'flex_items',
+			[
+				'type' => Controls_Manager::HEADING,
+				'label' => esc_html__( 'Items', 'wts-eae' ),
+				'separator' => 'before',
+			]
+		);
+
+		$widget->add_responsive_control(
+			'flex_direction', 
+			[
+				'label' => esc_html_x( 'Direction', 'wts-eae' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'row' => [
+						'title' => esc_html_x( 'Row - horizontal', 'wts-eae' ),
+						'icon' => 'eicon-arrow-' . $end,
+					],
+					'column' => [
+						'title' => esc_html_x( 'Column - vertical', 'wts-eae' ),
+						'icon' => 'eicon-arrow-down',
+					],
+					'row-reverse' => [
+						'title' => esc_html_x( 'Row - reversed', 'wts-eae' ),
+						'icon' => 'eicon-arrow-' . $start,
+					],
+					'column-reverse' => [
+						'title' => esc_html_x( 'Column - reversed', 'wts-eae' ),
+						'icon' => 'eicon-arrow-up',
+					],
+				],
+				'default' => 'row',
+				'selectors_dictionary' => [
+					'row' => 'flex-direction: row; width: initial; height: 100%;',
+					'column' => 'flex-direction: column; width: 100%; height: initial;',
+					'row-reverse' => 'flex-direction: row-reverse; width: initial; height: 100%;',
+					'column-reverse' => 'flex-direction: column-reverse; width: 100%; height: initial;',
+				],
+				'selectors' => [
+					$selector => '{{VALUE}};',
+				],
+			]
+		);
+
+		$widget->add_responsive_control(
+			'flex_justify_content',
+			[
+				'label' => esc_html_x( 'Justify Content', 'wts-eae' ),
+				'type' => Controls_Manager::CHOOSE,
+				'label_block' => true,
+				'default' => 'space-evenly',
+				'options' => [
+					'flex-start' => [
+						'title' => esc_html_x( 'Start', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-justify-start-h',
+					],
+					'center' => [
+						'title' => esc_html_x( 'Center', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-justify-center-h',
+					],
+					'flex-end' => [
+						'title' => esc_html_x( 'End', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-justify-end-h',
+					],
+					'space-between' => [
+						'title' => esc_html_x( 'Space Between', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-justify-space-between-h',
+					],
+					'space-around' => [
+						'title' => esc_html_x( 'Space Around', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-justify-space-around-h',
+					],
+					'space-evenly' => [
+						'title' => esc_html_x( 'Space Evenly', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-justify-space-evenly-h',
+					],
+				],
+				'selectors' => [
+					$selector => 'justify-content: {{VALUE}};',
+				],
+			]
+		);
+
+		$widget->add_responsive_control(
+			'flex_align_items',
+			[
+				'label' => esc_html_x( 'Align Items', 'wts-eae' ),
+				'type' => Controls_Manager::CHOOSE,
+				'default' => '',
+				'options' => [
+					'flex-start' => [
+						'title' => esc_html_x( 'Start', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-align-start-v',
+					],
+					'center' => [
+						'title' => esc_html_x( 'Center', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-align-center-v',
+					],
+					'flex-end' => [
+						'title' => esc_html_x( 'End', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-align-end-v',
+					],
+					'stretch' => [
+						'title' => esc_html_x( 'Stretch', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-align-stretch-v',
+					],
+				],
+				'selectors' => [
+					$selector => 'align-items: {{VALUE}};',
+				],
+			]
+		);
+
+		$widget->add_responsive_control(
+			'flex_gap',
+			[
+				'label' => esc_html_x( 'Gap', 'Flex Item Control', 'wts-eae' ),
+				'type' => Controls_Manager::SLIDER,
+				'default'   =>
+					[
+						'size' => 10,
+					],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 500,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'vw' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'em' => [
+						'min' => 0,
+						'max' => 50,
+					],
+				],
+
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+				'selectors' => [
+					$selector => 'gap: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$widget->add_responsive_control(
+			'flex_wrap',
+			[
+				'label' => esc_html_x( 'Wrap', 'wts-eae' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'nowrap' => [
+						'title' => esc_html_x( 'No Wrap', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-nowrap',
+					],
+					'wrap' => [
+						'title' => esc_html_x( 'Wrap', 'wts-eae' ),
+						'icon' => 'eicon-flex eicon-wrap',
+					],
+				],
+				'description' => esc_html_x(
+					'Items within the container can stay in a single line (No wrap), or break into multiple lines (Wrap).',
+					'Flex Container Control',
+					'wts-eae'
+				),
+				'default' => 'wrap',
+				'selectors' => [
+					$selector => 'flex-wrap: {{VALUE}};',
+				],
+			]
+		);
+
+		
+	}
+
+	public static function get_share_url($settings, $share_url, $media_url, $share_text){
+		if( $settings['lightgallery_facebook'] === 'yes' ){
+			$facebookBaseUrl = '//www.facebook.com/sharer/sharer.php?u=';
+        	return $facebookBaseUrl + $share_url;
+		}
+
+		if( $settings['lightgallery_twitter'] === 'yes' ){
+			$twitterBaseUrl = '//twitter.com/intent/tweet?text=';
+			$url = $share_url;
+			$text = $share_text;
+			return $twitterBaseUrl + $text + '&url=' + $share_url;
+		}
+
+		if( $settings['lightgallery_pinterest'] === 'yes' ){
+			$pinterestBaseUrl = 'http://www.pinterest.com/pin/create/button/?url=';
+			$description = $share_text;
+			$media = $media_url;
+			$url = $share_url;
+			return $pinterestBaseUrl + $url + '&media=' + $media + '&description=' + $description;
+		}
+	}
+
+
+	public function eae_pro_notice(){
+        return '<div class="eae-pro-notice-wrapper">
+            <div class="eae-pro-notice-title"><i class="fa fa-lock" aria-hidden="true"></i> Pro Feature</div>
+            <div class="eae-pro-notice-info">Get our pro version to use all our widgets & features with its fullest functionality. The pro version will improve your elementor workflow.</div>
+            <div class="eae-pro-notice-links">
+                <a class="eae-pro-link-buy" href="https://wpvibes.link/go/eae-upgrade" target="_blank">Upgrade to Pro</a>
+            </div>
+        </div>';
+    }
+
+	public static function add_eae_pro_notice_controls($widget, $args){
+		if(EAE::$is_pro == true){
+			return;
+		}else{
+			$widget->add_control(
+				$args['name'],
+				[
+					'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+					'type' => Controls_Manager::TEXT,
+					'default' => '',
+					'description' => '<div class="eae-pro-notice-wrapper">
+											<div class="eae-pro-notice-title"><i class="fa fa-lock" aria-hidden="true"></i> Pro Feature</div>
+											<div class="eae-pro-notice-info">Get our pro version to use all our widgets & features with It\'s fullest functionallity. Pro version will improve your elementor work flow.</div>
+											<div class="eae-pro-notice-links">
+												<a class="eae-pro-link-buy" href="https://wpvibes.link/go/eae-upgrade" target="_blank">Upgrade to Pro</a>
+											</div>	
+									  </div>',
+					'classes' => 'eae-pro-notice',
+					'condition'    => $args['conditions'],
+				]
+			);
+		}
+	}
+	
 
 }

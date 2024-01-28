@@ -1,7 +1,0 @@
-[03-Aug-2023 14:08:42 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "EAE_PATH" in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/inc/bootstrap.php:261
-Stack trace:
-#0 /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/inc/bootstrap.php(29): WTS_EAE\Plugin->autoload('WTS_EAE\\Classes...')
-#1 /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/inc/bootstrap.php(21): WTS_EAE\Plugin->__construct()
-#2 /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/inc/bootstrap.php(489): WTS_EAE\Plugin::get_instance()
-#3 {main}
-  thrown in /home/zuelligf/public_html/wp-content/plugins/addon-elements-for-elementor-page-builder/inc/bootstrap.php on line 261

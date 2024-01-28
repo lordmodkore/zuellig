@@ -25,11 +25,11 @@ class FlipBox extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Flip Box', 'wts-eae' );
+		return __( 'Flip Box', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-flip-box wts-eae-pe';
+		return 'eae-icon eae-flip-box';
 	}
 
 	public function get_categories() {

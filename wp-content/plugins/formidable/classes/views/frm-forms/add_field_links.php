@@ -59,6 +59,9 @@ if ( $no_allow_class === 'frm_noallow' ) {
 }
 
 $pro_fields = FrmField::pro_field_selection();
+// This is a Lite field. It's kept in pro_field_selection for backward compatibility.
+unset( $pro_fields['credit_card'] );
+
 $field_sections = array();
 foreach ( $pro_fields as $field_key => $field_type ) {
 
@@ -99,10 +102,10 @@ foreach ( $pro_fields as $field_key => $field_type ) {
 		<?php
 	} else {
 		FrmFieldsHelper::show_add_field_buttons( compact( 'field_key', 'field_type', 'id', 'no_allow_class' ) );
-	}
+	}//end if
 
 	unset( $field_key, $field_type, $field_label );
-}
+}//end foreach
 ?>
 			</ul>
 			<div class="clear"></div>
@@ -124,7 +127,7 @@ foreach ( $pro_fields as $field_key => $field_type ) {
 		</div>
 		<?php do_action( 'frm_extra_form_instructions' ); ?>
 
-		<div id="frm-options-panel" class="frm-p-6 tabs-panel frm_hidden">
+		<div id="frm-options-panel" class="tabs-panel frm_hidden">
 			<div class="frm-single-settings">
 				<div class="frm-embed-field-placeholder">
 					<div class="frm-embed-message">
@@ -136,6 +139,7 @@ foreach ( $pro_fields as $field_key => $field_type ) {
 				<input type="hidden" name="frm_action" value="update" />
 				<input type="hidden" name="action" value="update" />
 				<input type="hidden" name="id" id="form_id" value="<?php echo esc_attr( $values['id'] ); ?>" />
+				<input type="hidden" name="draft_fields" id="draft_fields" value="<?php echo esc_attr( implode( ',', FrmFieldsHelper::get_all_draft_field_ids( $values['id'] ) ) ); ?>" />
 				<?php wp_nonce_field( 'frm_save_form_nonce', 'frm_save_form' ); ?>
 				<input type="hidden" id="frm-end-form-marker" name="frm_end" value="1" />
 

@@ -787,3 +787,95 @@ button.loading .eae-action-loading {
   text-decoration: none;
   font-size: 14px;
 }
+
+.eae-pro-label{
+  font-size: 10px;
+  font-weight: normal;
+  background-color: #05c096;
+  color:#FFF;
+  padding:4px 10px;
+  border-radius: 3px;
+  margin-left: 6px;
+}
+
+.eae-module-action.eae-pro-missing{
+  font-weight: 500;
+}
+.eae-module-action.eae-pro-missing a{
+  color: #f56e28;
+}
+
+h3.eae-title.eae-get-pro{
+  background: #f56e28;
+  padding: 0;
+}
+
+h3.eae-title.eae-get-pro:hover{
+  background: #f77d40;
+}
+
+h3.eae-title.eae-get-pro a{
+  color: #fff;
+  padding:12px 18px;
+  font-weight: 600;
+  display: block;
+}
+.eae-plugin-gopro{
+  color: #f56e28;
+  font-weight: bold;
+}
+.eae-plugin-gopro:hover , .eae-plugin-gopro:focus, .eae-plugin-gopro:active, .eae-plugin-gopro:visited{
+  color: #f56e28;
+}
+
+.eae-sidebar-box{
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.eae-sidebar-box h3{
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.eae-promo-box p{
+  margin-top:5px;
+  margin-bottom: 5px;
+  font-size:14px;
+}
+
+.eae-sidebar-box ul.eae-pro-features{
+  list-style: none;
+  list-style-position: inside;
+  font-size: 14px;
+}
+
+.eae-sidebar-box ul.eae-pro-features li::before{
+  content: "\f147";
+  font: normal 14px/1 "dashicons";
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  color: #f56e28;
+}
+
+a.eae-go-pro {
+  text-decoration: none;
+  display: inline;
+  padding: 10px 20px;
+  background: #013558;
+  align-self: flex-start;
+  border-radius: 20px;
+  color: #FFF;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 1.2px;
+  margin-bottom: 10px;
+}
+

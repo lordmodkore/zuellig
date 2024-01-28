@@ -16,8 +16,7 @@ class AIOWPSecurity_Settings_Tasks {
 	public static function enable_basic_firewall() {
 		global $aio_wp_security;
 		$msg = array();
-		$aio_wp_security->configs->set_value('aiowps_enable_basic_firewall', '1');
-		$aio_wp_security->configs->save_config();
+		$aio_wp_security->configs->set_value('aiowps_enable_basic_firewall', '1', true);
 		//Now let's write the applicable rules to the .htaccess file
 		$res = AIOWPSecurity_Utility_Htaccess::write_to_htaccess();
 		if ($res) {
@@ -84,6 +83,8 @@ class AIOWPSecurity_Settings_Tasks {
 		$reset_option_res = AIOWPSecurity_Reset_Settings::reset_options();
 		$delete_htaccess = AIOWPSecurity_Reset_Settings::delete_htaccess();
 		AIOWPSecurity_Reset_Settings::reset_db_tables();
+		// AIOS premium and other plugin related config settings are reset by adding below action.
+		do_action('aios_reset_all_settings');
 		
 		if (false === $reset_option_res && false === $delete_htaccess) {
 			$msg['error'] = __('Deletion of aio_wp_security_configs option and .htaccess directives failed.', 'all-in-one-wp-security-and-firewall');

@@ -4,9 +4,9 @@ Author: WPDeveloper
 Author URI: https://wpdeveloper.com
 Tags: embed, embed youtube, gutenberg embed, pdf, doc, docs, ppt, elementor embed, video embed, Google Doc, map embed, youTube Embed, content embed, iframes, vimeo embed, wistia, google sheet, youtube player, block editor, embed wordpress, elementor, WPML, Meetup, Boomplay, PDF Logo
 Requires at least: 4.6
-Tested up to: 6.2
+Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 3.7.1
+Stable tag: 3.9.7
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -382,16 +382,108 @@ Not at all. You can set up everything your team needs without any coding knowled
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+= [3.9.7] – 2024-01-09 =
+- Added: eSpatial Map embedding support.
+- Fixed: YouTube Embedding issues.
+- Fixed: PDF Embed wasn't showing for Logged out users.
+- Fixed: Custom Branding logo goes big in YouTube videos.
+- Fixed: Deprecated issues with PHP 8.1
+- Few minor bug fixes & improvements.
+
+= [3.9.6] - 2023-12-27 =
+- Improved: Security Enhancement
+- Few minor bug fixes & improvements.
+
+= [3.9.5] - 2023-12-07 =
+- Fixed: Instagram height width controller wasn’t working.
+- Improved: Updated security patch for better performance | Suggested by PatchStack.
+- Fixed: Conflict with GeneratePress theme and Generate block.
+- Few minor bug fixes & improvements.
+
+= [3.9.4] - 2023-11-23 =
+- Improved: Security enhancement for better performance.
+- Few minor bug fixes & improvements.
+
+= [3.9.3] - 2023-11-20 =
+- Few minor bug fixes & improvements.
+
+= [3.9.2] - 2023-11-16 =
+- Fixed: Conflicts with Essential Blocks for Gutenberg. 
+- Improved: Security Enhancement | Suggested by WPScan. 
+- Few minor bug fixes & improvements.
+
+= [3.9.1] - 2023-10-22 =
+- Added: YouTube Shorts controls for Gutenberg.
+- Added: Office file embedding support for Classic editor.
+- Improved: PDF controls for Elementor.
+- Fixed: OpenSea API related issues.
+- Fixed: NFT gallery overlapping in mobile devices.
+- Few minor bug fixes & improvements.
+
+= [3.9.0] - 2023-10-05 =
+- Revamped: EmbedPress Dashboard.
+- Fixed: Conflict with RankMath.
+- Few minor bug fixes & improvements.
+
+= [3.8.5] - 2023-09-21 =
+- Improved: Calendly Embedding.
+- Few minor bug fixes & improvements.
+
+= [3.8.4] - 2023-09-07 =
+- Added: Calendly Embedding.
+- Fixed: Conflict with ninja table pro plugin.
+- Fixed : Security issues for optimized performance.
+- Improved: PDF embedding with better responsive controls.
+- Few minor bug fixes & improvements.
+
+= [3.8.3] - 2023-08-09 =
+- Added: Gumroad Embedding support.
+- Improved: Wrapper with any public page embedding support.
+- Improved: Updated security patch for better performance.
+- Fixed: PHP8.2 deprecated issues.
+- Few minor bug fixes & improvements.
+
+= [3.8.2] - 2023-07-26 =
+* Fixed: PDF responsive issues.
+* Fixed: Unwanted 'gittyimage' scripts appear at the bottom of embedded content.
+* Few minor bug fixes and improvements.
+
+= [3.8.1] - 2023-07-06 =
+* Added: Wrapper embedding support.
+* Added: PPSX office file support.
+* Fixed: Responsive issues for Custom player.
+* Few minor bug fixes and improvements.
+
+= [3.8.0] - 2023-06-25 =
+* Added: Custom Video/Audio player.
+* Added: Self hosted audio/video embedding support.
+* Fixed: PHP 8.2 compatibility issues.
+* Fixed: Spotify country restricted videos aren’t playing.
+* Improved: Password protected content for Security Enhancement (Reported by Wordfence on 23rd June).
+* Few minor bug fixes and improvements.
+
+= [3.7.3] - 2023-06-06 =
+* Added: Github Gist Embedding.
+* Added: NRK Radio Embedding.
+* Added: ACF support for Elementor dynamic fields.
+* Improved: PDF embedding download controls.
+* Few minor bug fix and improvements.
+
+= [3.7.2] - 2023-05-25 =
+* Fixed: Youtube channel embedding issues.
+* Improved: Documents embedding in both Gutenberg & Elementor.
+* Few minor bug fix and improvements.
+
 = [3.7.1] - 2023-05-08 =
-* Added: Youtube live stream embedding with channel handler. 
+* Added: Youtube live stream embedding with channel handler.
 * Fixed: Social Share redirection.
 * Fixed: Height width wasn’t working in Elementor documents widget.
-* Fixed: Conflict with Ninja table pro plugin. 
+* Fixed: Conflict with Ninja table pro plugin.
 * Few minor bug fix and improvements.
 
 = [3.7.0] - 2023-04-17 =
 * Added: Social Share for all Embedded contents.
-* Added: Images/Videos embedding from google drive. 
+* Added: Images/Videos embedding from google drive.
 * Fixed: Google spreadsheet embedding wasn't working in Elementor.
 * Few minor bug fix and improvements.
 

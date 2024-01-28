@@ -23,11 +23,11 @@ class PriceTable extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Price Table', 'wts-eae' );
+		return __( 'Price Table', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-price-table wts-eae-pe';
+		return 'eae-icon eae-price-table';
 	}
 
 	public function get_categories() {

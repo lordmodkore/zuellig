@@ -22,16 +22,16 @@ class AIOWPSecurity_List_Blocked_IP extends AIOWPSecurity_List_Table {
 		return $item[$column_name];
 	}
 
+	/**
+	 * Function to populate the permanent blocked ip actions column in the table
+	 *
+	 * @param array $item - Contains the current item data 
+	 *
+	 * @return string
+	 */
 	public function column_id($item) {
-		$tab = isset($_REQUEST['tab']) ? strip_tags($_REQUEST['tab']) : '';
-		//Add nonce to delete URL
-		$unblock_ip_url = sprintf('admin.php?page=%s&tab=%s&action=%s&blocked_id=%s', AIOWPSEC_MAIN_MENU_SLUG, $tab, 'unblock_ip', $item['id']);
-		//Add nonce to unlock IP URL
-		$unblock_ip_nonce = wp_nonce_url($unblock_ip_url, "unblock_ip", "aiowps_nonce");
-
-		//Build row actions
 		$actions = array(
-			'unblock' => '<a href="' . $unblock_ip_nonce . '" onclick="return confirm(\'Are you sure you want to unblock this IP address?\')">Unblock</a>',
+			'unblock' => '<a href="" class="aios-unblock-permanent-ip" data-id="'.esc_attr($item['id']).'" data-message="'.esc_js(__('Are you sure you want to unblock this IP address?', 'all-in-one-wp-security-and-firewall')).'">Unblock</a>',
 		);
 
 		//Return the user_login contents
@@ -120,26 +120,52 @@ class AIOWPSecurity_List_Blocked_IP extends AIOWPSecurity_List_Table {
 					AIOWPSecurity_Admin_Menu::show_msg_error_st(__('Failed to unblock and delete the selected record(s).', 'all-in-one-wp-security-and-firewall'));
 				}
 			}
-		} elseif ($entries != NULL) {
-			$nonce = isset($_GET['aiowps_nonce']) ? $_GET['aiowps_nonce'] : '';
-			if (!isset($nonce) || !wp_verify_nonce($nonce, 'unblock_ip')) {
-				$aio_wp_security->debug_logger->log_debug("Nonce check failed for unblock IP operation!", 4);
-				die(__('Nonce check failed for unblock IP operation!', 'all-in-one-wp-security-and-firewall'));
-			}
+		} elseif (!empty($entries)) {
 			//Delete single record
 			$delete_command = "DELETE FROM " . AIOWPSEC_TBL_PERM_BLOCK . " WHERE id = '" . absint($entries) . "'";
 			$result = $wpdb->query($delete_command);
 			if ($result) {
-				AIOWPSecurity_Admin_Menu::show_msg_updated_st(__('Successfully unblocked and deleted the selected record(s).', 'all-in-one-wp-security-and-firewall'));
+				return AIOWPSecurity_Admin_Menu::show_msg_updated_st(__('Successfully unblocked and deleted the selected record(s).', 'all-in-one-wp-security-and-firewall'), true);
 			} elseif ($result === false) {
 				// Error on single delete
 				$aio_wp_security->debug_logger->log_debug('Database error occurred when deleting rows from Perm Block table. Database error: '.$wpdb->last_error, 4);
-				AIOWPSecurity_Admin_Menu::show_msg_error_st(__('Failed to unblock and delete the selected record(s).', 'all-in-one-wp-security-and-firewall'));
+				return AIOWPSecurity_Admin_Menu::show_msg_error_st(__('Failed to unblock and delete the selected record(s).', 'all-in-one-wp-security-and-firewall'), true);
 			}
 		}
 	}
 
-	public function prepare_items() {
+	/**
+	 * This function will build and return the SQL WHERE statement
+	 *
+	 * @param string $search_term - the search term applied
+	 * @return string - the SQL WHERE statement
+	 */
+	private function get_permanent_blocked_ip_list_where_sql($search_term){
+		$where = '';
+		if (!empty($search_term)) {
+			$where = " WHERE";
+
+			// We don't use FILTER_VALIDATE_IP here as we want to be able to search for partial IP's
+			if (preg_match('/^[0-9a-f:\.]+$/i', $search_term)) {
+				$where .= " `blocked_ip` LIKE '%".esc_sql($search_term)."%' OR";
+			}
+
+			$where .= " `block_reason` LIKE '%".esc_sql($search_term)."%'";
+			$where .= " OR `country_origin` LIKE '%".esc_sql($search_term)."%'";
+		}
+
+		return $where;
+	}
+
+	/**
+	 * Grabs the data from database and handles the pagination
+	 * 
+	 * @param boolean $ignore_pagination - whether to not paginate
+	 *
+	 * @return void
+	 *
+	 */
+	public function prepare_items($ignore_pagination = false) {
 		/**
 		 * First, lets decide how many records per page to show
 		 */
@@ -167,16 +193,24 @@ class AIOWPSecurity_List_Blocked_IP extends AIOWPSecurity_List_Table {
 		$orderby = AIOWPSecurity_Utility::sanitize_value_by_array($orderby, $sortable);
 		$order = AIOWPSecurity_Utility::sanitize_value_by_array($order, array('DESC' => '1', 'ASC' => '1'));
 
-		if (empty($search)) {
-			$data = $wpdb->get_results("SELECT * FROM " . $block_table_name . " ORDER BY $orderby $order", ARRAY_A);
-		} else {
-			$data = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $block_table_name . " WHERE `blocked_ip` LIKE '%%%s%%' OR `block_reason` LIKE '%%%s%%' OR `country_origin` LIKE '%%%s%%' OR `blocked_date` LIKE '%%%s%%' ORDER BY $orderby $order", $search, $search, $search, $search), ARRAY_A);
+		$current_page = $this->get_pagenum();
+		$offset = ($current_page - 1) * $per_page;
+
+
+		$search_query = $this->get_permanent_blocked_ip_list_where_sql($search);
+
+		$total_items = $wpdb->get_var("SELECT COUNT(*) FROM {$block_table_name}{$search_query}");
+
+		if ($ignore_pagination) {
+			$data = $wpdb->get_results("SELECT * FROM {$block_table_name} {$search_query} ORDER BY {$orderby} {$order}", 'ARRAY_A');
+		}else{
+			$data = $wpdb->get_results("SELECT * FROM {$block_table_name}{$search_query} ORDER BY {$orderby} {$order} LIMIT {$per_page} OFFSET {$offset}", 'ARRAY_A');
 		}
 
-		$current_page = $this->get_pagenum();
-		$total_items = count($data);
-		$data = array_slice($data, (($current_page - 1) * $per_page), $per_page);
 		$this->items = $data;
+
+		if ($ignore_pagination) return;
+
 		$this->set_pagination_args(array(
 			'total_items' => $total_items,                  //WE have to calculate the total number of items
 			'per_page' => $per_page,                     //WE have to determine how many items to show on a page

@@ -74,7 +74,7 @@ jQuery(function($) {
 		
 		var $submit_button = $(form).find('input[name="wp-submit"], input[type="submit"], button[type="submit"]').first();
 		
-		if (simba_tfasettings.hasOwnProperty('spinnerimg')) {
+		if (simba_tfasettings.hasOwnProperty('spinnerimg') && $('.simbaotp_spinner').length === 0) {
 			var styling = 'float:right; margin:6px 12px; width: 20px; height: 20px;';
 			if ($('#theme-my-login #wp-submit').length >0) {
 				styling = 'margin-left: 4px; position: relative; top: 4px; width: 20px; height: 20px; border:0px; box-shadow:none;';
@@ -156,7 +156,7 @@ jQuery(function($) {
 		
 		if (!user_can_trust) { user_already_trusted = false; }
 		
-		var form_is_gravity_forms = ('object' == typeof window['gform_gravityforms'] && 'gform_' === $(form).attr('id').substring(0, 6));
+		var form_is_gravity_forms = ('object' == typeof window['gform_gravityforms'] && 'undefined' !== typeof $(form).attr('id') && 'gform_' === $(form).attr('id').substring(0, 6));
 		
 		// Gravity Forms won't submit if the elements are hidden
 		var form_retain_existing_elements = form_is_gravity_forms ? true : false;
@@ -290,7 +290,7 @@ jQuery(function($) {
 
 		var form = e.target;
 		
-		var form_is_gravity_forms = ('object' == typeof window['gform_gravityforms'] && 'gform_' === $(form).attr('id').substring(0, 6));
+		var form_is_gravity_forms = ('object' == typeof window['gform_gravityforms'] && 'undefined' !== typeof $(form).attr('id') && 'gform_' === $(form).attr('id').substring(0, 6));
 		
 		// Turn off everything
 		$(form).off();

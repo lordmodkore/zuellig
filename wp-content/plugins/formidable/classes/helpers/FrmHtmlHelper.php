@@ -17,7 +17,9 @@ class FrmHtmlHelper {
 	 * @param string $id
 	 * @param string $name
 	 * @param array  $args {
-	 *     @param bool|null $echo True if you want the toggle to echo. False if you want it to return an HTML string.
+	 *     Any extra arguments.
+	 *
+	 *     @type bool|null $echo True if you want the toggle to echo. False if you want it to return an HTML string.
 	 * }
 	 *
 	 * @return string|void
@@ -31,5 +33,26 @@ class FrmHtmlHelper {
 			},
 			isset( $args['echo'] ) ? $args['echo'] : false
 		);
+	}
+
+	/**
+	 * Echo a dropdown option.
+	 * This is useful to avoid closing and opening PHP to echo <option> tags which leads to extra whitespace.
+	 * Avoiding whitespace saves 5KB of HTML for an international address field with a country dropdown with 252 options.
+	 *
+	 * @since 6.3.1
+	 *
+	 * @param string $option   The string used as the option label.
+	 * @param bool   $selected True if the option should be selected.
+	 * @param array  $params   Other HTML params for the option.
+	 * @return void
+	 */
+	public static function echo_dropdown_option( $option, $selected, $params = array() ) {
+		echo '<option ';
+		FrmAppHelper::array_to_html_params( $params, true );
+		selected( $selected );
+		echo '>';
+		echo esc_html( $option === '' ? ' ' : $option );
+		echo '</option>';
 	}
 }

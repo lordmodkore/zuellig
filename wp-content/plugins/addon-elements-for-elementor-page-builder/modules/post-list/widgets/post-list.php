@@ -22,11 +22,11 @@ class PostList extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Post List', 'wts-eae' );
+		return __( 'Post List', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eicon-post-list wts-eae-pe';
+		return 'eae-icon eae-post-list';
 	}
 
 	public function get_categories() {

@@ -322,23 +322,25 @@ jQuery(document).ready( function($){
 
 
     // license
-    $(document).on('click', '.embedpress-license-deactivation-btn', function (e) {
-        let $this = $(this);
-        setTimeout(function (){
-            $this.attr('disabled', 'disabled');
-        }, 2000);
-        $this.html('Deactivating.....');
-    });
-    $(document).on('click', '.embedpress-license-activation-btn', function (e) {
-        let $this = $(this);
-        let val = $('#embedpress-pro-license-key').val();
-        if (val){
-            setTimeout(function (){
-                $this.attr('disabled', 'disabled');
-            }, 2000);
-            $this.html('Activating.....');
-        }
-    });
+    // $(document).on('click', '.embedpress-license-deactivation-btn', function (e) {
+    //     let $this = $(this);
+    //     setTimeout(function (){
+    //         $this.attr('disabled', 'disabled');
+    //     }, 2000);
+    //     $this.html('Deactivating.....');
+    // });
+
+    // $(document).on('click', '.embedpress-license-activation-btn', function (e) {
+    //     let $this = $(this);
+    //     let val = $('#embedpress-pro-license-key').val();
+    //     if (val){
+    //         setTimeout(function (){
+    //             $this.attr('disabled', 'disabled');
+    //         }, 2000);
+    //         $this.html('Activating.....');
+    //     }
+    // });
+
     // Helpers
     function copyToClipboard(text) {
         if (window.clipboardData && window.clipboardData.setData) {
@@ -442,6 +444,24 @@ jQuery(document).ready( function($){
             history.pushState('', '', embedPressRemoveURLParameter(location.href, 'success'));
         }, 3000);
     }
+
+    $(document).ready(function() {
+        $('.calendly-event-copy-link').click(function() {
+            var eventLink = $(this).data('event-link');
+            var tempInput = $('<input>');
+            $('body').append(tempInput);
+            tempInput.val(eventLink).select();
+            document.execCommand('copy');
+            tempInput.remove();
+
+            var button = $(this);
+            button.find('span').text('Copied!');
+
+            setTimeout(function() {
+                button.find('span').text('Copy link');
+            }, 1500);
+        });
+    });
 
 });
 

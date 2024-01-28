@@ -14,7 +14,7 @@ use WP_oEmbed;
  *
  * @package     EmbedPress
  * @author      EmbedPress <help@embedpress.com>
- * @copyright   Copyright (C) 2020 WPDeveloper. All rights reserved.
+ * @copyright   Copyright (C) 2023 WPDeveloper. All rights reserved.
  * @license     GPLv3 or later
  * @since       1.0.0
  */
@@ -103,13 +103,16 @@ class Shortcode
         $default = [];
         if ($plgSettings->enableGlobalEmbedResize) {
             $default = [
-                'width'  => $plgSettings->enableEmbedResizeWidth,
-                'height' => $plgSettings->enableEmbedResizeHeight,
-                'powered_by' => !empty($plgSettings->embedpress_document_powered_by) ? $plgSettings->embedpress_document_powered_by : 'no',
+                'width'  => esc_attr($plgSettings->enableEmbedResizeWidth),
+                'height' => esc_attr($plgSettings->enableEmbedResizeHeight),
+                'powered_by' => !empty($plgSettings->embedpress_document_powered_by) ? esc_attr($plgSettings->embedpress_document_powered_by) : esc_attr('no'),
             ];
         }
         $attributes = wp_parse_args($attributes, $default);
         $embed = self::parseContent($subject, true, $attributes);
+
+        // print_r($attributes); die;
+
 
         return is_object($embed) ? $embed->embed : $embed;
     }
@@ -126,7 +129,6 @@ class Shortcode
      */
     public static function parseContent($subject, $stripNewLine = false, $customAttributes = [])
     {
-
         if (!empty($subject)) {
             if (empty($customAttributes)) {
                 $customAttributes = self::parseContentAttributesFromString($subject);
@@ -138,10 +140,14 @@ class Shortcode
                 $subject
             );
 
+            $uniqid = 'ose-uid-'.md5($url);
+            $subject = esc_url($subject);
+
+
             // Converts any special HTML entities back to characters.
             $url = htmlspecialchars_decode($url);
+            $url = esc_url($url);
 
-            $uniqid = 'ose-uid-'.md5($url);
 
             $content_uid = md5($url);
 
@@ -152,6 +158,7 @@ class Shortcode
 
             // Identify what service provider the shortcode's link belongs to
             $is_embra_provider = apply_filters('embedpress:isEmbra', false, $url, self::get_embera_settings());
+            
             if ($is_embra_provider || (strpos($url, 'meetup.com') !== false) || (strpos($url, 'sway.office.com') !== false)) {
                 $serviceProvider = '';
             } else {
@@ -189,13 +196,24 @@ class Shortcode
             //foreach ( self::$ombed_attributes as $attrName => $attrValue ) {
             //    $attributesHtml[] = $attrName . '="' . $attrValue . '"';
             //}
+            if (isset($customAttributes['height'])) {
+                $height = esc_attr($customAttributes['height']); 
+            }
+
             if (isset($customAttributes['width'])) {
-                $attributesHtml[] = "style=\"width:{$customAttributes['width']}px; max-width:100%; display:inline-block;\"";
+                $width = esc_attr($customAttributes['width']); 
+                $attributesHtml[] = "style=\"width:{$width}px; height:{$height}px; max-height:{$height}px; max-width:100%; display:inline-block;\"";
             }
 
             // Check if $url is a google shortened url and tries to extract from it which Google service it refers to.
             self::check_for_google_url($url);
             $provider_name = self::get_provider_name($urlData, $url);
+            
+            // $html = '{html}';
+            // if (strpos($url, 'youtube') !== false) {
+            //     $html = '<div class="youtube-video">{html}</div>';
+            // }
+            
             $embedTemplate = '<div ' . implode(' ', $attributesHtml) . '>{html}</div>';
 
             $parsedContent = self::get_content_from_template($url, $embedTemplate, $serviceProvider);
@@ -240,14 +258,14 @@ class Shortcode
                     if (preg_match('~width="(\d+)"~i', $parsedContent)) {
                         $parsedContent = preg_replace(
                             '~width="(\d+)"~i',
-                            'width="' . $customWidth . '"',
+                            'width="' . esc_attr($customWidth) . '"',
                             $parsedContent
                         );
                     } elseif (preg_match('~width="({.+})"~i', $parsedContent)) {
                         // this block was needed for twitch that has width="{width}" in iframe
                         $parsedContent = preg_replace(
                             '~width="({.+})"~i',
-                            'width="' . $customWidth . '"',
+                            'width="' . esc_attr($customWidth) . '"',
                             $parsedContent
                         );
                     }
@@ -255,13 +273,13 @@ class Shortcode
                     if (preg_match('~height="(\d+)"~i', $parsedContent)) {
                         $parsedContent = preg_replace(
                             '~height="(\d+)"~i',
-                            'height="' . $customHeight . '"',
+                            'height="' . esc_attr($customHeight) . '"',
                             $parsedContent
                         );
                     } elseif (preg_match('~height="({.+})"~i', $parsedContent)) {
                         $parsedContent = preg_replace(
                             '~height="({.+})"~i',
-                            'height="' . $customHeight . '"',
+                            'height="' . esc_attr($customHeight) . '"',
                             $parsedContent
                         );
                     }
@@ -269,7 +287,7 @@ class Shortcode
                     if (preg_match('~width\s+:\s+(\d+)~i', $parsedContent)) {
                         $parsedContent = preg_replace(
                             '~width\s+:\s+(\d+)~i',
-                            'width: ' . $customWidth,
+                            'width: ' . esc_attr($customWidth),
                             $parsedContent
                         );
                     }
@@ -277,14 +295,14 @@ class Shortcode
                     if (preg_match('~height\s+:\s+(\d+)~i', $parsedContent)) {
                         $parsedContent = preg_replace(
                             '~height\s+:\s+(\d+)~i',
-                            'height: ' . $customHeight,
+                            'height: ' . esc_attr($customHeight),
                             $parsedContent
                         );
                     }
                     if ('gfycat' === $provider_name && preg_match('~height\s*:\s*auto\s*;~i', $parsedContent)) {
                         $parsedContent = preg_replace(
                             '~height\s*:\s*auto\s*~i',
-                            'height: ' . $customHeight . 'px',
+                            'height: ' . esc_attr($customHeight) . 'px',
                             $parsedContent
                         );
                         $parsedContent = preg_replace(
@@ -306,6 +324,8 @@ class Shortcode
 
 
             if ('the-new-york-times' === $provider_name && isset($customAttributes['height']) && isset($customAttributes['width'])) {
+                $height = $customAttributes['height'];
+                $width = $customAttributes['width'];
                 $styles = <<<KAMAL
 <style>
 .ose-the-new-york-times iframe{
@@ -317,7 +337,7 @@ class Shortcode
 }
 </style>
 KAMAL;
-                $styles = str_replace(['{height}', '{width}'], [$customAttributes['height'], $customAttributes['width']], $styles);
+                $styles = str_replace(['{height}', '{width}'], [esc_attr($height), esc_attr($width)], $styles);
                 $parsedContent = $styles . $parsedContent;
             }
 
@@ -337,6 +357,16 @@ KAMAL;
 
                 $embed = self::modify_spotify_content($embed);
                 $embed = apply_filters('embedpress:onAfterEmbed', $embed);
+
+                // Attributes to remove
+                $attributesToRemove = 'autoplay;';
+            
+                // New attribute to add
+                $newAttribute = 'encrypted-media;'.'accelerometer;'.'autoplay;'.'clipboard-write;'.'gyroscope;'.'picture-in-picture';
+                
+                // Remove existing attributes
+                $embed->embed = str_replace($attributesToRemove, $newAttribute, $embed->embed);
+                
                 return $embed;
             }
         }
@@ -365,10 +395,10 @@ KAMAL;
 
 
         if (empty($customAttributes['width'])) {
-            $customAttributes['width'] = !empty($plgSettings->enableEmbedResizeWidth) ? $plgSettings->enableEmbedResizeWidth : 600;
+            $customAttributes['width'] = !empty($plgSettings->enableEmbedResizeWidth) ? esc_attr($plgSettings->enableEmbedResizeWidth) : 600;
         }
         if (empty($customAttributes['height'])) {
-            $customAttributes['height'] = !empty($plgSettings->enableEmbedResizeHeight) ? $plgSettings->enableEmbedResizeHeight : 550;
+            $customAttributes['height'] = !empty($plgSettings->enableEmbedResizeHeight) ? esc_attr($plgSettings->enableEmbedResizeHeight) : 550;
         }
     }
 
@@ -576,7 +606,10 @@ KAMAL;
 
         $attributes['class'] = implode(' ', array_unique(array_filter($attributes['class'])));
         if (isset($attributes['width'])) {
-            $attributes['style'] = "width:{$attributes['width']}px;height:{$attributes['height']}px;";
+            $height = esc_attr($attributes['height']);
+            $width = esc_attr($attributes['width']);
+
+            $attributes['style'] = "width:{$width}px;height:{$height}px;";
         }
 
         return $attributes;
@@ -587,14 +620,14 @@ KAMAL;
 
         if (isset($attributes['width']) || isset($attributes['height'])) {
             if (isset($attributes['width'])) {
-                self::$emberaInstanceSettings['maxwidth'] = $attributes['width'];
-                self::$emberaInstanceSettings['width'] = $attributes['width'];
+                self::$emberaInstanceSettings['maxwidth'] = esc_attr($attributes['width']);
+                self::$emberaInstanceSettings['width'] = esc_attr($attributes['width']);
                 unset($attributes['width']);
             }
 
             if (isset($attributes['height'])) {
-                self::$emberaInstanceSettings['maxheight'] = $attributes['height'];
-                self::$emberaInstanceSettings['height'] = $attributes['height'];
+                self::$emberaInstanceSettings['maxheight'] = esc_attr($attributes['height']);
+                self::$emberaInstanceSettings['height'] = esc_attr($attributes['height']);
                 unset($attributes['height']);
             }
         }
@@ -886,20 +919,21 @@ KAMAL;
     public static function getParamData($attributes){
 
         $urlParamData = array(
-            'themeMode' => isset($attributes['theme_mode']) ? $attributes['theme_mode'] : 'default',
-            'toolbar' => isset($attributes['toolbar']) ? $attributes['toolbar'] : 'true',
-            'position' => isset($attributes['toolbar_position']) ? $attributes['toolbar_position'] : 'top',
-            'presentation' => isset($attributes['presentation']) ? $attributes['presentation'] : 'true',
-            'download' => isset($attributes['download']) ? $attributes['download'] : 'true',
-            'copy_text' => isset($attributes['copy_text']) ? $attributes['copy_text'] : 'true',
-            'add_text' => isset($attributes['add_text']) ? $attributes['add_text'] : 'true',
-            'draw' => isset($attributes['draw']) ? $attributes['draw'] : 'true',
-            'doc_rotation' => isset($attributes['doc_rotation']) ? $attributes['doc_rotation'] : 'true',
-            'doc_details' => isset($attributes['doc_details']) ? $attributes['doc_details'] : 'true',
+            'themeMode' => isset($attributes['theme_mode']) ? esc_attr($attributes['theme_mode']) : 'default',
+            'toolbar' => isset($attributes['toolbar']) ? esc_attr($attributes['toolbar']) : 'true',
+            'position' => isset($attributes['toolbar_position']) ? esc_attr($attributes['toolbar_position']) : 'top',
+            'presentation' => isset($attributes['presentation']) ? esc_attr($attributes['presentation']) : 'true',
+            'download' => isset($attributes['download']) ? esc_attr($attributes['download']) : 'true',
+            'copy_text' => isset($attributes['copy_text']) ? esc_attr($attributes['copy_text']) : 'true',
+            'add_text' => isset($attributes['add_text']) ? esc_attr($attributes['add_text']) : 'true',
+            'draw' => isset($attributes['draw']) ? esc_attr($attributes['draw']) : 'true',
+            'doc_rotation' => isset($attributes['doc_rotation']) ? esc_attr($attributes['doc_rotation']) : 'true',
+            'doc_details' => isset($attributes['doc_details']) ? esc_attr($attributes['doc_details']) : 'true',
+
         );
 
         if($urlParamData['themeMode'] == 'custom') {
-            $urlParamData['customColor'] = isset($attributes['custom_color']) ? $attributes['custom_color'] : '#333333';
+            $urlParamData['customColor'] = isset($attributes['custom_color']) ? esc_attr($attributes['custom_color']) : '#333333';
         }
 
         return "#". http_build_query($urlParamData);
@@ -910,25 +944,28 @@ KAMAL;
         $plgSettings = Core::getSettings();
 
         $default = [
-            'width'  => $plgSettings->enableEmbedResizeWidth,
-            'height' => $plgSettings->enableEmbedResizeHeight, 
-            'powered_by' => !empty($plgSettings->embedpress_document_powered_by) ? $plgSettings->embedpress_document_powered_by : 'no',
+            'width'  => esc_attr($plgSettings->enableEmbedResizeWidth),
+            'height' => esc_attr($plgSettings->enableEmbedResizeHeight), 
+            'powered_by' => !empty($plgSettings->embedpress_document_powered_by) ? esc_attr($plgSettings->embedpress_document_powered_by) : esc_attr('no'),
         ];
 
         if(!empty($plgSettings->pdf_custom_color_settings)){
              $default['theme_mode'] = 'custom';
         }
         if(isset($default['theme_mode']) && $default['theme_mode'] == 'custom' ){
-            $default['custom_color'] = $plgSettings->custom_color;
+            $default['custom_color'] = esc_attr($plgSettings->custom_color);
         }
 
         $attributes = wp_parse_args($attributes, $default);
+
 
         $url = preg_replace(
             '/(\[' . EMBEDPRESS_SHORTCODE . '(?:\]|.+?\])|\[\/' . EMBEDPRESS_SHORTCODE . '\])/i',
             "",
             $subject
         );
+
+        $url = esc_url($url);
 
         ob_start();
 

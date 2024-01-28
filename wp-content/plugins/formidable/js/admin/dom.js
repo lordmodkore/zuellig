@@ -373,7 +373,7 @@
 			input.addEventListener( 'search', handleSearch );
 			input.addEventListener( 'change', handleSearch );
 
-			function handleSearch() {
+			function handleSearch( event ) {
 				const searchText = input.value.toLowerCase();
 				const notEmptySearchText = searchText !== '';
 				const items = Array.from( document.getElementsByClassName( targetClassName ) );
@@ -381,7 +381,7 @@
 				let foundSomething = false;
 				items.forEach( toggleSearchClassesForItem );
 				if ( 'function' === typeof handleSearchResult ) {
-					handleSearchResult({ foundSomething, notEmptySearchText });
+					handleSearchResult({ foundSomething, notEmptySearchText }, event );
 				}
 
 				function toggleSearchClassesForItem( item ) {
@@ -423,7 +423,7 @@
 				event.preventDefault();
 				callback( event );
 			};
-			element.addEventListener( 'click', listener );
+			element?.addEventListener( 'click', listener );
 		},
 
 		/**
@@ -692,6 +692,15 @@
 		return div({ children: [ label, input ] });
 	}
 
+	/**
+	 * Build an element.
+	 *
+	 * @since 6.4.1 Accept a string as one of `children` to append a text node inside the element.
+	 *
+	 * @param {String} type Element tag name.
+	 * @param {Object} args The args.
+	 * @return {Object}
+	 */
 	function tag( type, args = {}) {
 		const output = document.createElement( type );
 
@@ -710,7 +719,13 @@
 			output.className = className;
 		}
 		if ( children ) {
-			children.forEach( child => output.appendChild( child ) );
+			children.forEach( child => {
+				if ( 'string' === typeof child ) {
+					output.appendChild( document.createTextNode( child ) );
+				} else {
+					output.appendChild( child )
+				}
+			} );
 		} else if ( child ) {
 			output.appendChild( child );
 		} else if ( text ) {
@@ -783,7 +798,8 @@
 		span: [ 'class' ],
 		strong: [],
 		svg: [ 'class' ],
-		use: []
+		use: [],
+		a: [ 'href', 'class' ]
 	};
 
 	function cleanNode( node ) {
@@ -797,10 +813,17 @@
 		const tagType = node.tagName.toLowerCase();
 
 		if ( 'svg' === tagType ) {
-			return svg({
-				href: node.querySelector( 'use' ).getAttribute( 'xlink:href' ),
+			const svgArgs = {
 				classList: Array.from( node.classList )
-			});
+			};
+			const use = node.querySelector( 'use' );
+			if ( use ) {
+				svgArgs.href = use.getAttribute( 'xlink:href' );
+				if ( ! svgArgs.href ) {
+					svgArgs.href = use.getAttribute( 'href' );
+				}
+			}
+			return svg( svgArgs );
 		}
 
 		const newNode = document.createElement( tagType );

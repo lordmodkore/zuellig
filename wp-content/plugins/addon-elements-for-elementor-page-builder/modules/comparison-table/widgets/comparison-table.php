@@ -26,11 +26,11 @@ class ComparisonTable extends EAE_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'EAE - Comparison Table', 'wts-eae' );
+		return __( 'Comparison Table', 'wts-eae' );
 	}
 
 	public function get_icon() {
-		return 'eae-icons eae-compare-table';
+		return 'eae-icon eae-compare-table';
 	}
 
 	public function get_categories() {
