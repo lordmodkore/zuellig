@@ -65,9 +65,9 @@
                                     the_row();
                                      $formattedNumber = sprintf('%02d', $accordionCount);
 									 $headingColor = match ($accordionCount) {
-                                        2 => 'green',
-                                        3 => 'red',
-                                        default => 'purple',
+                                        2 => 'text-green',
+                                        3 => 'text-red',
+                                        default => 'text-blue',
                                     };
 
                                 @endphp
