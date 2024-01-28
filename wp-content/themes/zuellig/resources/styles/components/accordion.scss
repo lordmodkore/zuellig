@@ -38,9 +38,11 @@ mark {
     grid-column: full;
     margin-bottom: -1.5rem;
 }
-.accordian-container .accordian {
-    display: flex;
-    flex-direction: column;
+@media (min-width: 768px) {
+    .accordian-container .accordian {
+        display: flex;
+        flex-direction: column;
+    }
 }
 @media (min-width: 580px) {
     .accordian-container .accordian {
