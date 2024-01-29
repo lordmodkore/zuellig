@@ -80,15 +80,19 @@ function insert_and_wrap_content_middle_of_post($content) {
     return $content;
 }
 
-
-
-
-
-
-
-
-
 add_filter('the_content', __NAMESPACE__.'\\insert_and_wrap_content_middle_of_post');
 
+add_filter( 'widget_title',__NAMESPACE__.'\\accept_html_widget_title' );
 
+function accept_html_widget_title( $mytitle ) {
+
+    // The sequence of String Replacement is important!!
+
+    $mytitle = str_replace( '[link', '<a', $mytitle );
+    $mytitle = str_replace( '[/link]', '</a>', $mytitle );
+    $mytitle = str_replace( ']', '>', $mytitle );
+
+
+    return $mytitle;
+}
 

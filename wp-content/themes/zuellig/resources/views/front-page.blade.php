@@ -31,7 +31,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
                                 <div class="px-3">
-                                    <p class="block_paragraph_small-title mb-0">{!! get_sub_field('paragraph_small_title') !!}</p>
+                                    <p class="block_paragraph_small-title mb-2">{!! get_sub_field('paragraph_small_title') !!}</p>
                                     <div class="div_heading-title fw-bold">
                                         <h1 class="fw-bold">{!! get_sub_field('title_heading') !!}</h1>
                                     </div>
@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="col-lg-5 col-md-12 col-sm-12">
                                     <div class="block_featured block_featured-bg text-white">
-                                        <p class="featured_date">{!! get_the_date('F d, Y',$featuredPost[0]) !!}</p>
+                                        <p class="featured_date mb-2">{!! get_the_date('F d, Y',$featuredPost[0]) !!}</p>
                                         <h1 class="featured_title fw-bold">{!! get_the_title($featuredPost[0]) !!}</h1>
                                         <p class="featured_description">
                                             @php
@@ -282,7 +282,7 @@
                                         @endif
 
                                         <div>
-                                            <p class="block_paragraph_small-title mb-1 mt-4">{!! get_sub_field('partner_name') !!}</p>
+                                            <p class="block_paragraph_small-title mb-2 mt-4">{!! get_sub_field('partner_name') !!}</p>
                                         </div>
                                     </div>
                                 @endwhile
@@ -340,7 +340,7 @@
                                             </div>
                                         @endif
                                         <div>
-                                            <p class="block_paragraph_small-title mb-1 mt-4">{!! get_sub_field('network_partner_name') !!}</p>
+                                            <p class="block_paragraph_small-title mb-2 mt-4">{!! get_sub_field('network_partner_name') !!}</p>
                                         </div>
                                     </div>
                                 @endwhile

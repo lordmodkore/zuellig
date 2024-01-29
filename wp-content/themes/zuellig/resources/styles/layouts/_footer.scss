@@ -8,6 +8,10 @@
     font-size: var(--fontSize16) !important;
     text-transform: uppercase;
     font-weight: bold;
+    a{
+        text-decoration:none;
+        color: var(--bs-heading-color);
+    }
 }
 
 .footer_text_link-color {
@@ -29,6 +33,7 @@
 
 .section_news-bg {
     background-color: var(--primaryColor);
+    padding: 60px;
 }
 
 .link_news-text {
