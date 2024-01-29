@@ -220,7 +220,7 @@
                         @endif
                         <div class="card-body">
                                 @foreach(get_the_category(get_the_ID()) as $category)
-                                <p class="card_small-text fw-bold">{{ $category->name }}</p>
+                                <p class="card_small-text fw-bold mb-2">{{ $category->name }}</p>
                                 @endforeach
                             <h5 class="card-title fw-bold">{!! get_the_title() !!}</h5>
                             <p class="card-text">{!! wp_trim_words( get_post_field('post_content', get_the_ID()), 38 ); !!} </p>

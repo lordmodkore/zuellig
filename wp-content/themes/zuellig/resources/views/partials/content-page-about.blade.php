@@ -66,7 +66,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div>
                                         <div class="div_heading-title text-left">
-                                            <h1 class="fw-bold">{!! get_sub_field('content_header_title') !!}</h1>
+                                            <h2 class="fw-bold">{!! get_sub_field('content_header_title') !!}</h2>
                                         </div>
                                         <p>{!! get_sub_field('content_text') !!}</p>
                                     </div>
