@@ -80,7 +80,7 @@
                             @endif
                             <div class="card-body">
                                 @foreach(get_the_category($post) as $category)
-                                    <p class="card_small-text fw-bold">{{ $category->name }}</p>
+                                    <p class="card_small-text fw-bold mb-2">{{ $category->name }}</p>
                                 @endforeach
                                 <h5 class="card-title fw-bold">{!! get_the_title($post) !!}</h5>
                                     @php
