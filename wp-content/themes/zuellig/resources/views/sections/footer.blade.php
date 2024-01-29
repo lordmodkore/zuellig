@@ -4,7 +4,7 @@
 @endphp
 <section class="default_section-padding section_news-bg">
     <div class="container">
-        <div class="row py-5">
+        <div class="row py-3">
             <div class="col-xl-12 col-md-12 col-sm-12">
                 <div class="text-center">
                     <h3 class="text-white fw-bold">Get the latest news, stories and announcements</h3>
