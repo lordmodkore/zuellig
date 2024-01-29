@@ -46,7 +46,7 @@ header{
             padding: 10px; /* Adjust the padding as needed */
             z-index: 1000;
             .nav-link{
-                color: var(--primaryColor)!important;
+                color:#aaa;
             }
             .nav-item:hover {
                 background:none!important;
@@ -59,6 +59,9 @@ header{
         /* Style for the main menu item and submenu background */
         #menu-primary-navigation .menu-item:hover {
             background-color: #e0e0e0; /* Change this to your desired background color */
+            >a{
+                color:  #006AAB;
+            }
         }
 
         .sticky-logo{
@@ -90,7 +93,9 @@ header{
                     font-size: 16px;
                     color: #006AAB;
                     &:hover{
-                        color: #aaa;
+                        color: #006AAB;
+                        font-weight: bold;
+                        font-family: Gill_Sans_SemiBold, sans-serif;
                     }
                 }
             }
@@ -112,17 +117,13 @@ header{
                 font-weight: 600;
                 line-height: normal;
                 &:hover{
-                    color: #aaa;
+                    color: #006AAB;
+                    font-weight: bold;
+                    font-family: Gill_Sans_SemiBold, sans-serif;
                 }
             }
         }
-
-
-
     }
-
-
-
 }
 .page-template-template-board,
 .single-post{
@@ -141,7 +142,9 @@ header{
             color: #006AAB!important;
             font-weight: bold;
             &:hover{
-                color: #aaa;
+                color: #006AAB;
+                font-family: Gill_Sans_SemiBold, sans-serif;
+                font-weight: bold;
             }
         }
     }
