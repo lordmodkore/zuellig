@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-lg-5 col-md-12 col-sm-12">
                         <div class="block_programs block_featured block_featured-bg text-white" style="background:{!! get_sub_field('bg_color') !!};border:none;">
-                            <p class="block_paragraph_small-title mb-0 text-white">{!! get_sub_field('program_category_name') !!}</p>
+                            <p class="block_paragraph_small-title mb-2 text-white">{!! get_sub_field('program_category_name') !!}</p>
                             <h1 class="featured_title fw-bold">{!! get_sub_field('program_heading_title') !!}</h1>
                             <p class="featured_description">
                                 {!! get_sub_field('program_content_text') !!}
