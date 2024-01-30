@@ -110,7 +110,6 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": [
-        "permalink",
         "the_content",
         "excerpt",
         "discussion",
@@ -119,7 +118,6 @@
         "slug",
         "author",
         "format",
-        "page_attributes",
         "featured_image",
         "categories",
         "tags",
@@ -128,5 +126,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1704117727
+    "modified": 1706581318
 }
