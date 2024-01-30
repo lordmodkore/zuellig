@@ -16,12 +16,16 @@
                         @php
                             $tabCounter = 0;
                             $tabPaneCounter = 0;
+
                         @endphp
                         <ul class="nav nav-tabs border-bottom-0" id="myTab" role="tablist">
                             @while(have_rows('learnings_tab'))
-                                @php the_row(); @endphp
+                                @php
+                                    the_row();
+										$active = get_sub_field('active') ? 'active' : '';
+                                @endphp
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link {!! $tabCounter == 0 ? 'active' : '' !!} nav_learning_link border-top-0 border-end-0 border-start-0" id="{!! sanitize_title(get_sub_field('tab_title')) !!}-tab" data-bs-toggle="tab" data-bs-target="#{!! sanitize_title(get_sub_field('tab_title')) !!}-tab-pane" type="button" role="tab" aria-controls="overview-tab-pane" aria-selected="true">{!! get_sub_field('tab_title') !!}</button>
+                                    <button class="nav-link {!! $active !!} nav_learning_link border-top-0 border-end-0 border-start-0" id="{!! sanitize_title(get_sub_field('tab_title')) !!}-tab" data-bs-toggle="tab" data-bs-target="#{!! sanitize_title(get_sub_field('tab_title')) !!}-tab-pane" type="button" role="tab" aria-controls="overview-tab-pane" aria-selected="true">{!! get_sub_field('tab_title') !!}</button>
                                 </li>
                                 @php $tabCounter++ @endphp
                             @endwhile
