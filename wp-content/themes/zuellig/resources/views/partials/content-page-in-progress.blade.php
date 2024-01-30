@@ -1,4 +1,4 @@
-<section class="default_section-padding section_goals-bg">
+<section class="default_section-padding">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
