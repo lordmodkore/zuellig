@@ -27,57 +27,25 @@ domReady(async () => {
 
 
 jQuery(document).ready(function($) {
-    $('.accordion .tab:first-child').addClass('show');
+    //$('.accordion .tab:first-child').addClass('show');
 
-    // Hover event for accordion tabs
-    // $('.accordion .tab').hover(
-    //     function() {
-    //         // Remove "show" class from all tabs
-    //         $('.accordion .tab').removeClass('show');
-    //         // Add "show" class to the hovered tab
-    //         $(this).addClass('show');
-    //     },
-    //     function() {
-    //         // Mouse leave event
-    //         // Optionally, you can add behavior when the mouse leaves
-    //         // For example, add "show" class back to the first tab
-    //         $(this).removeClass('show');
-    //         $('.accordion .tab:first-child').addClass('show');
-    //     }
-    // );
-    $('.accordion-control .expand').on('click', function(e) {
-        e.preventDefault();
 
-        // Get the target tab number from the data attribute
-        var targetTabNumber = $(this).data('target-tab');
+    const urlParams = new URLSearchParams(window.location.search);
+    const storiesParam = urlParams.get('tab');
 
-        // Toggle the "show" class for the clicked tab
-        $('.accordion .tab').removeClass('show');
-        $('.accordion .tab[data-tab-number="' + targetTabNumber + '"]').addClass('show');
-
-        // Update icons for all tabs
-        updateIcons();
-    });
-
-// Optionally, handle mouse leave event
-    $('.accordion').on('mouseleave', function() {
-        // Mouse leave event
-        // Optionally, you can add behavior when the mouse leaves
-        // For example, add "show" class back to the first tab
-        $('.accordion .tab').removeClass('show');
-        $('.accordion .tab:first-child').addClass('show');
-
-        // Update icons for all tabs
-        updateIcons();
-    });
-
-    function updateIcons() {
-        // Update icons based on the visibility of each tab
-        $('.accordion .tab').each(function() {
-            var iconClass = $(this).hasClass('show') ? 'fa-times' : 'fa-plus';
-            $(this).find('.expand i').removeClass().addClass('fa ' + iconClass);
-        });
+    // If 'stories' parameter exists and is true, set the button to active and show the tab pane
+    if (storiesParam === 'stories') {
+        $('#stories-tab').addClass('active');
+        $('#stories-tab-pane').addClass('show active');
+    } else if (storiesParam === 'news') {
+        $('#news-tab').addClass('active');
+        $('#news-tab-pane').addClass('show active');
+    } else {
+        // Default behavior when no matching parameter is found
+        $('#featured-tab').addClass('active');
+        $('#featured-tab-pane').addClass('show active');
     }
+
     function showPopup() {
         $('#overlay').show();
         $('#popup-container').show();
@@ -127,6 +95,9 @@ jQuery(document).ready(function($) {
 
     // Set the same height for all career items
     $('.career-item .block_leaders').height(maxHeight);
+
+
+
 });
 
 /**

@@ -27,7 +27,7 @@
                 <div>
                     <ul class="nav nav-tabs border-black border-bottom pb-3" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active nav_learning_link border-top-0 border-end-0 border-start-0" id="featured-tab" data-bs-toggle="tab" data-bs-target="#featured-tab-pane" type="button" role="tab" aria-controls="featured-tab-pane" aria-selected="true">Featured</button>
+                            <button class="nav-link nav_learning_link border-top-0 border-end-0 border-start-0" id="featured-tab" data-bs-toggle="tab" data-bs-target="#featured-tab-pane" type="button" role="tab" aria-controls="featured-tab-pane" aria-selected="true">Featured</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link nav_learning_link border-top-0 border-end-0 border-start-0" id="stories-tab" data-bs-toggle="tab" data-bs-target="#stories-tab-pane" type="button" role="tab" aria-controls="stories-tab-pane" aria-selected="false">Stories</button>
