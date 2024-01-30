@@ -34,8 +34,9 @@
                             @while(have_rows('learnings_tab'))
                                 @php
                                     the_row();
+										$activePane = get_sub_field('active') ? 'active show' : '';
                                 @endphp
-                                    <div class="tab-pane fade {!! $active !!} py-2" id="{!! sanitize_title(get_sub_field('tab_title')) !!}-tab-pane" role="tabpanel" aria-labelledby="{!! sanitize_title(get_sub_field('tab_title')) !!}-tab" tabindex="{!! $tabCounter !!}">
+                                    <div class="tab-pane fade {!! $activePane !!} py-2" id="{!! sanitize_title(get_sub_field('tab_title')) !!}-tab-pane" role="tabpanel" aria-labelledby="{!! sanitize_title(get_sub_field('tab_title')) !!}-tab" tabindex="{!! $tabCounter !!}">
                                     {!! get_sub_field('tab_content') !!}
 
                                 </div>
