@@ -31,8 +31,10 @@ function acf_json_load($paths)
 }
 function my_acf_google_map_api($api)
 {
-    if (is_admin()) {
-        $api['key'] = 'AIzaSyAEMIoWvgIBlg7CZONGIrA5ChBkapn6EE4';
+    $google_map_api = get_field('google_map_api_key','option');
+    if (is_admin() && $google_map_api) {
+//        $api['key'] = 'AIzaSyAEMIoWvgIBlg7CZONGIrA5ChBkapn6EE4';
+        $api['key'] = $google_map_api;
     }
 
     return $api;

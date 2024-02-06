@@ -15,8 +15,11 @@ use function Roots\bundle;
  */
 add_action('wp_enqueue_scripts', function () {
     bundle('app')->enqueue();
+    $gmap_key = get_field('google_map_api_key','option');
+    if($gmap_key){
+        wp_enqueue_script('google-maps', 'https://maps.googleapis.com/maps/api/js?key='.$gmap_key.'&libraries=places', [ 'jquery' ], null, true);
+    }
 
-    wp_enqueue_script('google-maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAEMIoWvgIBlg7CZONGIrA5ChBkapn6EE4&libraries=places', [ 'jquery' ], null, true);
 
 }, 100);
 
