@@ -77,7 +77,7 @@
                 <p class="footer_copyright-text">&copy;{!! date('Y') !!} Zuellig Family Foundation. All Rights Reserved.</p>
             </div>
             <div class="justify-content-between">
-                <a href="#" class="text-decoration-none footer_text_link-color px-2">Privacy and Cookie Policy</a>
+                <a href="/privacy-and-cookie-policy" class="text-decoration-none footer_text_link-color px-2">Privacy and Cookie Policy</a>
             </div>
         </div>
     </div>
@@ -89,6 +89,6 @@
 <!-- Pop-up container -->
 <div id="popup-container" class="col-lg-6 col-10">
     <!-- Content inside the pop-up container -->
-        <!-- Gravity Form shortcode -->
-       {!! do_shortcode('[gravityform id="5" title="false" description="false" ajax="true"]') !!}
+    <!-- Gravity Form shortcode -->
+    {!! do_shortcode('[gravityform id="5" title="false" description="false" ajax="true"]') !!}
 </div>
