@@ -2,10 +2,10 @@
   "app": {
     "js": [
       "js/runtime.c039ed.js",
-      "js/app.4fca88.js"
+      "js/app.a1e679.js"
     ],
     "css": [
-      "css/app.8c3079.css"
+      "css/app.4ff1e7.css"
     ],
     "dependencies": [
       "jquery"

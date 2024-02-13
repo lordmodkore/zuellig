@@ -61,7 +61,10 @@ jQuery(document).ready(function($) {
     $('.openFormButton').click(function() {
         showPopup();
     });
-
+    // Button click to show pop-up
+    $('.openApplicationFormButton').click(function() {
+        showPopup();
+    });
     // Button click to hide pop-up
     $('#closeFormButton').click(function() {
         hidePopup();

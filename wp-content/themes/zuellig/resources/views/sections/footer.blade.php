@@ -88,6 +88,7 @@
 
 <!-- Pop-up container -->
 <div id="popup-container" class="col-lg-6 col-10">
+    <div id="closeFormButton" class="close">X</div>
     <!-- Content inside the pop-up container -->
     <!-- Gravity Form shortcode -->
     {!! do_shortcode('[gravityform id="5" title="false" description="false" ajax="true"]') !!}

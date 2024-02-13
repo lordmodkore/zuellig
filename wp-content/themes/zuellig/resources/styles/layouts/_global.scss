@@ -63,11 +63,14 @@ strong{
 
 }
 /* Style to center the submit button */
-#gform_wrapper_5 .gform_footer {
+#gform_wrapper_5 .gform_footer,
+#gform_wrapper_6 .gform_footer{
     text-align: center;
 }
 
-#gform_wrapper_5 .gform_button {
+#gform_wrapper_5 .gform_button,
+#gform_wrapper_6 .gform_button
+{
     margin: 0 auto;
     display: inline-block;
     border: none;
