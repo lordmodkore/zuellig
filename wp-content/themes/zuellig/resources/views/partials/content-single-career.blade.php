@@ -38,7 +38,6 @@ $location = get_field('location_assignment');
                 {!! $location !!}
             @endif
         </div>
-        @if($requirements)
             <div class="row mb-3">
                 @if($requirements)
                     <div class="col-md-6">
