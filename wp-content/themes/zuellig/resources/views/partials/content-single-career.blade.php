@@ -1,6 +1,6 @@
 @php
 $job_description = get_field('job_description');
-$requirements = get_field('requirement');
+$requirements = get_field('requirements');
 $qualifications = get_field('qualifications');
 $benefits = get_field('benefits');
 $location = get_field('location_assignment');
