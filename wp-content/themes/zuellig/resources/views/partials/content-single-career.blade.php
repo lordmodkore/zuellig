@@ -1,6 +1,7 @@
 @php
 $job_description = get_field('job_description');
 $requirements = get_field('requirements');
+$work_culture = get_field('work_culture');
 $qualifications = get_field('qualifications');
 $benefits = get_field('benefits');
 $location = get_field('location_assignment');
@@ -39,12 +40,20 @@ $location = get_field('location_assignment');
         </div>
         @if($requirements)
             <div class="row mb-3">
-                <div class="col-md-6">
-                    <h3 class="fw-bold">Essential Job Functions</h3>
-                    {!! $requirements !!}
-                </div>
+                @if($requirements)
+                    <div class="col-md-6">
+                        <h3 class="fw-bold">Essential Job Functions</h3>
+                        {!! $requirements !!}
+                    </div>
+                @endif
+                @if($work_culture)
+                    <div class="col-md-6">
+                        <h3 class="fw-bold">Work Culture Expectations</h3>
+                        {!! $work_culture !!}
+                    </div>
+                @endif
             </div>
-        @endif
+
         <div class="row">
             @if($qualifications)
                 <div class="col-md-6">
