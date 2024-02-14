@@ -11,10 +11,18 @@ $location = get_field('location_assignment');
             <div class=" mb-3 div_heading-title text-left mb-3">
                 <h1 class="fw-bold">{!! $title !!}</h1>
                 <ul class="job-details">
-                    <li><p class="block_paragraph_small-title mb-0">Job Published Date: {!! get_field('job_published_date') !!}</p></li>
-                    <li><p class="block_paragraph_small-title mb-0">Job Type: {!! get_field('job_type') !!}</p></li>
-                    <li><p class="block_paragraph_small-title mb-0">Career Type: {!! get_field('career_level') !!}</p></li>
-                    <li><p class="block_paragraph_small-title mb-0">Number of Vacancies: {!! get_field('number_of_vacancies') !!}</p></li>
+                    @if(get_field('job_published_date'))
+                        <li><p class="block_paragraph_small-title mb-0">Job Published Date: {!! get_field('job_published_date') !!}</p></li>
+                    @endif
+                    @if(get_field('job_type'))
+                        <li><p class="block_paragraph_small-title mb-0">Job Type: {!! get_field('job_type') !!}</p></li>
+                    @endif
+                    @if(get_field('career_level'))
+                        <li><p class="block_paragraph_small-title mb-0">Career Type: {!! get_field('career_level') !!}</p></li>
+                    @endif
+                    @if(get_field('number_of_vacancies'))
+                        <li><p class="block_paragraph_small-title mb-0">Number of Vacancies: {!! get_field('number_of_vacancies') !!}</p></li>
+                    @endif
                 </ul>
 
             </div>
