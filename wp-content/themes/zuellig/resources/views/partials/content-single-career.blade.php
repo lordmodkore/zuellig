@@ -47,7 +47,7 @@ $location = get_field('location_assignment');
                 @endif
                 @if($work_culture)
                     <div class="col-md-6">
-                        <h3 class="fw-bold">Work Culture Expectations (Management of ZFF Organizational Integrity, Values and Brand)</h3>
+                        <h3 class="fw-bold">Work Culture Expectations</h3>
                         {!! $work_culture !!}
                     </div>
                 @endif
