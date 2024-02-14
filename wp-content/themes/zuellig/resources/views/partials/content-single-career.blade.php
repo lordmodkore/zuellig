@@ -40,7 +40,7 @@ $location = get_field('location_assignment');
         @if($requirements)
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <h3 class="fw-bold">Requirements</h3>
+                    <h3 class="fw-bold">Essential Job Functions</h3>
                     {!! $requirements !!}
                 </div>
             </div>
