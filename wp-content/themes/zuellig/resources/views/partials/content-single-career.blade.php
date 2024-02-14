@@ -22,12 +22,21 @@ $location = get_field('location_assignment');
         <div class="row mb-3">
             {!! $job_description !!}
         </div>
+
         <div class="row mb-3">
             @if($location)
                 <h5 class="fw-bold">Location Assignment</h5>
                 {!! $location !!}
             @endif
         </div>
+        @if($requirements)
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h3 class="fw-bold">Requirements</h3>
+                    {!! $requirements !!}
+                </div>
+            </div>
+        @endif
         <div class="row">
             @if($qualifications)
                 <div class="col-md-6">
