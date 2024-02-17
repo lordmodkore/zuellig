@@ -75,7 +75,7 @@
         @if($query->have_posts())
                 <div class="row">
                     <div class="col-12">
-                        <h1 class="fw-bold">Job Opportunities </h1>
+                        <h1 class="fw-bold">Job Openings</h1>
                     </div>
                 </div>
             <div class="row mt-5">

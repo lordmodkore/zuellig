@@ -60,3 +60,49 @@ function project_location_taxonomy_function() {
     register_taxonomy( 'project-categories', array( 'project_location' ), $args );
 }
 add_action( 'init', 'project_location_taxonomy_function', 0 );
+
+
+// Add Career Stories CPT
+
+function create_career_stories_post_type() {
+    // Labels for the custom post type
+    $labels = array(
+        'name'               => _x( 'Career Stories', 'post type general name', 'your-text-domain' ),
+        'singular_name'      => _x( 'Career Story', 'post type singular name', 'your-text-domain' ),
+        'menu_name'          => _x( 'Career Stories', 'admin menu', 'your-text-domain' ),
+        'name_admin_bar'     => _x( 'Career Stories', 'add new on admin bar', 'your-text-domain' ),
+        'add_new'            => _x( 'Add New Career Story', 'your-text-domain' ),
+        'add_new_item'       => __( 'Add New Career Story', 'your-text-domain' ),
+        'new_item'           => __( 'New Career Story', 'your-text-domain' ),
+        'edit_item'          => __( 'Edit Career Story', 'your-text-domain' ),
+        'view_item'          => __( 'View Career Story', 'your-text-domain' ),
+        'all_items'          => __( 'All Career Stories', 'your-text-domain' ),
+        'search_items'       => __( 'Search Career Stories', 'your-text-domain' ),
+        'parent_item_colon'  => __( 'Parent Career Stories:', 'your-text-domain' ),
+        'not_found'          => __( 'No Career Story found.', 'your-text-domain' ),
+        'not_found_in_trash' => __( 'No Career Story found in Trash.', 'your-text-domain' )
+    );
+
+    // Arguments for the custom post type
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array( 'slug' => 'career-story' ),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => 7,
+        'menu_icon'             => 'dashicons-format-quote',
+        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' )
+    );
+
+    // Register the custom post type
+    register_post_type( 'career_stories', $args );
+}
+
+// Hook to the init action to register the custom post type
+add_action( 'init', 'create_career_stories_post_type',0 );
