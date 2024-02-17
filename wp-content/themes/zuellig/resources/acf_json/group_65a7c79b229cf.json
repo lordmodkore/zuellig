@@ -21,6 +21,92 @@
             "toolbar": "full",
             "media_upload": 1,
             "delay": 0
+        },
+        {
+            "key": "field_65ceb8201a336",
+            "label": "Featured Articles",
+            "name": "featured_articles",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": "",
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "id",
+            "min": "",
+            "max": 3,
+            "elements": ""
+        },
+        {
+            "key": "field_65d04fd9b6b23",
+            "label": "Career Stories. Title",
+            "name": "career_stories_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_65d04f2d81895",
+            "label": "Career Stories Content",
+            "name": "career_stories_content",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_65d04f4181896",
+            "label": "Career Openings Page URL",
+            "name": "career_openings_page_url",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -38,7 +124,6 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": [
-        "permalink",
         "the_content",
         "excerpt",
         "discussion",
@@ -55,5 +140,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1705494801
+    "modified": 1708151043
 }
