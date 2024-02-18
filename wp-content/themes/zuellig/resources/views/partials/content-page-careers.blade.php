@@ -28,22 +28,6 @@
             </div>
         @if($featured_articles)
             <div class="row mt-5 mb-5">
-                @if(get_field('career_stories_title'))
-                    <div class="career-item mb-3 col-lg-5 col-md-12 col-sm-12">
-                        <div class="block_leaders block_featured-bg text-white">
-                            <h1 class="featured_title fw-bold">{!! get_field('career_stories_title') !!}</h1>
-                            <p class="featured_description">
-                                {!! wp_trim_words(get_field('career_stories_content'), 25) !!}
-                            </p>
-                            <a href="{!! get_field('career_openings_page_url')!!}" class="text-decoration-none text-white link_default-value">
-                                <div class="d-flex">
-                                    <p>READ MORE<span>&nbsp
-                                                    <i class="fa fa-chevron-right"></i></span></p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                @endif
                 @foreach($featured_articles as $post_id)
                     @php
                         $content_post = get_post($post_id);
@@ -70,6 +54,22 @@
                     </div>
                 @endforeach
                 @php wp_reset_postdata(); @endphp
+                @if(get_field('career_stories_title'))
+                    <div class="career-item mb-3 col-lg-5 col-md-12 col-sm-12">
+                        <div class="block_leaders block_featured-bg text-white">
+                            <h1 class="featured_title fw-bold">{!! get_field('career_stories_title') !!}</h1>
+                            <p class="featured_description">
+                                {!! wp_trim_words(get_field('career_stories_content'), 25) !!}
+                            </p>
+                            <a href="{!! get_field('career_openings_page_url')!!}" class="text-decoration-none text-white link_default-value">
+                                <div class="d-flex">
+                                    <p>READ MORE<span>&nbsp
+                                                <i class="fa fa-chevron-right"></i></span></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endif
             </div>
         @endif
         @if($query->have_posts())
