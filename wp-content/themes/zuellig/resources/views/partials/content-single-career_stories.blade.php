@@ -1,4 +1,10 @@
 @php
+    $author_name = get_the_author();
+	$post_id = get_the_ID();
+
+    // Get the category information for the current post
+    $category = get_the_category($post_id);
+	$display_author = get_field('display_author');
 @endphp
 <section class="default_section-padding mt-5">
     <div class="container">
