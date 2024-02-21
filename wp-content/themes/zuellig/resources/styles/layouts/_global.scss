@@ -176,9 +176,15 @@ strong{
 
     }
     .card-img-top{
-        width: 100%;
-        height: 10vw;
+        height: 100%;
         object-fit: cover;
+        width: 100%;
+        border-radius: 0;
     }
 }
 
+#gform_confirmation_wrapper_4{
+    text-align: center;
+    width: 100%;
+    color: #fff;
+}

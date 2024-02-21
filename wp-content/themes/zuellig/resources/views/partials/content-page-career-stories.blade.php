@@ -27,10 +27,10 @@
                     @php $query->the_post() @endphp
                     <div class="col-md-6 career-stories-item">
                         <a href="{!! get_permalink() !!}">
-                            <div class="card">
+                            <div class="card mb-5">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        {!! get_the_post_thumbnail(get_the_ID() , 'full', array( 'class' => 'card-img-top img-fluid' ) ); !!}
+                                        {!! get_the_post_thumbnail(get_the_ID() , 'full', array( 'class' => 'card-img-top' ) ); !!}
                                     </div>
                                     <div class="col-md-8 px-3 mt-5">
                                         <div class="card-block px-3">
