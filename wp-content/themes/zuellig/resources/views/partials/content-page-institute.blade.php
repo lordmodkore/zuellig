@@ -1,11 +1,13 @@
 @php
-    $args = [
-        'post_type'      => 'post', // Adjust if you're using a custom post type
-        'posts_per_page' => 2,      // Number of posts to display
-        'order'          => 'DESC',  // Order by descending publish date
-        'orderby'        => 'date',  // Order by the publish date
-    ];
-	$latest_posts = new WP_Query($args);
+    $excluded_posts = get_field('exclude_from_latest_post','option');
+        $args = [
+            'post_type'      => 'post', // Adjust if you're using a custom post type
+            'posts_per_page' => 2,      // Number of posts to display
+            'post__not_in'   => $excluded_posts,
+            'order'          => 'DESC',  // Order by descending publish date
+            'orderby'        => 'date',  // Order by the publish date
+        ];
+        $latest_posts = new WP_Query($args);
 @endphp
 <section class="default_section-padding">
     <div class="container">
@@ -99,8 +101,6 @@
                         <div class="card border-0">
                             @if(has_post_thumbnail(get_the_ID()))
                                 {!! get_the_post_thumbnail(get_the_ID() , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                            @else
-                                <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
                             @endif
                             <div class="card-body">
                                 @foreach(get_the_category(get_the_ID()) as $category)
