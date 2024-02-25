@@ -52,8 +52,6 @@
                             <div class="col-lg-7 col-md-12 col-sm-12">
                                 @if(has_post_thumbnail($featured->ID))
                                     {!! get_the_post_thumbnail($featured->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                                @else
-                                    <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
                                 @endif
                             </div>
                             <div class="col-lg-5 col-md-12 col-sm-12">
@@ -89,8 +87,6 @@
                                 <div class="col-lg-7 col-md-12 col-sm-12">
                                     @if(has_post_thumbnail($stories->ID))
                                         {!! get_the_post_thumbnail($stories->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                                    @else
-                                        <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
                                     @endif
                                 </div>
                                 <div class="col-lg-5 col-md-12 col-sm-12">
@@ -126,8 +122,6 @@
                                 <div class="col-lg-7 col-md-12 col-sm-12">
                                     @if(has_post_thumbnail($news->ID))
                                         {!! get_the_post_thumbnail($news->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                                    @else
-                                        <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
                                     @endif
                                 </div>
                                 <div class="col-lg-5 col-md-12 col-sm-12">
@@ -164,8 +158,6 @@
                                 <div class="col-lg-7 col-md-12 col-sm-12">
                                     @if(has_post_thumbnail($events->ID))
                                         {!! get_the_post_thumbnail($events->ID , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                                    @else
-                                        <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
                                     @endif
                                 </div>
                                 <div class="col-lg-5 col-md-12 col-sm-12">
@@ -215,8 +207,6 @@
                     <div class="card border-0">
                         @if(has_post_thumbnail(get_the_ID()))
                             {!! get_the_post_thumbnail(get_the_ID() , 'medium', array( 'class' => 'card-img-top img-fluid h-100' ) ); !!}
-                        @else
-                            <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="image-placeholder">
                         @endif
                         <div class="card-body">
                                 @foreach(get_the_category(get_the_ID()) as $category)
