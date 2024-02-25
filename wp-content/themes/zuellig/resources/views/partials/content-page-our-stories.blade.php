@@ -3,11 +3,14 @@
 	$stories_articles = get_field('stories_articles');
 	$news_articles  =   get_field('news_articles');
 	$events_articles = get_field('events_articles');
+	$excluded_posts = get_field('exclude_from_latest_post','option');
     $args = [
         'post_type'      => 'post', // Adjust if you're using a custom post type
         'posts_per_page' => 2,      // Number of posts to display
+        'post__not_in'   => $excluded_posts,
         'order'          => 'DESC',  // Order by descending publish date
         'orderby'        => 'date',  // Order by the publish date
+
     ];
 	$latest_posts = new WP_Query($args);
 @endphp
