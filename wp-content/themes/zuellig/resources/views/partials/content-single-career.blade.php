@@ -5,6 +5,8 @@ $work_culture = get_field('work_culture');
 $qualifications = get_field('qualifications');
 $benefits = get_field('benefits');
 $location = get_field('location_assignment');
+$button_url = get_field('button_url');
+$button_title =  get_field('button_title');
 @endphp
 <section class="default_section-padding mt-5">
     <div class="container">
@@ -69,7 +71,11 @@ $location = get_field('location_assignment');
         </div>
         <div class="row">
             <div class="apply_controls mt-4 text-center">
-                <button class="openApplicationFormButton button_default button_btnHealthCare text-decoration-none">Apply</button>
+                @if($button_url)
+                    <a class="button_default button_btnHealthCare text-decoration-none" href="{!! $button_url !!}" target="_blank">{!! $button_title !!}</a>
+                @else
+                    <button class="openApplicationFormButton button_default button_btnHealthCare text-decoration-none">{!! $button_title !!}</button>
+                @endif
             </div>
         </div>
     </div>
